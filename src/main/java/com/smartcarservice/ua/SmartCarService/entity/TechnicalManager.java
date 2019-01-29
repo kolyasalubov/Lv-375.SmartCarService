@@ -8,13 +8,13 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "sto_manager")
-public class TechnicalManager {
+public class TechnicalManager extends UserBaseEntity{
 
     public TechnicalManager(){}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long managerId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long managerId;
 
     @ManyToOne
     @JoinColumn(name = "sto_id", nullable = false)

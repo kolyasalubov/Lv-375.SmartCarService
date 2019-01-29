@@ -48,5 +48,10 @@ public class Car {
     @JoinColumn(name = "dealer_id", nullable = true)
     private Dealer dealer;
 
+    @ManyToOne
+    @JoinColumn(name = "carowners_id",nullable = true)
+    private CarOwner carOwner;
+
+
 
 }
