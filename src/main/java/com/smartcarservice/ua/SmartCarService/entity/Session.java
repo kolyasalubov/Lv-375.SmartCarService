@@ -16,11 +16,11 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sessionId;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date startSession;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date endSession;
 
