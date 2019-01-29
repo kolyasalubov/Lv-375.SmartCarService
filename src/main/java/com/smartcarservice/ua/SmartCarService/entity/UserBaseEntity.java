@@ -4,9 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
-@Entity
-@Table(name = "base_users")
+//@Data
+//@Entity
+//@Table(name = "base_users")
+@MappedSuperclass
 public class UserBaseEntity {
 
     @Id
