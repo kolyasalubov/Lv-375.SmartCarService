@@ -20,7 +20,7 @@ import lombok.Setter;
 @Table(name = "car_owners")
 public class CarOwner extends UserBaseEntity {
 
-	@Column(nullable = true)
+	@Column(nullable = true, unique = false)
     @Getter
     @Setter
 	List<Car> cars;
