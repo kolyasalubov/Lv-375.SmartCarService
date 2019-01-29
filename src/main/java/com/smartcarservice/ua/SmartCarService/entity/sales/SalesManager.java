@@ -1,6 +1,8 @@
-package com.smartcarservice.ua.SmartCarService.entity;
+package com.smartcarservice.ua.SmartCarService.entity.sales;
 
 
+import com.smartcarservice.ua.SmartCarService.entity.UserBaseEntity;
+import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -1,6 +1,7 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
 
+import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.FaultCode;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import lombok.Data;
 
@@ -21,5 +22,11 @@ public class Skill {
 
     @OneToMany(mappedBy = "skill")
     Set<Worker> workers;
+
+    @OneToOne(fetch = FetchType.LAZY,
+    		  cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+    		  mappedBy = "skill")
+    private FaultCode faultCode;
+
 
 }

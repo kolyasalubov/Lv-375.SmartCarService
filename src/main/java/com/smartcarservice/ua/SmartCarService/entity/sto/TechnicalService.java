@@ -1,6 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
-import com.smartcarservice.ua.SmartCarService.entity.Dealer;
+import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
 import lombok.Data;
 
 import javax.persistence.*;
