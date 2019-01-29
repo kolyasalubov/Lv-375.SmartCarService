@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.ServiceImpl;
+package com.smartcarservice.ua.SmartCarService.ServiceImpl;
 
 import org.springframework.security.core.userdetails.User;
 
@@ -7,15 +7,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.cjhrxS.ua.sec.Entity.LogEntity;
-import com.cjhrxS.ua.sec.Repository.LogRepository;
+import com.smartcarservice.ua.SmartCarService.entity.LogEntity;
+import com.smartcarservice.ua.SmartCarService.Repository.LogRepository;
 
 import static java.util.Collections.emptyList;
 
 @Service
 public class LogServiceImpl implements UserDetailsService{
 	
-	private LogRepository logRepository;
+	private com.smartcarservice.ua.SmartCarService.Repository.LogRepository logRepository;
 	
 	public LogServiceImpl(LogRepository logRepository) {
 		this.logRepository = logRepository;
@@ -24,7 +24,7 @@ public class LogServiceImpl implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-	LogEntity logEntity = logRepository.findByUserName(username);
+		LogEntity logEntity = logRepository.findByUserName(username);
 		if(logEntity == null) {
 			throw new UsernameNotFoundException(username);
 		}

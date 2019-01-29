@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.Secutiry;
+package com.smartcarservice.ua.SmartCarService.Secutiry;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -12,8 +12,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.cjhrxS.ua.sec.ServiceImpl.LogServiceImpl;
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.SIGN_UP_URL;
+import com.smartcarservice.ua.SmartCarService.ServiceImpl.LogServiceImpl;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.SIGN_UP_URL;
 
 @EnableWebSecurity
 public class WebSecurity  extends WebSecurityConfigurerAdapter{

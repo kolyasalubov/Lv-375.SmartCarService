@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.Controller;
+package com.smartcarservice.ua.SmartCarService.Controller;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cjhrxS.ua.sec.Entity.LogEntity;
-import com.cjhrxS.ua.sec.Repository.LogRepository;
+import com.smartcarservice.ua.SmartCarService.Repository.LogRepository;
+import com.smartcarservice.ua.SmartCarService.entity.LogEntity;
 
 @RestController
 @RequestMapping("/user")

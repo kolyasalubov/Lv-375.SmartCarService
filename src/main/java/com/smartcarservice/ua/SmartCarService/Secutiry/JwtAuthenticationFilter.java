@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.Secutiry;
+package com.smartcarservice.ua.SmartCarService.Secutiry;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,12 +19,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.auth0.jwt.JWT;
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import com.cjhrxS.ua.sec.Entity.LogEntity;
+import com.smartcarservice.ua.SmartCarService.entity.LogEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.SECRET;
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.EXPIRATION_TIME;
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.TOKEN_PREFIX;
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.HEADER_STRING;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.SECRET;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.EXPIRATION_TIME;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.TOKEN_PREFIX;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.HEADER_STRING;
 
 
 

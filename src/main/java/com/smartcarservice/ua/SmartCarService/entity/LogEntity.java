@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.Entity;
+package com.smartcarservice.ua.SmartCarService.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
