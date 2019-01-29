@@ -21,4 +21,10 @@ public class Skill {
     @OneToMany(mappedBy = "skill")
     Set<Worker> workers;
 
+    @OneToOne(fetch = FetchType.LAZY,
+    		  cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+    		  mappedBy = "skill")
+    private FaultCode faultCode;
+
+
 }
