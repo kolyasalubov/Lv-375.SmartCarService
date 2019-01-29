@@ -1,13 +1,9 @@
 package com.smartcarservice.ua.SmartCarService.entity.sensors;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Time;
 
-/**
- * Created by 1 on 29.01.2019.
- */
 @Data
 @Entity
 @Table(name = "dim_date")
@@ -34,5 +30,6 @@ public class DateEntity {
 //            cascade =  CascadeType.ALL,
 //            mappedBy = "dateEntity")
 //    private RecordEntity record;
+
 
 }

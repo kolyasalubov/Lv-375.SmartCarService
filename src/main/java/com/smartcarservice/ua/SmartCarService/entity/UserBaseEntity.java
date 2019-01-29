@@ -4,9 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-//@Data
-//@Entity
-//@Table(name = "base_users")
 @MappedSuperclass
 public class UserBaseEntity {
 
@@ -16,13 +13,14 @@ public class UserBaseEntity {
 
     @Column(length = 100, nullable = false, unique = true)
     private String email;
-
-
+    //TODO Make ono-to-one with login
     @Column(length = 100, nullable = false)
     private String password;
 
     @Column(length = 100, nullable = false)
     private String fullName;
-
+    //TODO Make ono-to-one with login
+    @Column(length = 100, nullable = false)
+    private String userName;
 
 }

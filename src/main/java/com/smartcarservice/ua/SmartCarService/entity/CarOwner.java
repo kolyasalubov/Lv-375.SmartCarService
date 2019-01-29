@@ -1,7 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.entity;
 
 import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -13,8 +12,7 @@ import java.util.Set;
 public class CarOwner extends UserBaseEntity {
 
 
-    @OneToMany(mappedBy ="carOwner" )
-    private Set<Car>cars;
-
+    @OneToMany(mappedBy = "carOwner")
+    private Set<Car> cars;
 
 }

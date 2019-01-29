@@ -48,6 +48,7 @@ hs_err_pid*
 /reports/
 /.idea/
 *.iml
+/WebContent/
 
 # Multi Modules Project
 /**/.externalToolBuilders/
@@ -66,6 +67,7 @@ hs_err_pid*
 /**/af.reporting
 /**/.idea/
 /**/*.iml
+/**/WebContent/
 
 # Ignore binary
 /.allure/

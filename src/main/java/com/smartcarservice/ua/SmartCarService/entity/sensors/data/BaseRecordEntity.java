@@ -1,6 +1,8 @@
 package com.smartcarservice.ua.SmartCarService.entity.sensors.data;
 
+
 import com.smartcarservice.ua.SmartCarService.entity.Car;
+
 import com.smartcarservice.ua.SmartCarService.entity.sensors.DateEntity;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
