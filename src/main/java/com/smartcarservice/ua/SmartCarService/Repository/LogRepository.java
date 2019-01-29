@@ -1,9 +1,9 @@
-package com.cjhrxS.ua.sec.Repository;
+package com.smartcarservice.ua.SmartCarService.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-import com.cjhrxS.ua.sec.Entity.LogEntity;
+import com.smartcarservice.ua.SmartCarService.entity.LogEntity;
 
 public interface LogRepository extends JpaRepository<LogEntity, Long> {
 

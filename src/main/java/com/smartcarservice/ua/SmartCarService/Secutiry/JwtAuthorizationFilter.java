@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.Secutiry;
+package com.smartcarservice.ua.SmartCarService.Secutiry;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.HEADER_STRING;
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.TOKEN_PREFIX;
-import static com.cjhrxS.ua.sec.Secutiry.SecurityConstant.SECRET;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.HEADER_STRING;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.TOKEN_PREFIX;
+import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.SECRET;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
