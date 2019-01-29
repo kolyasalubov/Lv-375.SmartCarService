@@ -28,8 +28,9 @@ public class TechnicalService {
     private Dealer dealer;
 
 
-    @OneToMany(mappedBy = "technicalService")
-    private Set<TechnicalManager> technicalManagers;
+    @OneToOne(cascade = CascadeType.ALL,
+            mappedBy = "technicalService")
+    TechnicalManager technicalManager;
 
 
 

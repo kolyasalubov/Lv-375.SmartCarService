@@ -16,7 +16,7 @@ public class TechnicalManager extends UserBaseEntity{
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long managerId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "sto_id", nullable = false)
     private TechnicalService technicalService;
 

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5b96cb0e-46c4-42a5-b480-f807ff130990" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/smartcarservice/ua/SmartCarService/entity/UserBaseEntity.class" afterPath="$PROJECT_DIR$/target/classes/com/smartcarservice/ua/SmartCarService/entity/UserBaseEntity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/BaseRecordEntity.java" afterPath="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/BaseRecordEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalManager.java" afterPath="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalService.java" afterPath="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,6 +27,18 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="TechnicalService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="19" column="11" lean-forward="false" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Car.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/Car.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -37,7 +51,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseRecordEntity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BaseRecordEntity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/BaseRecordEntity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
@@ -73,22 +87,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OilLevelEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/OilLevelEntity.java">
+      <file leaf-file-name="TechnicalManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OilPressureEntity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/OilPressureEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="308">
+              <caret line="19" column="34" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -166,13 +172,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/Session.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/Worker.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/Dealer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/SalesManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/Car.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/CarOwner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/UserBaseEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/DateEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/BatteryEntity.java" />
@@ -181,6 +184,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/OilLevelEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/OilPressureEntity.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/BaseRecordEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalService.java" />
       </list>
     </option>
   </component>
@@ -816,7 +822,7 @@
       <workItem from="1548622550108" duration="685000" />
       <workItem from="1548692065793" duration="8300000" />
       <workItem from="1548708654585" duration="6673000" />
-      <workItem from="1548763431638" duration="4943000" />
+      <workItem from="1548763431638" duration="6367000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1548764774805</created>
@@ -846,11 +852,18 @@
       <option name="project" value="LOCAL" />
       <updated>1548767634827</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="first commit">
+      <created>1548768398331</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1548768398331</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27483000" />
+    <option name="totallyTimeSpent" value="28907000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -875,10 +888,10 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29968455" sideWeight="0.83585477" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25867507" sideWeight="0.83585477" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28330892" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27086383" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1217,26 +1230,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="19" column="19" lean-forward="false" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/UserBaseEntity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1331,6 +1324,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/BaseRecordEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/SmartCarServiceApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1349,10 +1352,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/sensors/data/BaseRecordEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="16" column="20" lean-forward="true" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+        <state relative-caret-position="308">
+          <caret line="19" column="34" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/smartcarservice/ua/SmartCarService/entity/TechnicalService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="19" column="11" lean-forward="false" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
