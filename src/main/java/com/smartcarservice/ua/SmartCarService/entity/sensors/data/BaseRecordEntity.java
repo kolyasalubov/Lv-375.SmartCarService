@@ -1,7 +1,7 @@
 package com.smartcarservice.ua.SmartCarService.entity.sensors.data;
 
 
-import com.smartcarservice.ua.SmartCarService.entity.Car;
+import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 
 import com.smartcarservice.ua.SmartCarService.entity.sensors.DateEntity;
 import lombok.Data;
@@ -23,7 +23,7 @@ public abstract class BaseRecordEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Car car;
 
-//    TODO fix foreign key & add to Car
+//    TODO fix foreign key & add to car
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carEntity")
 //    private List<RecordEntity> records;
 

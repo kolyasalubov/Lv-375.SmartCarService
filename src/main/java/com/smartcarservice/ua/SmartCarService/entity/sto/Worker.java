@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.entity;
+package com.smartcarservice.ua.SmartCarService.entity.sto;
 
 
 import lombok.Data;

@@ -1,6 +1,5 @@
-package com.smartcarservice.ua.SmartCarService.entity.Car;
+package com.smartcarservice.ua.SmartCarService.entity.car;
 
-import com.smartcarservice.ua.SmartCarService.entity.CarOwner;
 import com.smartcarservice.ua.SmartCarService.entity.Dealer;
 import lombok.Data;
 

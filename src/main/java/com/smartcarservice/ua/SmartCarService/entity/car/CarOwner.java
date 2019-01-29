@@ -1,6 +1,6 @@
-package com.smartcarservice.ua.SmartCarService.entity;
+package com.smartcarservice.ua.SmartCarService.entity.car;
 
-import com.smartcarservice.ua.SmartCarService.entity.Car.Car;
+import com.smartcarservice.ua.SmartCarService.entity.UserBaseEntity;
 import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;

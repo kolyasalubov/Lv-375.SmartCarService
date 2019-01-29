@@ -1,6 +1,7 @@
-package com.smartcarservice.ua.SmartCarService.entity;
+package com.smartcarservice.ua.SmartCarService.entity.sto;
 
 
+import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import lombok.Data;
 
 import javax.persistence.*;

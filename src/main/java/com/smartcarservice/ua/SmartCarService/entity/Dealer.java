@@ -1,11 +1,11 @@
 package com.smartcarservice.ua.SmartCarService.entity;
 
 
+import com.smartcarservice.ua.SmartCarService.entity.car.Car;
+import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Data
