@@ -1,5 +1,7 @@
-package com.smartcarservice.ua.SmartCarService.entity;
+package com.smartcarservice.ua.SmartCarService.entity.car;
 
+import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
+import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
 import lombok.Data;
 
 import javax.persistence.*;

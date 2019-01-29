@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.entity;
+package com.smartcarservice.ua.SmartCarService.entity.sensors.alert;
 
 import java.sql.Date;
 
@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 import lombok.Data;
 
 @Data
