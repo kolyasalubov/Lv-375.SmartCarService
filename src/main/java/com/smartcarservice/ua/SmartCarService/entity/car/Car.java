@@ -1,9 +1,12 @@
-package com.smartcarservice.ua.SmartCarService.entity;
+package com.smartcarservice.ua.SmartCarService.entity.car;
 
+import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
+import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -51,5 +54,8 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = true)
     private CarOwner carOwner;
+
+	@OneToMany (mappedBy = "car")
+	private List<VehicleInspection> vehicleInspections;
 
 }
