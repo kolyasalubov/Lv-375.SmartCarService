@@ -58,4 +58,93 @@ public class Car {
 	@OneToMany (mappedBy = "car")
 	private List<VehicleInspection> vehicleInspections;
 
+	//Getters & Setters
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getGraduation_year() {
+		return graduation_year;
+	}
+
+	public void setGraduation_year(String graduation_year) {
+		this.graduation_year = graduation_year;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Long getVin() {
+		return vin;
+	}
+
+	public void setVin(Long vin) {
+		this.vin = vin;
+	}
+
+	public Date getEnd_guarantee() {
+		return end_guarantee;
+	}
+
+	public void setEnd_guarantee(Date end_guarantee) {
+		this.end_guarantee = end_guarantee;
+	}
+
+	public Dealer getDealer() {
+		return dealer;
+	}
+
+	public void setDealer(Dealer dealer) {
+		this.dealer = dealer;
+	}
+
+	public CarOwner getCarOwner() {
+		return carOwner;
+	}
+
+	public void setCarOwner(CarOwner carOwner) {
+		this.carOwner = carOwner;
+	}
+
+	public List<VehicleInspection> getVehicleInspections() {
+		return vehicleInspections;
+	}
+
+	public void setVehicleInspections(List<VehicleInspection> vehicleInspections) {
+		this.vehicleInspections = vehicleInspections;
+	}
+	
 }
