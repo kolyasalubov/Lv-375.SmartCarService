@@ -6,6 +6,8 @@ import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import lombok.Data;
 
 import javax.persistence.*;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,10 +25,10 @@ public class Skill {
     @OneToMany(mappedBy = "skill")
     Set<Worker> workers;
 
-    @OneToOne(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.LAZY,
     		  cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
     		  mappedBy = "skill")
-    private FaultCode faultCode;
+    private List<FaultCode> faultCode;
 
 
 }
