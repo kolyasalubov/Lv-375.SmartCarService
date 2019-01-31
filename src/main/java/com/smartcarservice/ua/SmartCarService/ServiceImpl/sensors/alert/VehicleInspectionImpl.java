@@ -1,7 +1,5 @@
 package com.smartcarservice.ua.SmartCarService.ServiceImpl.sensors.alert;
 
-import java.sql.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.smartcarservice.ua.SmartCarService.Repository.sensors.alert.VehicleInspectionRepository;
@@ -16,7 +14,7 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	
 	@Override
 	public VehicleInspection getLastVehicleInspection(long carId) {
-		return vehicleInspectionRepository.getLastVehicleInspection(carId).get(0);
+		return vehicleInspectionRepository.getLastVehicleInspections(carId);
 	}
 
 	@Override
