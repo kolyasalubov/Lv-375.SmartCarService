@@ -28,5 +28,10 @@ public class Skill {
     		  mappedBy = "skill")
     private FaultCode faultCode;
 
+    public Skill() {
+    }
 
+    public Skill(String name) {
+        this.name = name;
+    }
 }

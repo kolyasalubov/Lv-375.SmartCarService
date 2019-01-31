@@ -23,8 +23,4 @@ public class TechnicalManager extends UserBaseEntity {
 
     @OneToMany(mappedBy = "technicalManager")
     Set<Worker> workers;
-
-
-
-
 }

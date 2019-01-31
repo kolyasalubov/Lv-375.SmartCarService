@@ -12,7 +12,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.smartcarservice.ua.SmartCarService.ServiceImpl.LogServiceImpl;
+import com.smartcarservice.ua.SmartCarService.serviceImpl.LogServiceImpl;
 import static com.smartcarservice.ua.SmartCarService.Secutiry.SecurityConstant.SIGN_UP_URL;
 
 @EnableWebSecurity
