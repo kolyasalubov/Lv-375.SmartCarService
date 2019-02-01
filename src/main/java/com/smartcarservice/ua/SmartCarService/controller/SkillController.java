@@ -1,5 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.controller;
 
+import com.smartcarservice.ua.SmartCarService.dto.StoDto.SkillDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Skill;
 import com.smartcarservice.ua.SmartCarService.repository.SkillRepository;
 import com.smartcarservice.ua.SmartCarService.service.SkillService;
@@ -17,7 +18,7 @@ public class SkillController {
     private SkillService skillService;
 
     @GetMapping("/skills")
-    public List<Skill> all(){
-        return skillService.getAll();
+    public List<SkillDto> all(){
+        return skillService.getAllSkill();
     }
 }

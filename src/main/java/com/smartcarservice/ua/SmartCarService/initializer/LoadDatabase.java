@@ -13,17 +13,17 @@ import static java.lang.System.*;
 @Slf4j
 public class LoadDatabase {
 
-    @Bean
-    CommandLineRunner initDatabase(SkillRepository repository){
-        return args -> {
-            repository.deleteAll();
-            out.println("Preloading " + repository.save(new Skill("Service Technician")));
-            out.println("Preloading " + repository.save(new Skill("Diagnostic Technician")));
-            out.println("Preloading " + repository.save(new Skill("Transmission Technician")));
-            out.println("Preloading " + repository.save(new Skill("Brake Technician")));
-            out.println("Preloading " + repository.save(new Skill("Body Repair Technician")));
-            out.println("Preloading " + repository.save(new Skill("Vehicle Refinisher")));
-            out.println("Preloading " + repository.save(new Skill("Vehicle Inspector")));
-        };
-    }
+//    @Bean
+//    CommandLineRunner initDatabase(SkillRepository repository){
+//        return args -> {
+//            repository.deleteAll();
+//            out.println("Preloading " + repository.save(new Skill("Service Technician")));
+//            out.println("Preloading " + repository.save(new Skill("Diagnostic Technician")));
+//            out.println("Preloading " + repository.save(new Skill("Transmission Technician")));
+//            out.println("Preloading " + repository.save(new Skill("Brake Technician")));
+//            out.println("Preloading " + repository.save(new Skill("Body Repair Technician")));
+//            out.println("Preloading " + repository.save(new Skill("Vehicle Refinisher")));
+//            out.println("Preloading " + repository.save(new Skill("Vehicle Inspector")));
+//      };
+//   }
 }

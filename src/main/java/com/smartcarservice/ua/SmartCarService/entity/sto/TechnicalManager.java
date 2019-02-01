@@ -1,5 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.UserBaseEntity;
 import lombok.Data;
 
@@ -13,14 +14,11 @@ public class TechnicalManager extends UserBaseEntity {
 
     public TechnicalManager(){}
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long managerId;
-
     @OneToOne
     @JoinColumn(name = "sto_id", nullable = false)
     private TechnicalService technicalService;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "technicalManager")
     Set<Worker> workers;
 }
