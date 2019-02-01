@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.dto.StoDto;
+package com.smartcarservice.ua.SmartCarService.dto.stoDto;
 
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.FaultCode;
 import lombok.Data;

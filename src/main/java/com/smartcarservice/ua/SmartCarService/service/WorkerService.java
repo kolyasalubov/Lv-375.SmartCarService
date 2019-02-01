@@ -1,8 +1,7 @@
 package com.smartcarservice.ua.SmartCarService.service;
 
 
-import com.smartcarservice.ua.SmartCarService.dto.StoDto.WorkerDto;
-import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.WorkerDto;
 
 import java.util.List;
 

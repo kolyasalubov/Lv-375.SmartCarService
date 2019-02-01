@@ -1,6 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
-import com.smartcarservice.ua.SmartCarService.dto.StoDto.SkillDto;
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.SkillDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Skill;
 import com.smartcarservice.ua.SmartCarService.repository.SkillRepository;
 import com.smartcarservice.ua.SmartCarService.service.SkillService;

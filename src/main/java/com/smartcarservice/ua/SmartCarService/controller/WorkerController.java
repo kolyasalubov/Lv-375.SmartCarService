@@ -1,7 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.controller;
 
-import com.smartcarservice.ua.SmartCarService.dto.StoDto.WorkerDto;
-import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.WorkerDto;
 import com.smartcarservice.ua.SmartCarService.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

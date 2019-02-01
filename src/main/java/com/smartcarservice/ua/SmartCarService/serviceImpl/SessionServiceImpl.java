@@ -1,6 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
-import com.smartcarservice.ua.SmartCarService.dto.StoDto.SessionDto;
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.SessionDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Session;
 import com.smartcarservice.ua.SmartCarService.repository.SessionRepository;
 import com.smartcarservice.ua.SmartCarService.service.SessionService;

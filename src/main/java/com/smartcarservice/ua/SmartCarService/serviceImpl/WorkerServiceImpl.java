@@ -1,6 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
-import com.smartcarservice.ua.SmartCarService.dto.StoDto.WorkerDto;
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.WorkerDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import com.smartcarservice.ua.SmartCarService.repository.WorkerRepository;
 import com.smartcarservice.ua.SmartCarService.service.WorkerService;
