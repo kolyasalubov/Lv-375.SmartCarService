@@ -1,5 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.TechnicalManagerDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalManager;
 import com.smartcarservice.ua.SmartCarService.repository.TechnicalManagerRepository;
 import com.smartcarservice.ua.SmartCarService.service.TechnicalManagerService;
@@ -27,8 +28,13 @@ public class TechnicalManagerServiceImpl implements TechnicalManagerService {
     }
 
     @Override
-    public TechnicalManager getTechnicalManager(Long id) {
-        return (TechnicalManager) repository.getOne(id);
+    public TechnicalManagerDto getTechnicalManager(Long id) {
+        TechnicalManager temp;
+        TechnicalManagerDto result;
 
+        temp = (TechnicalManager) repository.getTechnicalManagerById(id);
+        result = new TechnicalManagerDto(temp.getId(), temp.getEmail(), temp.getPassword(), temp.getFullName(), temp.getUserName(), temp.getTechnicalService(), temp.getWorkers());
+
+        return result;
     }
 }
