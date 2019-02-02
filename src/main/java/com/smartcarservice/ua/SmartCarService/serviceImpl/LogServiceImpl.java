@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.ServiceImpl;
+package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import org.springframework.security.core.userdetails.User;
 
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.cjhrxS.ua.sec.Entity.LogEntity;
-import com.cjhrxS.ua.sec.Repository.LogRepository;
+import com.smartcarservice.ua.SmartCarService.entity.LogEntity;
+import com.smartcarservice.ua.SmartCarService.repository.LogRepository;
 
 import static java.util.Collections.emptyList;
 

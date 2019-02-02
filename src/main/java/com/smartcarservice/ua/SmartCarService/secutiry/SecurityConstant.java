@@ -1,4 +1,4 @@
-package com.cjhrxS.ua.sec.Secutiry;
+package com.smartcarservice.ua.SmartCarService.secutiry;
 
 public class SecurityConstant {
 	

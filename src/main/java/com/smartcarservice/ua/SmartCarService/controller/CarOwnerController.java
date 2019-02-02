@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smartcarservice.ua.SmartCarService.dto.CarOwnerDto;
 import com.smartcarservice.ua.SmartCarService.entity.car.CarOwner;
 import com.smartcarservice.ua.SmartCarService.serviceImpl.CarOwnerServiceImpl;
 
@@ -43,8 +44,8 @@ public class CarOwnerController {
 	}
 	
 	@GetMapping ("/carownerbyusername")
-	public CarOwner findByUserName (String userName) {
-		CarOwner carOwner = carOwnerService.findByUserName(userName);
+	public CarOwnerDto findByUserName (String userName) {
+		CarOwnerDto carOwner = carOwnerService.findByUserName(userName);
 		return carOwner;
 	}
 	

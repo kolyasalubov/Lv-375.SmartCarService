@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,21 +21,26 @@ public class CarController {
 	@Autowired
 	private CarServiceImpl carService;
 	
+	@Autowired
+	private CarOwnerServiceImpl carOwnerService;
+	
 	//test the controller
-	@GetMapping ("/")
-	public String hello (){
-		String hello = "Hello";
-		return hello;
-	}
-	
-	
-	@PostMapping ("/car")
-	public void addCar (@RequestBody Car car) {
+    @RequestMapping("/home")
+    public String home(){
+        return "home";
+    }
+		
+	@PostMapping ("/newcar")
+	public void addCar (@RequestBody Car car,
+			@RequestParam String token) {
+/*		CarOwner carOwner= carOwnerService.findByUserName(token.getUserName);
+		Car newCar = new Car(car.getBrand(),car.getModel(), car.getGraduation_year(), car.getNumber(), car.getVin(), carOwner);
+		*/
 		carService.create(car);
 	}
 	
 	@DeleteMapping("/car")
-	public void  deleteCar (@RequestParam Long id) {
+	public void  deleteById (@RequestParam Long id) {
 		carService.deleteById(id);
 	}
 	
@@ -52,6 +58,8 @@ public class CarController {
 	
 	@GetMapping ("/userscars")
 	public List<Car> findByCarOwnerId (@RequestParam Long id){
+		//TODO Implement get user from token
+		String token = "token";
 		List<Car> cars = carService.findByCarOwnerId(id);
 		return cars;
 	}

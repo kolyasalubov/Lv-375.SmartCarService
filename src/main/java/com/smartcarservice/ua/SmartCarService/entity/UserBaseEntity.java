@@ -24,7 +24,16 @@ public class UserBaseEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String userName;
     
-    //Getters & Setters
+    
+    //Constructor
+    public UserBaseEntity(String email, String password, String fullName, String userName) {
+		this.email = email;
+		this.password = password;
+		this.fullName = fullName;
+		this.userName = userName;
+	}
+    
+	//Getters & Setters
 	public long getId() {
 		return id;
 	}

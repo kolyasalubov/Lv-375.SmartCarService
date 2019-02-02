@@ -57,6 +57,36 @@ public class Car {
 
 	@OneToMany (mappedBy = "car")
 	private List<VehicleInspection> vehicleInspections;
+	
+	//For new cars
+		public Car(String brand, String model, String graduation_year, String number, Double price, Long vin,
+			Date end_guarantee, Dealer dealer, CarOwner carOwner, List<VehicleInspection> vehicleInspections) {
+		super();
+		this.brand = brand;
+		this.model = model;
+		this.graduation_year = graduation_year;
+		this.number = number;
+		this.price = price;
+		this.vin = vin;
+		this.end_guarantee = end_guarantee;
+		this.dealer = dealer;
+		this.carOwner = carOwner;
+		this.vehicleInspections = vehicleInspections;
+	}
+		
+		
+//For used cars
+	public Car(String brand, String model, String graduation_year, String number, Long vin, CarOwner carOwner) {
+		super();
+		this.brand = brand;
+		this.model = model;
+		this.graduation_year = graduation_year;
+		this.number = number;
+		this.vin = vin;
+		this.carOwner = carOwner;
+	}
+
+
 
 	//Getters & Setters
 	public Long getId() {
