@@ -29,5 +29,6 @@ public class TechnicalManagerServiceImpl implements TechnicalManagerService {
     @Override
     public TechnicalManager getTechnicalManager(Long id) {
         return (TechnicalManager) repository.getOne(id);
+
     }
 }

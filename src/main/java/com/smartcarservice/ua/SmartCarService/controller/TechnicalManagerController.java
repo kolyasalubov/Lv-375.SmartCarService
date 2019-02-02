@@ -15,8 +15,13 @@ public class TechnicalManagerController {
     @Autowired
     TechnicalManagerService service;
 
+    @GetMapping("/techmanagers/")
+    TechnicalManager getAllTechnicalManagers() {
+        return null;
+    }
+
     @GetMapping("/techmanagers/{id}")
-    TechnicalManager getTechnicalManager(@RequestParam("id") Long id){
+    TechnicalManager getTechnicalManager(@PathVariable Long id) {
         return service.getTechnicalManager(id);
     }
 }
