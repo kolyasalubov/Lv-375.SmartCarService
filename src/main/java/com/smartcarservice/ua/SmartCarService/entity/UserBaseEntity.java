@@ -6,21 +6,26 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class UserBaseEntity {
+//public class UserBaseEntity {
+//@Inheritance
+public abstract class UserBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    protected long id;
 
     @Column(length = 100, nullable = false, unique = true)
-    private String email;
+    protected String email;
+
     //TODO Make ono-to-one with login
     @Column(length = 100, nullable = false)
-    private String password;
+    protected String password;
 
     @Column(length = 100, nullable = false)
-    private String fullName;
+    protected String fullName;
+
     //TODO Make ono-to-one with login
+
     @Column(length = 100, nullable = false, unique = true)
     private String userName;
     
@@ -64,9 +69,5 @@ public class UserBaseEntity {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-    
-
-
-    
     
 }
