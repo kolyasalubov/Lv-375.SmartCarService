@@ -36,6 +36,38 @@ public class Skill {
         this.name = name;
     }
 
+    public Long getSkillId() {
+        return skillId;
+    }
+
+    public void setSkillId(Long skillId) {
+        this.skillId = skillId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(Set<Worker> workers) {
+        this.workers = workers;
+    }
+
+    public FaultCode getFaultCode() {
+        return faultCode;
+    }
+
+    public void setFaultCode(FaultCode faultCode) {
+        this.faultCode = faultCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

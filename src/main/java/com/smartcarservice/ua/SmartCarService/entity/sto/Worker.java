@@ -31,6 +31,46 @@ public class Worker {
     @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 
+    public Long getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(Long workerId) {
+        this.workerId = workerId;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public TechnicalManager getTechnicalManager() {
+        return technicalManager;
+    }
+
+    public void setTechnicalManager(TechnicalManager technicalManager) {
+        this.technicalManager = technicalManager;
+    }
+
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
+    }
+
+    public Set<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(Set<Session> sessions) {
+        this.sessions = sessions;
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "worker")
     Set<Session> sessions;

@@ -1,6 +1,8 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.WorkerDto;
+import com.smartcarservice.ua.SmartCarService.entity.sto.Skill;
+import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalManager;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import com.smartcarservice.ua.SmartCarService.repository.WorkerRepository;
 import com.smartcarservice.ua.SmartCarService.service.WorkerService;
@@ -29,5 +31,33 @@ public class WorkerServiceImpl implements WorkerService {
         WorkerDto workerDto = new WorkerDto();
         workerDto.setFullName(worker.getFullName());
         return workerDto;
+    }
+
+    @Override
+    public List<WorkerDto> findWorkersByTechnicalManager(TechnicalManager technicalManager) {
+        List<Worker> workersList = workerRepository.findWorkersByTechnicalManager(technicalManager);
+        List<WorkerDto> workerDtoList = new ArrayList<>();
+
+        for(Worker eachWorker: workersList){
+            WorkerDto workerDto = new WorkerDto();
+
+            workerDto.setFullName(eachWorker.getFullName());
+            workerDto.setSkill(eachWorker.getSkill());
+
+            workerDtoList.add(workerDto);
+        }
+
+        return workerDtoList;
+    }
+
+    @Override
+    public void saveWorker(String fullName, Skill skill, TechnicalManager technicalManager) {
+
+        Worker worker = new Worker();
+        worker.setFullName(fullName);
+        worker.setSkill(skill);
+        worker.setTechnicalManager(technicalManager);
+
+        workerRepository.save(worker);
     }
 }
