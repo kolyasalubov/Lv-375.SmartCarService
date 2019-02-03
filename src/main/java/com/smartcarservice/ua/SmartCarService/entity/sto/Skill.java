@@ -21,6 +21,9 @@ public class Skill {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
+    @Column(nullable = false)
+    private Long spendTime;
+
     @OneToMany(mappedBy = "skill")
     Set<Worker> workers;
 

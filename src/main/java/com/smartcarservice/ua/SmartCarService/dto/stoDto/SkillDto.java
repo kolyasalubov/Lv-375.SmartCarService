@@ -8,6 +8,8 @@ public class SkillDto {
 
     private String name;
 
+    private Long spendTime;
+
     private FaultCode faultCode;
 
 }
