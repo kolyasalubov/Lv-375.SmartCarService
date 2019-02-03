@@ -22,6 +22,7 @@ public class Worker {
     private String fullName;
 
     @ManyToOne
+    //@JsonIgnore //optional
     @JsonBackReference
     @JoinColumn(name = "manager_id", nullable = false)
     private TechnicalManager technicalManager;
