@@ -21,7 +21,7 @@ public class Skill {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long spendTime;
 
     @OneToMany(mappedBy = "skill")
