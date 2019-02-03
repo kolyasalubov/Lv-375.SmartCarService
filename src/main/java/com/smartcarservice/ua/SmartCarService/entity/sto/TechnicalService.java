@@ -1,5 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
 import lombok.Data;
 
@@ -27,8 +28,9 @@ public class TechnicalService {
     @JoinColumn(name = "dealer_id", nullable = true)
     private Dealer dealer;
 
-
-    @OneToOne(cascade = CascadeType.ALL,
+    @JsonIgnore
+    @OneToOne(//fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
             mappedBy = "technicalService")
     TechnicalManager technicalManager;
 

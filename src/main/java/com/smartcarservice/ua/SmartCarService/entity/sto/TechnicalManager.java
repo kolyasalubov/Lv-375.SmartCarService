@@ -1,5 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.UserBaseEntity;
 import lombok.Data;
@@ -13,7 +14,8 @@ import java.util.Set;
 @Table(name = "sto_manager")
 public class TechnicalManager extends UserBaseEntity implements Serializable {
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "sto_id", nullable = false)
     private TechnicalService technicalService;
 
