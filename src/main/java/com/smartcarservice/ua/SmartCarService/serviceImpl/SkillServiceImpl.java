@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SkillServiceImpl implements SkillService {
@@ -17,7 +18,7 @@ public class SkillServiceImpl implements SkillService {
     private SkillRepository repository;
 
     @Override
-    public List<SkillDto> getAllSkill() {
+    public List<SkillDto> getAllSkills() {
         List<SkillDto> allSkill = new ArrayList <>();
         for(Skill skill : repository.findAll()){
             allSkill.add(getSkillDto(skill));
@@ -28,9 +29,15 @@ public class SkillServiceImpl implements SkillService {
 
     private SkillDto getSkillDto(Skill skill){
         SkillDto skillDto = new SkillDto();
+        skillDto.setId(skill.getSkillId());
         skillDto.setName(skill.getName());
         skillDto.setFaultCode(skill.getFaultCode());
         skillDto.setSpendTime(skill.getSpendTime());
         return skillDto;
+    }
+
+    @Override
+    public Skill getSkillById(Long id) {
+        return repository.findById(id).get();
     }
 }

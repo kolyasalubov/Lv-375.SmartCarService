@@ -15,11 +15,28 @@ public class TechnicalManagerServiceImpl implements TechnicalManagerService {
 
     @Override
     public void createTechnicalManager(TechnicalManager technicalManager) {
+
         repository.save(technicalManager);
     }
 
     @Override
     public void updateTechnicalManager(Long id, TechnicalManager technicalManager) {
+        repository.save(technicalManager);
+    }
+
+    @Override
+    public void updateTechnicalManager(Long id, TechnicalManagerDto technicalManagerDto) {
+        TechnicalManager technicalManager = new TechnicalManager();
+
+        technicalManager.setId(id);
+        technicalManager.setTechnicalService(technicalManagerDto.getTechnicalService());
+        technicalManager.setWorkers(technicalManagerDto.getWorkers());
+        technicalManager.setEmail(technicalManagerDto.getEmail());
+        technicalManager.setFullName(technicalManagerDto.getFullName());
+        technicalManager.setUserName(technicalManagerDto.getUserName());
+        technicalManager.setPassword(technicalManagerDto.getPassword());
+
+        repository.save(technicalManager);
     }
 
     @Override
@@ -28,13 +45,18 @@ public class TechnicalManagerServiceImpl implements TechnicalManagerService {
     }
 
     @Override
-    public TechnicalManagerDto getTechnicalManager(Long id) {
+    public TechnicalManagerDto getTechnicalManagerDto(Long id) {
         TechnicalManager temp;
-        TechnicalManagerDto result;
+        TechnicalManagerDto managerDto;
 
         temp = (TechnicalManager) repository.getTechnicalManagerById(id);
-        result = new TechnicalManagerDto(temp.getId(), temp.getEmail(), temp.getPassword(), temp.getFullName(), temp.getUserName(), temp.getTechnicalService(), temp.getWorkers());
+        managerDto = new TechnicalManagerDto(temp.getId(), temp.getEmail(), temp.getPassword(), temp.getFullName(), temp.getUserName(), temp.getTechnicalService(), temp.getWorkers());
 
-        return result;
+        return managerDto;
+    }
+
+    @Override
+    public TechnicalManager getTechnicalManager(Long id) {
+        return repository.getTechnicalManagerById(id);
     }
 }

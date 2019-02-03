@@ -3,6 +3,7 @@ package com.smartcarservice.ua.SmartCarService.entity.sto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import lombok.Data;
 
@@ -27,6 +28,11 @@ public class Session {
     @Column(nullable = false, length = 20, columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endSession;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "id", nullable = false)
+    private Car car;
 
     @JsonBackReference
     @ManyToOne

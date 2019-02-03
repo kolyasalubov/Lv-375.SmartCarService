@@ -17,12 +17,12 @@ public class WorkerController {
     WorkerService workerService;
 
     @PostMapping("/workerbyskill")
-    public HashMap<String, List<WorkerDto>> getAllBySkill(@RequestParam(value = "name", required = false, defaultValue = "no")
-                                                  List<String> name){
+    public HashMap<String, List<WorkerDto>> getAllBySkillAndSto(@RequestParam(value = "name", required = false, defaultValue = "no")
+                                                  List<String> name, @RequestParam(value = "stoId", required = false) String stoId){
         System.out.println(name);
         HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap <>();
         for(String s : name){
-            workersBySkillName.put(s, workerService.findAllWorkersBySkill(s));
+            workersBySkillName.put(s, workerService.findAllWorkersBySkillAndSto(s, Long.valueOf(stoId)));
         }
 
         return workersBySkillName;
