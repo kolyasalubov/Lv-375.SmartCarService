@@ -100,11 +100,13 @@ public class TechnicalManagerController {
                    @RequestParam(value = "skillId") Long skillId) {
 
         TechnicalManager technicalManager;
+        TechnicalService technicalService;
         Skill skill;
 
         technicalManager = technicalManagerService.getTechnicalManager(id);
+        technicalService = technicalServiceService.getByTechnicalManager(technicalManager);
         skill = skillService.getSkillById(skillId);
 
-        workerService.saveWorker(fullname, skill, technicalManager);
+        workerService.saveWorker(fullname, skill, technicalManager, technicalService);
     }
 }

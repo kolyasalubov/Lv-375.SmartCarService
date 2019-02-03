@@ -39,4 +39,43 @@ public class Session {
     @JoinColumn(name = "worker_id", nullable = false)
     private Worker worker;
 
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public LocalDateTime getStartSession() {
+        return startSession;
+    }
+
+    public void setStartSession(LocalDateTime startSession) {
+        this.startSession = startSession;
+    }
+
+    public LocalDateTime getEndSession() {
+        return endSession;
+    }
+
+    public void setEndSession(LocalDateTime endSession) {
+        this.endSession = endSession;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public Worker getWorker() {
+        return worker;
+    }
+
+    public void setWorker(Worker worker) {
+        this.worker = worker;
+    }
 }
