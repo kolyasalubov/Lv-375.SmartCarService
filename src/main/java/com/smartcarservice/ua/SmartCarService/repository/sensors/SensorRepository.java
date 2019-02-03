@@ -1,6 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.repository.sensors;
 
-import com.smartcarservice.ua.SmartCarService.entity.sensors.data.RecordEntity;
+import com.smartcarservice.ua.SmartCarService.entity.sensors.data.SensorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @NoRepositoryBean
-public interface RecordRepository<T extends RecordEntity> extends JpaRepository<T, Long> {
+public interface SensorRepository<T extends SensorEntity> extends JpaRepository<T, Long> {
 
     /* READ */
 

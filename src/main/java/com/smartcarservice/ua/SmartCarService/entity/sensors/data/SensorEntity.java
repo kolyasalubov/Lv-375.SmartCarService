@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Data
 @MappedSuperclass
-public abstract class RecordEntity {
+public abstract class SensorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

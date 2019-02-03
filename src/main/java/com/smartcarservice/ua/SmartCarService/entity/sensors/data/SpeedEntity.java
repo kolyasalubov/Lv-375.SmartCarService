@@ -4,4 +4,4 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "fact_speed")
-public class SpeedEntity extends RecordEntity {}
+public class SpeedEntity extends SensorEntity {}

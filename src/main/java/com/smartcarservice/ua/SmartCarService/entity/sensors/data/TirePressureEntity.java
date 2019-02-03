@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fact_tire_pressure")
-public class TirePressureEntity extends RecordEntity {
+public class TirePressureEntity extends SensorEntity {
 
     @Column (length = 5, nullable = false)
     private String tireOrder;    // front/back

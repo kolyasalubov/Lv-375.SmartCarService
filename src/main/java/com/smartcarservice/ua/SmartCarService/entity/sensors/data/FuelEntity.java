@@ -6,6 +6,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "fact_fuel")
 
-public class FuelEntity extends RecordEntity {
+public class FuelEntity extends SensorEntity {
 
 }

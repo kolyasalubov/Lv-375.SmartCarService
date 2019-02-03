@@ -1,7 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.repository.sensors;
 
 
-import com.smartcarservice.ua.SmartCarService.entity.sensors.data.FuelEntity;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.data.TirePressureEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface TirePressureRepository extends RecordRepository<TirePressureEntity> {
+public interface TirePressureRepository extends SensorRepository<TirePressureEntity> {
 
     @Query("SELECT t.id, t.car, t.date, AVG(t.value), t.tireOrder, t.tireSide " +
             "FROM #{#entityName} t " +
