@@ -1,10 +1,10 @@
-package com.smartcarservice.ua.SmartCarService.ServiceImpl.sensors.alert;
+package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.smartcarservice.ua.SmartCarService.Repository.sensors.alert.VehicleInspectionRepository;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
-import com.smartcarservice.ua.SmartCarService.service.sensors.alert.VehicleInspectionService;
+import com.smartcarservice.ua.SmartCarService.repository.VehicleInspectionRepository;
+import com.smartcarservice.ua.SmartCarService.service.VehicleInspectionService;
 
 
 public class VehicleInspectionImpl implements VehicleInspectionService{

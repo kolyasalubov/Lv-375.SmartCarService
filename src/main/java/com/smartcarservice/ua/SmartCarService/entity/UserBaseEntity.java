@@ -5,22 +5,65 @@ import lombok.Data;
 import javax.persistence.*;
 
 @MappedSuperclass
-public class UserBaseEntity {
+//public class UserBaseEntity {
+//@Inheritance
+public abstract class UserBaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    protected long id;
 
     @Column(length = 100, nullable = false, unique = true)
-    private String email;
+    protected String email;
+
     //TODO Make ono-to-one with login
     @Column(length = 100, nullable = false)
-    private String password;
+    protected String password;
 
     @Column(length = 100, nullable = false)
-    private String fullName;
+    protected String fullName;
+
     //TODO Make ono-to-one with login
     @Column(length = 100, nullable = false)
-    private String userName;
+    protected String userName;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

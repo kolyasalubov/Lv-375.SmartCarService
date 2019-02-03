@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.Repository.sensors.alert;
+package com.smartcarservice.ua.SmartCarService.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

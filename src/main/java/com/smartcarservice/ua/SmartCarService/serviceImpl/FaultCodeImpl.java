@@ -1,11 +1,11 @@
-package com.smartcarservice.ua.SmartCarService.ServiceImpl.sensors.alert;
+package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.smartcarservice.ua.SmartCarService.Repository.sensors.alert.FaultCodeRepository;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.FaultCode;
-import com.smartcarservice.ua.SmartCarService.service.sensors.alert.FaultCodeService;
+import com.smartcarservice.ua.SmartCarService.repository.FaultCodeRepository;
+import com.smartcarservice.ua.SmartCarService.service.FaultCodeService;
 
 @Service
 public class FaultCodeImpl implements FaultCodeService {

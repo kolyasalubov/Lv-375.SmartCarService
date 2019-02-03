@@ -1,9 +1,12 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -24,17 +27,57 @@ public class TechnicalService {
 
 
     @ManyToOne
-    @JoinColumn(name = "dealer_id", nullable = true)
+    @JoinColumn(name = "dealer_id")
     private Dealer dealer;
 
-
-    @OneToOne(cascade = CascadeType.ALL,
+    @JsonIgnore
+    @OneToOne(//fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
             mappedBy = "technicalService")
     TechnicalManager technicalManager;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "technicalService")
+    Set<Worker> workers;
 
 
+    public Long getStoId() {
+        return stoId;
+    }
 
+    public void setStoId(Long stoId) {
+        this.stoId = stoId;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(Dealer dealer) {
+        this.dealer = dealer;
+    }
+
+    public TechnicalManager getTechnicalManager() {
+        return technicalManager;
+    }
+
+    public void setTechnicalManager(TechnicalManager technicalManager) {
+        this.technicalManager = technicalManager;
+    }
 }

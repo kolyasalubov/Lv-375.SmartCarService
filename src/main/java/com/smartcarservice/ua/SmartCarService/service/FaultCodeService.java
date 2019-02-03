@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.service.sensors.alert;
+package com.smartcarservice.ua.SmartCarService.service;
 
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.FaultCode;
 
