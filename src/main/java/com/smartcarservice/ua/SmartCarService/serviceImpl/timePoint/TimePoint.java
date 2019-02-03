@@ -24,4 +24,19 @@ public class TimePoint implements Comparable<TimePoint>{
         return this.time.compareTo(timePoint.time);
     }
 
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public boolean isPosition() {
+        return position;
+    }
+
+    public void setPosition(boolean position) {
+        this.position = position;
+    }
 }

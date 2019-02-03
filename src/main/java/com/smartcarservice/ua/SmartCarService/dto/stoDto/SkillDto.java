@@ -10,7 +10,15 @@ public class SkillDto {
 
     private String name;
 
-    private Long spendTime;
+    public Long getRequiredTime() {
+        return requiredTime;
+    }
+
+    public void setRequiredTime(Long requiredTime) {
+        this.requiredTime = requiredTime;
+    }
+
+    private Long requiredTime;
 
     private FaultCode faultCode;
 

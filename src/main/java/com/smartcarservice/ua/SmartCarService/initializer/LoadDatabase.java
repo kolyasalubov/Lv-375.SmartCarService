@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.*;
@@ -19,28 +20,22 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(SkillRepository repository) {
         return args -> {
             //repository.deleteAll();
-            List<Skill> list = repository.findAll();
+            List<Skill> repositorySkills = repository.findAll();
 
-            if (!list.contains(new Skill("Service Technician"))) {
-                repository.save(new Skill("Service Technician"));
-            }
-            if (!list.contains(new Skill("Diagnostic Technician"))) {
-                repository.save(new Skill("Diagnostic Technician"));
-            }
-            if (!list.contains(new Skill("Transmission Technician"))) {
-                repository.save(new Skill("Transmission Technician"));
-            }
-            if (!list.contains(new Skill("Brake Technician"))) {
-                repository.save(new Skill("Brake Technician"));
-            }
-            if (!list.contains(new Skill("Body Repair Technician"))) {
-                repository.save(new Skill("Body Repair Technician"));
-            }
-            if (!list.contains(new Skill("Vehicle Refinisher"))) {
-                repository.save(new Skill("Vehicle Refinisher"));
-            }
-            if (!list.contains(new Skill("Vehicle Inspector"))) {
-                repository.save(new Skill("Vehicle Inspector"));
+            List<Skill> populationList = new ArrayList<>();
+
+            populationList.add(new Skill("Service Technician", 2L));
+            populationList.add(new Skill("Diagnostic Technician", 3L));
+            populationList.add(new Skill("Transmission Technician", 4L));
+            populationList.add(new Skill("Brake Technician", 2L));
+            populationList.add(new Skill("Body Repair Technician", 5L));
+            populationList.add(new Skill("Vehicle Refinisher", 3L));
+            populationList.add(new Skill("Vehicle Inspector", 5L));
+
+            for(Skill eachSkill: populationList){
+                if(!repositorySkills.contains(eachSkill)){
+                    repository.save(eachSkill);
+                }
             }
         };
     }

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface SkillService {
     List<SkillDto> getAllSkills();
+    SkillDto getSkillDto(Skill skill);
     Skill getSkillById(Long id);
 }
