@@ -15,5 +15,4 @@ public class CarOwner extends UserBaseEntity {
 
     @OneToMany(mappedBy = "carOwner")
     private Set<Car> cars;
-
 }

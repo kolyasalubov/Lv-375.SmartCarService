@@ -32,7 +32,7 @@ public class Dealer extends UserBaseEntity {
 
 
 
-    @OneToMany(mappedBy = "dealer")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "dealer")
     private Set<TechnicalService>technicalServices;
 
 
@@ -41,7 +41,7 @@ public class Dealer extends UserBaseEntity {
 
 
     @OneToMany(mappedBy = "dealer")
-    private Set<SalesManager> salesManagers;
+    private Set<SalesManagerEntity> salesManagers;
 
 
 }
