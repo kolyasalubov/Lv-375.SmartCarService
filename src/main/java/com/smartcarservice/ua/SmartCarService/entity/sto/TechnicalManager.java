@@ -2,7 +2,10 @@ package com.smartcarservice.ua.SmartCarService.entity.sto;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.UserBaseEntity;
+import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +15,7 @@ import java.util.Set;
 @Entity
 @Table(name = "sto_manager")
 public class TechnicalManager extends UserBaseEntity implements Serializable {
-
+    
     @OneToOne
     @JoinColumn(name = "sto_id", nullable = false)
     private TechnicalService technicalService;
@@ -36,4 +39,14 @@ public class TechnicalManager extends UserBaseEntity implements Serializable {
     public void setWorkers(Set<Worker> workers) {
         this.workers = workers;
     }
+
+    public TechnicalManager(String email, String password, String fullName, String userName,
+                            TechnicalService technicalService, Set<Worker> workers) {
+        super(email, password, fullName, userName);
+        this.technicalService = technicalService;
+        this.workers = workers;
+    }
+
+
 }
+
