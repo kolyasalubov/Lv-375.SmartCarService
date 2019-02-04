@@ -32,4 +32,11 @@ public class VehicleInspection {
 	@ManyToOne 
 	@JoinColumn(name = "car_id")
 	private Car car;
+	
+	public VehicleInspection(long id, Date dateOfInspection, Integer mileageOfCar, Car car) {
+		this.id = id;
+		this.dateOfInspection = dateOfInspection;
+		this.mileageOfCar = mileageOfCar;
+		this.car = car;
+	}
 }

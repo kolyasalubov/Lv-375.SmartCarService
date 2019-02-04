@@ -8,18 +8,13 @@ import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManagerEntity;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
 public class SmartCarServiceApplication {
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 	public static void main(String[] args) {
 //        SalesManagerEntity salesManagerEntity = new SalesManagerEntity(6,"asd","sadd","dsadas","dsadsa",new HashSet<Dealer>());
