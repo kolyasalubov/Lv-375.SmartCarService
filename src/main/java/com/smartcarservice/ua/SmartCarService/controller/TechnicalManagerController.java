@@ -67,6 +67,8 @@ public class TechnicalManagerController {
                                                @RequestParam(value = "password", required = false) String password) {
         TechnicalManagerDto managerDto = technicalManagerService.getTechnicalManagerDto(id);
 
+        managerDto.setId(id);
+
         if (fullname != null) {
             managerDto.setFullName(fullname);
         }
@@ -79,7 +81,7 @@ public class TechnicalManagerController {
             managerDto.setPassword(password);
         }
 
-        technicalManagerService.updateTechnicalManager(id, managerDto);
+        technicalManagerService.updateTechnicalManager(managerDto);
 
         return managerDto;
     }
@@ -94,10 +96,10 @@ public class TechnicalManagerController {
         return workerService.findWorkersByTechnicalManager(technicalManager);
     }
 
-    @PostMapping("/techmanagers/{id}/addworker")
-    void addWorker(@PathVariable Long id,
+    @PostMapping("/techmanagers/{id}/workers")
+    void addTechnicalManagerWorker(@PathVariable Long id,
                    @RequestParam(value = "fullname") String fullname,
-                   @RequestParam(value = "skillId") Long skillId) {
+                   @RequestParam(value = "skillid") Long skillId) {
 
         TechnicalManager technicalManager;
         TechnicalService technicalService;
@@ -108,5 +110,10 @@ public class TechnicalManagerController {
         skill = skillService.getSkillById(skillId);
 
         workerService.saveWorker(fullname, skill, technicalManager, technicalService);
+    }
+
+    @DeleteMapping("/techmanagers/{id}/workers/{workerId}")
+    void deleteWorker(@PathVariable Long id, @PathVariable Long workerId) throws Exception{
+        workerService.deleteWorker(technicalManagerService.getTechnicalManager(id), workerId);
     }
 }

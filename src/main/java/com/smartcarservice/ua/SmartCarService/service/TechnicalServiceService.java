@@ -12,4 +12,7 @@ public interface TechnicalServiceService {
     List<TechnicalService> getAllTechnicalServices();
     List<TechnicalServiceDto> getAllTechnicalServicesDto();
     TechnicalService getByTechnicalManager(TechnicalManager technicalManager);
+    TechnicalServiceDto getTechnicalServiceDtoById(Long id);
+    TechnicalServiceDto updateTechnicalService(TechnicalService technicalService);
+    TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto);
 }

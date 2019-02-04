@@ -17,7 +17,25 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     @Autowired
     TechnicalServiceRepository repository;
 
-    private TechnicalServiceDto convertToDto(TechnicalService technicalService){
+    @Override
+    public TechnicalServiceDto updateTechnicalService(TechnicalService technicalService) {
+        repository.save(technicalService);
+        return convertToDto(repository.getOne(technicalService.getStoId()));
+    }
+
+    @Override
+    public TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto) {
+        TechnicalService technicalService = convertToEntity(technicalServiceDto);
+
+        return updateTechnicalService(technicalService);
+    }
+
+    @Override
+    public TechnicalServiceDto getTechnicalServiceDtoById(Long id) {
+        return convertToDto(getTechnicalServiceById(id));
+    }
+
+    public TechnicalServiceDto convertToDto(TechnicalService technicalService){
         TechnicalServiceDto dto = new TechnicalServiceDto();
 
         dto.setStoId(technicalService.getStoId());
@@ -28,6 +46,19 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         dto.setWorkerSet(technicalService.getWorkers());
 
         return dto;
+    }
+
+    public TechnicalService convertToEntity(TechnicalServiceDto technicalServiceDto){
+        TechnicalService entity = new TechnicalService();
+
+        entity.setStoId(technicalServiceDto.getStoId());
+        entity.setName(technicalServiceDto.getName());
+        entity.setAddress(technicalServiceDto.getAddress());
+        entity.setDealer(technicalServiceDto.getDealer());
+        entity.setTechnicalManager(technicalServiceDto.getTechnicalManager());
+        entity.setWorkers(technicalServiceDto.getWorkerSet());
+
+        return entity;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.smartcarservice.ua.SmartCarService.dto.stoDto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import lombok.Data;
@@ -19,8 +21,10 @@ public class TechnicalManagerDto {
 
     private String userName;
 
+    @JsonIgnore
     private TechnicalService technicalService;
 
+    @JsonIgnore
     Set<Worker> workers;
 
     public TechnicalManagerDto(long id, String email, String password, String fullName, String userName, TechnicalService technicalService, Set<Worker> workers) {
