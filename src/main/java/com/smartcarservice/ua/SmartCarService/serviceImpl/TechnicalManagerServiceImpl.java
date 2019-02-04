@@ -20,15 +20,15 @@ public class TechnicalManagerServiceImpl implements TechnicalManagerService {
     }
 
     @Override
-    public void updateTechnicalManager(Long id, TechnicalManager technicalManager) {
+    public void updateTechnicalManager(TechnicalManager technicalManager) {
         repository.save(technicalManager);
     }
 
     @Override
-    public void updateTechnicalManager(Long id, TechnicalManagerDto technicalManagerDto) {
+    public void updateTechnicalManager(TechnicalManagerDto technicalManagerDto) {
         TechnicalManager technicalManager = new TechnicalManager();
 
-        technicalManager.setId(id);
+        technicalManager.setId(technicalManagerDto.getId());
         technicalManager.setTechnicalService(technicalManagerDto.getTechnicalService());
         technicalManager.setWorkers(technicalManagerDto.getWorkers());
         technicalManager.setEmail(technicalManagerDto.getEmail());

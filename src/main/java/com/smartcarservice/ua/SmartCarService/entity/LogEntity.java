@@ -7,10 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
-
-
-
 @Entity
 @Table(name = "log")
 public class LogEntity {
@@ -23,6 +19,7 @@ public class LogEntity {
 	
 	@Column(length = 100, nullable = false)
 	private String password;
+
 
 	public String getUserName() {
 		return userName;

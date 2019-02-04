@@ -8,6 +8,7 @@ import com.smartcarservice.ua.SmartCarService.service.TechnicalServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,8 +18,63 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     TechnicalServiceRepository repository;
 
     @Override
+    public TechnicalServiceDto updateTechnicalService(TechnicalService technicalService) {
+        repository.save(technicalService);
+        return convertToDto(repository.getOne(technicalService.getStoId()));
+    }
+
+    @Override
+    public TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto) {
+        TechnicalService technicalService = convertToEntity(technicalServiceDto);
+
+        return updateTechnicalService(technicalService);
+    }
+
+    @Override
+    public TechnicalServiceDto getTechnicalServiceDtoById(Long id) {
+        return convertToDto(getTechnicalServiceById(id));
+    }
+
+    public TechnicalServiceDto convertToDto(TechnicalService technicalService){
+        TechnicalServiceDto dto = new TechnicalServiceDto();
+
+        dto.setStoId(technicalService.getStoId());
+        dto.setName(technicalService.getName());
+        dto.setAddress(technicalService.getAddress());
+        dto.setDealer(technicalService.getDealer());
+        dto.setTechnicalManager(technicalService.getTechnicalManager());
+        dto.setWorkerSet(technicalService.getWorkers());
+
+        return dto;
+    }
+
+    public TechnicalService convertToEntity(TechnicalServiceDto technicalServiceDto){
+        TechnicalService entity = new TechnicalService();
+
+        entity.setStoId(technicalServiceDto.getStoId());
+        entity.setName(technicalServiceDto.getName());
+        entity.setAddress(technicalServiceDto.getAddress());
+        entity.setDealer(technicalServiceDto.getDealer());
+        entity.setTechnicalManager(technicalServiceDto.getTechnicalManager());
+        entity.setWorkers(technicalServiceDto.getWorkerSet());
+
+        return entity;
+    }
+
+    @Override
     public List<TechnicalService> getAllTechnicalServices() {
         return repository.findAll();
+    }
+
+    @Override
+    public List<TechnicalServiceDto> getAllTechnicalServicesDto() {
+        List<TechnicalService> technicalServiceList = repository.findAll();
+        List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
+
+        for(TechnicalService eachTechnicalService: technicalServiceList){
+            technicalServiceDtoList.add(convertToDto(eachTechnicalService));
+        }
+        return technicalServiceDtoList;
     }
 
     @Override

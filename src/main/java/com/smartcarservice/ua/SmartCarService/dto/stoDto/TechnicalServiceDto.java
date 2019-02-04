@@ -1,37 +1,29 @@
 package com.smartcarservice.ua.SmartCarService.dto.stoDto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
+import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalManager;
+import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
 
 @Data
 public class TechnicalServiceDto {
+
+    private Long stoId;
 
     private String name;
 
     private String address;
 
-    private Long dealerId;
+    private Dealer dealer;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    private TechnicalManager technicalManager;
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Long getDealerId() {
-        return dealerId;
-    }
-
-    public void setDealerId(Long dealerId) {
-        this.dealerId = dealerId;
-    }
+    @JsonIgnore//Works
+    private Set<Worker> workerSet;
 }
