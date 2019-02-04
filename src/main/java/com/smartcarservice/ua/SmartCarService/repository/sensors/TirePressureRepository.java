@@ -12,42 +12,54 @@ import java.util.List;
 @Repository
 public interface TirePressureRepository extends SensorRepository<TirePressureEntity> {
 
-    @Query("SELECT t.id, t.car, t.date, AVG(t.value), t.tireOrder, t.tireSide " +
+    @Override
+    @Query("SELECT t.id, t.car, t.date, " +
+            "AVG(t.valueFrontLeft), AVG(t.valueFrontRight), AVG(t.valueBackLeft), AVG(t.valueBackRight) " +
             "FROM #{#entityName} t " +
             "WHERE t.car.id = :carId AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "GROUP BY DAY(t.date)")
     public List<TirePressureEntity> getAvgByMonth(@Param("date") LocalDateTime date,
                                                   @Param("carId") long carId);
 
-    @Query("SELECT t.id, t.car, t.date, MAX(t.value), t.tireOrder, t.tireSide " +
+    @Override
+    @Query("SELECT t.id, t.car, t.date, " +
+            "MAX(t.valueFrontLeft), MAX(t.valueFrontRight), MAX(t.valueBackLeft), MAX(t.valueBackRight) " +
             "FROM #{#entityName} t " +
             "WHERE t.car.id = :carId AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "GROUP BY DAY(t.date)")
     public List<TirePressureEntity> getMaxByMonth(@Param("date") LocalDateTime date,
                                                   @Param("carId") long carId);
 
-    @Query("SELECT t.id, t.car, t.date, MIN(t.value), t.tireOrder, t.tireSide " +
+    @Override
+    @Query("SELECT t.id, t.car, t.date, " +
+            "MIN(t.valueFrontLeft), MIN(t.valueFrontRight), MIN(t.valueBackLeft), MIN(t.valueBackRight) " +
             "FROM #{#entityName} t " +
             "WHERE t.car.id = :carId AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "GROUP BY DAY(t.date)")
     public List<TirePressureEntity> getMinByMonth(@Param("date") LocalDateTime date,
                                                   @Param("carId") long carId);
 
-    @Query("SELECT t.id, t.car, t.date, AVG(t.value), t.tireOrder, t.tireSide " +
+    @Override
+    @Query("SELECT t.id, t.car, t.date, " +
+            "AVG(t.valueFrontLeft), AVG(t.valueFrontRight), AVG(t.valueBackLeft), AVG(t.valueBackRight) " +
             "FROM #{#entityName} t " +
             "WHERE t.car.id = :carId AND YEAR(t.date) = YEAR(:date)" +
             "GROUP BY MONTH(t.date)")
     public List<TirePressureEntity> getAvgByYear(@Param("date") LocalDateTime date,
-                                @Param("carId") long carId);
+                                                 @Param("carId") long carId);
 
-    @Query("SELECT t.id, t.car, t.date, MAX(t.value), t.tireOrder, t.tireSide " +
+    @Override
+    @Query("SELECT t.id, t.car, t.date, " +
+            "MAX(t.valueFrontLeft), MAX(t.valueFrontRight), MAX(t.valueBackLeft), MAX(t.valueBackRight) " +
             "FROM #{#entityName} t " +
             "WHERE t.car.id = :carId AND YEAR(t.date) = YEAR(:date)" +
             "GROUP BY MONTH(t.date)")
     public List<TirePressureEntity> getMaxByYear(@Param("date") LocalDateTime date,
                                                  @Param("carId") long carId);
 
-    @Query("SELECT t.id, t.car, t.date, MIN(t.value), t.tireOrder, t.tireSide " +
+    @Override
+    @Query("SELECT t.id, t.car, t.date, " +
+            "MIN(t.valueFrontLeft), MIN(t.valueFrontRight), MIN(t.valueBackLeft), MIN(t.valueBackRight) " +
             "FROM #{#entityName} t " +
             "WHERE t.car.id = :carId AND YEAR(t.date) = YEAR(:date)" +
             "GROUP BY MONTH(t.date)")

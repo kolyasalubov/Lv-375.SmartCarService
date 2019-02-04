@@ -1,6 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.repository.sensors;
 
-import com.smartcarservice.ua.SmartCarService.entity.sensors.data.SensorEntity;
+import com.smartcarservice.ua.SmartCarService.entity.sensors.data.BaseSensorEntity;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.data.SensorTypes;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +24,14 @@ public class SensorRepositoryFactory {
         OIL_LEVEL(SensorTypes.OIL_LEVEL.toString(), oilLevelRepository);
 
         private String sensorType;
-        private SensorRepository<? extends SensorEntity> sensorRepository;
+        private SensorRepository<? extends BaseSensorEntity> sensorRepository;
 
-        private Sensors(String sensorType, SensorRepository<? extends SensorEntity> sensorRepository){
+        private Sensors(String sensorType, SensorRepository<? extends BaseSensorEntity> sensorRepository){
             this.sensorRepository = sensorRepository;
             this.sensorType = sensorType;
         }
 
-        public SensorRepository<? extends SensorEntity> getSensorRepository() {
+        public SensorRepository<? extends BaseSensorEntity> getSensorRepository() {
             return sensorRepository;
         }
 
@@ -61,7 +61,7 @@ public class SensorRepositoryFactory {
     @Autowired
     public static OilLevelRepository oilLevelRepository;
 
-    private Map<String, SensorRepository<? extends SensorEntity>> factory = new HashMap<>();
+    private Map<String, SensorRepository<? extends BaseSensorEntity>> factory = new HashMap<>();
 
     public SensorRepositoryFactory(){
         for (Sensors sensor : Sensors.values()) {
