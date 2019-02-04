@@ -21,8 +21,15 @@ public class Worker {
     @Column(length = 100, nullable = false, unique = true)
     private String fullName;
 
+    public TechnicalService getTechnicalService() {
+        return technicalService;
+    }
+
+    public void setTechnicalService(TechnicalService technicalService) {
+        this.technicalService = technicalService;
+    }
+
     @ManyToOne
-    //@JsonIgnore //optional
     @JsonBackReference
     @JoinColumn(name = "manager_id", nullable = false)
     private TechnicalManager technicalManager;

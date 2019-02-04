@@ -1,5 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
@@ -36,7 +37,7 @@ public class TechnicalService {
             mappedBy = "technicalService")
     TechnicalManager technicalManager;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "technicalService")
     Set<Worker> workers;
 

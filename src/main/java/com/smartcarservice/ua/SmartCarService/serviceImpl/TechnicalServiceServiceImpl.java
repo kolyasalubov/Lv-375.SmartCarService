@@ -1,6 +1,7 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.TechnicalServiceDto;
+import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalManager;
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
 import com.smartcarservice.ua.SmartCarService.repository.TechnicalServiceRepository;
 import com.smartcarservice.ua.SmartCarService.service.TechnicalServiceService;
@@ -18,6 +19,11 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     @Override
     public List<TechnicalService> getAllTechnicalServices() {
         return repository.findAll();
+    }
+
+    @Override
+    public TechnicalService getByTechnicalManager(TechnicalManager technicalManager) {
+        return repository.getByTechnicalManager(technicalManager);
     }
 
     @Override

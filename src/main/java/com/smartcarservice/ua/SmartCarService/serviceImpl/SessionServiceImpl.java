@@ -1,8 +1,11 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.SessionDto;
+import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Session;
+import com.smartcarservice.ua.SmartCarService.repository.CarRepository;
 import com.smartcarservice.ua.SmartCarService.repository.SessionRepository;
+import com.smartcarservice.ua.SmartCarService.repository.WorkerRepository;
 import com.smartcarservice.ua.SmartCarService.service.SessionService;
 import com.smartcarservice.ua.SmartCarService.serviceImpl.timePoint.TimePoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,12 @@ public class SessionServiceImpl implements SessionService {
     @Autowired
     private SessionRepository sessionRepository;
 
+    @Autowired
+    private WorkerRepository workerRepository;
+
+    @Autowired
+    private CarRepository carRepository;
+
     @Override
     public List<SessionDto> findAllByWorker_WorkerId(Long workerId){
         List<SessionDto> sessionDtos = new ArrayList <>();
@@ -25,6 +34,24 @@ public class SessionServiceImpl implements SessionService {
             sessionDtos.add(getSessionDto(session));
         }
         return sessionDtos;
+    }
+
+    @Override
+    public boolean addSession(SessionDto sessionDto, List<Long> workersId, Long catId){
+        Car car = carRepository.getOne(catId);
+        List<Session> sessionsToAdd = new ArrayList <>();
+        if(sessionRepository.selectNumberOfSessionWithDate(sessionDto.getStartSession(), sessionDto.getEndSession()) != 0){
+            return false;
+        }
+        for(long id : workersId){
+            Session session = getEntity(sessionDto);
+            session.setCar(car);
+            session.setWorker(workerRepository.getOne(id));
+            sessionsToAdd.add(session);
+        }
+
+        sessionRepository.saveAll(sessionsToAdd);
+        return true;
     }
 
     @Override
@@ -126,6 +153,13 @@ public class SessionServiceImpl implements SessionService {
 
     private int getDeltaTimeInMinut(LocalDateTime first, LocalDateTime second){
         return (second.getHour() - first.getHour()) * 60 + (second.getMinute() - first.getMinute());
+    }
+
+    private Session getEntity(SessionDto sessionDto){
+        Session session = new Session();
+        session.setStartSession(sessionDto.getStartSession());
+        session.setEndSession(sessionDto.getEndSession());
+        return session;
     }
 
 }

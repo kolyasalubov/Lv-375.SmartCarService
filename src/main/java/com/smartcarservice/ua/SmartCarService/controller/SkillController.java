@@ -18,4 +18,6 @@ public class SkillController {
     public List<SkillDto> all(){
         return skillService.getAllSkills();
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.smartcarservice.ua.SmartCarService.serviceImpl;
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.WorkerDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Skill;
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalManager;
+import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
 import com.smartcarservice.ua.SmartCarService.repository.WorkerRepository;
 import com.smartcarservice.ua.SmartCarService.service.WorkerService;
@@ -51,12 +52,14 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public void saveWorker(String fullName, Skill skill, TechnicalManager technicalManager) {
+    public void saveWorker(String fullName, Skill skill, TechnicalManager technicalManager,
+                           TechnicalService technicalService) {
 
         Worker worker = new Worker();
         worker.setFullName(fullName);
         worker.setSkill(skill);
         worker.setTechnicalManager(technicalManager);
+        worker.setTechnicalService(technicalService);
 
         workerRepository.save(worker);
     }

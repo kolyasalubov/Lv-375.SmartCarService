@@ -13,4 +13,5 @@ public interface SessionService {
 
     HashMap<LocalDate, List<SessionDto>> findTimeToBooking(List<Long> workerId, LocalDate time, int timeToNeedInMinute);
 
+    boolean addSession(SessionDto sessionDto, List<Long> workerId, Long CarId);
 }

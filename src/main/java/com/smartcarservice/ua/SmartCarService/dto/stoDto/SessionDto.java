@@ -11,4 +11,19 @@ public class SessionDto {
 
     private LocalDateTime endSession;
 
+    public LocalDateTime getStartSession() {
+        return startSession;
+    }
+
+    public void setStartSession(LocalDateTime startSession) {
+        this.startSession = startSession;
+    }
+
+    public LocalDateTime getEndSession() {
+        return endSession;
+    }
+
+    public void setEndSession(LocalDateTime endSession) {
+        this.endSession = endSession;
+    }
 }

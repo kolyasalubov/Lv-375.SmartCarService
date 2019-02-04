@@ -26,13 +26,13 @@ public class SkillServiceImpl implements SkillService {
         return allSkill;
 
     }
-
-    private SkillDto getSkillDto(Skill skill){
+    @Override
+    public SkillDto getSkillDto(Skill skill){
         SkillDto skillDto = new SkillDto();
         skillDto.setId(skill.getSkillId());
         skillDto.setName(skill.getName());
         skillDto.setFaultCode(skill.getFaultCode());
-        skillDto.setSpendTime(skill.getSpendTime());
+        skillDto.setRequiredTime(skill.getRequiredTime());
         return skillDto;
     }
 
