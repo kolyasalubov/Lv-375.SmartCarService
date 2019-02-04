@@ -32,4 +32,43 @@ public class VehicleInspection {
 	@ManyToOne 
 	@JoinColumn(name = "car_id")
 	private Car car;
+	
+	public VehicleInspection(long id, Date dateOfInspection, Integer mileageOfCar, Car car) {
+		this.id = id;
+		this.dateOfInspection = dateOfInspection;
+		this.mileageOfCar = mileageOfCar;
+		this.car = car;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Date getDateOfInspection() {
+		return dateOfInspection;
+	}
+
+	public void setDateOfInspection(Date dateOfInspection) {
+		this.dateOfInspection = dateOfInspection;
+	}
+
+	public Integer getMileageOfCar() {
+		return mileageOfCar;
+	}
+
+	public void setMileageOfCar(Integer mileageOfCar) {
+		this.mileageOfCar = mileageOfCar;
+	}
+
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
 }

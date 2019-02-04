@@ -34,50 +34,11 @@ public class TechnicalService {
     @OneToOne(//fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "technicalService")
-    TechnicalManager technicalManager;
+    private TechnicalManager technicalManager;
 
+    //@JsonIgnore//not working
     @JsonManagedReference
     @OneToMany(mappedBy = "technicalService")
-    Set<Worker> workers;
+    private Set<Worker> workers;
 
-
-    public Long getStoId() {
-        return stoId;
-    }
-
-    public void setStoId(Long stoId) {
-        this.stoId = stoId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Dealer getDealer() {
-        return dealer;
-    }
-
-    public void setDealer(Dealer dealer) {
-        this.dealer = dealer;
-    }
-
-    public TechnicalManager getTechnicalManager() {
-        return technicalManager;
-    }
-
-    public void setTechnicalManager(TechnicalManager technicalManager) {
-        this.technicalManager = technicalManager;
-    }
 }

@@ -15,8 +15,8 @@ public class TechnicalServiceController {
     TechnicalServiceService technicalServiceService;
 
     @GetMapping("/techservices")
-    List<TechnicalService> getAllTechnicalServices(){
-        return technicalServiceService.getAllTechnicalServices();
+    List<TechnicalServiceDto> getAllTechnicalServices(){
+        return technicalServiceService.getAllTechnicalServicesDto();
     }
 
     @PostMapping("/techservices/create")
