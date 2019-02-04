@@ -1,10 +1,12 @@
 package com.smartcarservice.ua.SmartCarService.service;
 
-import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.FaultCode;
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.FaultCodeDto;
 
 public interface FaultCodeService {
 
 	String getFaultCodeDescription (String faultCode);
 	
-	FaultCode getFaultCode (String faultCode);
+	FaultCodeDto getFaultCode (String faultCode);
+	
+	FaultCodeDto getFaultCodeDto (long id);
 }

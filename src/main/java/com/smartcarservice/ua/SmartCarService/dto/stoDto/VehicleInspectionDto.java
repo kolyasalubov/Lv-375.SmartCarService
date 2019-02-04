@@ -3,6 +3,7 @@ package com.smartcarservice.ua.SmartCarService.dto.stoDto;
 import java.sql.Date;
 
 import com.smartcarservice.ua.SmartCarService.entity.car.Car;
+import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
 
 import lombok.Data;
 
@@ -19,6 +20,13 @@ public class VehicleInspectionDto {
 		this.dateOfInspection = dateOfInspection;
 		this.mileageOfCar = mileageOfCar;
 		this.car = car;
+	}
+	
+	public VehicleInspectionDto(VehicleInspection vehicleInspection) {
+		this.id = vehicleInspection.getId();
+		this.dateOfInspection = vehicleInspection.getDateOfInspection();
+		this.mileageOfCar = vehicleInspection.getMileageOfCar();
+		this.car = vehicleInspection.getCar();
 	}
 	
 }

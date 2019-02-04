@@ -1,10 +1,17 @@
 package com.smartcarservice.ua.SmartCarService.service;
 
-import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
+import java.util.List;
+
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.VehicleInspectionDto;
 
 public interface VehicleInspectionService {
 	
-	void saveInspection(VehicleInspection vehicleInspection);
+	void saveVehicleInspection (VehicleInspectionDto vehicleInspectionDto);
 
-	VehicleInspection getLastVehicleInspection(long carId);
+	List<VehicleInspectionDto> getCarsForYearlyInspection ();
+	
+	VehicleInspectionDto getVehicleInspection(long id);
+
+//	VehicleInspection getLastVehicleInspection(long carId);
+	
 }

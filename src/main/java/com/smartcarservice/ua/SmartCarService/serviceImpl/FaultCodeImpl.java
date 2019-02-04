@@ -3,6 +3,7 @@ package com.smartcarservice.ua.SmartCarService.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smartcarservice.ua.SmartCarService.dto.stoDto.FaultCodeDto;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.FaultCode;
 import com.smartcarservice.ua.SmartCarService.repository.FaultCodeRepository;
 import com.smartcarservice.ua.SmartCarService.service.FaultCodeService;
@@ -19,8 +20,20 @@ public class FaultCodeImpl implements FaultCodeService {
 	}
 
 	@Override
-	public FaultCode getFaultCode(String faultCode) {
-		return faultCodeRepository.getFaultCode(faultCode);
+	public FaultCodeDto getFaultCode(String code) {
+		return new FaultCodeDto (faultCodeRepository.getFaultCode(code));
 	}
+
+	@Override
+	public FaultCodeDto getFaultCodeDto(long id) {
+		FaultCode entity = faultCodeRepository.getOne(id);
+		FaultCodeDto dto = new FaultCodeDto(entity.getId(), 
+							   entity.getFaultCode(), 
+							   entity.getDescription(), 
+							   entity.getType(),
+							   entity.getSkill());
+		return dto;
+	}
+
 
 }
