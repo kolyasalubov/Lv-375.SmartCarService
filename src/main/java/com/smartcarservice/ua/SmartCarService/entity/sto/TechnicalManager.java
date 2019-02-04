@@ -21,7 +21,7 @@ public class TechnicalManager extends UserBaseEntity implements Serializable {
     private TechnicalService technicalService;
 
 
-    @JsonManagedReference
+    @JsonIgnore//ManagedReference
     @OneToMany(mappedBy = "technicalManager")
     Set<Worker> workers;
 

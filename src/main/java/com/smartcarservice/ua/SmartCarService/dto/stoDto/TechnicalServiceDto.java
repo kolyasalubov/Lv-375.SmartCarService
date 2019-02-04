@@ -21,8 +21,8 @@ public class TechnicalServiceDto {
 
     private Dealer dealer;
 
-    private TechnicalManager technicalManager;
 
+    private TechnicalManager technicalManager;
 
     @JsonIgnore//Works
     private Set<Worker> workerSet;
