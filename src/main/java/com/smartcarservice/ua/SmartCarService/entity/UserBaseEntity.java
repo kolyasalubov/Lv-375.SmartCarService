@@ -1,13 +1,18 @@
 package com.smartcarservice.ua.SmartCarService.entity;
 
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 
+@Data
 @MappedSuperclass
 //public class UserBaseEntity {
 //@Inheritance
 public abstract class UserBaseEntity {
+
+    public UserBaseEntity() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,46 +29,14 @@ public abstract class UserBaseEntity {
     protected String fullName;
 
     //TODO Make ono-to-one with login
-    @Column(length = 100, nullable = false)
-    protected String userName;
 
-    public long getId() {
-        return id;
-    }
+    @Column(length = 100, nullable = false, unique = true)
+    private String userName;
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+    public UserBaseEntity(String email, String password, String fullName, String userName) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
         this.userName = userName;
     }
 }

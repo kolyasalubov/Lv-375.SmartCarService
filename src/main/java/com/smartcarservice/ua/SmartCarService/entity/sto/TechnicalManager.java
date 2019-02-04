@@ -20,9 +20,24 @@ public class TechnicalManager extends UserBaseEntity implements Serializable {
     @JoinColumn(name = "sto_id", nullable = false)
     private TechnicalService technicalService;
 
-    @JsonIgnore
-    //@JsonManagedReference
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "technicalManager")
     Set<Worker> workers;
 
+    public TechnicalService getTechnicalService() {
+        return technicalService;
+    }
+
+    public void setTechnicalService(TechnicalService technicalService) {
+        this.technicalService = technicalService;
+    }
+
+    public Set<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(Set<Worker> workers) {
+        this.workers = workers;
+    }
 }

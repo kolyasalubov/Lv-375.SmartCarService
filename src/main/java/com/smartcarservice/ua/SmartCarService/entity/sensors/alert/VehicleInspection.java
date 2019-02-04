@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 import lombok.Data;
 
@@ -28,8 +29,8 @@ public class VehicleInspection {
 	
 	@Column(name = "mileage_of_car")
 	private Integer mileageOfCar;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	@JoinColumn(name = "car_id")
 	private Car car;
 	
