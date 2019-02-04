@@ -16,6 +16,6 @@ public class SkillController {
 
     @GetMapping("/skills")
     public List<SkillDto> all(){
-        return skillService.getAllSkill();
+        return skillService.getAllSkills();
     }
 }

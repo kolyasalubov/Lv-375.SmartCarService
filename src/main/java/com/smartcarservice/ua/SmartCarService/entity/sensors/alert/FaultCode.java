@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,7 +29,10 @@ public class FaultCode {
 	@Column (length = 250, name = "description", nullable = false)
 	private String description;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@Column (length = 15, name = "type", nullable = false)
+	private String type;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "skill_id")
 	private Skill skill;
 }

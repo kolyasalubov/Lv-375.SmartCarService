@@ -2,9 +2,11 @@ package com.smartcarservice.ua.SmartCarService.dto.stoDto;
 
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
 import com.smartcarservice.ua.SmartCarService.entity.sto.Worker;
+import lombok.Data;
 
 import java.util.Set;
 
+@Data
 public class TechnicalManagerDto {
 
     private long id;

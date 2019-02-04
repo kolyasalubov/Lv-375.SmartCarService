@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -22,4 +26,16 @@ public class SessionController {
 
     }
 
+    @PostMapping("/bookingtime")
+    public HashMap<LocalDate, List<SessionDto>> findTimeToBooking(@RequestParam(value = "workersId", required = false)
+                                                        List<String> workersId, @RequestParam(value = "time", required = false)
+                                                                      String time, @RequestParam(value = "timeToNeedInMinute", required = false)
+                                                                      String timeToNeedInMinute){
+        List<Long> id = new ArrayList <>();
+        for(String s : workersId){
+            id.add(Long.valueOf(s));
+        }
+        return sessionService.findTimeToBooking(id, LocalDate.parse(time), Integer.valueOf(timeToNeedInMinute));
+
+    }
 }

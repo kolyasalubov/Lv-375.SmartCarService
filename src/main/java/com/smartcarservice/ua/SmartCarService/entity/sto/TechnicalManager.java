@@ -1,5 +1,7 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.UserBaseEntity;
 import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
@@ -15,10 +17,13 @@ import java.util.Set;
 @Entity
 @Table(name = "sto_manager")
 public class TechnicalManager extends UserBaseEntity implements Serializable {
-    
-    @OneToOne
+
+
+    @JsonIgnore
+    @OneToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "sto_id", nullable = false)
     private TechnicalService technicalService;
+
 
     @JsonManagedReference
     @OneToMany(mappedBy = "technicalManager")

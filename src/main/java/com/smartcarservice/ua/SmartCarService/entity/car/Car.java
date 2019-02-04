@@ -1,14 +1,17 @@
 package com.smartcarservice.ua.SmartCarService.entity.car;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
+import com.smartcarservice.ua.SmartCarService.entity.sto.Session;
 import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
+
 
 @Data
 @Entity
@@ -85,5 +88,9 @@ public class Car {
         this.vin = vin;
         this.carOwner = carOwner;
     }
+
+	@JsonManagedReference
+	@OneToMany (mappedBy = "car")
+    private Set<Session> sessions;
 
 }
