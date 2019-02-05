@@ -15,4 +15,9 @@ public interface CarService {
 
     List<Car> dealerCars(Long id);
 
+    Car findCarByVin(String vin);
+
+    void updateCar(Car car);
+
+
 }
