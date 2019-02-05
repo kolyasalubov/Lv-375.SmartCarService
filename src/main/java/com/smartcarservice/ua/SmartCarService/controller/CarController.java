@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.CarOwnerDto;
 import com.smartcarservice.ua.SmartCarService.entity.car.CarOwner;
+import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
+import com.smartcarservice.ua.SmartCarService.serviceImpl.DealerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +27,9 @@ public class CarController {
     @Autowired
     private CarOwnerServiceImpl carOwnerService;
 
+
+    @Autowired
+    private DealerServiceImpl dealerService;
     //create used car
     @PostMapping("/ucar")
     public void createCar(@RequestParam(value = "brand") String brand,
@@ -41,6 +46,24 @@ public class CarController {
     }
 
 
+//create car by dealer
+    @PostMapping("/ucarByDealer")
+    public void createCar(@RequestParam(value = "brand") String brand,
+                          @RequestParam(value = "model") String model,
+                          @RequestParam(value = "graduation_year") String graduation_year,
+                          @RequestParam(value = "number") String number,
+                          @RequestParam(value = "vin") String vin,
+                          @RequestParam(value = "dealerID")Long id) {
+
+        Dealer dealer=dealerService.findById(id);
+
+        Car car = new Car(brand, model, graduation_year, number, vin, dealer);
+
+        carService.create(car);
+    }
+
+
+
     @DeleteMapping("/car")
     public void deleteById(@RequestParam(value = "id") Long id) {
         carService.deleteById(id);
@@ -54,6 +77,13 @@ public class CarController {
     @GetMapping("/cars")
     public List<CarDto> findAll() {
         return carService.findAll();
+    }
+
+
+
+    @GetMapping("/dealersCar")
+    public List<Car>dealersCars(@RequestParam(value = "id") Long id){
+        return carService.dealerCars(id);
     }
 
     //TODO Implement get user from token

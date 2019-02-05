@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.CarDto;
 import com.smartcarservice.ua.SmartCarService.entity.car.CarOwner;
+import com.smartcarservice.ua.SmartCarService.repository.DealerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.smartcarservice.ua.SmartCarService.entity.car.Car;
@@ -17,6 +18,9 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    DealerRepository dealerRepository;
 
     //for used car
     public void create (Car car){
@@ -72,5 +76,10 @@ public class CarServiceImpl implements CarService {
                 car.getVehicleInspections());
 
         return carDto;
+    }
+
+    @Override
+    public List<Car> dealerCars(Long id) {
+        return carRepository.getAllByDealer(dealerRepository.getDealerById(id));
     }
 }

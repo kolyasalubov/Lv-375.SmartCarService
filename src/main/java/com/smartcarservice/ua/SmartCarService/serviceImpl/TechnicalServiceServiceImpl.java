@@ -3,6 +3,7 @@ package com.smartcarservice.ua.SmartCarService.serviceImpl;
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.TechnicalServiceDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalManager;
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
+import com.smartcarservice.ua.SmartCarService.repository.DealerRepository;
 import com.smartcarservice.ua.SmartCarService.repository.TechnicalServiceRepository;
 import com.smartcarservice.ua.SmartCarService.service.TechnicalServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Autowired
     TechnicalServiceRepository repository;
+
+    @Autowired
+    DealerRepository dealerRepository;
 
     @Override
     public TechnicalServiceDto updateTechnicalService(TechnicalService technicalService) {
@@ -90,6 +94,16 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         technicalService.setAddress(address);
 
         repository.save(technicalService);
+    }
+
+    @Override
+    public void createTechnicalServiceByDealer(String name, String address, Long id) {
+        TechnicalService technicalService=new TechnicalService();
+
+        technicalService.setName(name);
+        technicalService.setAddress(address);
+        technicalService.setDealer(dealerRepository.getDealerById(id));
+
     }
 
     @Override

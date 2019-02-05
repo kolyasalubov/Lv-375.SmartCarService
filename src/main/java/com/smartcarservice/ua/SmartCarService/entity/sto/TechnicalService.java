@@ -27,6 +27,7 @@ public class TechnicalService {
     private String address;
 
 
+
     @ManyToOne
     @JoinColumn(name = "dealer_id")
     private Dealer dealer;
