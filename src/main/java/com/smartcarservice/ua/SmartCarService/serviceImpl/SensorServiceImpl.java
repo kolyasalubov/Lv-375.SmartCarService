@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -72,7 +73,7 @@ public class SensorServiceImpl implements SensorService {
     public void addRecord(RecordDto recordDto) {
 
         String repositoryType = recordDto.getSensorType();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
 
         ISensorEntity entity = factory.getEntity(repositoryType);
         entity.setDate(LocalDateTime.parse(recordDto.getDate(), formatter));

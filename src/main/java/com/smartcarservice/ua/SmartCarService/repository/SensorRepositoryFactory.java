@@ -91,8 +91,7 @@ public class SensorRepositoryFactory {
     }
 
     public ISensorEntity getEntity (String type){
-        if(entityFactory.size() == 0)
-            entityInit();
+        entityInit();
         return entityFactory.get(type);
     }
 
