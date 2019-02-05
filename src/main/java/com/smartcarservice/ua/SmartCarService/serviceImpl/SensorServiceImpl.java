@@ -3,21 +3,15 @@ package com.smartcarservice.ua.SmartCarService.serviceImpl;
 import com.smartcarservice.ua.SmartCarService.dto.sensors.ChartDto;
 import com.smartcarservice.ua.SmartCarService.dto.sensors.DateForChartDto;
 import com.smartcarservice.ua.SmartCarService.dto.sensors.RecordDto;
-import com.smartcarservice.ua.SmartCarService.entity.car.Car;
-import com.smartcarservice.ua.SmartCarService.entity.sensors.data.BaseSensorEntity;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.data.ISensorEntity;
-import com.smartcarservice.ua.SmartCarService.entity.sensors.data.SpeedEntity;
-import com.smartcarservice.ua.SmartCarService.repository.sensors.SensorRepository;
-import com.smartcarservice.ua.SmartCarService.repository.sensors.SensorRepositoryFactory;
-import com.smartcarservice.ua.SmartCarService.repository.sensors.SpeedRepository;
+import com.smartcarservice.ua.SmartCarService.repository.SensorRepository;
+import com.smartcarservice.ua.SmartCarService.repository.SensorRepositoryFactory;
 import com.smartcarservice.ua.SmartCarService.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class SensorServiceImpl implements SensorService {

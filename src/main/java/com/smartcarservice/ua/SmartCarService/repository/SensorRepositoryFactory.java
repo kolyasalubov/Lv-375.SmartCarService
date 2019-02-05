@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.repository.sensors;
+package com.smartcarservice.ua.SmartCarService.repository;
 
 import com.smartcarservice.ua.SmartCarService.entity.sensors.data.*;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-@Component("factory")
+@Component
 public class SensorRepositoryFactory {
 
 //    public enum Sensors {

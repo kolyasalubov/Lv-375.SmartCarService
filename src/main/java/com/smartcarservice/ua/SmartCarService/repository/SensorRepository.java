@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.repository.sensors;
+package com.smartcarservice.ua.SmartCarService.repository;
 
 import com.smartcarservice.ua.SmartCarService.entity.sensors.data.BaseSensorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
