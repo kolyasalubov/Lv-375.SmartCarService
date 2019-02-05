@@ -19,10 +19,10 @@ public abstract class BaseSensorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    protected Car car;
+//    @ManyToOne
+//    @JoinColumn(name = "car_id", nullable = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    protected Car car;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP" )
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

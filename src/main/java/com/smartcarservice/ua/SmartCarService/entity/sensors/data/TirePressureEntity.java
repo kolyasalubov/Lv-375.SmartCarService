@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "fact_tire_pressure")
-public class TirePressureEntity extends BaseSensorEntity {
+public class TirePressureEntity extends BaseSensorEntity implements ISensorEntity {
 
     @Column(nullable = false)
     protected double valueFrontLeft;
@@ -23,4 +23,14 @@ public class TirePressureEntity extends BaseSensorEntity {
     @Column(nullable = false)
     protected double valueBackRight;
 
+
+    @Override
+    public void setValue(double value) {
+
+    }
+
+    @Override
+    public double getValue() {
+        return 0;
+    }
 }

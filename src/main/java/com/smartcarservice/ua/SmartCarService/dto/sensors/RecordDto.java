@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class RecordDto {
+public class RecordDto implements IRecordDto{
 
     private String sensorType;
 
@@ -15,9 +15,9 @@ public class RecordDto {
 
     private long carVin;
 
-    private LocalDateTime date;
+    private String date;
 
-    public RecordDto(String sensorType, double value, long carVin, LocalDateTime date) {
+    public RecordDto(String sensorType, double value, long carVin, String date) {
         this.sensorType = sensorType;
         this.value = value;
         this.carVin = carVin;
