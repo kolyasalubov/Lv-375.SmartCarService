@@ -76,20 +76,25 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public void addRecord(RecordDto recordDto) {
+        SensorRepository rep = factory.getRepository(recordDto.getSensorType());
+        rep.save(recordDtoToEntity(recordDto));
+    }
 
+    private ISensorEntity recordDtoToEntity(RecordDto recordDto){
         String repositoryType = recordDto.getSensorType();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.ENGLISH);
+        Car car = carRepository.findByVin(recordDto.getCarVin());
 
         ISensorEntity entity = factory.getEntity(repositoryType);
-        entity.setDate(LocalDateTime.parse(recordDto.getDate(), formatter));
+        entity.setDate(parseDate(recordDto.getDate()));
         entity.setValue(recordDto.getValue());
-
-        Car car = carRepository.findByVin(recordDto.getCarVin());
         entity.setCar(car);
 
-        SensorRepository rep = factory.getRepository(repositoryType);
-        rep.save(entity);
+        return entity;
+    }
 
+    private LocalDateTime parseDate(String strDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(strDate, formatter);
     }
 
 }

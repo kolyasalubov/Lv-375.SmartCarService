@@ -22,8 +22,7 @@ public abstract class BaseSensorEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     protected Car car;
 
-    @Column(nullable = false, columnDefinition = "DATETIME" )
-//    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected LocalDateTime date;
 
