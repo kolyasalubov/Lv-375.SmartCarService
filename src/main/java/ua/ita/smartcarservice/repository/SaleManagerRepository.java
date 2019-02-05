@@ -1,10 +1,8 @@
-package com.smartcarservice.ua.SmartCarService.repository;
+package ua.ita.smartcarservice.repository;
 
-import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
-import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManager;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import ua.ita.smartcarservice.entity.sales.Dealer;
+import ua.ita.smartcarservice.entity.sales.SalesManager;
 
 import java.util.Set;
 

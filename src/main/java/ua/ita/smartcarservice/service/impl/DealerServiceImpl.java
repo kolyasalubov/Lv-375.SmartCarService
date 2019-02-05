@@ -1,13 +1,13 @@
-package com.smartcarservice.ua.SmartCarService.serviceImpl;
+package ua.ita.smartcarservice.service.impl;
 
-import com.smartcarservice.ua.SmartCarService.entity.car.Car;
-import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
-import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManager;
-import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
-import com.smartcarservice.ua.SmartCarService.repository.DealerRepository;
-import com.smartcarservice.ua.SmartCarService.service.DealerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.ita.smartcarservice.entity.car.Car;
+import ua.ita.smartcarservice.entity.sales.Dealer;
+import ua.ita.smartcarservice.entity.sales.SalesManager;
+import ua.ita.smartcarservice.entity.sto.TechnicalService;
+import ua.ita.smartcarservice.repository.DealerRepository;
+import ua.ita.smartcarservice.service.DealerService;
 
 import java.util.List;
 import java.util.Set;
@@ -59,7 +59,7 @@ public class DealerServiceImpl implements DealerService {
 
     @Override
     public List<Dealer> findAll() {
-        return  dealerRepo.findAll();
+        return dealerRepo.findAll();
     }
 
     @Override

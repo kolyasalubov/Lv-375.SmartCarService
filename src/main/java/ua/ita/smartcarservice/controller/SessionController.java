@@ -10,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-<<<<<<< HEAD:src/main/java/ua/ita/smartcarservice/controller/SessionController.java
-=======
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
->>>>>>> f305ef0a71a8b5cf05763985d82a3ac5b2829dd4:src/main/java/com/smartcarservice/ua/SmartCarService/controller/SessionController.java
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

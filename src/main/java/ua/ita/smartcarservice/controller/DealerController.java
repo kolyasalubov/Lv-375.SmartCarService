@@ -1,15 +1,13 @@
-package com.smartcarservice.ua.SmartCarService.controller;
+package ua.ita.smartcarservice.controller;
 
-import com.smartcarservice.ua.SmartCarService.entity.car.Car;
-import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
-import com.smartcarservice.ua.SmartCarService.service.CarService;
-import com.smartcarservice.ua.SmartCarService.service.DealerService;
-import com.smartcarservice.ua.SmartCarService.serviceImpl.DealerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ua.ita.smartcarservice.entity.car.Car;
+import ua.ita.smartcarservice.entity.sales.Dealer;
+import ua.ita.smartcarservice.service.CarService;
+import ua.ita.smartcarservice.service.DealerService;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 public class DealerController {
@@ -38,7 +36,7 @@ public class DealerController {
     public void deleteDealer(@RequestParam(value = "id")Long id){
         System.out.println("id= "+id);
 
-        List<Car>cars=carService.dealerCars(id);
+        List<Car> cars=carService.dealerCars(id);
 for (int i=0;i<cars.size();i++){
 
     cars.get(i).setDealer(null);

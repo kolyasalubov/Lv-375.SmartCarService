@@ -1,8 +1,11 @@
 package ua.ita.smartcarservice.service.impl;
 
 import ua.ita.smartcarservice.dto.stoDto.SessionDto;
+import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sto.Session;
+import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.SessionRepository;
+import ua.ita.smartcarservice.repository.WorkerRepository;
 import ua.ita.smartcarservice.service.SessionService;
 import ua.ita.smartcarservice.service.impl.timePoint.TimePoint;
 

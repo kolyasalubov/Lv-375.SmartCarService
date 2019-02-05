@@ -1,9 +1,10 @@
-package com.smartcarservice.ua.SmartCarService.service;
+package ua.ita.smartcarservice.service;
 
-import com.smartcarservice.ua.SmartCarService.entity.car.Car;
-import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
-import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManager;
-import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalService;
+
+import ua.ita.smartcarservice.entity.car.Car;
+import ua.ita.smartcarservice.entity.sales.Dealer;
+import ua.ita.smartcarservice.entity.sales.SalesManager;
+import ua.ita.smartcarservice.entity.sto.TechnicalService;
 
 import java.util.List;
 import java.util.Set;

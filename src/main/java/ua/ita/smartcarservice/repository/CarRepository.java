@@ -4,6 +4,8 @@ import java.util.List;
 import ua.ita.smartcarservice.entity.car.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import ua.ita.smartcarservice.entity.sales.Dealer;
+
 import java.util.List;
 
 

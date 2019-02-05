@@ -1,12 +1,12 @@
-package com.smartcarservice.ua.SmartCarService.serviceImpl;
+package ua.ita.smartcarservice.service.impl;
 
-import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
-import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManager;
-import com.smartcarservice.ua.SmartCarService.repository.DealerRepository;
-import com.smartcarservice.ua.SmartCarService.repository.SaleManagerRepository;
-import com.smartcarservice.ua.SmartCarService.service.SalesManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.ita.smartcarservice.entity.sales.Dealer;
+import ua.ita.smartcarservice.entity.sales.SalesManager;
+import ua.ita.smartcarservice.repository.DealerRepository;
+import ua.ita.smartcarservice.repository.SaleManagerRepository;
+import ua.ita.smartcarservice.service.SalesManagerService;
 
 import java.util.Set;
 

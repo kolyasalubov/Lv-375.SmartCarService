@@ -3,6 +3,7 @@ package ua.ita.smartcarservice.service.impl;
 import ua.ita.smartcarservice.dto.stoDto.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.sto.TechnicalManager;
 import ua.ita.smartcarservice.entity.sto.TechnicalService;
+import ua.ita.smartcarservice.repository.DealerRepository;
 import ua.ita.smartcarservice.repository.TechnicalServiceRepository;
 import ua.ita.smartcarservice.service.TechnicalServiceService;
 

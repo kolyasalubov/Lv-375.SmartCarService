@@ -1,15 +1,16 @@
 package ua.ita.smartcarservice.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.dto.stoDto.CarDto;
+import ua.ita.smartcarservice.entity.car.Car;
+import ua.ita.smartcarservice.entity.car.CarOwner;
+import ua.ita.smartcarservice.entity.sales.Dealer;
 import ua.ita.smartcarservice.service.impl.CarOwnerServiceImpl;
 import ua.ita.smartcarservice.service.impl.CarServiceImpl;
-import ua.ita.smartcarservice.entity.car.CarOwner;
+import ua.ita.smartcarservice.service.impl.*;
+
+import java.util.List;
 
 @RestController
 public class CarController {

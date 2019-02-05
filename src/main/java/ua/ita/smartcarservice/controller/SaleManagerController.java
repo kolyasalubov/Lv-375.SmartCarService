@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.controller;
+package ua.ita.smartcarservice.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 

@@ -6,6 +6,7 @@ import ua.ita.smartcarservice.service.TechnicalServiceService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ua.ita.smartcarservice.service.impl.DealerServiceImpl;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class TechnicalServiceController {
 
 
     @Autowired
-    DealerServiceImpl  dealerService;
+    DealerServiceImpl dealerService;
 
     @GetMapping("/techservices")
     List<TechnicalServiceDto> getAllTechnicalServices(){
