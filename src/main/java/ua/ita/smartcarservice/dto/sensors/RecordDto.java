@@ -11,11 +11,11 @@ public class RecordDto implements IRecordDto{
 
     private double value;
 
-    private long carVin;
+    private String carVin;
 
     private String date;
 
-    public RecordDto(String sensorType, double value, long carVin, String date) {
+    public RecordDto(String sensorType, double value, String carVin, String date) {
         this.sensorType = sensorType;
         this.value = value;
         this.carVin = carVin;

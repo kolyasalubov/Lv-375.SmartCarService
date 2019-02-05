@@ -3,7 +3,9 @@ package ua.ita.smartcarservice.service.impl;
 import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
+import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
+import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.SensorRepository;
 import ua.ita.smartcarservice.repository.SensorRepositoryFactory;
 import ua.ita.smartcarservice.service.SensorService;
@@ -19,6 +21,9 @@ public class SensorServiceImpl implements SensorService {
 
     @Autowired
     SensorRepositoryFactory factory;
+
+    @Autowired
+    CarRepository carRepository;
 
     @Override
     public ChartDto getAllByDay(DateForChartDto dateForChartDto) {
@@ -78,6 +83,9 @@ public class SensorServiceImpl implements SensorService {
         ISensorEntity entity = factory.getEntity(repositoryType);
         entity.setDate(LocalDateTime.parse(recordDto.getDate(), formatter));
         entity.setValue(recordDto.getValue());
+
+        Car car = carRepository.findByVin(recordDto.getCarVin());
+        entity.setCar(car);
 
         SensorRepository rep = factory.getRepository(repositoryType);
         rep.save(entity);
