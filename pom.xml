@@ -9,8 +9,8 @@
 		<version>2.1.2.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.smartcarservice.ua</groupId>
-	<artifactId>SmartCarService</artifactId>
+	<groupId>ua.ita.smartcarservice</groupId>
+	<artifactId>smartcarservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>SmartCarService</name>
 	<description>Demo project for Spring Boot</description>
