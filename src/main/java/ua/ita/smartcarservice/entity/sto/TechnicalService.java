@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import ua.ita.smartcarservice.entity.sales.Dealer;
@@ -26,6 +27,7 @@ public class TechnicalService {
     private String address;
 
 
+
     @ManyToOne
     @JoinColumn(name = "dealer_id")
     private Dealer dealer;
@@ -36,8 +38,8 @@ public class TechnicalService {
             mappedBy = "technicalService")
     private TechnicalManager technicalManager;
 
-    //@JsonIgnore//not working
-    @JsonManagedReference
+
+    @JsonBackReference
     @OneToMany(mappedBy = "technicalService")
     private Set<Worker> workers;
 

@@ -21,8 +21,10 @@ public class Skill {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
+
     @Column(nullable = false)
     private Long requiredTime;
+
 
     @JsonBackReference
     @OneToMany(mappedBy = "skill")

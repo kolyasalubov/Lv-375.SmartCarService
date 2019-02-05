@@ -5,6 +5,7 @@ import ua.ita.smartcarservice.entity.sto.Session;
 import ua.ita.smartcarservice.repository.SessionRepository;
 import ua.ita.smartcarservice.service.SessionService;
 import ua.ita.smartcarservice.service.impl.timePoint.TimePoint;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,12 @@ public class SessionServiceImpl implements SessionService {
     @Autowired
     private SessionRepository sessionRepository;
 
+    @Autowired
+    private WorkerRepository workerRepository;
+
+    @Autowired
+    private CarRepository carRepository;
+
     @Override
     public List<SessionDto> findAllByWorker_WorkerId(Long workerId){
         List<SessionDto> sessionDtos = new ArrayList <>();
@@ -25,6 +32,24 @@ public class SessionServiceImpl implements SessionService {
             sessionDtos.add(getSessionDto(session));
         }
         return sessionDtos;
+    }
+
+    @Override
+    public boolean addSession(SessionDto sessionDto, List<Long> workersId, Long catId){
+        Car car = carRepository.getOne(catId);
+        List<Session> sessionsToAdd = new ArrayList <>();
+        if(sessionRepository.selectNumberOfSessionWithDate(sessionDto.getStartSession(), sessionDto.getEndSession()) != 0){
+            return false;
+        }
+        for(long id : workersId){
+            Session session = getEntity(sessionDto);
+            session.setCar(car);
+            session.setWorker(workerRepository.getOne(id));
+            sessionsToAdd.add(session);
+        }
+
+        sessionRepository.saveAll(sessionsToAdd);
+        return true;
     }
 
     @Override
@@ -126,6 +151,13 @@ public class SessionServiceImpl implements SessionService {
 
     private int getDeltaTimeInMinut(LocalDateTime first, LocalDateTime second){
         return (second.getHour() - first.getHour()) * 60 + (second.getMinute() - first.getMinute());
+    }
+
+    private Session getEntity(SessionDto sessionDto){
+        Session session = new Session();
+        session.setStartSession(sessionDto.getStartSession());
+        session.setEndSession(sessionDto.getEndSession());
+        return session;
     }
 
 }

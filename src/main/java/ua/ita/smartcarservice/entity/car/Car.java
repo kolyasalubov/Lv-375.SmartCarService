@@ -48,7 +48,7 @@ public class Car {
     private Date end_guarantee;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dealer_id", nullable = true)
     private Dealer dealer;
 
@@ -89,8 +89,112 @@ public class Car {
         this.carOwner = carOwner;
     }
 
+    public Car(String brand, String model, String graduation_year, String number, String vin, Dealer dealer) {
+        this.brand = brand;
+        this.model = model;
+        this.graduation_year = graduation_year;
+        this.number = number;
+        this.vin = vin;
+        this.dealer = dealer;
+    }
 	@JsonManagedReference
 	@OneToMany (mappedBy = "car")
     private Set<Session> sessions;
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getGraduation_year() {
+        return graduation_year;
+    }
+
+    public void setGraduation_year(String graduation_year) {
+        this.graduation_year = graduation_year;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    public Date getEnd_guarantee() {
+        return end_guarantee;
+    }
+
+    public void setEnd_guarantee(Date end_guarantee) {
+        this.end_guarantee = end_guarantee;
+    }
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(Dealer dealer) {
+        this.dealer = dealer;
+    }
+
+    public CarOwner getCarOwner() {
+        return carOwner;
+    }
+
+    public void setCarOwner(CarOwner carOwner) {
+        this.carOwner = carOwner;
+    }
+
+    public Set<VehicleInspection> getVehicleInspections() {
+        return vehicleInspections;
+    }
+
+    public void setVehicleInspections(Set<VehicleInspection> vehicleInspections) {
+        this.vehicleInspections = vehicleInspections;
+    }
+
+    public Set<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(Set<Session> sessions) {
+        this.sessions = sessions;
+    }
 }

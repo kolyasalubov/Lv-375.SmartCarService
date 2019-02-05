@@ -3,6 +3,7 @@ package ua.ita.smartcarservice.controller;
 import ua.ita.smartcarservice.dto.stoDto.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.sto.TechnicalService;
 import ua.ita.smartcarservice.service.TechnicalServiceService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +15,15 @@ public class TechnicalServiceController {
     @Autowired
     TechnicalServiceService technicalServiceService;
 
+
+    @Autowired
+    DealerServiceImpl  dealerService;
+
     @GetMapping("/techservices")
     List<TechnicalServiceDto> getAllTechnicalServices(){
         return technicalServiceService.getAllTechnicalServicesDto();
     }
+
 
     @PostMapping("/techservices")
     @ResponseBody
@@ -26,6 +32,16 @@ public class TechnicalServiceController {
             @RequestParam(value = "address") String address){
 
         technicalServiceService.createTechnicalService(name, address);
+    }
+
+    @PostMapping("/addtechservicesToDealer")
+    @ResponseBody
+    void createTechnicalServiceByDealer( @RequestParam(value = "name") String name,
+                                         @RequestParam(value = "address") String address,
+                                         @RequestParam(value = "DealerId")Long id){
+
+                technicalServiceService.createTechnicalServiceByDealer(name,address,id);
+
     }
 
     @GetMapping("/techservices/{id}")

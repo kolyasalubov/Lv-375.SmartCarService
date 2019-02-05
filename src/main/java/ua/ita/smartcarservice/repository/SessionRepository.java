@@ -19,4 +19,7 @@ public interface SessionRepository extends JpaRepository<Session, Long> {
     List<Session> findTimeWhenWork(@Param("workerId") Long workerId,
                                    @Param("time") LocalDate time);
 
+    @Query("select count(s) from Session as s where :starttime < s.endSession and :endtime > s.startSession")
+    int selectNumberOfSessionWithDate(@Param("starttime") LocalDateTime starttime, @Param("endtime") LocalDateTime endtime);
+
 }

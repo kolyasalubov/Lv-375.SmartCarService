@@ -30,4 +30,11 @@ public class CarOwner extends UserBaseEntity {
         this.cars = cars;
     }
 
+    public Set<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(Set<Car> cars) {
+        this.cars = cars;
+    }
 }
