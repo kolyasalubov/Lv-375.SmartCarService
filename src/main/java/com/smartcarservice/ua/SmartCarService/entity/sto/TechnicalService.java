@@ -1,5 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.entity.sto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
@@ -26,6 +27,7 @@ public class TechnicalService {
     private String address;
 
 
+
     @ManyToOne
     @JoinColumn(name = "dealer_id")
     private Dealer dealer;
@@ -34,50 +36,11 @@ public class TechnicalService {
     @OneToOne(//fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "technicalService")
-    TechnicalManager technicalManager;
+    private TechnicalManager technicalManager;
 
-    @JsonManagedReference
+
+    @JsonBackReference
     @OneToMany(mappedBy = "technicalService")
-    Set<Worker> workers;
+    private Set<Worker> workers;
 
-
-    public Long getStoId() {
-        return stoId;
-    }
-
-    public void setStoId(Long stoId) {
-        this.stoId = stoId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Dealer getDealer() {
-        return dealer;
-    }
-
-    public void setDealer(Dealer dealer) {
-        this.dealer = dealer;
-    }
-
-    public TechnicalManager getTechnicalManager() {
-        return technicalManager;
-    }
-
-    public void setTechnicalManager(TechnicalManager technicalManager) {
-        this.technicalManager = technicalManager;
-    }
 }

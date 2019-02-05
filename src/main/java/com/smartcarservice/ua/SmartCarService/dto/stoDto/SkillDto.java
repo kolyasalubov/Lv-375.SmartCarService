@@ -2,6 +2,10 @@ package com.smartcarservice.ua.SmartCarService.dto.stoDto;
 
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.FaultCode;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Data
 public class SkillDto {
@@ -10,39 +14,7 @@ public class SkillDto {
 
     private String name;
 
-    public Long getRequiredTime() {
-        return requiredTime;
-    }
-
-    public void setRequiredTime(Long requiredTime) {
-        this.requiredTime = requiredTime;
-    }
-
     private Long requiredTime;
 
-    private FaultCode faultCode;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public FaultCode getFaultCode() {
-        return faultCode;
-    }
-
-    public void setFaultCode(FaultCode faultCode) {
-        this.faultCode = faultCode;
-    }
+    private List<FaultCode> faultCode;
 }

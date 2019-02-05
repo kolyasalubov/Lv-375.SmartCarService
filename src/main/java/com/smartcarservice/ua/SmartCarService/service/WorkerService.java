@@ -14,5 +14,5 @@ public interface WorkerService {
     List<WorkerDto> findAllWorkersBySkillAndSto(String name, Long stoId);
     List<WorkerDto> findWorkersByTechnicalManager(TechnicalManager technicalManager);
     void saveWorker(String fullName, Skill skill, TechnicalManager technicalManager, TechnicalService technicalService);
-
+    void deleteWorker(TechnicalManager technicalManager, Long workerId) throws Exception;
 }

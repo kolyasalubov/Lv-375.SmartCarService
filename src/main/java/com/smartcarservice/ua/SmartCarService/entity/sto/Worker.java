@@ -21,14 +21,6 @@ public class Worker {
     @Column(length = 100, nullable = false, unique = true)
     private String fullName;
 
-    public TechnicalService getTechnicalService() {
-        return technicalService;
-    }
-
-    public void setTechnicalService(TechnicalService technicalService) {
-        this.technicalService = technicalService;
-    }
-
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "manager_id", nullable = false)
@@ -40,9 +32,21 @@ public class Worker {
     private Skill skill;
 
     @ManyToOne
-    @JsonBackReference
+    //@JsonBackReference//works
     @JoinColumn(name = "sto_id", nullable = false)
     private TechnicalService technicalService;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "worker")
+    Set<Session> sessions;
+
+    public TechnicalService getTechnicalService() {
+        return technicalService;
+    }
+
+    public void setTechnicalService(TechnicalService technicalService) {
+        this.technicalService = technicalService;
+    }
 
     public String getFullName() {
         return fullName;
@@ -75,9 +79,4 @@ public class Worker {
     public void setSessions(Set<Session> sessions) {
         this.sessions = sessions;
     }
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "worker")
-    Set<Session> sessions;
-
 }

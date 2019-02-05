@@ -30,7 +30,11 @@ public class WorkerServiceImpl implements WorkerService {
 
     private WorkerDto getWorkerDto(Worker worker){
         WorkerDto workerDto = new WorkerDto();
+
+        workerDto.setWorkerId(worker.getWorkerId());
         workerDto.setFullName(worker.getFullName());
+        workerDto.setSkill(worker.getSkill());
+
         return workerDto;
     }
 
@@ -40,12 +44,7 @@ public class WorkerServiceImpl implements WorkerService {
         List<WorkerDto> workerDtoList = new ArrayList<>();
 
         for(Worker eachWorker: workersList){
-            WorkerDto workerDto = new WorkerDto();
-
-            workerDto.setFullName(eachWorker.getFullName());
-            workerDto.setSkill(eachWorker.getSkill());
-
-            workerDtoList.add(workerDto);
+            workerDtoList.add(getWorkerDto(eachWorker));
         }
 
         return workerDtoList;
@@ -62,5 +61,16 @@ public class WorkerServiceImpl implements WorkerService {
         worker.setTechnicalService(technicalService);
 
         workerRepository.save(worker);
+    }
+
+    @Override
+    public void deleteWorker(TechnicalManager technicalManager, Long workerId) throws Exception {
+        Worker worker = workerRepository.getOne(workerId);
+
+        if(worker.getTechnicalManager().getId() != technicalManager.getId()){
+            throw new Exception("You can not delete this worker!");
+        }
+
+        workerRepository.deleteById(workerId);
     }
 }
