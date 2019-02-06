@@ -17,8 +17,8 @@ public class SalesManagerEntity extends UserBaseEntity {
     @JoinColumn(name = "dealer_id", nullable = false)
     private Dealer dealer;
 
-    public SalesManagerEntity(String email, String password, String fullName, String userName/*Dealer dealer*/) {
-//        this.dealer = dealer;
+    public SalesManagerEntity(String email, String password, String fullName, String userName,Dealer dealer) {
+        this.dealer = dealer;
 
         this.setEmail(email);
         this.setPassword(password);

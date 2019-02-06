@@ -11,15 +11,15 @@ import javax.transaction.Transactional;
 
 @Repository
 public interface SalesManagerRepository extends JpaRepository<SalesManagerEntity, Long> {
-    @Modifying
-    @Query(value = "insert into sales_manager s(s.email, s.full_name, s.password, s.user_name) values(email,fullname,password,username)")
-    @Transactional
-    public void customSave(
-            @Param("email") String email,
-            @Param("fullname") String fullname,
-            @Param("password") String password,
-            @Param("username") String username);
-//            @Param("dealer_id")Long dealer_id);
-
+//    @Modifying
+//    @Query(value = "insert into sales_manager s(s.email, s.full_name, s.password, s.user_name) values(email,fullname,password,username)")
+//    @Transactional
+//    public void customSave(
+//            @Param("email") String email,
+//            @Param("fullname") String fullname,
+//            @Param("password") String password,
+//            @Param("username") String username);
+////            @Param("dealer_id")Long dealer_id);
+    SalesManagerEntity findByUserName(String username);
 
 }

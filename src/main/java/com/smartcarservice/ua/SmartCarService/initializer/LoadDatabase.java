@@ -24,7 +24,7 @@ public class LoadDatabase {
 
             List<Skill> populationList = new ArrayList<>();
 
-            populationList.add(new Skill("Service Technician", 2L));
+            populationList.add(new Skill("service Technician", 2L));
             populationList.add(new Skill("Diagnostic Technician", 3L));
             populationList.add(new Skill("Transmission Technician", 4L));
             populationList.add(new Skill("Brake Technician", 2L));

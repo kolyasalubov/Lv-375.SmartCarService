@@ -35,7 +35,10 @@ public abstract class UserBaseEntity {
     public long getId() {
         return id;
     }
-    
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -64,13 +67,6 @@ public abstract class UserBaseEntity {
     public String getUserName() {
         return userName;
     }
-<<<<<<< HEAD
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-=======
->>>>>>> 77c73067939dea046c49e61605362cb578d2f862
 
     public void setUserName(String userName) {
         this.userName = userName;
