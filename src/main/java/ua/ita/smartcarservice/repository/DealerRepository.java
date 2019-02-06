@@ -15,6 +15,7 @@ public interface DealerRepository extends JpaRepository<Dealer,Long> {
 
     Dealer findDealerByTechnicalServices(TechnicalService technicalService);
     Dealer findBySalesManagers(SalesManager salesManager);
+//    Dealer getDealerByUserName(String name);
 
     Dealer findDealerByCars(Car car);
 

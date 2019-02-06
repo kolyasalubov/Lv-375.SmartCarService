@@ -10,6 +10,7 @@ import ua.ita.smartcarservice.service.impl.CarOwnerServiceImpl;
 import ua.ita.smartcarservice.service.impl.CarServiceImpl;
 import ua.ita.smartcarservice.service.impl.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -93,5 +94,23 @@ public class CarController {
     public CarDto findByVin(@RequestParam(value = "vin") String vin) {
         return carService.findByVin(vin);
     }
+
+
+    @GetMapping("/isGuarantee")
+    @ResponseBody
+    boolean isGuarantee(@RequestParam(value = "vin")String vin) throws ParseException {
+//        Car car=carService.findCarByVin(vin);
+        return carService.isCarGuarantee(carService.findCarByVin(vin));
+    }
+
+
+    @GetMapping("/allGuaranteeCarInDealer")
+    @ResponseBody
+    List<Car>allGuaranteeCarInDealer(@RequestParam(value = "id")Long id) throws ParseException {
+
+        return carService.allGuaranteeCarinDealer(dealerService.findById(id));
+
+    }
+
 
 }

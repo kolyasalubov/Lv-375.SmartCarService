@@ -2,8 +2,11 @@ package ua.ita.smartcarservice.service;
 
 import ua.ita.smartcarservice.dto.stoDto.CarDto;
 import ua.ita.smartcarservice.entity.car.Car;
+import ua.ita.smartcarservice.entity.sales.Dealer;
 
+import java.text.ParseException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public interface CarService {
 
@@ -19,5 +22,8 @@ public interface CarService {
 
     void updateCar(Car car);
 
+    List<Car> allGuaranteeCarinDealer(Dealer dealer) throws ParseException;
+
+    Boolean isCarGuarantee(Car car) throws ParseException;
 
 }

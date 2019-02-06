@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class DealerController {
@@ -67,20 +68,15 @@ public class DealerController {
 
     @DeleteMapping("/deleteDealer")
     public void deleteDealer(@RequestParam(value = "id")Long id){
-        System.out.println("id= "+id);
 
         List<Car> cars=carService.dealerCars(id);
 for (int i=0;i<cars.size();i++){
-
     cars.get(i).setDealer(null);
 }
 
         dealerService.DeleteDealer(dealerService.findById(id));
 
     }
-
-
-
 
     @GetMapping("/dealers/{id}")
     @ResponseBody
@@ -94,6 +90,8 @@ for (int i=0;i<cars.size();i++){
 
         return dealerService.findAll();
     }
+
+
 
 
 
