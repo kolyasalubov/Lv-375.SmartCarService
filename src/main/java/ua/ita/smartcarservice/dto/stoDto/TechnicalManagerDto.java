@@ -24,7 +24,7 @@ public class TechnicalManagerDto {
     private TechnicalService technicalService;
 
     @JsonIgnore
-    Set<Worker> workers;
+        Set<Worker> workers;
 
     public TechnicalManagerDto(long id, String email, String password, String fullName, String userName, TechnicalService technicalService, Set<Worker> workers) {
         this.id = id;

@@ -29,7 +29,7 @@ public class TechnicalManagerController {
     @Autowired
     TechnicalServiceService technicalServiceService;
 
-    @PostMapping("/techmanagers")
+    @PostMapping("/api/techmanagers")
     @ResponseBody
     TechnicalManager createTechnicalManager(
             @RequestParam(value = "fullname") String fullname,
@@ -53,14 +53,14 @@ public class TechnicalManagerController {
     }
 
 
-    @GetMapping("/techmanagers/{id}")
+    @GetMapping("/api/techmanagers/{id}")
     @ResponseBody
     TechnicalManagerDto getTechnicalManager(@PathVariable Long id) {
         //ResponseEntity<TechnicalManagerDto> responseEntity;
         return technicalManagerService.getTechnicalManagerDto(id);
     }
 
-    @PutMapping("/techmanagers/{id}/")
+    @PutMapping("/api/techmanagers/{id}/")
     TechnicalManagerDto updateTechnicalManager(@PathVariable Long id,
                                                @RequestParam(value = "fullname", required = false) String fullname,
                                                @RequestParam(value = "username", required = false) String username,
@@ -86,7 +86,7 @@ public class TechnicalManagerController {
         return managerDto;
     }
 
-    @GetMapping("/techmanagers/{id}/workers")
+    @GetMapping("/api/techmanagers/{id}/workers")
     @ResponseBody
     List<WorkerDto> getTechnicalManagerWorkers(@PathVariable Long id) {
 
@@ -96,7 +96,7 @@ public class TechnicalManagerController {
         return workerService.findWorkersByTechnicalManager(technicalManager);
     }
 
-    @PostMapping("/techmanagers/{id}/workers")
+    @PostMapping("/api/techmanagers/{id}/workers")
     void addTechnicalManagerWorker(@PathVariable Long id,
                    @RequestParam(value = "fullname") String fullname,
                    @RequestParam(value = "skillid") Long skillId) {
@@ -112,7 +112,7 @@ public class TechnicalManagerController {
         workerService.saveWorker(fullname, skill, technicalManager, technicalService);
     }
 
-    @DeleteMapping("/techmanagers/{id}/workers/{workerId}")
+    @DeleteMapping("/api/techmanagers/{id}/workers/{workerId}")
     void deleteWorker(@PathVariable Long id, @PathVariable Long workerId) throws Exception{
         workerService.deleteWorker(technicalManagerService.getTechnicalManager(id), workerId);
     }

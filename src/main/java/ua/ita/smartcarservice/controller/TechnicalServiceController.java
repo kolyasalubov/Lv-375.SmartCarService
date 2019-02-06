@@ -20,13 +20,13 @@ public class TechnicalServiceController {
     @Autowired
     DealerServiceImpl dealerService;
 
-    @GetMapping("/techservices")
+    @GetMapping("/api/techservices")
     List<TechnicalServiceDto> getAllTechnicalServices(){
         return technicalServiceService.getAllTechnicalServicesDto();
     }
 
 
-    @PostMapping("/techservices")
+    @PostMapping("/api/techservices")
     @ResponseBody
     void createTechnicalService(
             @RequestParam(value = "name") String name,
@@ -35,22 +35,12 @@ public class TechnicalServiceController {
         technicalServiceService.createTechnicalService(name, address);
     }
 
-    @PostMapping("/addtechservicesToDealer")
-    @ResponseBody
-    void createTechnicalServiceByDealer( @RequestParam(value = "name") String name,
-                                         @RequestParam(value = "address") String address,
-                                         @RequestParam(value = "DealerId")Long id){
-
-                technicalServiceService.createTechnicalServiceByDealer(name,address,id);
-
-    }
-
-    @GetMapping("/techservices/{id}")
+    @GetMapping("/api/techservices/{id}")
     TechnicalServiceDto getTechnicalService(@PathVariable Long id){
         return technicalServiceService.getTechnicalServiceDtoById(id);
     }
 
-    @PutMapping("/techservices/{id}")
+    @PutMapping("/api/techservices/{id}")
     TechnicalServiceDto updateTechnicalService(@PathVariable Long id,
                                                @RequestParam(value = "name", required = false) String name,
                                                @RequestParam(value = "address", required = false) String address){
@@ -66,5 +56,15 @@ public class TechnicalServiceController {
         }
 
         return technicalServiceService.updateTechnicalService(technicalService);
+    }
+
+    @PostMapping("/addtechservicesToDealer")
+    @ResponseBody
+    void createTechnicalServiceByDealer( @RequestParam(value = "name") String name,
+                                         @RequestParam(value = "address") String address,
+                                         @RequestParam(value = "DealerId")Long id){
+
+        technicalServiceService.createTechnicalServiceByDealer(name,address,id);
+
     }
 }

@@ -14,7 +14,7 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("/skills")
+    @GetMapping("/api/skills")
     public List<SkillDto> getAllSkill(){
         return skillService.getAllSkills();
     }
