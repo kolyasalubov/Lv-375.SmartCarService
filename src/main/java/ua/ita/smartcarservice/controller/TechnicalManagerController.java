@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller (REST) works with TechnicalManager,
+ * Technical manager`s TechnicalService and
+ * Technical manager`s Workers
+ */
 @RestController
 public class TechnicalManagerController {
 
@@ -29,7 +34,11 @@ public class TechnicalManagerController {
     @Autowired
     TechnicalServiceService technicalServiceService;
 
-    @PostMapping("/techmanagers")
+    /*
+    Method for creating TechnicalManager and pushing it into DB,
+    it gets parameters from the URL
+     */
+    @PostMapping("/api/v1/techmanagers")
     @ResponseBody
     TechnicalManager createTechnicalManager(
             @RequestParam(value = "fullname") String fullname,
@@ -52,15 +61,21 @@ public class TechnicalManagerController {
         return technicalManager;
     }
 
-
-    @GetMapping("/techmanagers/{id}")
+    /*
+    Method for getting personal information about TechnicalManager by id
+     */
+    @GetMapping("/api/v1/techmanagers/{id}")
     @ResponseBody
     TechnicalManagerDto getTechnicalManager(@PathVariable Long id) {
         //ResponseEntity<TechnicalManagerDto> responseEntity;
         return technicalManagerService.getTechnicalManagerDto(id);
     }
 
-    @PutMapping("/techmanagers/{id}/")
+    /*
+    Method for updating TechnicalManager`s personal info,
+    it gets parameters from the URL
+     */
+    @PutMapping("/api/v1/techmanagers/{id}/")
     TechnicalManagerDto updateTechnicalManager(@PathVariable Long id,
                                                @RequestParam(value = "fullname", required = false) String fullname,
                                                @RequestParam(value = "username", required = false) String username,
@@ -86,7 +101,10 @@ public class TechnicalManagerController {
         return managerDto;
     }
 
-    @GetMapping("/techmanagers/{id}/workers")
+    /*
+    Method for getting all the Workers of current TechnicalManager by its id
+     */
+    @GetMapping("/api/v1/techmanagers/{id}/workers")
     @ResponseBody
     List<WorkerDto> getTechnicalManagerWorkers(@PathVariable Long id) {
 
@@ -96,10 +114,14 @@ public class TechnicalManagerController {
         return workerService.findWorkersByTechnicalManager(technicalManager);
     }
 
-    @PostMapping("/techmanagers/{id}/workers")
+    /*
+    Method for creating a new Worker and adding it to current TechnicalManager,
+    it gets parameters from the URL
+     */
+    @PostMapping("/api/v1/techmanagers/{id}/workers")
     void addTechnicalManagerWorker(@PathVariable Long id,
-                   @RequestParam(value = "fullname") String fullname,
-                   @RequestParam(value = "skillid") Long skillId) {
+                                   @RequestParam(value = "fullname") String fullname,
+                                   @RequestParam(value = "skillid") Long skillId) {
 
         TechnicalManager technicalManager;
         TechnicalService technicalService;
@@ -112,8 +134,11 @@ public class TechnicalManagerController {
         workerService.saveWorker(fullname, skill, technicalManager, technicalService);
     }
 
-    @DeleteMapping("/techmanagers/{id}/workers/{workerId}")
-    void deleteWorker(@PathVariable Long id, @PathVariable Long workerId) throws Exception{
+    /*
+    Method for deleting Worker by id from DB and current TechnicalManager`s worker list
+     */
+    @DeleteMapping("/api/v1/techmanagers/{id}/workers/{workerId}")
+    void deleteWorker(@PathVariable Long id, @PathVariable Long workerId) throws Exception {
         workerService.deleteWorker(technicalManagerService.getTechnicalManager(id), workerId);
     }
 }

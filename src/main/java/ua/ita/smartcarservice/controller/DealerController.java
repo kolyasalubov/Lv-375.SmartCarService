@@ -2,20 +2,28 @@ package ua.ita.smartcarservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ua.ita.smartcarservice.dto.stoDto.CarDto;
 import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sales.Dealer;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.DealerService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 public class DealerController {
+
     @Autowired
     DealerService dealerService;
 
     @Autowired
     CarService carService;
+
+
+
 
     @PostMapping("/createDealer")
     public void createDealer(@RequestParam(value = "email")String email,
@@ -30,6 +38,31 @@ public class DealerController {
         dealerService.CreateDealer(dealer);
 
     }
+
+
+    @PostMapping("/setguaranteeToCar")
+     public void  setToCarEnd_guarantee(@RequestParam(value = "vin")String vin,
+                                        @RequestParam(value = "end_guarantee")String date
+                                        ){
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date parsingDate = null;
+        try {
+            parsingDate = ft.parse(date);
+        }catch (ParseException e) {
+            System.out.println("error with parsing ");
+        }
+
+
+        Car car=carService.findCarByVin(vin);
+        car.setEnd_guarantee(parsingDate);
+
+        carService.updateCar(car);
+
+
+
+    }
+
 
 
     @DeleteMapping("/deleteDealer")
@@ -47,12 +80,8 @@ for (int i=0;i<cars.size();i++){
     }
 
 
-//    @GetMapping("/techmanagers/{id}")
-//    @ResponseBody
-//    TechnicalManagerDto getTechnicalManager(@PathVariable Long id) {
-//        //ResponseEntity<TechnicalManagerDto> responseEntity;
-//        return technicalManagerService.getTechnicalManagerDto(id);
-//    }
+
+
     @GetMapping("/dealers/{id}")
     @ResponseBody
     Dealer getdealer(@PathVariable Long id){
@@ -65,6 +94,7 @@ for (int i=0;i<cars.size();i++){
 
         return dealerService.findAll();
     }
+
 
 
 

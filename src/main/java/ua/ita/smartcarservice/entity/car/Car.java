@@ -89,13 +89,14 @@ public class Car {
         this.carOwner = carOwner;
     }
 
-    public Car(String brand, String model, String graduation_year, String number, String vin, Dealer dealer) {
+    public Car(String brand, String model, String graduation_year, String number, String vin, Dealer dealer,Double price) {
         this.brand = brand;
         this.model = model;
         this.graduation_year = graduation_year;
         this.number = number;
         this.vin = vin;
         this.dealer = dealer;
+        this.price=price;
     }
 	@JsonManagedReference
 	@OneToMany (mappedBy = "car")
@@ -196,5 +197,21 @@ public class Car {
 
     public void setSessions(Set<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", graduation_year='" + graduation_year + '\'' +
+                ", number='" + number + '\'' +
+                ", price=" + price +
+                ", vin='" + vin + '\'' +
+                ", end_guarantee=" + end_guarantee +
+                ", dealer=" + dealer +
+                ", carOwner=" + carOwner +
+                '}';
     }
 }

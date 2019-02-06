@@ -8,13 +8,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Controller (REST) that works only with skills
+ * Opportunities: Get all the skills
+ */
 @RestController
 public class SkillController {
 
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("/skills")
+
+    /*
+     * Method for getting all the skills
+     */
+    @GetMapping("/api/v1/skills")
     public List<SkillDto> getAllSkill(){
         return skillService.getAllSkills();
     }
