@@ -25,8 +25,8 @@ public class SensorRepositoryFactory {
     @Autowired
     private MileageRepository mileageRepository;
 
-    @Autowired
-    private TirePressureRepository tirePressureRepository;
+//    @Autowired
+//    private TirePressureRepository tirePressureRepository;
 
     @Autowired
     private OilPressureRepository oilPressureRepository;
@@ -62,7 +62,7 @@ public class SensorRepositoryFactory {
         repFactory.put(SensorTypes.BATTERY.toString(), batteryRepository);
         repFactory.put(SensorTypes.FUEL.toString(), fuelRepository);
         repFactory.put(SensorTypes.MILEAGE.toString(), mileageRepository);
-        repFactory.put(SensorTypes.TIRE_PRESSURE.toString(), tirePressureRepository);
+//        repFactory.put(SensorTypes.TIRE_PRESSURE.toString(), tirePressureRepository);
         repFactory.put(SensorTypes.OIL_PRESSURE.toString(), oilPressureRepository);
         repFactory.put(SensorTypes.OIL_LEVEL.toString(), oilLevelRepository);
     }
