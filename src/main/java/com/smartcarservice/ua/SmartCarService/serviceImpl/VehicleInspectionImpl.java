@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.VehicleInspectionDto;
+import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
 import com.smartcarservice.ua.SmartCarService.repository.VehicleInspectionRepository;
 import com.smartcarservice.ua.SmartCarService.service.VehicleInspectionService;
@@ -44,7 +45,10 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 		VehicleInspectionDto dto = new VehicleInspectionDto(entity.getId(), entity.getDateOfInspection(), entity.getMileageOfCar(), entity.getCar());
 		return dto;
 	}
-	
 
+	@Override
+	public List<Car> getCarsForVehicleInspectionByMileage() {
+		return vehicleInspectionRepository.getCarsForInspectionByMileage();
+	}
 	
 }

@@ -3,6 +3,7 @@ package com.smartcarservice.ua.SmartCarService.service;
 import java.util.List;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.VehicleInspectionDto;
+import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 
 public interface VehicleInspectionService {
 	
@@ -14,4 +15,5 @@ public interface VehicleInspectionService {
 
 //	VehicleInspection getLastVehicleInspection(long carId);
 	
+	List<Car> getCarsForVehicleInspectionByMileage();
 }
