@@ -2,9 +2,9 @@ package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import com.smartcarservice.ua.SmartCarService.Repository.DealerRepository;
 import com.smartcarservice.ua.SmartCarService.Repository.SalesManagerRepository;
+import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManager;
 import com.smartcarservice.ua.SmartCarService.service.SalesManagerService;
 import com.smartcarservice.ua.SmartCarService.dto.sales.SalesManagerDto;
-import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManagerEntity;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +20,13 @@ public class SalesManagerServiceImpl implements SalesManagerService {
     DealerRepository dealerRepository;
 
     @Override
-    public List<SalesManagerEntity> findAll() {
+    public List<SalesManager> findAll() {
         return salesManagerRepository.findAll();
     }
 
     @Override
     public void save(SalesManagerDto salesManagerDto) {
-        SalesManagerEntity entity = new SalesManagerEntity(
+        SalesManager entity = new SalesManager(
                 salesManagerDto.getEmail(),
                 salesManagerDto.getPassword(),
                 salesManagerDto.getFullName(),
@@ -43,7 +43,7 @@ public class SalesManagerServiceImpl implements SalesManagerService {
     @Override
     public SalesManagerDto getSalesManagerDto(String username) {
 //        salesManagerRepository.findAll().stream().
-        SalesManagerEntity salesManagerEntity = salesManagerRepository.findByUserName(username);
+        SalesManager salesManagerEntity = salesManagerRepository.findByUserName(username);
         SalesManagerDto salesManagerDto = new SalesManagerDto(
                 salesManagerEntity.getEmail(),
                 salesManagerEntity.getPassword(),

@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SmartCarServiceApplication {
 
 	public static void main(String[] args) {
-//        SalesManagerEntity salesManagerEntity = new SalesManagerEntity(6,"asd","sadd","dsadas","dsadsa",new HashSet<Dealer>());
+//        SalesManager salesManagerEntity = new SalesManager(6,"asd","sadd","dsadas","dsadsa",new HashSet<Dealer>());
 //        SalesManagerService salesManagerService=new SalesManagerServiceImpl();
-//        salesManagerService.save(new SalesManagerEntity("sdsds","asd","sadd","dsadas"));
+//        salesManagerService.save(new SalesManager("sdsds","asd","sadd","dsadas"));
 //        salesManagerService.customSave("sss","sss","sss","sss");
         SpringApplication.run(SmartCarServiceApplication.class, args);
 	}

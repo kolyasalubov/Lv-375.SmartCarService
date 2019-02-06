@@ -12,12 +12,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "sales_manager")
-public class SalesManagerEntity extends UserBaseEntity {
+public class SalesManager extends UserBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dealer_id", nullable = false)
     private Dealer dealer;
 
-    public SalesManagerEntity(String email, String password, String fullName, String userName,Dealer dealer) {
+    public SalesManager(String email, String password, String fullName, String userName, Dealer dealer) {
         this.dealer = dealer;
 
         this.setEmail(email);

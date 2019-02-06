@@ -41,7 +41,7 @@ public class Dealer extends UserBaseEntity {
 
 
     @OneToMany(mappedBy = "dealer")
-    private Set<SalesManagerEntity> salesManagers;
+    private Set<SalesManager> salesManagers;
 
 
 }
