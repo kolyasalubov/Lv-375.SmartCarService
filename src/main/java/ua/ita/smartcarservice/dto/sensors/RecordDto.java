@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class RecordDto implements IRecordDto{
+public class RecordDto implements IRecordDto {
 
     private String sensorType;
 

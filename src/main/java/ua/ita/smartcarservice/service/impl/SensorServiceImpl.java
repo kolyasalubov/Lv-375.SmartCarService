@@ -7,14 +7,13 @@ import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.SensorRepository;
-import ua.ita.smartcarservice.repository.SensorRepositoryFactory;
+import ua.ita.smartcarservice.repository.sensorsFactory.SensorRepositoryFactory;
 import ua.ita.smartcarservice.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 @Service
 public class SensorServiceImpl implements SensorService {
