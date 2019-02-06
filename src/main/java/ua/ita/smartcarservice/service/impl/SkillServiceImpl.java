@@ -10,23 +10,32 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of Skill service
+ */
 @Service
 public class SkillServiceImpl implements SkillService {
 
     @Autowired
     private SkillRepository repository;
 
+    /*
+    Method for getting all the Skills from DB
+     */
     @Override
     public List<SkillDto> getAllSkills() {
-        List<SkillDto> allSkill = new ArrayList <>();
-        for(Skill skill : repository.findAll()){
+        List<SkillDto> allSkill = new ArrayList<>();
+        for (Skill skill : repository.findAll()) {
             allSkill.add(getSkillDto(skill));
         }
         return allSkill;
-
     }
+
+    /*
+    Method converts Skill entity to DTO
+     */
     @Override
-    public SkillDto getSkillDto(Skill skill){
+    public SkillDto getSkillDto(Skill skill) {
         SkillDto skillDto = new SkillDto();
         skillDto.setId(skill.getSkillId());
         skillDto.setName(skill.getName());
@@ -35,6 +44,9 @@ public class SkillServiceImpl implements SkillService {
         return skillDto;
     }
 
+    /*
+    Method returns Skill entity by id
+     */
     @Override
     public Skill getSkillById(Long id) {
         return repository.findById(id).get();
