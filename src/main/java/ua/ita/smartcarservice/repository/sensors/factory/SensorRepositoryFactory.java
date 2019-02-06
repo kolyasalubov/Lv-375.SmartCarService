@@ -1,10 +1,10 @@
-package ua.ita.smartcarservice.repository.sensorsFactory;
+package ua.ita.smartcarservice.repository.sensors.factory;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ita.smartcarservice.entity.sensors.data.*;
-import ua.ita.smartcarservice.repository.SensorRepository;
+import ua.ita.smartcarservice.repository.sensors.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,25 +14,25 @@ import java.util.Map;
 public class SensorRepositoryFactory {
 
     @Autowired
-    private SensorRepository<SpeedEntity> speedRepository;
+    private SpeedRepository speedRepository;
 
     @Autowired
-    private SensorRepository<BatteryEntity> batteryRepository;
+    private BatteryRepository batteryRepository;
 
     @Autowired
-    private SensorRepository<FuelEntity> fuelRepository;
+    private FuelRepository fuelRepository;
 
     @Autowired
-    private SensorRepository<MileageEntity> mileageRepository;
+    private MileageRepository mileageRepository;
 
     @Autowired
-    private SensorRepository<TirePressureEntity> tirePressureRepository;
+    private TirePressureRepository tirePressureRepository;
 
     @Autowired
-    private SensorRepository<OilPressureEntity> oilPressureRepository;
+    private OilPressureRepository oilPressureRepository;
 
     @Autowired
-    private SensorRepository<OilLevelEntity> oilLevelRepository;
+    private OilLevelRepository oilLevelRepository;
 
     private Map <String, SensorRepository<? extends BaseSensorEntity> > repFactory = new HashMap<>();
     private Map <String, Class> entityFactory = new HashMap<>();

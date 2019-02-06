@@ -1,7 +1,11 @@
 package ua.ita.smartcarservice.service.impl;
 
+import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,6 +48,26 @@ public class LabelsProvider {
 
     public List<String> getMonthes(){
         return Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+    }
+
+    public List<String> getHours(List<ISensorEntity> records){
+        List<String> labels = new ArrayList<>();
+        for (ISensorEntity entity : records) {
+            labels.add(dateTimeToTime(entity.getDate()));
+        }
+        return labels;
+    }
+
+    private String dateTimeToTime(LocalDateTime dateTime){
+        int hour = dateTime.getHour();
+        int minutes = dateTime.getMinute();
+        LocalTime time = LocalTime.of(hour, minutes);
+        return parseTimeToString(time);
+    }
+
+    private String parseTimeToString (LocalTime time){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return time.format(formatter);
     }
 
 }

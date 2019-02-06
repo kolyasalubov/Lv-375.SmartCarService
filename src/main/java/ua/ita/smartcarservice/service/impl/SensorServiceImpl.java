@@ -6,14 +6,16 @@ import ua.ita.smartcarservice.dto.sensors.RecordDto;
 import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
-import ua.ita.smartcarservice.repository.SensorRepository;
-import ua.ita.smartcarservice.repository.sensorsFactory.SensorRepositoryFactory;
+import ua.ita.smartcarservice.repository.sensors.factory.SensorRepository;
+import ua.ita.smartcarservice.repository.sensors.factory.SensorRepositoryFactory;
 import ua.ita.smartcarservice.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -25,15 +27,47 @@ public class SensorServiceImpl implements SensorService {
     CarRepository carRepository;
 
     @Override
+    public void addRecord(RecordDto recordDto) {
+        SensorRepository rep = factory.getRepository(recordDto.getSensorType());
+        rep.save(recordDtoToEntity(recordDto));
+    }
+
+    private ISensorEntity recordDtoToEntity(RecordDto recordDto){
+        String repositoryType = recordDto.getSensorType();
+        Car car = carRepository.findByVin(recordDto.getCarVin());
+
+        ISensorEntity entity = factory.getEntity(repositoryType);
+        entity.setDate(parseDateToLocal(recordDto.getDate()));
+        entity.setValue(recordDto.getValue());
+        entity.setCar(car);
+
+        return entity;
+    }
+
+    private LocalDateTime parseDateToLocal (String strDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(strDate, formatter);
+    }
+
+
+    private List<Double> getData(List<ISensorEntity> records){
+        List<Double> data = new ArrayList<>();
+        for (ISensorEntity entity : records) {
+            data.add(entity.getValue());
+        }
+        return data;
+    }
+
+    @Override
     public ChartDto getAllByDay(DateForChartDto dateForChartDto) {
-//        SensorRepository repository = getRepository(dateForChartDto);
-//        LocalDateTime date = dateForChartDto.getDate();
-//        List<? extends BaseSensorEntity> records = repository.getAllByDay(date, dateForChartDto.getCarId());
-//
-//        List<Double> data = getData(records);
-//        List<String> lables = new LabelsProvider().getDays(date);
-//        return new ChartDto(data, lables);
-        return null;
+        SensorRepository rep = factory.getRepository(dateForChartDto.getSensorType());
+        List<ISensorEntity> records = rep.getAllByDay(
+                parseDateToLocal(dateForChartDto.getDate()),
+                dateForChartDto.getCarId());
+
+        List<Double> data = getData(records);
+        List<String> lables = new LabelsProvider().getHours(records);
+        return new ChartDto(data, lables);
     }
 
     @Override
@@ -71,29 +105,6 @@ public class SensorServiceImpl implements SensorService {
     @Override
     public ChartDto getMinByYear(DateForChartDto dateForChartDto) {
         return null;
-    }
-
-    @Override
-    public void addRecord(RecordDto recordDto) {
-        SensorRepository rep = factory.getRepository(recordDto.getSensorType());
-        rep.save(recordDtoToEntity(recordDto));
-    }
-
-    private ISensorEntity recordDtoToEntity(RecordDto recordDto){
-        String repositoryType = recordDto.getSensorType();
-        Car car = carRepository.findByVin(recordDto.getCarVin());
-
-        ISensorEntity entity = factory.getEntity(repositoryType);
-        entity.setDate(parseDate(recordDto.getDate()));
-        entity.setValue(recordDto.getValue());
-        entity.setCar(car);
-
-        return entity;
-    }
-
-    private LocalDateTime parseDate(String strDate){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(strDate, formatter);
     }
 
 }

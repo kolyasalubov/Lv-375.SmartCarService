@@ -1,19 +1,25 @@
-package ua.ita.smartcarservice.repository;
+package ua.ita.smartcarservice.repository.sensors.factory;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.repository.query.Param;
 import ua.ita.smartcarservice.entity.sensors.data.BaseSensorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import java.time.LocalDateTime;
+import java.util.List;
+
+@NoRepositoryBean
 public interface SensorRepository<T extends BaseSensorEntity> extends JpaRepository<T, Long> {
 
     /* READ */
 
-//    @Query("SELECT t FROM #{#entityName} t WHERE t.car.id = :carId " +
-//            "AND DAY(t.date) = DAY(:date) AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)")
-//    public List<T> getAllByDay(@Param("date") LocalDateTime date,
-//                                @Param("carId") long carId);
-//
+    @Query("SELECT t FROM #{#entityName} t WHERE t.car.id = :carId " +
+            "AND DAY(t.date) = DAY(:date) AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)")
+    public List<T> getAllByDay(@Param("date") LocalDateTime date,
+                               @Param("carId") long carId);
+
 //    @Query("SELECT t.id, t.car, t.date, AVG(t.value) " +
 //            "FROM #{#entityName} t " +
 //            "WHERE t.car.id = :carId AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +

@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.repository.sensorsFactory;
+package ua.ita.smartcarservice.repository.sensors.factory;
 
 import ua.ita.smartcarservice.entity.sensors.data.*;
 

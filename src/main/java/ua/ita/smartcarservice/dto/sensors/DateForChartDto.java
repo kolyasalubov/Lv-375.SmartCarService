@@ -13,9 +13,9 @@ public class DateForChartDto {
 
     private long carId;
 
-    private LocalDateTime date;
+    private String date;
 
-    public DateForChartDto(String sensorType, long carId, LocalDateTime date) {
+    public DateForChartDto(String sensorType, long carId, String date) {
         this.sensorType = sensorType;
         this.carId = carId;
         this.date = date;
