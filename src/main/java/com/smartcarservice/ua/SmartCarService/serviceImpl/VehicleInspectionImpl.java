@@ -2,15 +2,18 @@ package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import com.smartcarservice.ua.SmartCarService.dto.stoDto.VehicleInspectionDto;
 import com.smartcarservice.ua.SmartCarService.entity.sensors.alert.VehicleInspection;
 import com.smartcarservice.ua.SmartCarService.repository.VehicleInspectionRepository;
 import com.smartcarservice.ua.SmartCarService.service.VehicleInspectionService;
 
-
+@Service
 public class VehicleInspectionImpl implements VehicleInspectionService{
 
 	@Autowired
@@ -41,6 +44,7 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 		VehicleInspectionDto dto = new VehicleInspectionDto(entity.getId(), entity.getDateOfInspection(), entity.getMileageOfCar(), entity.getCar());
 		return dto;
 	}
+	
 
 	
 }

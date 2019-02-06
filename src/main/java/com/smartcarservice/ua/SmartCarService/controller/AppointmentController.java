@@ -1,5 +1,9 @@
 package com.smartcarservice.ua.SmartCarService.controller;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +21,20 @@ public class AppointmentController {
 	}
 	
 	@RequestMapping ("/appointment")
-	public void getAdditionalAppointments (@RequestParam(value="userId") Long userId,
+	public HashMap<String, Object> getAdditionalAppointments (@RequestParam(value="userId") Long userId,
 										   @RequestParam(value="carId") Long carId,
-										   @RequestParam(value="skillId") int skillId) {
-		
+										   @RequestParam(value="skillId") Long skillId) {
+		HashMap<String, Object> toReturn = new HashMap<>();
+		try {
+			Set<Long> skillIdsSet = new HashSet<>();
+			skillIdsSet.add(skillId);
+			//sensors alerts
+			
+			toReturn.put("skillIdsSet", skillIdsSet);
+			toReturn.put("carId", carId);
+		} catch (Exception e) {
+			System.out.println("Appointment exception: " + e.getMessage());
+		}
+		return toReturn;
 	}
 }
