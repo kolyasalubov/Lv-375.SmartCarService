@@ -20,13 +20,13 @@ public class TechnicalServiceController {
     @Autowired
     DealerServiceImpl dealerService;
 
-    @GetMapping("/api/techservices")
+    @GetMapping("/api/v1/techservices")
     List<TechnicalServiceDto> getAllTechnicalServices(){
         return technicalServiceService.getAllTechnicalServicesDto();
     }
 
 
-    @PostMapping("/api/techservices")
+    @PostMapping("/api/v1/techservices")
     @ResponseBody
     void createTechnicalService(
             @RequestParam(value = "name") String name,
@@ -35,12 +35,12 @@ public class TechnicalServiceController {
         technicalServiceService.createTechnicalService(name, address);
     }
 
-    @GetMapping("/api/techservices/{id}")
+    @GetMapping("/api/v1/techservices/{id}")
     TechnicalServiceDto getTechnicalService(@PathVariable Long id){
         return technicalServiceService.getTechnicalServiceDtoById(id);
     }
 
-    @PutMapping("/api/techservices/{id}")
+    @PutMapping("/api/v1/techservices/{id}")
     TechnicalServiceDto updateTechnicalService(@PathVariable Long id,
                                                @RequestParam(value = "name", required = false) String name,
                                                @RequestParam(value = "address", required = false) String address){
