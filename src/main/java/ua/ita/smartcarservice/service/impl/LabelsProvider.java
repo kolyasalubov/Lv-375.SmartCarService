@@ -11,9 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class LabelsProvider {
+class LabelsProvider {
 
-    public List<String> getMonths(List<Object[]> records){
+    List<String> getMonths(List<Object[]> records){
         List<String> names = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
 
         List<String> lables = new ArrayList<>();
@@ -23,7 +23,7 @@ public class LabelsProvider {
         return lables;
     }
 
-    public List<String> getDays(List<Object[]> records){
+    List<String> getDays(List<Object[]> records){
         List<String> lables = new ArrayList<>();
         for(Object[] el : records){
             lables.add(String.valueOf(el[0]));
@@ -31,7 +31,7 @@ public class LabelsProvider {
         return lables;
     }
 
-    public List<String> getHours(List<ISensorEntity> records){
+    List<String> getHours(List<ISensorEntity> records){
         List<String> labels = new ArrayList<>();
         for (ISensorEntity entity : records) {
             labels.add(dateTimeToTime(entity.getDate()));
