@@ -27,4 +27,6 @@ public class SalesManager extends UserBaseEntity {
 	public void setDealer(Dealer dealer) {
 		this.dealer = dealer;
 	}
+
+
 }

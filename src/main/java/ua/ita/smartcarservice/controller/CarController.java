@@ -47,11 +47,12 @@ public class CarController {
                           @RequestParam(value = "graduation_year") String graduation_year,
                           @RequestParam(value = "number") String number,
                           @RequestParam(value = "vin") String vin,
-                          @RequestParam(value = "dealerID")Long id) {
+                          @RequestParam(value = "dealerID")Long id,
+                          @RequestParam(value = "price")Double price) {
 
         Dealer dealer=dealerService.findById(id);
 
-        Car car = new Car(brand, model, graduation_year, number, vin, dealer);
+        Car car = new Car(brand, model, graduation_year, number, vin, dealer,price);
 
         carService.create(car);
     }

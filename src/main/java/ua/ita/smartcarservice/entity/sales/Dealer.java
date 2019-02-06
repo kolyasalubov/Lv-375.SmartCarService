@@ -62,6 +62,7 @@ public class Dealer extends UserBaseEntity implements Serializable {
     }
 
 
+
     public String getPhone_number() {
         return phone_number;
     }

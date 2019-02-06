@@ -80,6 +80,16 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void updateCar(Car car) {
+        carRepository.save(car);
+    }
+
+    @Override
+    public Car findCarByVin(String vin) {
+        return carRepository.findByVin(vin);
+    }
+
+    @Override
     public List<Car> dealerCars(Long id) {
         Dealer dealer = (Dealer)dealerRepository.getDealerById(id);
         return (List<Car>) carRepository.getAllByDealer(dealer);
