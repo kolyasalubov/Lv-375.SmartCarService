@@ -5,6 +5,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fact_oil_pressure")
+public class OilPressureEntity extends SensorEntity implements ISensorEntity {
 
-public class OilPressureEntity extends RecordEntity {
 }

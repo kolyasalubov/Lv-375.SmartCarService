@@ -3,13 +3,12 @@ package ua.ita.smartcarservice.entity.sensors.data;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Data
 @MappedSuperclass
-public abstract class RecordEntity extends BaseRecordEntity{
+public abstract class SensorEntity extends BaseSensorEntity{
 
     @Column(nullable = false)
-    private BigDecimal value;
+    protected double value;
 
 }

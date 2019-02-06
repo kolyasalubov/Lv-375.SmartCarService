@@ -5,6 +5,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "fact_mileage")
+public class MileageEntity extends SensorEntity implements ISensorEntity {
 
-public class MileageEntity extends RecordEntity {
 }
