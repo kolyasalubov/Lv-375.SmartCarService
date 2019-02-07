@@ -46,11 +46,6 @@ public class SensorServiceImpl implements SensorService {
         return entity;
     }
 
-    private LocalDateTime parseDateToLocal (String strDate){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(strDate, formatter);
-    }
-
 
     /* READ */
 
@@ -74,20 +69,14 @@ public class SensorServiceImpl implements SensorService {
         return factory.getRepository(dateForChartDto.getSensorType());
     }
 
-    private Pair<LocalDateTime, Long> getParams(DateForChartDto dateForChartDto){
-        LocalDateTime date = parseDateToLocal(dateForChartDto.getDate());
-        Long carId = dateForChartDto.getCarId();
-        return new Pair<>(date, carId);
-    }
-
     @Override
     public ChartDto getAllByDay(DateForChartDto dateForChartDto) {
         Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
         List<ISensorEntity> records = getRepository(dateForChartDto).getAllByDay(params.getKey(), params.getValue());
 
         List<Double> data = getData(records);
-        List<String> lables = new LabelsProvider().getHours(records);
-        return new ChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getHours(records);
+        return new ChartDto(data, labels);
     }
 
     @Override
@@ -116,8 +105,8 @@ public class SensorServiceImpl implements SensorService {
 
     private ChartDto chartDtoForMonths(List<Object[]> records){
         List<Double> data = getDataFromObjArray(records);
-        List<String> lables = new LabelsProvider().getDays(records);
-        return new ChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getDays(records);
+        return new ChartDto(data, labels);
     }
 
     @Override
@@ -146,7 +135,7 @@ public class SensorServiceImpl implements SensorService {
 
     private ChartDto chartDtoForYears(List<Object[]> records){
         List<Double> data = getDataFromObjArray(records);
-        List<String> lables = new LabelsProvider().getMonths(records);
-        return new ChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getMonths(records);
+        return new ChartDto(data, labels);
     }
 }

@@ -50,11 +50,6 @@ public class TireSensorServiceImpl implements SensorService {
         return entity;
     }
 
-    private LocalDateTime parseDateToLocal (String strDate){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(strDate, formatter);
-    }
-
 
     /* READ */
 
@@ -93,20 +88,14 @@ public class TireSensorServiceImpl implements SensorService {
     }
 
 
-    private Pair<LocalDateTime, Long> getParams(DateForChartDto dateForChartDto){
-        LocalDateTime date = parseDateToLocal(dateForChartDto.getDate());
-        Long carId = dateForChartDto.getCarId();
-        return new Pair<>(date, carId);
-    }
-
     @Override
     public TireChartDto getAllByDay(DateForChartDto dateForChartDto) {
         Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
         List<TirePressureEntity> records = repository.getAllByDay(params.getKey(), params.getValue());
 
         Map<String, List<Double>> data = getData(records);
-        List<String> lables = new LabelsProvider().getTireHours(records);
-        return new TireChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getTireHours(records);
+        return new TireChartDto(data, labels);
     }
 
     @Override
@@ -135,8 +124,8 @@ public class TireSensorServiceImpl implements SensorService {
 
     private TireChartDto chartDtoForMonths(List<Object[]> records){
         Map< String, List<Double>> data = getDataFromObjArray(records);
-        List<String> lables = new LabelsProvider().getDays(records);
-        return new TireChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getDays(records);
+        return new TireChartDto(data, labels);
     }
 
     @Override
@@ -165,7 +154,7 @@ public class TireSensorServiceImpl implements SensorService {
 
     private TireChartDto chartDtoForYears(List<Object[]> records){
         Map<String, List<Double>> data = getDataFromObjArray(records);
-        List<String> lables = new LabelsProvider().getMonths(records);
-        return new TireChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getMonths(records);
+        return new TireChartDto(data, labels);
     }
 }
