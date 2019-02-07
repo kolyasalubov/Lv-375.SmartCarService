@@ -6,7 +6,6 @@ import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManager;
 
 import java.util.List;
 
-//@repository
 public interface SalesManagerService {
 
     List<SalesManager> findAll();
@@ -21,8 +20,6 @@ public interface SalesManagerService {
 
     public SalesManagerDto entityToDto(SalesManager salesManager);
 
-//    public List<SalesManager> getAllSalesManagersByDealerUsername();
-
     SalesManager getSalesManagerById(Long id);
 
     SalesManagerDto getSalesManagerDtoById(Long id);
@@ -33,7 +30,7 @@ public interface SalesManagerService {
 
     void deleteSalesManagerByUsername(String username);
 
-    void  deleteAllSalesManagers();
+    void deleteAllSalesManagers();
 
     SalesManager getSalesManagerByUserName(String username);
 
@@ -41,8 +38,7 @@ public interface SalesManagerService {
 
     SalesManager dtoToEntity(SalesManagerDto salesManagerDto);
 
-    public void updateSalesManager(Long id, SalesManager salesManager);
-
+    void updateSalesManager(Long id, SalesManager salesManager);
 
 
 }

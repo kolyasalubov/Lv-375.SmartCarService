@@ -21,8 +21,32 @@ public class SalesManagerServiceImpl implements SalesManagerService {
     DealerRepository dealerRepository;
 
     @Override
-    public List<SalesManager> findAll() {
+    public List<SalesManager> findAll() {   //is not used
         return salesManagerRepository.findAll();
+    }
+
+    public List<SalesManager> getAllSalesManagers() {
+        return (List<SalesManager>) salesManagerRepository.findAll();
+    }
+
+    @Override
+    public SalesManager getSalesManagerById(Long id) {
+        return salesManagerRepository.getSalesManagerById(id);
+    }
+
+    @Override
+    public SalesManagerDto getSalesManagerDtoById(Long id) {
+        return null;
+    }
+
+    @Override
+    public SalesManager getSalesManagerByUserName(String username) {
+        return salesManagerRepository.getSalesManagerByUserName(username);
+    }
+
+    @Override
+    public List<SalesManagerDto> getAllSalesManagersByDealerUsername(String username) {
+        return salesManagerEntityListToDto(salesManagerRepository.findAlByDealer_UserName(username)); //entityToDto(salesManagerRepository.getAllByDealer_UserName());
     }
 
     @Override
@@ -35,6 +59,7 @@ public class SalesManagerServiceImpl implements SalesManagerService {
                 dealerRepository.getDealerByUserName(salesManagerDto.getDealerUsername()));
         salesManagerRepository.save(entity);
     }
+
     @Override
     public void customSave(String email, String fullname, String password, String username) {
 //        salesManagerRepository.customSave(email,fullname,password,username);
@@ -54,53 +79,17 @@ public class SalesManagerServiceImpl implements SalesManagerService {
     }
 
     @Override
-    public void updateSalesManager(Long id, SalesManagerDto salesManagerDto){
+    public void updateSalesManager(Long id, SalesManagerDto salesManagerDto) {
         SalesManager salesManager = dtoToEntity(salesManagerDto);
         salesManager.setId(id);
         salesManagerRepository.save(salesManager);
     }
+
     @Override
-    public void updateSalesManager(Long id, SalesManager salesManager){
+    public void updateSalesManager(Long id, SalesManager salesManager) {
 //        SalesManager salesManager = dtoToEntity(salesManagerDto);
         salesManager.setId(id);
         salesManagerRepository.save(salesManager);
-    }
-
-
-
-    public void updateSalesManagerByUsername(String username, SalesManagerDto salesManagerDto) {
-        SalesManager salesManager = salesManagerRepository.getByUserName(username);
-        salesManager.setEmail(salesManagerDto.getEmail());
-        salesManager.setPassword(salesManagerDto.getPassword());
-        salesManager.setFullName(salesManagerDto.getFullName());
-        salesManager.setUserName(salesManagerDto.getUserName());
-        dealerRepository.getDealerByUserName(salesManagerDto.getDealerUsername());
-        salesManagerRepository.save(salesManager);
-
-    }
-
-    public List<SalesManager> getAllSalesManagers() {
-        return (List<SalesManager>) salesManagerRepository.findAll();
-    }
-
-    @Override
-    public SalesManager getSalesManagerById(Long id) {
-        return salesManagerRepository.getSalesManagerById(id);
-    }
-
-    @Override
-    public SalesManagerDto getSalesManagerDtoById(Long id) {
-        return null;
-    }
-
-    @Override
-    public  List<SalesManagerDto> salesManagerEntityListToDto(List<SalesManager> salesManagers){
-        List<SalesManagerDto> salesManagerDtos=new ArrayList<>();
-        for (SalesManager salesManager:salesManagers){
-            salesManagerDtos.add(entityToDto(salesManager));
-        }
-        return salesManagerDtos;
-//
     }
 
     @Override
@@ -114,16 +103,6 @@ public class SalesManagerServiceImpl implements SalesManagerService {
         salesManagerRepository.deleteAll();
     }
 
-    @Override
-    public SalesManager getSalesManagerByUserName(String username) {
-        return salesManagerRepository.getSalesManagerByUserName(username);
-    }
-
-    @Override
-    public List<SalesManagerDto> getAllSalesManagersByDealerUsername(String username) {
-        return salesManagerEntityListToDto(salesManagerRepository.findAlByDealer_UserName(username)); //entityToDto(salesManagerRepository.getAllByDealer_UserName());
-    }
-
     public SalesManagerDto entityToDto(SalesManager salesManager) {
         return new SalesManagerDto(
                 salesManager.getEmail(),
@@ -133,7 +112,8 @@ public class SalesManagerServiceImpl implements SalesManagerService {
                 salesManager.getDealer().getUserName()
         );
     }
-    public SalesManager dtoToEntity(SalesManagerDto salesManagerDto){
+
+    public SalesManager dtoToEntity(SalesManagerDto salesManagerDto) {
         SalesManager salesManager = new SalesManager();//salesManagerRepository.getByUserName(username);
         salesManager.setEmail(salesManagerDto.getEmail());
         salesManager.setPassword(salesManagerDto.getPassword());
@@ -143,4 +123,12 @@ public class SalesManagerServiceImpl implements SalesManagerService {
         return salesManager;
     }
 
+    public List<SalesManagerDto> salesManagerEntityListToDto(List<SalesManager> salesManagers) {
+        List<SalesManagerDto> salesManagerDtos = new ArrayList<>();
+        for (SalesManager salesManager : salesManagers) {
+            salesManagerDtos.add(entityToDto(salesManager));
+        }
+        return salesManagerDtos;
+//
+    }
 }
