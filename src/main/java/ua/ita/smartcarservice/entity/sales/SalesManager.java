@@ -31,8 +31,8 @@ public class SalesManager extends UserBaseEntity {
 		this.dealer = dealer;
 	}
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "dealer")
-	private Set<TradeIn> tradeIns;
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "dealer")
+//	private Set<TradeIn> tradeIns;
 
 }

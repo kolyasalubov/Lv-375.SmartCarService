@@ -47,6 +47,9 @@ public class TireSensorServiceImpl implements SensorService {
         entity.setValueFrontRight(data.get(Tires.FRONT_RIGHT.toString()));
         entity.setValueFrontLeft(data.get(Tires.FRONT_LEFT.toString()));
 
+        if(recordDto.getDate() != null)
+            entity.setDate(parseDateToLocal(recordDto.getDate()));
+
         return entity;
     }
 

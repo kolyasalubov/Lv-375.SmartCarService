@@ -32,7 +32,7 @@ public interface SensorService {
     /* DEFAULT METHODS */
 
     default LocalDateTime parseDateToLocal (String strDate){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(strDate, formatter);
     }
 
