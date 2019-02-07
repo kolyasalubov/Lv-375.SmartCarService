@@ -6,6 +6,7 @@ import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sales.Dealer;
 import ua.ita.smartcarservice.entity.sales.SalesManager;
 import ua.ita.smartcarservice.entity.sto.TechnicalService;
+import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.DealerRepository;
 import ua.ita.smartcarservice.service.DealerService;
 
@@ -20,6 +21,8 @@ public class DealerServiceImpl implements DealerService {
 
     @Autowired
     DealerRepository dealerRepo;
+    @Autowired
+    CarRepository carRepository;
 
     @Override
     public void CreateDealer(Dealer dealer) {
@@ -28,11 +31,20 @@ public class DealerServiceImpl implements DealerService {
 
     @Override
     public void DeleteDealer(Dealer dealer) {
+
+
         dealerRepo.delete(dealer);
     }
 
     @Override
     public void DeleteDealerById(Long id) {
+//        List<Car> cars=carService.dealerCars(id);
+
+//        List<Car>cars=carRepository.getAllByDealer(dealerRepo.getDealerById(id));
+//        for (int i=0;i<cars.size();i++){
+//            cars.get(i).setDealer(null);
+//        }
+
         dealerRepo.deleteById(id);
     }
 
