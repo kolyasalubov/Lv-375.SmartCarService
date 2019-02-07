@@ -25,7 +25,13 @@ public interface SalesManagerRepository extends JpaRepository<SalesManager, Long
     List<SalesManager> findAll();
     SalesManager findSalesManagerByUserName(String username);
     SalesManager getSalesManagerById(Long id);
-    List<SalesManager> getAllByDealer_UserName();
+//    "select w from Worker as w LEFT JOIN Skill as s on w.skill = s.skillId where s.name = :name and w.technicalService = :stoI""
+    @Query(value = "select s from SalesManager as s inner join fetch Dealer as d on s.dealer=d.id where s.dealer =:username")
+    List<SalesManager> findAlByDealer_UserName(String username);
+//    List<SalesManager> getAllByDealerAllByDealer_UserName(String username);
+    void deleteByUserName(String username);
+    SalesManager getSalesManagerByUserName(String username);
+
 
 
 

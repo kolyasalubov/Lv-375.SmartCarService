@@ -21,7 +21,7 @@ public interface SalesManagerService {
 
     public SalesManagerDto entityToDto(SalesManager salesManager);
 
-    public List<SalesManager> getAllSalesManagersByDealerUsername();
+//    public List<SalesManager> getAllSalesManagersByDealerUsername();
 
     SalesManager getSalesManagerById(Long id);
 
@@ -30,6 +30,18 @@ public interface SalesManagerService {
     List<SalesManagerDto> getAllSalesManagersByDealerUsername(String username);
 
     List<SalesManagerDto> salesManagerEntityListToDto(List<SalesManager> salesManagers);
+
+    void deleteSalesManagerByUsername(String username);
+
+    void  deleteAllSalesManagers();
+
+    SalesManager getSalesManagerByUserName(String username);
+
+    void updateSalesManager(Long id, SalesManagerDto salesManagerDto);
+
+    SalesManager dtoToEntity(SalesManagerDto salesManagerDto);
+
+    public void updateSalesManager(Long id, SalesManager salesManager);
 
 
 

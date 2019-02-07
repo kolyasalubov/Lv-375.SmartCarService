@@ -36,19 +36,54 @@ public class SalesManagerController {
     }
 
 
-    @PutMapping("/salesmanagers/{id}")
+//    @PutMapping("/salesmanagers/{name}")
+//    @ResponseBody
+//    public void updateSalesManager(/*@PathVariable Long id,*/
+//                                    @PathVariable String name,
+//@RequestBody SalesManagerDto salesManagerDto){
+////                                      @RequestParam(value = "email") String email,
+////                                      @RequestParam(value = "fullName", required = false) String fullname,
+////                                      @RequestParam(value = "userName", required = false) String username,
+////                                      @RequestParam(value = "password", required = false) String password,
+////                                      @RequestParam(value = "dealerUsername",required = false) String dealerUsername) {
+////        SalesManager salesManager = salesManagerService.getSalesManagerById(id);
+//        SalesManager salesManager = salesManagerService.getSalesManagerByUserName(name);
+////        salesManager.setUserName(username);
+////        salesManager.setUserName();
+//
+////        salesManager.setFullName(fullname);
+////        salesManager.setPassword(password);
+////        salesManager.setEmail(email);
+//
+//        salesManagerService.updateSalesManager(salesManagerService.getSalesManagerByUserName());
+//        salesManagerService.save(salesManagerService.entityToDto(salesManager));
+//    }
+
+    @PutMapping("/salesmanagers/{name}")
     @ResponseBody
-    public void updateSalesManager(@PathVariable Long id,
-                                      @RequestParam(value = "email") String email,
-                                      @RequestParam(value = "fullname", required = false) String fullname,
-                                      @RequestParam(value = "username", required = false) String username,
-                                      @RequestParam(value = "password", required = false) String password) {
-        SalesManager salesManager = salesManagerService.getSalesManagerById(id);
-        salesManager.setUserName(username);
-        salesManager.setFullName(fullname);
-        salesManager.setPassword(password);
-        salesManager.setEmail(email);
-        salesManagerService.save(salesManagerService.entityToDto(salesManager));
+    public void updateSalesManager(/*@PathVariable Long id,*/
+            @PathVariable String name,
+            @RequestBody SalesManagerDto salesManagerDto){
+//                                      @RequestParam(value = "email") String email,
+//                                      @RequestParam(value = "fullName", required = false) String fullname,
+//                                      @RequestParam(value = "userName", required = false) String username,
+//                                      @RequestParam(value = "password", required = false) String password,
+//                                      @RequestParam(value = "dealerUsername",required = false) String dealerUsername) {
+        SalesManager salesManager = salesManagerService.getSalesManagerByUserName(name);
+
+        salesManagerService.updateSalesManager((Long)salesManager.getId(),salesManagerDto);
+//        salesManagerService.save(salesManagerService.entityToDto(salesManager));
     }
+
+
+    @DeleteMapping("/salesmanagers/{name}")
+    public void deleteSalesManager(@PathVariable String name){
+        salesManagerService.deleteSalesManagerByUsername(name);
+    }
+    @DeleteMapping("/salesmanagers/")
+    public void deleteAllSalesManagers(){
+        salesManagerService.deleteAllSalesManagers();
+    }
+
 
 }

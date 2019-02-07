@@ -1,6 +1,5 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
-import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
 import com.smartcarservice.ua.SmartCarService.repository.DealerRepository;
 import com.smartcarservice.ua.SmartCarService.repository.SalesManagerRepository;
 import com.smartcarservice.ua.SmartCarService.entity.sales.SalesManager;
@@ -36,7 +35,6 @@ public class SalesManagerServiceImpl implements SalesManagerService {
                 dealerRepository.getDealerByUserName(salesManagerDto.getDealerUsername()));
         salesManagerRepository.save(entity);
     }
-
     @Override
     public void customSave(String email, String fullname, String password, String username) {
 //        salesManagerRepository.customSave(email,fullname,password,username);
@@ -44,8 +42,6 @@ public class SalesManagerServiceImpl implements SalesManagerService {
 
     @Override
     public SalesManagerDto getSalesManagerDto(String username) {
-//        salesManagerRepository.findAll().stream().
-//        SalesManager salesManagerEntity = salesManagerRepository.findByUserName(username).get(0);
         SalesManager salesManagerEntity = salesManagerRepository.getByUserName(username);
         SalesManagerDto salesManagerDto = new SalesManagerDto(
                 salesManagerEntity.getEmail(),
@@ -56,6 +52,21 @@ public class SalesManagerServiceImpl implements SalesManagerService {
         );
         return salesManagerDto;
     }
+
+    @Override
+    public void updateSalesManager(Long id, SalesManagerDto salesManagerDto){
+        SalesManager salesManager = dtoToEntity(salesManagerDto);
+        salesManager.setId(id);
+        salesManagerRepository.save(salesManager);
+    }
+    @Override
+    public void updateSalesManager(Long id, SalesManager salesManager){
+//        SalesManager salesManager = dtoToEntity(salesManagerDto);
+        salesManager.setId(id);
+        salesManagerRepository.save(salesManager);
+    }
+
+
 
     public void updateSalesManagerByUsername(String username, SalesManagerDto salesManagerDto) {
         SalesManager salesManager = salesManagerRepository.getByUserName(username);
@@ -91,9 +102,26 @@ public class SalesManagerServiceImpl implements SalesManagerService {
         return salesManagerDtos;
 //
     }
+
+    @Override
+    public void deleteSalesManagerByUsername(String username) {
+//        salesManagerRepository.deleteByUserName(username);
+        salesManagerRepository.delete(getSalesManagerByUserName(username));
+    }
+
+    @Override
+    public void deleteAllSalesManagers() {
+        salesManagerRepository.deleteAll();
+    }
+
+    @Override
+    public SalesManager getSalesManagerByUserName(String username) {
+        return salesManagerRepository.getSalesManagerByUserName(username);
+    }
+
     @Override
     public List<SalesManagerDto> getAllSalesManagersByDealerUsername(String username) {
-        return salesManagerEntityListToDto(salesManagerRepository.getAllByDealer_UserName()); //entityToDto(salesManagerRepository.getAllByDealer_UserName());
+        return salesManagerEntityListToDto(salesManagerRepository.findAlByDealer_UserName(username)); //entityToDto(salesManagerRepository.getAllByDealer_UserName());
     }
 
     public SalesManagerDto entityToDto(SalesManager salesManager) {
@@ -105,10 +133,14 @@ public class SalesManagerServiceImpl implements SalesManagerService {
                 salesManager.getDealer().getUserName()
         );
     }
-
-    @Override
-    public List<SalesManager> getAllSalesManagersByDealerUsername() {
-        return salesManagerRepository.getAllByDealer_UserName();
+    public SalesManager dtoToEntity(SalesManagerDto salesManagerDto){
+        SalesManager salesManager = new SalesManager();//salesManagerRepository.getByUserName(username);
+        salesManager.setEmail(salesManagerDto.getEmail());
+        salesManager.setPassword(salesManagerDto.getPassword());
+        salesManager.setFullName(salesManagerDto.getFullName());
+        salesManager.setUserName(salesManagerDto.getUserName());
+        salesManager.setDealer(dealerRepository.getDealerByUserName(salesManagerDto.getDealerUsername()));
+        return salesManager;
     }
 
 }
