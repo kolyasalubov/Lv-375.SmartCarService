@@ -1,14 +1,12 @@
 package ua.ita.smartcarservice.service.impl;
 
 import javafx.util.Pair;
-import ua.ita.smartcarservice.dto.sensors.ChartDto;
-import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
-import ua.ita.smartcarservice.dto.sensors.RecordDto;
+import ua.ita.smartcarservice.dto.sensors.*;
 import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.factory.SensorRepository;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorRepositoryFactory;
+import ua.ita.smartcarservice.repository.sensors.factory.SensorFactory;
 import ua.ita.smartcarservice.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +17,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value="basic")
 public class SensorServiceImpl implements SensorService {
 
     @Autowired
-    SensorRepositoryFactory factory;
+    SensorFactory factory;
 
     @Autowired
     CarRepository carRepository;
@@ -32,9 +30,9 @@ public class SensorServiceImpl implements SensorService {
     /* CREATE */
 
     @Override
-    public void addRecord(RecordDto recordDto) {
+    public void addRecord(ARecordDto recordDto) {
         SensorRepository rep = factory.getRepository(recordDto.getSensorType());
-        rep.save(recordDtoToEntity(recordDto));
+        rep.save(recordDtoToEntity((RecordDto)recordDto));
     }
 
     private ISensorEntity recordDtoToEntity(RecordDto recordDto){
@@ -59,8 +57,8 @@ public class SensorServiceImpl implements SensorService {
 
     private List<Double> getData(List<ISensorEntity> records){
         List<Double> data = new ArrayList<>();
-        for (int i = 0; i < records.size(); i++) {
-            data.add(records.get(i).getValue());
+        for (ISensorEntity record : records) {
+            data.add(record.getValue());
         }
         return data;
     }

@@ -1,30 +1,28 @@
 package ua.ita.smartcarservice.service;
 
-import ua.ita.smartcarservice.dto.sensors.ChartDto;
-import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
-import ua.ita.smartcarservice.dto.sensors.RecordDto;
+import ua.ita.smartcarservice.dto.sensors.*;
 
 public interface SensorService {
 
     /* READ */
 
-    ChartDto getAllByDay(DateForChartDto dateForChartDto);
+    IChartDto getAllByDay(DateForChartDto dateForChartDto);
 
-    ChartDto getAvgByMonth(DateForChartDto dateForChartDto);
+    IChartDto getAvgByMonth(DateForChartDto dateForChartDto);
 
-    ChartDto getMaxByMonth(DateForChartDto dateForChartDto);
+    IChartDto getMaxByMonth(DateForChartDto dateForChartDto);
 
-    ChartDto getMinByMonth(DateForChartDto dateForChartDto);
+    IChartDto getMinByMonth(DateForChartDto dateForChartDto);
 
-    ChartDto getAvgByYear(DateForChartDto dateForChartDto);
+    IChartDto getAvgByYear(DateForChartDto dateForChartDto);
 
-    ChartDto getMaxByYear(DateForChartDto dateForChartDto);
+    IChartDto getMaxByYear(DateForChartDto dateForChartDto);
 
-    ChartDto getMinByYear(DateForChartDto dateForChartDto);
+    IChartDto getMinByYear(DateForChartDto dateForChartDto);
 
 
     /* CREATE */
 
-    void addRecord(RecordDto recordDto);
+    void addRecord(ARecordDto recordDto);
 
 }
