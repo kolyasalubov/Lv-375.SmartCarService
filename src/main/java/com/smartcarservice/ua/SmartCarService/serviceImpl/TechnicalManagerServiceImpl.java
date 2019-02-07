@@ -4,10 +4,12 @@ import com.smartcarservice.ua.SmartCarService.dto.stoDto.TechnicalManagerDto;
 import com.smartcarservice.ua.SmartCarService.entity.sto.TechnicalManager;
 import com.smartcarservice.ua.SmartCarService.repository.TechnicalManagerRepository;
 import com.smartcarservice.ua.SmartCarService.service.TechnicalManagerService;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Builder
 public class TechnicalManagerServiceImpl implements TechnicalManagerService {
 
     @Autowired

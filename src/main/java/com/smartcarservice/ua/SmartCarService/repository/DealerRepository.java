@@ -1,4 +1,4 @@
-package com.smartcarservice.ua.SmartCarService.Repository;
+package com.smartcarservice.ua.SmartCarService.repository;
 
 import com.smartcarservice.ua.SmartCarService.entity.car.Car;
 import com.smartcarservice.ua.SmartCarService.entity.sales.Dealer;
@@ -9,8 +9,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DealerRepository extends JpaRepository<Dealer, Long> {
-    public Dealer getDealerByUserName(String username);
+    Dealer getDealerByUserName(String username);
+
+    Dealer findByUserName(String userame);
+
     Dealer findDealerByTechnicalServices(TechnicalService technicalService);
+
     Dealer findBySalesManagers(SalesManager salesManager);
 
     Dealer findDealerByCars(Car car);
