@@ -40,7 +40,6 @@ public class TireSensorServiceImpl implements SensorService {
     private TirePressureEntity recordDtoToEntity(TireRecordDto recordDto){
         TirePressureEntity entity = new TirePressureEntity();
         entity.setCar(carRepository.findByVin(recordDto.getCarVin()));
-        entity.setDate(parseDateToLocal(recordDto.getDate()));
 
         Map<String, Double> data = recordDto.getValue();
         entity.setValueBackRight(data.get(Tires.BACK_RIGHT.toString()));

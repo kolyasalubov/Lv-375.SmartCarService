@@ -40,7 +40,6 @@ public class SensorServiceImpl implements SensorService {
         Car car = carRepository.findByVin(recordDto.getCarVin());
 
         ISensorEntity entity = factory.getEntity(repositoryType);
-        entity.setDate(parseDateToLocal(recordDto.getDate()));
         entity.setValue(recordDto.getValue());
         entity.setCar(car);
 

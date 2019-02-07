@@ -9,5 +9,4 @@ public abstract class ARecordDto {
 
     private String carVin;
 
-    private String date;
 }
