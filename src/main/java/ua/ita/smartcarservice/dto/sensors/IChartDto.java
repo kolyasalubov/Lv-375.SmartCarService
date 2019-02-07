@@ -1,5 +1,5 @@
 package ua.ita.smartcarservice.dto.sensors;
 
 public interface IChartDto {
-    int getDataSize();
+    int dataSize();
 }

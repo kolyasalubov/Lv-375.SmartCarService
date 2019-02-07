@@ -18,7 +18,7 @@ public class ChartDto implements IChartDto {
         this.labels = labels;
     }
 
-    public int getDataSize(){
+    public int dataSize(){
         return data.size();
     }
 }

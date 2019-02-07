@@ -59,7 +59,7 @@ public class ChartController {
     }
 
     private ResponseEntity<IChartDto> getResponse(IChartDto chartDto){
-        if(chartDto.getDataSize() == 0)
+        if(chartDto.dataSize() == 0)
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(chartDto, HttpStatus.OK);
     }
