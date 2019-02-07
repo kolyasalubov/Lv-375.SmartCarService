@@ -34,9 +34,8 @@ public class Dealer extends UserBaseEntity implements Serializable {
     private Set<TechnicalService>technicalServices;
 
     @JsonIgnore
-//    @JsonManagedReference
     @OneToMany(mappedBy = "dealer")
-   private Set<Car> cars;
+     private Set<Car> cars;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "dealer")

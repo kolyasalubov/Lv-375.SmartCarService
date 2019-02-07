@@ -31,7 +31,7 @@ public abstract class UserBaseEntity {
     //TODO Make ono-to-one with login
 
     @Column(length = 100, nullable = false, unique = true)
-    private String userName;
+    protected String userName;
 
     public UserBaseEntity(String email, String password, String fullName, String userName) {
         this.email = email;

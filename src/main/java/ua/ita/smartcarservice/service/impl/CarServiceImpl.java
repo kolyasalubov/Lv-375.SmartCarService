@@ -1,7 +1,11 @@
 package ua.ita.smartcarservice.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 import ua.ita.smartcarservice.dto.stoDto.CarDto;
@@ -13,6 +17,8 @@ import ua.ita.smartcarservice.entity.sales.Dealer;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.DealerRepository;
 import ua.ita.smartcarservice.service.CarService;
+
+import javax.xml.crypto.Data;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -80,8 +86,32 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public Boolean isCarGuarantee(Car car) throws ParseException {
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        Date date =  ft.parse(ft.format(new Date()));
+        if(ft.parse(ft.format(car.getEnd_guarantee())).compareTo(date)==1 || ft.parse(ft.format(car.getEnd_guarantee())).compareTo(date)==0) {
+            return true;
+        }else
+        return false;
+    }
+
+    @Override
     public void updateCar(Car car) {
         carRepository.save(car);
+    }
+
+    @Override
+    public List<Car> allGuaranteeCarinDealer(Dealer dealer) throws ParseException {
+        List<Car>guaranteeCar=new ArrayList<>();
+
+        List<Car>cars=carRepository.getAllByDealer(dealer);
+
+        for (int i=0;i<cars.size();i++){
+            if (isCarGuarantee(cars.get(i))){
+                guaranteeCar.add(cars.get(i));
+            }
+        }
+        return guaranteeCar;
     }
 
     @Override
@@ -91,7 +121,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> dealerCars(Long id) {
-        Dealer dealer = (Dealer)dealerRepository.getDealerById(id);
-        return (List<Car>) carRepository.getAllByDealer(dealer);
+        Dealer dealer = dealerRepository.getDealerById(id);
+        return  carRepository.getAllByDealer(dealer);
     }
 }
