@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.dto.saleDto;
 
 import lombok.Data;
+import ua.ita.smartcarservice.dto.stoDto.CarOwnerDto;
 import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.car.CarOwner;
 import ua.ita.smartcarservice.entity.sales.SalesManager;
@@ -11,7 +12,7 @@ import ua.ita.smartcarservice.entity.sales.SalesManager;
 @Data
 public class TradeinDto {
 
-   private CarOwner carOwner;
+   private CarOwnerDto carOwnerDto;
 
    private SalesManager salesManager;
 
@@ -19,12 +20,19 @@ public class TradeinDto {
 
    private Car newcar;
 
-    public CarOwner getCarOwner() {
-        return carOwner;
+    public TradeinDto(CarOwnerDto carOwnerDto, SalesManager salesManager, Car carovnercar, Car newcar) {
+        this.carOwnerDto = carOwnerDto;
+        this.salesManager = salesManager;
+        this.carovnercar = carovnercar;
+        this.newcar = newcar;
     }
 
-    public void setCarOwner(CarOwner carOwner) {
-        this.carOwner = carOwner;
+    public CarOwnerDto getCarOwnerDto() {
+        return carOwnerDto;
+    }
+
+    public void setCarOwnerDto(CarOwnerDto carOwnerDto) {
+        this.carOwnerDto = carOwnerDto;
     }
 
     public SalesManager getSalesManager() {

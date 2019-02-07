@@ -57,4 +57,9 @@ saleManagerRepository.delete(salesManager);
         return saleManagerRepository.findAllByDealer(dealerRepository.getDealerById(id));
     }
 
+
+    @Override
+    public SalesManager getById(Long id) {
+        return saleManagerRepository.getSalesManagerById(id);
+    }
 }

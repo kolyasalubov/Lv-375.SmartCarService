@@ -31,7 +31,7 @@ public class TradeIn {
     private String vinUserCar;
 
     @Column(length = 100, nullable = false, unique = true)
-    private String idUser;
+    private Long idUser;
 
     @Column(length = 100, nullable = false, unique = true)
     private String isactive;
@@ -39,7 +39,7 @@ public class TradeIn {
     public TradeIn() {
     }
 
-    public TradeIn(SalesManager salesManager, String vinNewCar, String vinUserCar, String idUser, String isactive) {
+    public TradeIn(SalesManager salesManager, String vinNewCar, String vinUserCar, Long idUser, String isactive) {
         this.salesManager = salesManager;
         this.vinNewCar = vinNewCar;
         this.vinUserCar = vinUserCar;
@@ -79,11 +79,11 @@ public class TradeIn {
         this.vinUserCar = vinUserCar;
     }
 
-    public String getIdUser() {
+    public Long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(Long idUser) {
         this.idUser = idUser;
     }
 

@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.service;
 
+import ua.ita.smartcarservice.dto.saleDto.TradeinDto;
 import ua.ita.smartcarservice.entity.sales.SalesManager;
 import ua.ita.smartcarservice.entity.sales.TradeIn;
 
@@ -18,7 +19,7 @@ public interface TradeInService {
 
     List<TradeIn>findAllInSM(SalesManager salesManager);
 
-
+List<TradeinDto>findAllDtoInSM(SalesManager salesManager);
 
 
 

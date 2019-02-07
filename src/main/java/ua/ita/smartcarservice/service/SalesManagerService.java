@@ -22,6 +22,7 @@ public interface SalesManagerService {
 
     Set<SalesManager>findAllByDealer(Dealer dealer);
 
+SalesManager getById(Long id);
 
     Set<SalesManager>findAllByDealerId(Long id);
 

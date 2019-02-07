@@ -15,7 +15,7 @@ import java.util.Set;
 public class SalesManager extends UserBaseEntity {
 
     @ManyToOne
-    @JoinColumn(name = "salesManager_id", nullable = true)
+    @JoinColumn(name = "dealer_id", nullable = true)
     private Dealer dealer;
 
 	public SalesManager(String email, String password, String fullName, String userName, Dealer dealer) {
@@ -32,7 +32,7 @@ public class SalesManager extends UserBaseEntity {
 	}
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "dealer")
+	@OneToMany(mappedBy = "salesManager")
 	private Set<TradeIn> tradeIns;
 
 }
