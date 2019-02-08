@@ -1,0 +1,46 @@
+package ua.ita.smartcarservice.service;
+
+
+import ua.ita.smartcarservice.dto.sales.SalesManagerDto;
+import ua.ita.smartcarservice.entity.sales.SalesManager;
+
+import java.util.List;
+
+public interface SalesManagerService {
+
+    List<SalesManager> findAll();
+
+    void save(SalesManagerDto salesManagerDto);
+
+    void customSave(String email, String fullname, String password, String username);
+
+    SalesManagerDto getSalesManagerDto(String username);
+
+    List<SalesManager> getAllSalesManagers();
+
+    public SalesManagerDto entityToDto(SalesManager salesManager);
+
+    SalesManager getSalesManagerById(Long id);
+
+    SalesManagerDto getSalesManagerDtoById(Long id);
+
+    List<SalesManagerDto> getAllSalesManagersByDealerUsername(String username);
+
+    List<SalesManagerDto> salesManagerEntityListToDto(List<SalesManager> salesManagers);
+
+    void deleteSalesManagerByUsername(String username);
+
+    void deleteAllSalesManagers();
+
+    SalesManager getSalesManagerByUserName(String username);
+
+    void updateSalesManager(Long id, SalesManagerDto salesManagerDto);
+
+    SalesManager dtoToEntity(SalesManagerDto salesManagerDto);
+
+    void updateSalesManager(Long id, SalesManager salesManager);
+
+
+}
+
+

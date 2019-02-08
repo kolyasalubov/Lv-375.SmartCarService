@@ -1,0 +1,98 @@
+package ua.ita.smartcarservice.entity.sto;
+
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import ua.ita.smartcarservice.entity.sensors.alert.FaultCode;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+@Data
+@Entity
+@Table(name = "skill")
+public class Skill {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long skillId;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String name;
+
+    @Column(nullable = false)
+    private Long requiredTime;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "skill")
+    Set<Worker> workers;
+
+    @OneToMany(fetch = FetchType.LAZY,
+    		  cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+    		  mappedBy = "skill")
+    private List<FaultCode> faultCode;
+
+    public Skill() {
+    }
+
+    public Long getRequiredTime() {
+        return requiredTime;
+    }
+
+    public void setRequiredTime(Long requiredTime) {
+        this.requiredTime = requiredTime;
+    }
+
+    public Skill(String name, Long requiredTime) {
+
+        this.requiredTime = requiredTime;
+        this.name = name;
+    }
+
+    public Long getSkillId() {
+        return skillId;
+    }
+
+    public void setSkillId(Long skillId) {
+        this.skillId = skillId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(Set<Worker> workers) {
+        this.workers = workers;
+    }
+
+    public List<FaultCode> getFaultCode() {
+        return faultCode;
+    }
+
+    public void setFaultCode(List<FaultCode> faultCode) {
+		this.faultCode = faultCode;
+	}
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Skill skill = (Skill) o;
+        return name.equals(skill.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+}
