@@ -4,17 +4,12 @@ import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.sensors.*;
-import ua.ita.smartcarservice.entity.car.Car;
-import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
 import ua.ita.smartcarservice.entity.sensors.data.TirePressureEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.TirePressureRepository;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorFactory;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorRepository;
 import ua.ita.smartcarservice.service.SensorService;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
