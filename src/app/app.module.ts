@@ -9,12 +9,18 @@ import { AppComponent } from './app.component';
 import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 import { TechmanagerProfileService } from './techmanager-profile/techmanager-profile.service';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { TechserviceComponent } from './techservice/techservice.component';
+import { WorkerComponent } from './techservice/worker/worker.component';
+import { SkillComponent } from './techservice/worker/skill/skill.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LineChartComponent,
-    TechmanagerProfileComponent
+    TechmanagerProfileComponent,
+    TechserviceComponent,
+    WorkerComponent,
+    SkillComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +29,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     FormsModule,
     MDBBootstrapModule.forRoot()
   ],
-  providers: [TechmanagerProfileService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

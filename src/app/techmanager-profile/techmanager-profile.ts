@@ -1,4 +1,4 @@
-export interface TechmanagerProfile{
+export interface TechmanagerProfile {
     email: string;
     password: string;
     fullName: string;
