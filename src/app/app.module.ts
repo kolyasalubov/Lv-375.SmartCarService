@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { LineChartComponent } from 'src/charts/line-chart.component';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SecurityModule } from './security/security.module';
 import { AppComponent } from './app.component';
 import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 import { TechmanagerProfileService } from './techmanager-profile/techmanager-profile.service';
@@ -20,14 +21,15 @@ import { SkillComponent } from './techservice/worker/skill/skill.component';
     TechmanagerProfileComponent,
     TechserviceComponent,
     WorkerComponent,
-    SkillComponent
+    SkillComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    SecurityModule
   ],
   providers: [],
   bootstrap: [AppComponent]
