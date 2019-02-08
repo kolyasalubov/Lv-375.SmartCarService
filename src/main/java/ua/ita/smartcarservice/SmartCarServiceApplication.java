@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-
 public class SmartCarServiceApplication {
 
 
@@ -13,4 +12,7 @@ public class SmartCarServiceApplication {
 		SpringApplication.run(SmartCarServiceApplication.class, args);
 	}
 
+
 }
+
+
