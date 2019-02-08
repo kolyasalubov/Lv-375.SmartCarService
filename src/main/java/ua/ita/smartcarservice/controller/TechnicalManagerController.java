@@ -1,5 +1,7 @@
 package ua.ita.smartcarservice.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import ua.ita.smartcarservice.dto.stoDto.TechnicalManagerDto;
 import ua.ita.smartcarservice.dto.stoDto.WorkerDto;
 import ua.ita.smartcarservice.entity.sto.Skill;
@@ -47,18 +49,7 @@ public class TechnicalManagerController {
             @RequestParam(value = "password") String password,
             @RequestParam(value = "serviceId") Long serviceId) {
 
-        TechnicalManager technicalManager = new TechnicalManager();
-        TechnicalService technicalService = technicalServiceService.getTechnicalServiceById(serviceId);
-
-        technicalManager.setPassword(password);
-        technicalManager.setUserName(username);
-        technicalManager.setFullName(fullname);
-        technicalManager.setEmail(email);
-        technicalManager.setTechnicalService(technicalService);
-
-        technicalManagerService.createTechnicalManager(technicalManager);
-
-        return technicalManager;
+        return technicalManagerService.createTechnicalManager(fullname, username, email, password, serviceId);
     }
 
     /*
@@ -66,9 +57,22 @@ public class TechnicalManagerController {
      */
     @GetMapping("/api/v1/techmanagers/{id}")
     @ResponseBody
-    TechnicalManagerDto getTechnicalManager(@PathVariable Long id) {
+    //TechnicalManagerDto getTechnicalManager(@PathVariable Long id) {
+    ResponseEntity<TechnicalManagerDto> getTechnicalManager(@PathVariable Long id) {
         //ResponseEntity<TechnicalManagerDto> responseEntity;
-        return technicalManagerService.getTechnicalManagerDto(id);
+
+        TechnicalManagerDto technicalManagerDto;
+        ResponseEntity<TechnicalManagerDto> responseEntity;
+
+        try {
+            technicalManagerDto = technicalManagerService.getTechnicalManagerDto(id);
+            responseEntity = new ResponseEntity<TechnicalManagerDto>(technicalManagerDto, HttpStatus.OK);
+        } catch (Exception ex) {
+            //TODO Log error
+            responseEntity = new ResponseEntity<TechnicalManagerDto>(HttpStatus.NO_CONTENT);
+        }
+
+        return responseEntity;
     }
 
     /*
@@ -80,25 +84,8 @@ public class TechnicalManagerController {
                                                @RequestParam(value = "fullname", required = false) String fullname,
                                                @RequestParam(value = "username", required = false) String username,
                                                @RequestParam(value = "password", required = false) String password) {
-        TechnicalManagerDto managerDto = technicalManagerService.getTechnicalManagerDto(id);
 
-        managerDto.setId(id);
-
-        if (fullname != null) {
-            managerDto.setFullName(fullname);
-        }
-
-        if (username != null) {
-            managerDto.setUserName(username);
-        }
-
-        if (password != null) {
-            managerDto.setPassword(password);
-        }
-
-        technicalManagerService.updateTechnicalManager(managerDto);
-
-        return managerDto;
+        return technicalManagerService.updateTechnicalManager(id, fullname, username, password);
     }
 
     /*
@@ -106,12 +93,18 @@ public class TechnicalManagerController {
      */
     @GetMapping("/api/v1/techmanagers/{id}/workers")
     @ResponseBody
-    List<WorkerDto> getTechnicalManagerWorkers(@PathVariable Long id) {
+    //List<WorkerDto> getTechnicalManagerWorkers(@PathVariable Long id) {
+    ResponseEntity<List<WorkerDto>> getTechnicalManagerWorkers(@PathVariable Long id) {
 
         TechnicalManager technicalManager;
-
-        technicalManager = technicalManagerService.getTechnicalManager(id);
-        return workerService.findWorkersByTechnicalManager(technicalManager);
+        ResponseEntity<List<WorkerDto>> responseEntity;
+        try {
+            technicalManager = technicalManagerService.getTechnicalManager(id);
+            responseEntity = new ResponseEntity<>(workerService.findWorkersByTechnicalManager(technicalManager), HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return responseEntity;
     }
 
     /*

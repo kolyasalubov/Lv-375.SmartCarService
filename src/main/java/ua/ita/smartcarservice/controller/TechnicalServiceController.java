@@ -1,6 +1,8 @@
 package ua.ita.smartcarservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.service.impl.DealerServiceImpl;
 import ua.ita.smartcarservice.dto.stoDto.TechnicalServiceDto;
@@ -25,8 +27,16 @@ public class TechnicalServiceController {
     Method for getting all the technical services
      */
     @GetMapping("/api/v1/techservices")
-    List<TechnicalServiceDto> getAllTechnicalServices() {
-        return technicalServiceService.getAllTechnicalServicesDto();
+    ResponseEntity<List<TechnicalServiceDto>> getAllTechnicalServices() {
+        ResponseEntity<List<TechnicalServiceDto>> responseEntity;
+
+        try {
+            responseEntity = new ResponseEntity<>(technicalServiceService.getAllTechnicalServicesDto(), HttpStatus.OK);
+        } catch (Exception e){
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return responseEntity;
     }
 
     /*
