@@ -1,12 +1,16 @@
 package ua.ita.smartcarservice.controller;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import ua.ita.smartcarservice.dto.stoDto.SkillDto;
 import ua.ita.smartcarservice.service.SkillService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,7 +23,11 @@ public class SkillController {
 
     @Autowired
     private SkillService skillService;
-
+    
+    @PostMapping("/skillbysto")
+    public ResponseEntity<List<String>> getSkillByStoId(@RequestParam(value = "stoId", required = false) Long stoId){
+        return new ResponseEntity <>(skillService.getSkillNameBySto(stoId), HttpStatus.OK);
+    }
 
     /*
      * Method for getting all the skills
