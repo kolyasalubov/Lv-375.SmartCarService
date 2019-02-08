@@ -4,16 +4,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
-public class ChartDto implements IChartDto {
+public class TireChartDto implements IChartDto {
 
-    private List<Double> data;
+    private Map<String, List<Double>> data;
 
     private List<String> labels;
 
-    public ChartDto(List<Double> data, List<String> labels) {
+    public TireChartDto(Map<String, List<Double>> data, List<String> labels) {
         this.data = data;
         this.labels = labels;
     }

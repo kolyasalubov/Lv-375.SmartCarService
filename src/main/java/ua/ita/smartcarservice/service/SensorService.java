@@ -1,30 +1,44 @@
 package ua.ita.smartcarservice.service;
 
-import ua.ita.smartcarservice.dto.sensors.ChartDto;
-import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
-import ua.ita.smartcarservice.dto.sensors.RecordDto;
+import javafx.util.Pair;
+import ua.ita.smartcarservice.dto.sensors.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public interface SensorService {
 
     /* READ */
 
-    ChartDto getAllByDay(DateForChartDto dateForChartDto);
+    IChartDto getAllByDay(DateForChartDto dateForChartDto);
 
-    ChartDto getAvgByMonth(DateForChartDto dateForChartDto);
+    IChartDto getAvgByMonth(DateForChartDto dateForChartDto);
 
-    ChartDto getMaxByMonth(DateForChartDto dateForChartDto);
+    IChartDto getMaxByMonth(DateForChartDto dateForChartDto);
 
-    ChartDto getMinByMonth(DateForChartDto dateForChartDto);
+    IChartDto getMinByMonth(DateForChartDto dateForChartDto);
 
-    ChartDto getAvgByYear(DateForChartDto dateForChartDto);
+    IChartDto getAvgByYear(DateForChartDto dateForChartDto);
 
-    ChartDto getMaxByYear(DateForChartDto dateForChartDto);
+    IChartDto getMaxByYear(DateForChartDto dateForChartDto);
 
-    ChartDto getMinByYear(DateForChartDto dateForChartDto);
+    IChartDto getMinByYear(DateForChartDto dateForChartDto);
 
 
     /* CREATE */
 
-    void addRecord(RecordDto recordDto);
+    void addRecord(ARecordDto recordDto);
 
+    /* DEFAULT METHODS */
+
+    default LocalDateTime parseDateToLocal (String strDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return LocalDateTime.parse(strDate, formatter);
+    }
+
+    default Pair<LocalDateTime, Long> getParams(DateForChartDto dateForChartDto){
+        LocalDateTime date = parseDateToLocal(dateForChartDto.getDate());
+        Long carId = dateForChartDto.getCarId();
+        return new Pair<>(date, carId);
+    }
 }

@@ -2,16 +2,18 @@ package ua.ita.smartcarservice.repository.sensors.factory;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ua.ita.smartcarservice.entity.sensors.data.*;
 import ua.ita.smartcarservice.repository.sensors.*;
+import ua.ita.smartcarservice.service.SensorService;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
 @Component
-public class SensorRepositoryFactory {
+public class SensorFactory {
 
     @Autowired
     private SpeedRepository speedRepository;
@@ -25,20 +27,26 @@ public class SensorRepositoryFactory {
     @Autowired
     private MileageRepository mileageRepository;
 
-//    @Autowired
-//    private TirePressureRepository tirePressureRepository;
-
     @Autowired
     private OilPressureRepository oilPressureRepository;
 
     @Autowired
     private OilLevelRepository oilLevelRepository;
 
+    @Autowired
+    @Qualifier("basic")
+    private SensorService sensorService;
+
+    @Autowired
+    @Qualifier("tire")
+    private SensorService tireService;
+
+    private Map <String, SensorService> serviceFactory = new HashMap<>();
     private Map <String, SensorRepository<? extends BaseSensorEntity> > repFactory = new HashMap<>();
     private Map <String, Class> entityFactory = new HashMap<>();
 
 
-    public SensorRepositoryFactory(){
+    public SensorFactory(){
         entityInit();
     }
 
@@ -57,20 +65,26 @@ public class SensorRepositoryFactory {
     }
 
 
-    private void factoryInit(){
+    public SensorRepository<? extends BaseSensorEntity> getRepository(String type){
+        if(repFactory.size() == 0)
+            repInit();
+        return repFactory.get(type);
+    }
+
+    private void repInit(){
         repFactory.put(SensorTypes.SPEED.toString(),speedRepository);
         repFactory.put(SensorTypes.BATTERY.toString(), batteryRepository);
         repFactory.put(SensorTypes.FUEL.toString(), fuelRepository);
         repFactory.put(SensorTypes.MILEAGE.toString(), mileageRepository);
-//        repFactory.put(SensorTypes.TIRE_PRESSURE.toString(), tirePressureRepository);
         repFactory.put(SensorTypes.OIL_PRESSURE.toString(), oilPressureRepository);
         repFactory.put(SensorTypes.OIL_LEVEL.toString(), oilLevelRepository);
     }
 
-    public SensorRepository<? extends BaseSensorEntity> getRepository(String type){
-        if(repFactory.size() == 0)
-            factoryInit();
-        return repFactory.get(type);
+    public SensorService getService(String type){
+        if(type.equals(SensorTypes.TIRE_PRESSURE.toString()))
+            return tireService;
+        return sensorService;
     }
+
 
 }

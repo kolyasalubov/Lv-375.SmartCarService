@@ -1,14 +1,12 @@
 package ua.ita.smartcarservice.service.impl;
 
 import javafx.util.Pair;
-import ua.ita.smartcarservice.dto.sensors.ChartDto;
-import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
-import ua.ita.smartcarservice.dto.sensors.RecordDto;
+import ua.ita.smartcarservice.dto.sensors.*;
 import ua.ita.smartcarservice.entity.car.Car;
 import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.factory.SensorRepository;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorRepositoryFactory;
+import ua.ita.smartcarservice.repository.sensors.factory.SensorFactory;
 import ua.ita.smartcarservice.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +17,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value="basic")
 public class SensorServiceImpl implements SensorService {
 
     @Autowired
-    SensorRepositoryFactory factory;
+    SensorFactory factory;
 
     @Autowired
     CarRepository carRepository;
@@ -32,9 +30,9 @@ public class SensorServiceImpl implements SensorService {
     /* CREATE */
 
     @Override
-    public void addRecord(RecordDto recordDto) {
+    public void addRecord(ARecordDto recordDto) {
         SensorRepository rep = factory.getRepository(recordDto.getSensorType());
-        rep.save(recordDtoToEntity(recordDto));
+        rep.save(recordDtoToEntity((RecordDto)recordDto));
     }
 
     private ISensorEntity recordDtoToEntity(RecordDto recordDto){
@@ -42,16 +40,10 @@ public class SensorServiceImpl implements SensorService {
         Car car = carRepository.findByVin(recordDto.getCarVin());
 
         ISensorEntity entity = factory.getEntity(repositoryType);
-        entity.setDate(parseDateToLocal(recordDto.getDate()));
         entity.setValue(recordDto.getValue());
         entity.setCar(car);
 
         return entity;
-    }
-
-    private LocalDateTime parseDateToLocal (String strDate){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(strDate, formatter);
     }
 
 
@@ -59,8 +51,8 @@ public class SensorServiceImpl implements SensorService {
 
     private List<Double> getData(List<ISensorEntity> records){
         List<Double> data = new ArrayList<>();
-        for (int i = 0; i < records.size(); i++) {
-            data.add(records.get(i).getValue());
+        for (ISensorEntity record : records) {
+            data.add(record.getValue());
         }
         return data;
     }
@@ -77,20 +69,14 @@ public class SensorServiceImpl implements SensorService {
         return factory.getRepository(dateForChartDto.getSensorType());
     }
 
-    private Pair<LocalDateTime, Long> getParams(DateForChartDto dateForChartDto){
-        LocalDateTime date = parseDateToLocal(dateForChartDto.getDate());
-        Long carId = dateForChartDto.getCarId();
-        return new Pair<>(date, carId);
-    }
-
     @Override
     public ChartDto getAllByDay(DateForChartDto dateForChartDto) {
         Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
         List<ISensorEntity> records = getRepository(dateForChartDto).getAllByDay(params.getKey(), params.getValue());
 
         List<Double> data = getData(records);
-        List<String> lables = new LabelsProvider().getHours(records);
-        return new ChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getHours(records);
+        return new ChartDto(data, labels);
     }
 
     @Override
@@ -119,8 +105,8 @@ public class SensorServiceImpl implements SensorService {
 
     private ChartDto chartDtoForMonths(List<Object[]> records){
         List<Double> data = getDataFromObjArray(records);
-        List<String> lables = new LabelsProvider().getDays(records);
-        return new ChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getDays(records);
+        return new ChartDto(data, labels);
     }
 
     @Override
@@ -149,7 +135,7 @@ public class SensorServiceImpl implements SensorService {
 
     private ChartDto chartDtoForYears(List<Object[]> records){
         List<Double> data = getDataFromObjArray(records);
-        List<String> lables = new LabelsProvider().getMonths(records);
-        return new ChartDto(data, lables);
+        List<String> labels = new LabelsProvider().getMonths(records);
+        return new ChartDto(data, labels);
     }
 }
