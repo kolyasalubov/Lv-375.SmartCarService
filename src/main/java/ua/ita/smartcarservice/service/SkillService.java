@@ -9,4 +9,5 @@ public interface SkillService {
     List<SkillDto> getAllSkills();
     SkillDto getSkillDto(Skill skill);
     Skill getSkillById(Long id);
+    List<String> getSkillNameBySto(Long id);
 }

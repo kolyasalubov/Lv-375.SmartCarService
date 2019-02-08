@@ -33,7 +33,6 @@ public class WorkerServiceImpl implements WorkerService {
 
         workerDto.setWorkerId(worker.getWorkerId());
         workerDto.setFullName(worker.getFullName());
-        workerDto.setSkill(worker.getSkill());
 
         return workerDto;
     }

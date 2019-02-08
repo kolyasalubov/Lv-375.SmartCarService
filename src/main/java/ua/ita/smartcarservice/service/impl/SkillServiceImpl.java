@@ -44,6 +44,11 @@ public class SkillServiceImpl implements SkillService {
         return skillDto;
     }
 
+    @Override
+    public List<String> getSkillNameBySto(Long id){
+        return repository.getSkillNameBySto(id);
+    }
+
     /*
     Method returns Skill entity by id
      */

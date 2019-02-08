@@ -1,10 +1,13 @@
 package ua.ita.smartcarservice.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import ua.ita.smartcarservice.dto.bookingDto.WorkerWithSkillDto;
 import ua.ita.smartcarservice.dto.stoDto.WorkerDto;
 import ua.ita.smartcarservice.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -17,14 +20,14 @@ public class WorkerController {
     WorkerService workerService;
 
     @PostMapping("/workerbyskill")
-    public HashMap<String, List<WorkerDto>> getAllBySkillAndSto(@RequestParam(value = "name", required = false, defaultValue = "no")
-                                                  List<String> name, @RequestParam(value = "stoId", required = false) String stoId){
-        System.out.println(name);
-        HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap <>();
-        for(String s : name){
-            workersBySkillName.put(s, workerService.findAllWorkersBySkillAndSto(s, Long.valueOf(stoId)));
+    public ResponseEntity<HashMap<String, List<WorkerDto>>> getAllBySkillAndSto(@RequestBody WorkerWithSkillDto
+                                                                                        workerWithSkillDto) {
+        HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap<>();
+        for (String s : workerWithSkillDto.getName()) {
+            workersBySkillName.put(s, workerService.findAllWorkersBySkillAndSto(s, workerWithSkillDto.getStoId()));
         }
 
-        return workersBySkillName;
+        return new ResponseEntity<>(workersBySkillName, HttpStatus.OK);
+
     }
 }
