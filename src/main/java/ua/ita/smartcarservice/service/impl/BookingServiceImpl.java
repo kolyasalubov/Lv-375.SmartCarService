@@ -95,10 +95,12 @@ public class BookingServiceImpl implements BookingService {
         for(int i = 0; i<timeToNeed;i++){
             freeTime.put(time.plusDays(i), new ArrayList <>());
         }
-        for(SessionDto sessionDto : timeToWork){
-            List<SessionDto> newList = freeTime.get(getKey(sessionDto.getStartSession()));
-            newList.add(sessionDto);
-            freeTime.put(getKey(sessionDto.getStartSession()), newList);
+        if(timeToWork != null) {
+            for (SessionDto sessionDto : timeToWork) {
+                List <SessionDto> newList = freeTime.get(getKey(sessionDto.getStartSession()));
+                newList.add(sessionDto);
+                freeTime.put(getKey(sessionDto.getStartSession()), newList);
+            }
         }
 
         for(LocalDate localDate : freeTime.keySet()){
