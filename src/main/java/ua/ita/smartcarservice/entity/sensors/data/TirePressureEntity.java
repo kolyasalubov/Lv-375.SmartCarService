@@ -1,15 +1,17 @@
 package ua.ita.smartcarservice.entity.sensors.data;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "fact_tire_pressure")
-public class TirePressureEntity extends BaseSensorEntity implements ISensorEntity {
+public class TirePressureEntity extends BaseSensorEntity {
 
     @Column(nullable = false)
     protected double valueFrontLeft;
@@ -23,14 +25,4 @@ public class TirePressureEntity extends BaseSensorEntity implements ISensorEntit
     @Column(nullable = false)
     protected double valueBackRight;
 
-
-    @Override
-    public void setValue(double value) {
-
-    }
-
-    @Override
-    public double getValue() {
-        return 0;
-    }
 }

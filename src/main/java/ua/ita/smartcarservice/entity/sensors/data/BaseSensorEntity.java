@@ -24,6 +24,6 @@ public abstract class BaseSensorEntity {
 
     @Column(nullable = false, columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    protected LocalDateTime date;
+    protected LocalDateTime date = LocalDateTime.now();
 
 }

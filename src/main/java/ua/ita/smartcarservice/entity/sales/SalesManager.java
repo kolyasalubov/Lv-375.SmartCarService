@@ -1,10 +1,13 @@
 package ua.ita.smartcarservice.entity.sales;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ua.ita.smartcarservice.entity.UserBaseEntity;
 import lombok.Data;
+import ua.ita.smartcarservice.entity.car.Car;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -28,5 +31,8 @@ public class SalesManager extends UserBaseEntity {
 		this.dealer = dealer;
 	}
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "salesManager")
+	private Set<TradeIn> tradeIns;
 
 }

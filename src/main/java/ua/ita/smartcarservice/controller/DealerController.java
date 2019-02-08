@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
+@CrossOrigin("*")
 @RestController
 public class DealerController {
 
@@ -42,15 +42,15 @@ public class DealerController {
 
 
     @PostMapping("/setguaranteeToCar")
-     public void  setToCarEnd_guarantee(@RequestParam(value = "vin")String vin,
-                                        @RequestParam(value = "end_guarantee")String date
-                                        ){
+     public void  setToCarEnd_guarantee(@RequestParam(value = "vin") String vin,
+                                        @RequestParam(value = "end_guarantee") String date
+                                        ) {
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
 
         Date parsingDate = null;
         try {
             parsingDate = ft.parse(date);
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             System.out.println("error with parsing ");
         }
 
