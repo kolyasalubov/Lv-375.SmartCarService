@@ -1,59 +1,17 @@
-<div *ngIf="isSignedUp; else signupForm">
-  Your registration is successful. Please login!
-</div>
- 
-<ng-template #signupForm>
-  <div class="row col-sm-6" style="max-width:350px;">
-    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel"
-          required />
-        <div *ngIf="f.submitted && username.invalid">
-          <div *ngIf="username.errors.required">Username is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
-          required minlength="6" />
-        <div *ngIf="f.submitted && password.invalid">
-          <div *ngIf="password.errors.required">Password is required</div>
-          <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" required email />
-        <div *ngIf="f.submitted && email.invalid">
-          <div *ngIf="email.errors.required">Email is required</div>
-          <div *ngIf="email.errors.email">Email must be a valid email address</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="name">Your fullname</label>
-        <input type="text" class="form-control" name="fullName" [(ngModel)]="form.fullName" #name="ngModel" required />
-        <div *ngIf="f.submitted && name.invalid">
-          <div *ngIf="name.errors.required">Fullname is required</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="name">Your Number Phone</label>
-        <input type="text" class="form-control" name="numberPhone" [(ngModel)]="form.numberPhone" #name="ngModel" required />
-        <div *ngIf="f.submitted && name.invalid">
-          <div *ngIf="name.errors.required">Number Phone is required</div>
-        </div>
-      </div>
-      
-      <div>{{form | json}}</div>
-      
+<div style="height: 100vh" class="d-flex justify-content-center align-items-center">
+  <form form="registerForm" (ngSubmit)="onSubmit()" class="text-center border border-light p-4">
 
-      <div class="form-group">
-        <button class="btn btn-primary">Register</button>
-        <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
-          Signup failed!<br/>{{errorMessage}}
-        </div>
-      </div>
-    </form>
+  <p class="h3 mb-4">Sign up</p>
+  <input type="text" name="username" [(ngModel)]="registerForm.username" class="form-control mb-3" placeholder="User Name">
+  <input type="password" name="password" [(ngModel)]="registerForm.password" class="form-control mb-3" placeholder="Password">
+  <input type="email" name="email" [(ngModel)]="registerForm.email" class="form-control mb-3" placeholder="Email">
+  <input type="text" name="fullName" [(ngModel)]="registerForm.fullName" class="form-control mb-3" placeholder="Full Name">
+  <input type="text" name="numberPhone" [(ngModel)]="registerForm.numberPhone" class="form-control mb-3" placeholder="Number Phone">
+  <div>
+  <button mdbBtn color="success" block="true" class="my-4" type="submit">Sign up</button>
+  <a href="/auth/login" size="sm" mdbBtn color="danger" type="button">Cancel</a>
   </div>
-</ng-template>
+  </form>
+  </div>
+
+  

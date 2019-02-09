@@ -12,6 +12,7 @@ import { RegisterComponent } from '../register/register.component';
 import { HomeComponent } from '../home/home.component';
 import { AdminComponent } from '../admin/admin.component';
 import { TmComponent } from '../tm/tm.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
  
 import { httpInterceptorProviders } from '../auth/auth-interceptor';
 
@@ -28,7 +29,8 @@ import { httpInterceptorProviders } from '../auth/auth-interceptor';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MDBBootstrapModule.forRoot(),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: []

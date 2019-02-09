@@ -10,7 +10,7 @@ import { SignUpInfo } from '../auth/sigup-info';
 })
 export class RegisterComponent implements OnInit {
 
-  form: any = {};
+  registerForm: any = {};
   signupInfo: SignUpInfo;
   isSignedUp = false;
   isSignUpFailed = false;
@@ -21,15 +21,17 @@ export class RegisterComponent implements OnInit {
   ngOnInit() { }
  
   onSubmit() {
-    console.log(this.form);
+    console.log(this.registerForm);
  
     this.signupInfo = new SignUpInfo(
-      this.form.username,
-      this.form.password,
-      this.form.fullname,
-      this.form.email,
-      this.form.phoneNumber);
+      this.registerForm.username,
+      this.registerForm.password,
+      this.registerForm.fullName,
+      this.registerForm.email,
+      this.registerForm.numberPhone);
  
+      console.log(this.signupInfo);
+
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
         console.log(data);
