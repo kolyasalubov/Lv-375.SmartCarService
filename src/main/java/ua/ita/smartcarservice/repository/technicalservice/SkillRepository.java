@@ -13,6 +13,8 @@ public interface SkillRepository extends JpaRepository<SkillEntity, Long> {
 
     SkillEntity getBySkillId(SkillEntity skillEntity);
 
-    //@Query("select distinct s.name from Skill as s left join Worker as w on w.skill = s.skillId where w.technicalService.stoId = :stoId")
-    //List<String> getSkillNameBySto(@Param("stoId") Long stoId);
+    @Query("select distinct s from SkillEntity as s left join WorkersSkill as w on w.skill = s.skillId " +
+            "where w.workerId = 1"
+            )
+    List<SkillEntity> getSkillNameBySto();
 }

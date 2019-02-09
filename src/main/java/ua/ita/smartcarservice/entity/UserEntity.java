@@ -1,7 +1,9 @@
 package ua.ita.smartcarservice.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
+import ua.ita.smartcarservice.entity.technicalservice.WorkTime;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 
 import java.util.HashSet;
@@ -39,6 +41,10 @@ public class UserEntity {
 	@OneToOne(mappedBy = "workerId", cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY)
 	private WorkersSkill workersSkill;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "worker")
+	Set<WorkTime> workTimes;
 	
 	public UserEntity() {
 		
