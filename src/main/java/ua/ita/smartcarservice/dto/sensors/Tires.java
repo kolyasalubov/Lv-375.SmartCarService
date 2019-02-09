@@ -1,10 +1,10 @@
 package ua.ita.smartcarservice.dto.sensors;
 
 public enum Tires {
-    FRONT_LEFT("front left"),
-    FRONT_RIGHT("front right"),
-    BACK_LEFT("back left"),
-    BACK_RIGHT("back right");
+    FRONT_LEFT("frontLeft"),
+    FRONT_RIGHT("frontRight"),
+    BACK_LEFT("backLeft"),
+    BACK_RIGHT("backRight");
 
     private String tire;
 

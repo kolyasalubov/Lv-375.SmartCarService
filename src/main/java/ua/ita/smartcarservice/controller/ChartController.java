@@ -13,7 +13,7 @@ import ua.ita.smartcarservice.repository.sensors.factory.SensorFactory;
 import ua.ita.smartcarservice.service.SensorService;
 
 @RestController
-@RequestMapping(value = "/chart")
+@RequestMapping(value = "/api/chart")
 public class ChartController {
 
     @Autowired
