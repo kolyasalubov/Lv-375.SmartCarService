@@ -6,17 +6,27 @@ import { FormsModule } from '@angular/forms';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SecurityModule } from './security/security.module';
 import { AppComponent } from './app.component';
 
 import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 import { TechmanagerProfileService } from './techmanager-profile/techmanager-profile.service';
 
+
 import { ChartPageModule } from './chart-page/chart-page.module';
+
+import { TechserviceComponent } from './techservice/techservice.component';
+import { WorkerComponent } from './techservice/worker/worker.component';
+import { SkillComponent } from './techservice/worker/skill/skill.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TechmanagerProfileComponent,
+    TechmanagerProfileComponent,
+    TechserviceComponent,
+    WorkerComponent,
+    SkillComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,8 +36,9 @@ import { ChartPageModule } from './chart-page/chart-page.module';
     MDBBootstrapModule.forRoot(),
     
     ChartPageModule,
+    SecurityModule
   ],
-  providers: [TechmanagerProfileService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

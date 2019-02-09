@@ -5,7 +5,8 @@ import { TechmanagerProfile } from './techmanager-profile';
 @Component({
   selector: 'app-techmanager-profile',
   templateUrl: './techmanager-profile.component.html',
-  styleUrls: ['./techmanager-profile.component.scss']
+  styleUrls: ['./techmanager-profile.component.scss'],
+  providers: [TechmanagerProfileService]
 })
 export class TechmanagerProfileComponent implements OnInit {
 
