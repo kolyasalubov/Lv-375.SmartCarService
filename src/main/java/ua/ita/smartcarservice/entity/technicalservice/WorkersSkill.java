@@ -13,6 +13,9 @@ import java.io.Serializable;
 public class WorkersSkill implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @OneToOne
     @JoinColumn(name = "worker_id", nullable = false)
     private UserEntity workerId;
