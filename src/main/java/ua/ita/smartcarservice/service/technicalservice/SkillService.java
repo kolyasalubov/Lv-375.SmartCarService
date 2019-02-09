@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.service;
+package ua.ita.smartcarservice.service.technicalservice;
 
 import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;

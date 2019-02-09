@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
-import ua.ita.smartcarservice.service.SkillService;
+import ua.ita.smartcarservice.service.technicalservice.SkillService;
 
 import java.util.List;
 

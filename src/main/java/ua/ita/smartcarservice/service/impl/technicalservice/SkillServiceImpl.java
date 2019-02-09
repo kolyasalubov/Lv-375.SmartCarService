@@ -1,11 +1,11 @@
-package ua.ita.smartcarservice.service.impl;
+package ua.ita.smartcarservice.service.impl.technicalservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import ua.ita.smartcarservice.repository.technicalservice.SkillRepository;
-import ua.ita.smartcarservice.service.SkillService;
+import ua.ita.smartcarservice.service.technicalservice.SkillService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public List<String> getSkillNameBySto(Long id){
-        return null;//repository.getSkillNameBySto(id);
+        return null;//technicalServiceRepository.getSkillNameBySto(id);
     }
 
     /*

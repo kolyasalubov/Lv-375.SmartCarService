@@ -13,9 +13,6 @@ import java.io.Serializable;
 public class WorkersSkill implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @OneToOne
     @JoinColumn(name = "worker_id", nullable = false)
     private UserEntity workerId;
@@ -24,4 +21,11 @@ public class WorkersSkill implements Serializable {
     @JoinColumn(name = "skill_id", nullable = false)
     private SkillEntity skill;
 
+    public WorkersSkill() {
+    }
+
+    public WorkersSkill(UserEntity workerId, SkillEntity skill) {
+        this.workerId = workerId;
+        this.skill = skill;
+    }
 }
