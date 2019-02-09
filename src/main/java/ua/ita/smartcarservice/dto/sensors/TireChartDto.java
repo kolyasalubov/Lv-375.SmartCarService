@@ -20,6 +20,6 @@ public class TireChartDto implements IChartDto {
     }
 
     public int dataSize(){
-        return data.size();
+        return data.values().stream().findFirst().get().size();
     }
 }
