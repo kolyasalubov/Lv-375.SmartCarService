@@ -11,7 +11,7 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 export class SkillComponent implements OnInit {
 
   error: ErrorEvent;
-
+ 
   skills: Skill[];
   selectedSkill: Skill;
 
