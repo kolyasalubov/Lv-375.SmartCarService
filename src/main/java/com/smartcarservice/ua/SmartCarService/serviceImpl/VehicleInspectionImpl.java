@@ -1,6 +1,7 @@
 package com.smartcarservice.ua.SmartCarService.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +50,16 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	@Override
 	public List<Car> getCarsForVehicleInspectionByMileage() {
 		return vehicleInspectionRepository.getCarsForInspectionByMileage();
+	}
+
+	@Override
+	public VehicleInspection getLastVehicleInspection(long carId) {
+		return vehicleInspectionRepository.getLastVehicleInspection(carId);
+	}
+
+	@Override
+	public Date getDateOfLastVehicleInspection(long carId) {
+		return vehicleInspectionRepository.getDateOfLastVehicleInspection(carId);
 	}
 	
 }

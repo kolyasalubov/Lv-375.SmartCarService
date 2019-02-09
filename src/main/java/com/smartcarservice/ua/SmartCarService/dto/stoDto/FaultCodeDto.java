@@ -23,14 +23,4 @@ public class FaultCodeDto{
 		this.type = type;
 		this.skill = skill;
 	}
-	
-	public FaultCodeDto (FaultCode faultCode) {
-		this.id = faultCode.getId();
-		this.faultCode = faultCode.getFaultCode();
-		this.description = faultCode.getDescription();
-		this.type = faultCode.getType();
-		this.skill= faultCode.getSkill();
-	}
-	 
-	 
 }

@@ -13,8 +13,13 @@ import javax.persistence.Table;
 
 import com.smartcarservice.ua.SmartCarService.entity.sto.Skill;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "fault_code")
 public class FaultCode {

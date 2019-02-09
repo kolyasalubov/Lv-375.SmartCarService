@@ -3,11 +3,15 @@ package com.smartcarservice.ua.SmartCarService.entity.car;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.smartcarservice.ua.SmartCarService.entity.UserBaseEntity;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter 
+@Setter
 @Entity
 @Table(name = "carowners")
 public class CarOwner extends UserBaseEntity {
