@@ -10,14 +10,24 @@ import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 })
 export class SkillComponent implements OnInit {
 
-  skills: Skill[];
   error: ErrorEvent;
+
+  skills: Skill[];
+  selectedSkill: Skill;
 
   constructor(private skillService: SkillService) { }
 
   ngOnInit() {
-    console.log(this.skillService.getAllSkills()
+    this.recieveSkills();
+  }
+
+  recieveSkills(){
+    this.skillService.getAllSkills()
     .subscribe(data => this.skills = data,
-              error => this.error = error));
+              error => this.error = error)
+  }
+
+  selectSkill(skill: Skill){
+    this.selectedSkill = skill;
   }
 }

@@ -1,11 +1,10 @@
 <div class="btn-group" mdbDropdown>
   <button mdbDropdownToggle type="button" mdbBtn color="primary" class="dropdown-toggle waves-light"
     mdbWavesEffect>
-    Skills
+    Skills {{selectedSkill}}
   </button>
 
   <div class="dropdown-menu dropdown-primary">
-    <a class="dropdown-item" *ngFor="let skill of skills">{{skill.name}}</a>
-    
+    <a class="dropdown-item" *ngFor="let skill of skills" (click)="selectSkill(skill)">{{skill.name}}</a>
   </div>
 </div>
