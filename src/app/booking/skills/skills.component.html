@@ -1,0 +1,6 @@
+<ul class = "list-group">
+  <li class = "list-group-item d-flex justify-content-between align-items-center"
+   *ngFor = "let skill of skills" (click)="addOrDelete(skill)">{{skill.name}}
+   <span class="badge badge-primary badge-pill">{{skill.requiredTime}}</span></li>
+</ul>
+<p class = "time-value">value: {{timeValue}}</p>

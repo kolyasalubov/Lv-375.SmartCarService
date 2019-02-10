@@ -12,6 +12,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { TechserviceComponent } from './techservice/techservice.component';
 import { WorkerComponent } from './techservice/worker/worker.component';
 import { SkillComponent } from './techservice/worker/skill/skill.component';
+import { StoSkillComponent } from './booking/skills/skills.component';
+import { BookingModule } from './booking/booking.module';
 
 @NgModule({
   declarations: [
@@ -20,14 +22,16 @@ import { SkillComponent } from './techservice/worker/skill/skill.component';
     TechmanagerProfileComponent,
     TechserviceComponent,
     WorkerComponent,
-    SkillComponent
+    SkillComponent,
+    StoSkillComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    BookingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
