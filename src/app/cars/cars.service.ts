@@ -17,7 +17,7 @@ export class CarsService {
   constructor(private http:HttpClient) { }
 
   getOwnerCarsById(id: Number): Observable<Car[]> {
-    return this.http.get<Car[]>('http://localhost:9501/ownercars/' +id);
+    return this.http.get<Car[]>('http://localhost:9501/ownercars/' + id);
     }
 
   deleteCarById (id: number){

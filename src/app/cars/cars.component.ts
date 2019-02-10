@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import{Car} from './car';
+import { Component, OnInit, Input } from '@angular/core';
+import {Car} from './car';
 import { CarsService } from './cars.service';
+import { User } from '../users/user';
+import { TokenStorageService } from '../auth/token-storage.service';
+import { UsersService } from '../users/users.service';
+import { identifierModuleUrl } from '@angular/compiler';
+import { ActivatedRoute } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-cars',
@@ -10,22 +17,41 @@ import { CarsService } from './cars.service';
 export class CarsComponent implements OnInit {
 
   cars: Car[];
-  car1: Car;
+  private username: String;
+  user: User;
+  private sub: any;
 
-  constructor(private carsService: CarsService) { }
+  @Input()
+  id: number;
+
+
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute) { }
   
   ngOnInit(){
-this.carsService.getOwnerCarsById(4)
+
+    this.sub = this.route.params.subscribe(params => {
+      let id = + params['id'];  
+      this.carsService.getOwnerCarsById(id)
+      .subscribe( data => this.cars = data); 
+   });
+
+ //  let id = this.route.snapshot.params['id'];
+/*
+this.username = this.tokenStorage.getUsername();
+
+console.log(this.username);
+
+this.userService.getUserByUsername(this.username)
+.subscribe(data => this.user = data);
+*/
+console.log(this.id);
+console.log(this.sub);
+
+ this.carsService.getOwnerCarsById(2)
  .subscribe(data => this.cars = data);
 
-this.carsService.getCarById(2) 
-.subscribe(data => this.car1 = data);
-
-console.log(this.cars);
-console.log(this.car1);
-  }
-
-    
+ }
+   
     applyToSTO(id: number){
 
     }
@@ -35,6 +61,10 @@ console.log(this.car1);
     }
 
     wiewCharts(id: number){
+
+    }
+
+    history(id: number){
 
     }
 

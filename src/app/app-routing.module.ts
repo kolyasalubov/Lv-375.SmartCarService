@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
- 
+
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
@@ -15,10 +15,12 @@ import {InfoComponent} from './info/info.component';
 import {CarProfileComponent} from './car-profile/car-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
+import { ChartPageComponent } from './chart-page/chart-page.component';
+
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: MenuComponent
 },
 {
     path: 'user',
@@ -46,7 +48,11 @@ const routes: Routes = [
     pathMatch: 'full'
 },
 {
-    path: 'usercars',
+    path: 'charts', 
+component: ChartPageComponent},
+
+{
+    path: 'ownercars',
     component: CarsComponent
 },
 {
@@ -67,11 +73,11 @@ const routes: Routes = [
 {
     path: 'userprofile',
     component: UserProfileComponent
-},
-];
+}
+]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

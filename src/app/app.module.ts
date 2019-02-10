@@ -1,15 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { LineChartComponent } from 'src/charts/line-chart.component';
+
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { AppRoutingModule } from './app-routing.module';
 import { SecurityModule } from './security/security.module';
 import { AppComponent } from './app.component';
 import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 import { TechmanagerProfileService } from './techmanager-profile/techmanager-profile.service';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ChartPageModule } from './chart-page/chart-page.module';
+import { RolesComponent } from './roles/roles.component';
 import { TechserviceComponent } from './techservice/techservice.component';
 import { WorkerComponent } from './techservice/worker/worker.component';
 import { SkillComponent } from './techservice/worker/skill/skill.component';
@@ -21,14 +23,16 @@ import { CarProfileComponent } from './car-profile/car-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    LineChartComponent,
+    TechmanagerProfileComponent,
     TechmanagerProfileComponent,
     TechserviceComponent,
     WorkerComponent,
     SkillComponent,
+    RolesComponent,
     MenuComponent,
     CarsComponent,
     UsersComponent,
@@ -36,6 +40,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     CarProfileComponent,
     UserProfileComponent,
     
+
   ],
   imports: [
     BrowserModule,
@@ -43,9 +48,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     AppRoutingModule,
     FormsModule,
     MDBBootstrapModule.forRoot(),
+    
+    ChartPageModule,
     SecurityModule
   ],
   providers: [],
+  schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

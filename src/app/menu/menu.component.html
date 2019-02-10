@@ -7,29 +7,27 @@
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">  
        
-  <!--     <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">-->
-      <ul class="navbar-nav mr-auto">  
-        <a class="nav-link" routerLink="/usercars">Your cars</a>
+   <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">
+ 
+        <a class="nav-link" routerLink="/ownercars">Your cars</a>
       </ul>
     
- <!--    <ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  --> 
-          <ul class="navbar-nav mr-auto">
+<ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  
+
           <a class="nav-link" routerLink="/">Techmanager manager</a>
     </ul>
 
- <!--  <ul *ngIf="authority === 'sales'" class="navbar-nav mr-auto">  -->  
-        <ul class="navbar-nav mr-auto">
+ <ul *ngIf="authority === 'sales'" class="navbar-nav mr-auto">   
+
       <a class="nav-link" routerLink="/">Sales manager</a>
 </ul>
 
- <!--   <ul *ngIf="authority === 'admin'" class="navbar-nav mr-auto">  -->
-    <ul class="navbar-nav mr-auto">
+ <ul *ngIf="authority === 'admin'" class="navbar-nav mr-auto"> 
         <a class="nav-link" routerLink="/allusers">See users</a>
   </ul>
 
 
- <!-- <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto"> -->
-   <ul class="navbar-nav mr-auto">
+  <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
       <a class="nav-link" routerLink="/">Notifications</a>
 </ul>
 
@@ -39,9 +37,9 @@
                   Actions 
               </button>
               <div class="dropdown-menu dropdown-primary">
-       <a routerLink="/userprofile">My profile</a>
+      <a routerLink="/userprofile">My profile</a>
       <a class="nav-link" routerLink="/info">Info/Help</a>
-       <a class="nav-link" (click)= "logout()">Logout</a>
+      <a class="nav-link" (click)= "logout()">Logout</a>
       
       </div>
           </div>

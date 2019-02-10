@@ -1,3 +1,5 @@
+<app-menu></app-menu>
+
 <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/newcar"> Add new car</a>
 <br><br>
 <div class="container-fluid">
@@ -17,7 +19,9 @@
   <a href="#"  class="btn btn-outline-success my-2 my-sm-0" (click) = "applyToTradeIn()">Apply for Trade in</a>
   <a href="#" class="btn btn-outline-success my-2 my-sm-0" (click) = "viewCharts()">Wiew charts</a>
   <a class="btn btn-outline-success my-2 my-sm-0" (click) = "deleteCarById()">Delete {{car.brand}} {{car.model}}</a>
+  <a href="#" class="btn btn-outline-success my-2 my-sm-0" (click) = "history()">Service history</a>
   
-  </ul>
+</ul>
   
   </div>  
+

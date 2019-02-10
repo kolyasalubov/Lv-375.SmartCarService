@@ -22,6 +22,6 @@ export class AdminComponent implements OnInit {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );
-  }
+  }s
 
 }
