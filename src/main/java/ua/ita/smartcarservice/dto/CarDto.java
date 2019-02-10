@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.DealerDetails;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sensors.alert.VehicleInspection;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class CarDto {
     private Double price;
     private String vin;
     private Date end_guarantee;
-    private DealerDetails dealer;
+    private DealerEntity dealerEntity;
     private UserEntity carOwner;
 
     @JsonIgnore
@@ -30,7 +31,7 @@ public class CarDto {
     }
 
     //for new car
-    public CarDto(Long id, String brand, String model, String graduation_year, String number, Double price, String vin, Date end_guarantee, DealerDetails dealer, UserEntity carOwner, Set<VehicleInspection> vehicleInspections) {
+    public CarDto(Long id, String brand, String model, String graduation_year, String number, Double price, String vin, Date end_guarantee, DealerEntity dealer, UserEntity carOwner, Set<VehicleInspection> vehicleInspections) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -39,7 +40,7 @@ public class CarDto {
         this.price = price;
         this.vin = vin;
         this.end_guarantee = end_guarantee;
-        this.dealer = dealer;
+        this.dealerEntity = dealer;
         this.carOwner = carOwner;
         this.vehicleInspections = vehicleInspections;
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sensors.alert.VehicleInspection;
 
 import javax.persistence.*;
@@ -48,7 +49,7 @@ public class Car {
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "dealer_id", nullable = true)
-    private DealerDetails dealer;
+    private DealerEntity dealer;
 
     //TODO delete CascadeType.ALL after token implementation
     @ManyToOne(cascade = CascadeType.ALL)
@@ -69,7 +70,7 @@ public class Car {
 
     //For new cars
     public Car(String brand, String model, String graduation_year, String number, Double price, String vin,
-               Date end_guarantee, DealerDetails dealer, UserEntity user, Set<VehicleInspection> vehicleInspections) {
+               Date end_guarantee, DealerEntity dealer, UserEntity user, Set<VehicleInspection> vehicleInspections) {
         this.brand = brand;
         this.model = model;
         this.graduation_year = graduation_year;
@@ -93,6 +94,91 @@ public class Car {
     }
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getGraduation_year() {
+        return graduation_year;
+    }
+
+    public void setGraduation_year(String graduation_year) {
+        this.graduation_year = graduation_year;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getVin() {
+        return vin;
+    }
+
+    public void setVin(String vin) {
+        this.vin = vin;
+    }
+
+    public Date getEnd_guarantee() {
+        return end_guarantee;
+    }
+
+    public void setEnd_guarantee(Date end_guarantee) {
+        this.end_guarantee = end_guarantee;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public Set<VehicleInspection> getVehicleInspections() {
+        return vehicleInspections;
+    }
+
+    public void setVehicleInspections(Set<VehicleInspection> vehicleInspections) {
+        this.vehicleInspections = vehicleInspections;
+    }
+
+    public DealerEntity getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(DealerEntity dealer) {
+        this.dealer = dealer;
+    }
 }
