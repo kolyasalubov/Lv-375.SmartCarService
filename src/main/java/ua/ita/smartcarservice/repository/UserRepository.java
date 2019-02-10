@@ -14,6 +14,8 @@ import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 
+import javax.persistence.NamedNativeQuery;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	
@@ -26,9 +28,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
 /*
-	@Query("select a from user as u join user_roles as r on user.id = r.user_id" +
-			" where r.role_id = :id")
-	List<UserEntity> getByRoles(@Param("id") Long roleId);*/
+	@Query("select a from user as u join user_roles as r on user.id = r.user_id where r.role_id = :id")
+	List<UserEntity> getByRoles(@Param("id") Long roleId);
+*/
 
     List<UserEntity> getByRoles(RoleEntity roleEntity);
 }
