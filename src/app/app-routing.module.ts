@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RegisterComponent } from './register/register.component';
@@ -10,15 +10,34 @@ import { AdminComponent } from './admin/admin.component';
 import { MenuComponent } from './menu/menu.component';
 import {CarsComponent} from './cars/cars.component';
 import {UsersComponent} from './users/users.component';
-import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 import {InfoComponent} from './info/info.component';
 import {CarProfileComponent} from './car-profile/car-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { ChartPageComponent } from './chart-page/chart-page.component';
+import { SkillComponent } from './techservice/worker/skill/skill.component';
+import { WorkerComponent } from './techservice/worker/worker.component';
+import { TechserviceComponent } from './techservice/techservice.component';
+import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 
 const routes: Routes = [
-  {
+    {
+        path: 'techmanager/profile',
+        component: TechmanagerProfileComponent
+    },
+    {
+        path: 'techservice',
+        component: TechserviceComponent
+    },
+    {
+        path: 'skills',
+        component: SkillComponent
+    },
+    {
+        path: 'workers',
+        component: WorkerComponent
+    }, 
+    {
     path: 'home',
     component: MenuComponent
 },

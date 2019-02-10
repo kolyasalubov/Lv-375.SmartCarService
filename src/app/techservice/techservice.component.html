@@ -1,3 +1,17 @@
-<p>
-  techservice works!
-</p>
+<div style="width: 400px;">
+  <div class="md-form input-group mb-3" >
+    <div class="input-group-prepend">
+        <span class="input-group-text md-addon">Name: </span>
+    </div>
+    <input type="text" class="form-control" [(ngModel)]="techservice.name" aria-label="Username" aria-describedby="material-addon1">
+  </div>
+
+  <div class="md-form input-group mb-3" >
+      <div class="input-group-prepend">
+          <span class="input-group-text md-addon">Address: </span>
+      </div>
+      <input type="text" class="form-control" [(ngModel)]="techservice.address" aria-describedby="material-addon1">
+  </div>
+
+  <button (click)="createTechservice(techservice)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
+</div>

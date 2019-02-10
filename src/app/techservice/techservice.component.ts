@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Techservice } from './techservice';
+import { TechserviceService } from './techservice.service';
 
 @Component({
   selector: 'app-techservice',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TechserviceComponent implements OnInit {
 
-  constructor() { }
+  techservice: Techservice = {name: '', address: '', workers:[], dealer: null, techManager: null};
+  error: ErrorEvent;
+
+  constructor(private techserviceService: TechserviceService) { }
 
   ngOnInit() {
+  }
+
+  createTechservice(techservice: Techservice) {
+    this.techserviceService.createTechnicalService(techservice)
+    .subscribe();
   }
 
 }
