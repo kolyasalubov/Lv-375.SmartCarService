@@ -13,6 +13,13 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { TechserviceComponent } from './techservice/techservice.component';
 import { WorkerComponent } from './techservice/worker/worker.component';
 import { SkillComponent } from './techservice/worker/skill/skill.component';
+import { MenuComponent } from './menu/menu.component';
+import { CarsComponent } from './cars/cars.component';
+import { UsersComponent } from './users/users.component';
+import { InfoComponent } from './info/info.component';
+import { CarProfileComponent } from './car-profile/car-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +29,13 @@ import { SkillComponent } from './techservice/worker/skill/skill.component';
     TechserviceComponent,
     WorkerComponent,
     SkillComponent,
+    MenuComponent,
+    CarsComponent,
+    UsersComponent,
+    InfoComponent,
+    CarProfileComponent,
+    UserProfileComponent,
+    
   ],
   imports: [
     BrowserModule,

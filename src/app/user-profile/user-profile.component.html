@@ -1,0 +1,23 @@
+
+   <div class="container">
+    <form form="userProfile" (ngSubmit)="onSubmit()">
+  
+    <p class="h3 mb-4">User profile</p>
+    <label><b>Full name</b></label>
+    <input type="text" class="form-control" [(ngModel)]="userProfile.fullname" name="fullname" readonly>
+    <label><b>Email</b></label>
+    <input type="email" class="form-control" [(ngModel)]="userProfile.email" name="email" required>
+    <label><b>Password</b></label>
+    <input type="password" class="form-control" [(ngModel)]="userProfile.password" name="password" required>
+    <label><b>Username</b></label>
+    <input type="text" class="form-control" [(ngModel)]="userProfile.username" name="username" readonly>
+    <label><b>Phone number</b></label>
+    <input type="text" class="form-control" [(ngModel)]="userProfile.numberPhone" name="numberPhone" required>
+    <br> 
+    <div>
+    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Update</button>
+    <a href="/home" type="button" class="btn btn-outline-info my-2 my-sm-0">Cancel</a>
+    </div>
+    </form>
+    </div>
+   

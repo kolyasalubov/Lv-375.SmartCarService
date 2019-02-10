@@ -1,0 +1,23 @@
+<a class="btn btn-outline-success my-2 my-sm-0" routerLink="/newcar"> Add new car</a>
+<br><br>
+<div class="container-fluid">
+  
+  <ul *ngFor="let car of cars">
+  
+  <h3> {{car.brand}} {{car.model}} </h3>
+  <li>Graduation year : {{car.graduation_year}} </li> 
+  <li>Number : {{car.nuber}} </li>
+  <li>Vin : {{car.vin}} </li>
+  <li>Price : {{car.price}} </li>
+  <li>End of guarantee : {{car.end_guarantee}} </li>
+    
+  <li>Carowner id : {{car.carOwner.id}}</li>
+  <br>
+  <a href="#"  class="btn btn-outline-success my-2 my-sm-0" (click) = "applyToSTO()">Apply to STO</a>
+  <a href="#"  class="btn btn-outline-success my-2 my-sm-0" (click) = "applyToTradeIn()">Apply for Trade in</a>
+  <a href="#" class="btn btn-outline-success my-2 my-sm-0" (click) = "viewCharts()">Wiew charts</a>
+  <a class="btn btn-outline-success my-2 my-sm-0" (click) = "deleteCarById()">Delete {{car.brand}} {{car.model}}</a>
+  
+  </ul>
+  
+  </div>  
