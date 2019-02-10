@@ -29,4 +29,9 @@ public class UserSaleManager {
     @ManyToOne
     @JoinColumn(name = "salemanager_id",nullable = false)
      private SaleManagerEntity saleManagerEntity;
+
+    public UserSaleManager(UserEntity userId, SaleManagerEntity saleManagerEntity) {
+        this.userId = userId;
+        this.saleManagerEntity = saleManagerEntity;
+    }
 }

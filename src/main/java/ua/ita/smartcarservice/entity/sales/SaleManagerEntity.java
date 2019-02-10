@@ -22,17 +22,21 @@ public class SaleManagerEntity {
     private Long salemanagerId;
 
 
+
     @OneToMany(mappedBy = "saleManagerEntity")
     private List<UserSaleManager> userSaleManagers;
 
-//    @JoinColumn(name = "dealer_id",nullable = false)
-//    private DealerEntity dealerEntity;
 
     @ManyToOne
     @JoinColumn(name = "dealerEntity",nullable = false)
     private DealerEntity dealerEntity;
 
+    public SaleManagerEntity(List<UserSaleManager> userSaleManagers, DealerEntity dealerEntity) {
+        this.userSaleManagers = userSaleManagers;
+        this.dealerEntity = dealerEntity;
+    }
 
-
-
+    public SaleManagerEntity(DealerEntity dealerEntity) {
+        this.dealerEntity = dealerEntity;
+    }
 }
