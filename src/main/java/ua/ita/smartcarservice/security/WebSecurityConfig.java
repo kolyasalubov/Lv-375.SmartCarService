@@ -19,55 +19,59 @@ import ua.ita.smartcarservice.service.impl.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	
-	@Autowired
-	private UserDetailsServiceImpl userDetailsServiceImpl;
-	
-	@Autowired
-	private JwtAuthEntryPoint unauthorizedHandler;
-	
-	public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-		return new JwtAuthTokenFilter();
-	}
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
-		
-	}
-	
-	@Bean
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
+    private JwtAuthEntryPoint unauthorizedHandler;
+
+    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
+        return new JwtAuthTokenFilter();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+
+    }
+
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-	
-	@Bean
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+	
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
-		http.cors().and().csrf().disable()
-		.authorizeRequests()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http.cors().and().csrf().disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/skillbysto/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/workerBySkill").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/addBooking").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/sessionById").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/bookingTime").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/skills").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/record/**").permitAll()
-		.antMatchers("/auth/**").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-		.and()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		
-		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	}
-	
-	
-	
-	
+                .antMatchers(HttpMethod.POST, "/api/chart/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
 
 }

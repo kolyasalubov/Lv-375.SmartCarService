@@ -4,10 +4,7 @@ package ua.ita.smartcarservice.controller.technicalservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
 import ua.ita.smartcarservice.service.technicalservice.SkillService;
 
@@ -22,10 +19,10 @@ public class SkillController {
 
     @Autowired
     private SkillService skillService;
-    
-    @PostMapping("/skillbysto")
-    public ResponseEntity<List<String>> getSkillByStoId(@RequestParam(value = "stoId", required = false) Long stoId){
-        return new ResponseEntity <>(skillService.getSkillNameBySto(stoId), HttpStatus.OK);
+
+    @GetMapping("/api/skillbysto/{id}")
+    public ResponseEntity<List<SkillDto>> getSkillByStoId(@PathVariable Long id){
+        return new ResponseEntity <>(skillService.getSkillNameBySto(id), HttpStatus.OK);
     }
 
     /*

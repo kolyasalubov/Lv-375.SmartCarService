@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
 import lombok.Data;
+import ua.ita.smartcarservice.entity.sales.DealerEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +26,12 @@ public class TechnicalServiceEntity {
 
     @OneToMany(mappedBy = "technicalServiceId")
     private List<UserTechnicalService> userTechnicalServices;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "dealerEntity",nullable = false)
+    private DealerEntity dealerEntity;
 
 
 /*

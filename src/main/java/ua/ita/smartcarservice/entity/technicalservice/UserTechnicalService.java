@@ -24,6 +24,10 @@ public class UserTechnicalService implements Serializable {
     @JoinColumn(name = "technical_service_id" ,nullable = false)
     private TechnicalServiceEntity technicalServiceId;
 
+    public UserTechnicalService(){
+
+    }
+
     public UserTechnicalService(UserEntity userId, TechnicalServiceEntity technicalServiceId) {
         this.userId = userId;
         this.technicalServiceId = technicalServiceId;
