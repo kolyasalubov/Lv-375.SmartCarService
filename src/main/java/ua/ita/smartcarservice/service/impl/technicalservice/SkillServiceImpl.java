@@ -47,7 +47,7 @@ public class SkillServiceImpl implements SkillService {
     @Override
     public List<SkillDto> getSkillNameBySto(Long id){
         List<SkillDto> skillBySto = new ArrayList <>();
-        for(SkillEntity skill : repository.getSkillNameBySto()){
+        for(SkillEntity skill : repository.getSkillNameBySto(id)){
             skillBySto.add(getSkillDto(skill));
         }
         return skillBySto;

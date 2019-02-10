@@ -3,7 +3,7 @@ package ua.ita.smartcarservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
-import ua.ita.smartcarservice.entity.technicalservice.WorkTime;
+import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 
 import java.util.HashSet;
@@ -29,15 +29,18 @@ public class UserEntity {
 	@Column(length = 15, unique = true)
 	private String numberPhone;
 
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles",
 	joinColumns = @JoinColumn(name = "user_id"),
 	inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<RoleEntity> roles = new HashSet<RoleEntity>();
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "userId")
 	private UserTechnicalService userTechnicalService;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "workerId", cascade = CascadeType.ALL,
 			fetch = FetchType.LAZY)
 	private WorkersSkill workersSkill;
@@ -104,14 +107,12 @@ public class UserEntity {
 	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
 	}
-	
-	
-	
-	
-	
-    
-	
-	
-	
-	
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 }

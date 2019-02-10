@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.entity.sensors.alert.VehicleInspection;
 
 import javax.persistence.*;
@@ -58,6 +59,10 @@ public class Car {
     @JsonIgnore
     @OneToMany(mappedBy = "car")
     private Set<VehicleInspection> vehicleInspections;
+
+    @JsonIgnore
+    @OneToMany (mappedBy = "car")
+    private Set<WorkTime> workTimes;
 /*
     @JsonManagedReference
     @OneToMany (mappedBy = "car")

@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.entity.technicalservice;
+package ua.ita.smartcarservice.entity.booking;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -29,7 +29,7 @@ public class WorkTime {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "carId", nullable = false)
     private Car car;
 
     @JsonBackReference
