@@ -32,17 +32,13 @@ class LabelsProvider {
 
     List<String> getHours(List<ISensorEntity> records){
         List<String> labels = new ArrayList<>();
-        for (ISensorEntity entity : records) {
-            labels.add(dateTimeToTime(entity.getDate()));
-        }
+        records.forEach((entity) -> labels.add(dateTimeToTime(entity.getDate())));
         return labels;
     }
 
     List<String> getTireHours(List<TirePressureEntity> records){
         List<String> labels = new ArrayList<>();
-        for (TirePressureEntity entity : records) {
-            labels.add(dateTimeToTime(entity.getDate()));
-        }
+        records.forEach((entity) -> labels.add(dateTimeToTime(entity.getDate())));
         return labels;
     }
 
