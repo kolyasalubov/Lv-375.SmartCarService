@@ -1,0 +1,49 @@
+<div class="home">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+    <a class="navbar-brand" href="/home">Smart car service</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">  
+       
+   <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">
+ 
+        <a class="nav-link" routerLink="/ownercars">Your cars</a>
+      </ul>
+    
+<ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  
+
+          <a class="nav-link" routerLink="/">Techmanager manager</a>
+    </ul>
+
+ <ul *ngIf="authority === 'sales'" class="navbar-nav mr-auto">   
+
+      <a class="nav-link" routerLink="/">Sales manager</a>
+</ul>
+
+ <ul *ngIf="authority === 'admin'" class="navbar-nav mr-auto"> 
+        <a class="nav-link" routerLink="/allusers">See users</a>
+  </ul>
+
+
+  <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
+      <a class="nav-link" routerLink="/">Notifications</a>
+</ul>
+
+    
+      <div class="btn-group" mdbDropdown>
+              <button mdbDropdownToggle type="button" mdbBtn color="success" class="dropdown-toggle" mdbWavesEffect>
+                  Actions 
+              </button>
+              <div class="dropdown-menu dropdown-primary">
+      <a routerLink="/userprofile">My profile</a>
+      <a class="nav-link" routerLink="/info">Info/Help</a>
+      <a class="nav-link" (click)= "logout()">Logout</a>
+      
+      </div>
+          </div>
+      </div>
+   
+  </nav> 
+  </div>

@@ -7,6 +7,12 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { TmComponent } from '../app/tm/tm.component';
 import { AdminComponent } from './admin/admin.component';
+import { MenuComponent } from './menu/menu.component';
+import {CarsComponent} from './cars/cars.component';
+import {UsersComponent} from './users/users.component';
+import {InfoComponent} from './info/info.component';
+import {CarProfileComponent} from './car-profile/car-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { ChartPageComponent } from './chart-page/chart-page.component';
 import { SkillComponent } from './techservice/worker/skill/skill.component';
@@ -32,37 +38,62 @@ const routes: Routes = [
         component: WorkerComponent
     }, 
     {
-        path: 'home',
-        component: HomeComponent
-    },
-    {
-        path: 'user',
-        component: UserComponent
-    },
-    {
-        path: 'tm',
-        component: TmComponent
-    },
-    {
-        path: 'admin',
-        component: AdminComponent
-    },
-    {
-        path: 'auth/login',
-        component: LoginComponent
-    },
-    {
-        path: 'signup',
-        component: RegisterComponent
-    },
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-    },
-    
-    {path: 'charts', component: ChartPageComponent}
-];
+    path: 'home',
+    component: MenuComponent
+},
+{
+    path: 'user',
+    component: UserComponent
+},
+{
+    path: 'tm',
+    component: TmComponent
+},
+{
+    path: 'admin',
+    component: AdminComponent
+},
+{
+    path: 'auth/login',
+    component: LoginComponent
+},
+{
+    path: 'signup',
+    component: RegisterComponent
+},
+{
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+},
+{
+    path: 'charts', 
+component: ChartPageComponent},
+
+{
+    path: 'ownercars',
+    component: CarsComponent
+},
+{
+    path: 'allusers',
+    component: UsersComponent
+},
+
+{
+    path: 'info',
+    component: InfoComponent
+},
+
+{
+    path: 'newcar',
+    component: CarProfileComponent
+},
+
+{
+    path: 'userprofile',
+    component: UserProfileComponent
+}
+]
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
