@@ -53,6 +53,16 @@ public class SkillServiceImpl implements SkillService {
         return skillBySto;
     }
 
+    @Override
+    public List<SkillDto> getSkillNameByCarId(Long carId){
+        List<SkillDto> skillBySto = new ArrayList <>();
+        for(SkillEntity skill : repository.getSkillNameByCarId(carId)){
+            skillBySto.add(getSkillDto(skill));
+        }
+        return skillBySto;
+    }
+
+
     /*
     Method returns Skill entity by id
      */

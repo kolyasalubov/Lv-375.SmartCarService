@@ -8,10 +8,7 @@ import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.TirePressureRepository;
 import ua.ita.smartcarservice.service.sensors.SensorService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service(value="tire")
 public class TireSensorServiceImpl implements SensorService {
@@ -52,20 +49,19 @@ public class TireSensorServiceImpl implements SensorService {
     private Map<String, List<Double>> fillMap(){
 
         Map<String, List<Double>> map = new HashMap<>();
-        for(Tires tire : Tires.values())
-            map.put(tire.toString(), new ArrayList<>());
+        Arrays.stream(Tires.values()).forEach( (tire) -> map.put(tire.toString(), new ArrayList<>()) );
         return map;
     }
 
     private Map<String, List<Double>> getData(List<TirePressureEntity> records){
         Map<String, List<Double>> map = fillMap();
 
-        for (TirePressureEntity tire : records) {
+        records.forEach((tire) -> {
             map.get(Tires.BACK_LEFT.toString()).add(tire.getValueBackLeft());
             map.get(Tires.BACK_RIGHT.toString()).add(tire.getValueBackRight());
             map.get(Tires.FRONT_LEFT.toString()).add(tire.getValueFrontLeft());
             map.get(Tires.FRONT_RIGHT.toString()).add(tire.getValueFrontRight());
-        }
+        });
 
         return map;
     }
@@ -73,12 +69,12 @@ public class TireSensorServiceImpl implements SensorService {
     private Map<String, List<Double>> getDataFromObjArray(List<Object[]> records){
         Map<String, List<Double>> map = fillMap();
 
-        for (Object[] arr : records) {
+        records.forEach((arr) -> {
             map.get(Tires.FRONT_LEFT.toString()).add((Double)arr[1]);
             map.get(Tires.FRONT_RIGHT.toString()).add((Double)arr[2]);
             map.get(Tires.BACK_LEFT.toString()).add((Double)arr[3]);
             map.get(Tires.BACK_RIGHT.toString()).add((Double)arr[4]);
-        }
+        });
 
         return map;
     }

@@ -50,17 +50,13 @@ public class SensorServiceImpl implements SensorService {
 
     private List<Double> getData(List<ISensorEntity> records){
         List<Double> data = new ArrayList<>();
-        for (ISensorEntity record : records) {
-            data.add(record.getValue());
-        }
+        records.forEach( (record) -> data.add(record.getValue()) );
         return data;
     }
 
     private List<Double> getDataFromObjArray(List<Object[]> records){
         List<Double> data = new ArrayList<>();
-        for(Object[] el : records){
-            data.add((double) el[1]);
-        }
+        records.forEach( (record) -> data.add( (double)record[1]) );
         return data;
     }
 
