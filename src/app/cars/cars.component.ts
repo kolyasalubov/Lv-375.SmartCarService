@@ -19,8 +19,7 @@ export class CarsComponent implements OnInit {
   cars: Car[];
   private username: String;
   user: User;
-  private sub: any;
-
+  
   @Input()
   id: number;
 
@@ -29,29 +28,20 @@ export class CarsComponent implements OnInit {
   
   ngOnInit(){
 
-    this.sub = this.route.params.subscribe(params => {
-      let id = + params['id'];  
-      this.carsService.getOwnerCarsById(id)
-      .subscribe( data => this.cars = data); 
-   });
+   this.route.params.subscribe(params => {
+    this.id = params["id"];
+});
 
- //  let id = this.route.snapshot.params['id'];
-/*
-this.username = this.tokenStorage.getUsername();
-
-console.log(this.username);
-
-this.userService.getUserByUsername(this.username)
-.subscribe(data => this.user = data);
-*/
-console.log(this.id);
-console.log(this.sub);
-
- this.carsService.getOwnerCarsById(2)
+ this.carsService.getOwnerCarsById(this.id)
  .subscribe(data => this.cars = data);
 
  }
    
+ deleteCarById(id: number){
+this.carsService.getCarById(id);
+this.reloadPage();
+
+ }
     applyToSTO(id: number){
 
     }
@@ -66,6 +56,10 @@ console.log(this.sub);
 
     history(id: number){
 
+    }
+
+    reloadPage() {
+      window.location.href='/ownercars/' + this.id;
     }
 
 }

@@ -52,7 +52,7 @@ const routes: Routes = [
 component: ChartPageComponent},
 
 {
-    path: 'ownercars',
+    path: 'ownercars/:id',
     component: CarsComponent
 },
 {
