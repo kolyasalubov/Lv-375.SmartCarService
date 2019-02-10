@@ -1,9 +1,9 @@
 package ua.ita.smartcarservice.service.sensors;
 
-import javafx.util.Pair;
 import ua.ita.smartcarservice.dto.sensors.ARecordDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.IChartDto;
+import ua.ita.smartcarservice.service.impl.sensors.ParamsProvider;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,9 +38,9 @@ public interface SensorService {
         return LocalDateTime.parse(strDate, formatter);
     }
 
-    default Pair<LocalDateTime, Long> getParams(DateForChartDto dateForChartDto){
+    default ParamsProvider getParams(DateForChartDto dateForChartDto){
         LocalDateTime date = parseDateToLocal(dateForChartDto.getDate());
         Long carId = dateForChartDto.getCarId();
-        return new Pair<>(date, carId);
+        return new ParamsProvider(date, carId);
     }
 }

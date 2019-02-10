@@ -10,4 +10,5 @@ public interface SkillService {
     SkillDto getSkillDto(SkillEntity skill);
     SkillEntity getSkillById(Long id);
     List<SkillDto> getSkillNameBySto(Long id);
+    List<SkillDto> getSkillNameByCarId(Long carId);
 }
