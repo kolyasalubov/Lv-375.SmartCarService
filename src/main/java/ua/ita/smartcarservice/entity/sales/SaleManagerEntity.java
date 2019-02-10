@@ -25,4 +25,14 @@ public class SaleManagerEntity {
     @OneToMany(mappedBy = "saleManagerEntity")
     private List<UserSaleManager> userSaleManagers;
 
+//    @JoinColumn(name = "dealer_id",nullable = false)
+//    private DealerEntity dealerEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "dealerEntity",nullable = false)
+    private DealerEntity dealerEntity;
+
+
+
+
 }
