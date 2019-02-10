@@ -1,18 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
-import { LineChartComponent } from './charts/line-chart/line-chart.component';
-import { FakeDataBtnComponent } from './fake-data-btn/fake-data-btn.component';
 import { ChartPageComponent } from './chart-page.component';
-import { HttpClientModule } from '@angular/common/http';
+import { FakeDataBtnComponent } from './fake-data-btn/fake-data-btn.component';
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { HorizontalBarChartComponent } from './charts/horizontal-bar-chart/horizontal-bar-chart.component';
+import { DoughnutBarChartComponent } from './charts/doughnut-bar-chart/doughnut-bar-chart.component';
 
 @NgModule({
   declarations: [
     ChartPageComponent,
-    LineChartComponent,
     FakeDataBtnComponent,
+    LineChartComponent,
+    BarChartComponent,
+    HorizontalBarChartComponent,
+    DoughnutBarChartComponent,
   ],
   imports: [
     CommonModule,
