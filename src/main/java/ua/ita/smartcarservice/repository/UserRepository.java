@@ -15,8 +15,6 @@ import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	
-	UserEntity findByUsername(String username);
-	
 	boolean existsByUsername(String username);
 
 	@Query("select u from UserEntity as u left join WorkersSkill as w " +
@@ -27,5 +25,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
 
 	UserEntity getUserById(Long id);
+
+	UserEntity findByUsername(String username);
 
 }

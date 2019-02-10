@@ -1,6 +1,5 @@
 package ua.ita.smartcarservice.service.impl.sensors;
 
-import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.sensors.*;
@@ -9,7 +8,6 @@ import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.TirePressureRepository;
 import ua.ita.smartcarservice.service.sensors.SensorService;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,8 +86,8 @@ public class TireSensorServiceImpl implements SensorService {
 
     @Override
     public TireChartDto getAllByDay(DateForChartDto dateForChartDto) {
-        Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
-        List<TirePressureEntity> records = repository.getAllByDay(params.getKey(), params.getValue());
+        ParamsProvider params = getParams(dateForChartDto);
+        List<TirePressureEntity> records = repository.getAllByDay(params.getDate(), params.getCarId());
 
         Map<String, List<Double>> data = getData(records);
         List<String> labels = new LabelsProvider().getTireHours(records);
@@ -98,24 +96,24 @@ public class TireSensorServiceImpl implements SensorService {
 
     @Override
     public TireChartDto getAvgByMonth(DateForChartDto dateForChartDto) {
-        Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
-        List<Object[]> records = repository.getAvgByMonth(params.getKey(), params.getValue());
+        ParamsProvider params = getParams(dateForChartDto);
+        List<Object[]> records = repository.getAvgByMonth(params.getDate(), params.getCarId());
 
         return chartDtoForMonths(records);
     }
 
     @Override
     public TireChartDto getMaxByMonth(DateForChartDto dateForChartDto) {
-        Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
-        List<Object[]> records = repository.getMaxByMonth(params.getKey(), params.getValue());
+        ParamsProvider params = getParams(dateForChartDto);
+        List<Object[]> records = repository.getMaxByMonth(params.getDate(), params.getCarId());
 
         return chartDtoForMonths(records);
     }
 
     @Override
     public TireChartDto getMinByMonth(DateForChartDto dateForChartDto) {
-        Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
-        List<Object[]> records = repository.getMinByMonth(params.getKey(), params.getValue());
+        ParamsProvider params = getParams(dateForChartDto);
+        List<Object[]> records = repository.getMinByMonth(params.getDate(), params.getCarId());
 
         return chartDtoForMonths(records);
     }
@@ -128,24 +126,24 @@ public class TireSensorServiceImpl implements SensorService {
 
     @Override
     public TireChartDto getAvgByYear(DateForChartDto dateForChartDto) {
-        Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
-        List<Object[]> records = repository.getAvgByYear(params.getKey(), params.getValue());
+        ParamsProvider params = getParams(dateForChartDto);
+        List<Object[]> records = repository.getAvgByYear(params.getDate(), params.getCarId());
 
         return chartDtoForYears(records);
     }
 
     @Override
     public TireChartDto getMaxByYear(DateForChartDto dateForChartDto) {
-        Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
-        List<Object[]> records = repository.getMaxByYear(params.getKey(), params.getValue());
+        ParamsProvider params = getParams(dateForChartDto);
+        List<Object[]> records = repository.getMaxByYear(params.getDate(), params.getCarId());
 
         return chartDtoForYears(records);
     }
 
     @Override
     public TireChartDto getMinByYear(DateForChartDto dateForChartDto) {
-        Pair<LocalDateTime, Long> params = getParams(dateForChartDto);
-        List<Object[]> records = repository.getMinByYear(params.getKey(), params.getValue());
+        ParamsProvider params = getParams(dateForChartDto);
+        List<Object[]> records = repository.getMinByYear(params.getDate(), params.getCarId());
 
         return chartDtoForYears(records);
     }
