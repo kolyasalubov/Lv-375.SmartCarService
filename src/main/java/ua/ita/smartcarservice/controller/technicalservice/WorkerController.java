@@ -9,6 +9,7 @@ import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.util.HashMap;
@@ -33,13 +34,13 @@ public class WorkerController {
     }
 
     @GetMapping("/api/v1/workers")
-    public ResponseEntity<List<WorkerDto>> getAllWorkers() {
-        ResponseEntity<List<WorkerDto>> responseEntity;
+    public ResponseEntity<List<UserEntity>> getAllWorkers() {
+        ResponseEntity<List<UserEntity>> responseEntity;
 
         try{
-
+            responseEntity = new ResponseEntity<>(workerService.getAllWorkers(), HttpStatus.OK);
         } catch(Exception e){
-
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         return responseEntity;

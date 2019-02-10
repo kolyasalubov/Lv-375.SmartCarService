@@ -25,8 +25,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 															  WorkersSkill workersSkill);
 
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
-
+/*
 	@Query("select a from user as u join user_roles as r on user.id = r.user_id" +
 			" where r.role_id = :id")
-	List<UserEntity> getByRoles(@Param("id") Long roleId);
+	List<UserEntity> getByRoles(@Param("id") Long roleId);*/
+
+    List<UserEntity> getByRoles(RoleEntity roleEntity);
 }
