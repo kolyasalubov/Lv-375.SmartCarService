@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
  
 import { AuthService } from '../auth/auth.service';
 import { SignUpInfo } from '../auth/sigup-info';
+import { ROLES } from '../roles/mock-roles';
 
 @Component({
   selector: 'app-register',
@@ -9,12 +10,14 @@ import { SignUpInfo } from '../auth/sigup-info';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
+  
+  roleArray = ROLES;
   registerForm: any = {};
   signupInfo: SignUpInfo;
   isSignedUp = false;
   isSignUpFailed = false;
   errorMessage = '';
+  
  
   constructor(private authService: AuthService) { }
  
@@ -28,7 +31,8 @@ export class RegisterComponent implements OnInit {
       this.registerForm.password,
       this.registerForm.fullName,
       this.registerForm.email,
-      this.registerForm.numberPhone);
+      this.registerForm.numberPhone,
+      this.registerForm.checkRole);
  
       console.log(this.signupInfo);
 

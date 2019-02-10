@@ -7,6 +7,25 @@
   <input type="email" name="email" [(ngModel)]="registerForm.email" class="form-control mb-3" placeholder="Email">
   <input type="text" name="fullName" [(ngModel)]="registerForm.fullName" class="form-control mb-3" placeholder="Full Name">
   <input type="text" name="numberPhone" [(ngModel)]="registerForm.numberPhone" class="form-control mb-3" placeholder="Number Phone">
+  <!-- DropDownMenu -->
+  <div class="dropdown" mdbDropdown>
+    <button mdbDropdownToggle type="button" mdbBtn color="info" class="dropdown-toggle waves-light my-2"
+      mdbWavesEffect>
+      Who are you?
+    </button>
+  
+    <div class="dropdown-menu">
+        <div *ngFor="let role of roleArray">
+        <div class="custom-control custom-radio dropdown-item">
+            <input type="radio" [(ngModel)]="registerForm.checkRole" name="checkRole" class="custom-control-input" [value]='role.name' id="role_{{role.name}}" name="defaultExampleRadios" mdbInputDirective>
+            <label class="custom-control-label" for="role_{{role.name}}">{{role.name}}</label>
+          </div>
+        </div>
+
+<!-- <mdb-checkbox *ngFor="let role of roleArray" name="inputRole" class="dropdown-item" [default]="true">{{role.name}}</mdb-checkbox> -->
+
+</div>
+  </div>
   <div>
   <button mdbBtn color="success" block="true" class="my-4" type="submit">Sign up</button>
   <a href="/auth/login" size="sm" mdbBtn color="danger" type="button">Cancel</a>
@@ -14,4 +33,5 @@
   </form>
   </div>
 
+  {{registerForm | json}}
   

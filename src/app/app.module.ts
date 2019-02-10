@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -18,6 +18,7 @@ import { ChartPageModule } from './chart-page/chart-page.module';
 import { TechserviceComponent } from './techservice/techservice.component';
 import { WorkerComponent } from './techservice/worker/worker.component';
 import { SkillComponent } from './techservice/worker/skill/skill.component';
+import { RolesComponent } from './roles/roles.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SkillComponent } from './techservice/worker/skill/skill.component';
     TechserviceComponent,
     WorkerComponent,
     SkillComponent,
+    RolesComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +41,7 @@ import { SkillComponent } from './techservice/worker/skill/skill.component';
     SecurityModule
   ],
   providers: [],
+  schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

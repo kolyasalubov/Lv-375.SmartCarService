@@ -15,6 +15,7 @@ import { TmComponent } from '../tm/tm.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
  
 import { httpInterceptorProviders } from '../auth/auth-interceptor';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { httpInterceptorProviders } from '../auth/auth-interceptor';
     RegisterComponent,
     HomeComponent,
     AdminComponent,
-    TmComponent],
+    TmComponent
+  ],
   imports: [
     CommonModule,
     BrowserModule,
