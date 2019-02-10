@@ -21,7 +21,7 @@ export class TechmanagerProfileService {
 
   constructor(private http: HttpClient) { }
 
-  putProfileUpdate(profile: TechmanagerProfile){
+  putProfileUpdate(profile: TechmanagerProfile) {
     return this.http.put(this.profileInfoUrl + '/?fullname=' + profile.fullName
                                             + '&', profile)
                     .pipe(
