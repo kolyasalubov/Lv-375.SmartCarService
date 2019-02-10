@@ -12,4 +12,5 @@ import java.util.List;
 public interface UserTechnicalServiceRepository extends JpaRepository<UserTechnicalService, Long> {
 
     UserTechnicalService getByTechnicalServiceId(TechnicalServiceEntity technicalServiceEntity);
+    UserTechnicalService getById(Long id);
 }

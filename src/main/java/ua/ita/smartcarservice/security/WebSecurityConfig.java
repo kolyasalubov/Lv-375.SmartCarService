@@ -14,7 +14,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 import ua.ita.smartcarservice.service.impl.UserDetailsServiceImpl;
 
 @Configuration
@@ -50,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+	
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -63,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/sessionById").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/bookingTime").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/skills").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/record/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/chart/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -72,6 +74,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
 
 }
