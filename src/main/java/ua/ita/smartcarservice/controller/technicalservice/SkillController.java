@@ -20,9 +20,14 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("/api/skillbysto/{id}")
+    @GetMapping("/api/skillBySto/{id}")
     public ResponseEntity<List<SkillDto>> getSkillByStoId(@PathVariable Long id){
         return new ResponseEntity <>(skillService.getSkillNameBySto(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/api/skillByCar/{id}")
+    public ResponseEntity<List<SkillDto>> getSkillByCarId(@PathVariable Long id){
+        return new ResponseEntity <>(skillService.getSkillNameByCarId(id), HttpStatus.OK);
     }
 
     /*
