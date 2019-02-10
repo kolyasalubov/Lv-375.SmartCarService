@@ -21,13 +21,13 @@ export class SkillComponent implements OnInit {
     this.recieveSkills();
   }
 
-  recieveSkills(){
+  recieveSkills() {
     this.skillService.getAllSkills()
     .subscribe(data => this.skills = data,
               error => this.error = error)
   }
 
-  selectSkill(skill: Skill){
+  selectSkill(skill: Skill) {
     this.selectedSkill = skill;
   }
 }

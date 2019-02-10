@@ -9,8 +9,13 @@ import { TmComponent } from '../app/tm/tm.component';
 import { AdminComponent } from './admin/admin.component';
 
 import { ChartPageComponent } from './chart-page/chart-page.component';
+import { SkillComponent } from './techservice/worker/skill/skill.component';
 
 const routes: Routes = [
+    {
+        path: 'skills',
+        component: SkillComponent
+    },
     {
         path: 'home',
         component: HomeComponent
