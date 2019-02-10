@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import ua.ita.smartcarservice.entity.RoleEntity;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
@@ -21,4 +22,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 															  WorkersSkill workersSkill);
 
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
+
+	List<UserEntity> getByRoles(RoleEntity roleEntity);
 }
