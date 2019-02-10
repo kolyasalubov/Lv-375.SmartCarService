@@ -5,13 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.service.UserService;
@@ -30,8 +24,8 @@ public class UserController {
 		
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
-	
-	@GetMapping
+
+	@GetMapping("/users/all")
 	public ResponseEntity<List<UserEntity>> getAllUsers(){
 		
 		List<UserEntity> users = userService.findAll();
@@ -41,7 +35,7 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/{userId}")
+	@GetMapping("/user/{userId}")
 	public ResponseEntity<UserEntity> findUserById(@PathVariable("userId")Long id){
 		
 		UserEntity user = userService.findById(id);
@@ -49,7 +43,7 @@ public class UserController {
 		return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
 	}
 	
-	@PostMapping("/{userId}")
+	@PostMapping("/user/{userId}")
 	public ResponseEntity<?> updateUser(@PathVariable("userId")Long id, UserEntity userEntity){
 		
 		userService.updateUserById(id, userEntity);
@@ -57,7 +51,7 @@ public class UserController {
 		return new ResponseEntity<Void> (HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{userId}")
+	@DeleteMapping("/user/{userId}")
 	public ResponseEntity<?> deleteUserById(@PathVariable("userId") Long id, UserEntity userEntity){
 		
 		userService.deleteById(id, userEntity);

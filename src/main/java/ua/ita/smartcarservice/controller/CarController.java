@@ -23,6 +23,7 @@ public class CarController {
     private UserServiceImpl userService;
 
     //create used car
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/ucar")
     public ResponseEntity createCar(@RequestParam(value = "brand") String brand,
                                     @RequestParam(value = "model") String model,
@@ -31,14 +32,14 @@ public class CarController {
                                     @RequestParam(value = "vin") String vin) {
 
 //TODO take user from token and add to car
-        UserEntity carOwner = new UserEntity("tod@gmail.com", "tod", "tod", "tod", "235688");
+        UserEntity carOwner = new UserEntity("mag@gmail.com", "mag", "mag", "mag", "3333");
         Car car = new Car(brand, model, graduation_year, number, vin, carOwner);
         carService.create(car);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping("/car/{id}")
     public ResponseEntity deleteById(@PathVariable Long id) {
         try {
@@ -55,6 +56,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/car/{id}")
     public ResponseEntity<CarDto> getCarById(@PathVariable Long id) {
         CarDto car;
@@ -66,6 +68,7 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/cars/all")
     public ResponseEntity<List<CarDto>> findAll() {
         List<CarDto> cars = carService.findAll();
@@ -75,7 +78,8 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    //TODO Implement get user from token
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/ownercars/{id}")
     public ResponseEntity<List<CarDto>> findByUserId(@PathVariable Long id) {
          List<CarDto> cars = carService.findByUserId(id);
@@ -85,7 +89,7 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/carbyvin/{vin}")
     public ResponseEntity<CarDto> findByVin(@PathVariable String vin) {
         CarDto car;
