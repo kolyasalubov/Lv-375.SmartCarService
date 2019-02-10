@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.service;
 
 import java.util.List;
 
+import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 
 public interface UserService {
@@ -17,4 +18,5 @@ public interface UserService {
     public void deleteById(Long id);
 
     void updateUserById(Long id, UserEntity userEntity);
+
 }

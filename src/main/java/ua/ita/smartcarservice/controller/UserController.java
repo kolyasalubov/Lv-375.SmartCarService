@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.service.UserService;
+import ua.ita.smartcarservice.dto.booking.WorkerDto;
+import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
 
 @RestController
 @RequestMapping("users")

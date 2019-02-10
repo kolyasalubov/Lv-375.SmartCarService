@@ -56,6 +56,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/api/skillbysto/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/workerBySkill").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/addBooking").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/sessionById").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/bookingTime").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/v1/skills").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()

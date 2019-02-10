@@ -7,8 +7,10 @@ import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import java.util.List;
 
 public interface TechnicalServiceService {
+
     TechnicalServiceEntity getTechnicalServiceById(Long id);
     public void createTechnicalService(String name, String address, Long userId);
+
 
     List<TechnicalServiceEntity> getAllTechnicalServices();
     List<TechnicalServiceDto> getAllTechnicalServicesDto();
