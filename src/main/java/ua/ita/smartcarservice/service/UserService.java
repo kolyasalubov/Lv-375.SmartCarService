@@ -18,4 +18,6 @@ public interface UserService {
 
     void deleteById (Long id);
 
+    List<UserDto> findAll();
+
 }

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.CarDto;
+import ua.ita.smartcarservice.dto.UserDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.service.impl.CarServiceImpl;
@@ -12,7 +13,7 @@ import ua.ita.smartcarservice.service.impl.UserServiceImpl;
 
 import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class CarController {
 
@@ -23,23 +24,23 @@ public class CarController {
     private UserServiceImpl userService;
 
     //create used car
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/ucar")
     public ResponseEntity createCar(@RequestParam(value = "brand") String brand,
                                     @RequestParam(value = "model") String model,
                                     @RequestParam(value = "graduation_year") String graduation_year,
                                     @RequestParam(value = "number") String number,
-                                    @RequestParam(value = "vin") String vin) {
+                                    @RequestParam(value = "vin") String vin,
+                                    @RequestParam(value = "username") String username){
 
-//TODO take user from token and add to car
-        UserEntity carOwner = new UserEntity("mag@gmail.com", "mag", "mag", "mag", "3333");
-        Car car = new Car(brand, model, graduation_year, number, vin, carOwner);
+        UserDto carOwner = this.userService.findByUsername(username);
+        UserEntity currentUser = new UserEntity (carOwner.getUsername(), carOwner.getPassword(),carOwner.getEmail(), carOwner.getFullName(), carOwner.getNumberPhone());
+        CarDto car = new CarDto(brand, model, graduation_year, number, vin, currentUser);
         carService.create(car);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @DeleteMapping("/car/{id}")
     public ResponseEntity deleteById(@PathVariable Long id) {
         try {
@@ -56,7 +57,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/car/{id}")
     public ResponseEntity<CarDto> getCarById(@PathVariable Long id) {
         CarDto car;
@@ -68,7 +69,7 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/cars/all")
     public ResponseEntity<List<CarDto>> findAll() {
         List<CarDto> cars = carService.findAll();
@@ -79,7 +80,7 @@ public class CarController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/ownercars/{id}")
     public ResponseEntity<List<CarDto>> findByUserId(@PathVariable Long id) {
          List<CarDto> cars = carService.findByUserId(id);
@@ -89,7 +90,7 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/carbyvin/{vin}")
     public ResponseEntity<CarDto> findByVin(@PathVariable String vin) {
         CarDto car;

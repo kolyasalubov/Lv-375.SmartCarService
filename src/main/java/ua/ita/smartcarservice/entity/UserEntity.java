@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -53,9 +55,7 @@ public class UserEntity {
 		
 	}
 
-
 	    public UserEntity(String username, String password, String email, String fullName, String numberPhone) {
-		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;

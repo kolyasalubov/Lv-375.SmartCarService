@@ -15,15 +15,15 @@ import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
 import ua.ita.smartcarservice.service.impl.UserServiceImpl;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("users")
 public class UserController {
 	
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/user/{id}")
+
+	@GetMapping("/userbyid/{id}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
 		UserDto userDto;
 		try {
@@ -34,7 +34,7 @@ public class UserController {
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+
 	@GetMapping("/users/all")
 	public ResponseEntity<List<UserDto>> findAll() {
 		List<UserDto> users = userService.findAll();
@@ -44,8 +44,8 @@ public class UserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/user/{username}")
+
+	@GetMapping("/userbyname/{username}")
 	public ResponseEntity<UserDto> findByUsername(@PathVariable String username) {
 		UserDto userDto;
 		try {
@@ -56,7 +56,7 @@ public class UserController {
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity deleteUser(@PathVariable Long id) {
 		try {
@@ -74,14 +74,14 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+
 	@PostMapping("/newuser")
 	public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity){
 		userService.createUser(userEntity);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 
-	@CrossOrigin(origins = "http://localhost:4200")
+
 	@PostMapping("/userchange/{userId}")
 	public ResponseEntity<?> updateUser(@PathVariable("userId")Long id, UserEntity userEntity){
 		userService.updateUserById(id, userEntity);
