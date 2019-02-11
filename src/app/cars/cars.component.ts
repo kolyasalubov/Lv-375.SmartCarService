@@ -5,7 +5,7 @@ import { User } from '../users/user';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { UsersService } from '../users/users.service';
 import { identifierModuleUrl } from '@angular/compiler';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -24,7 +24,7 @@ export class CarsComponent implements OnInit {
   id: number;
 
 
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute) { }
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
   
   ngOnInit(){
 
@@ -37,21 +37,21 @@ export class CarsComponent implements OnInit {
 
  }
    
- deleteCarById(id: number){
-this.carsService.getCarById(id);
-this.reloadPage();
-
+    deleteCarById(id: number){
+    this.carsService.deleteCarById(id).subscribe();
+    this.reloadPage();
  }
-    applyToSTO(id: number){
 
+    applyToSTO(id: number){
+    this.router.navigate(['/booking']);
     }
 
     applyToTradeIn (id: number){
 
     }
 
-    wiewCharts(id: number){
-
+    goToCharts(id: number){
+    this.router.navigate(['/charts', id]);
     }
 
     history(id: number){

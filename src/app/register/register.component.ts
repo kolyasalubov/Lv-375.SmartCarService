@@ -17,12 +17,23 @@ export class RegisterComponent implements OnInit {
   isSignedUp = false;
   isSignUpFailed = false;
   errorMessage = '';
-  
+  unchecked = true;
  
   constructor(private authService: AuthService) { }
  
-  ngOnInit() { }
+  ngOnInit() { 
+
+    
+    
+
+  }
  
+  choseRole(){
+    if(this.registerForm.checkRole != null){
+      this.unchecked = false;
+    }
+  }
+
   onSubmit() {
     console.log(this.registerForm);
  
@@ -33,14 +44,13 @@ export class RegisterComponent implements OnInit {
       this.registerForm.email,
       this.registerForm.numberPhone,
       this.registerForm.checkRole);
- 
-      console.log(this.signupInfo);
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
         console.log(data);
         this.isSignedUp = true;
         this.isSignUpFailed = false;
+        this.reloadPage();
       },
       error => {
         console.log(error);
@@ -48,5 +58,9 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
+  }
+
+  reloadPage() {
+    window.location.href='/auth/login';
   }
 }

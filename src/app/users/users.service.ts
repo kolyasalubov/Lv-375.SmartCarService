@@ -21,7 +21,7 @@ export class UsersService {
   }
 
   deleteUserById(id: number){
-    return this.http.delete ('http://localhost:9501/user/' + id);
+    return this.http.delete('http://localhost:9501/user/' + id);
   }
 
   getUserById(id: number): Observable<User>{

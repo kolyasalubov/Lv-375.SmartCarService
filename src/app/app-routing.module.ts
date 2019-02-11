@@ -21,6 +21,8 @@ import { TechserviceComponent } from './techservice/techservice.component';
 import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 
 const routes: Routes = [
+    // { path: '**', redirectTo: 'auth/login'},
+
     {
         path: 'techmanager/profile',
         component: TechmanagerProfileComponent
@@ -67,7 +69,7 @@ const routes: Routes = [
     pathMatch: 'full'
 },
 {
-    path: 'charts', 
+    path: 'charts/:car', 
 component: ChartPageComponent},
 
 {

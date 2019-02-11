@@ -9,21 +9,20 @@ import { User } from './user';
 })
 export class UsersComponent implements OnInit {
 
-  users: User[];
+    users: User[];
 
   constructor(private usersService: UsersService) { }
 
 ngOnInit() {
-this.usersService.getAll()
-.subscribe (data => this.users = data);
+  this.usersService.getAll()
+  .subscribe (data => this.users = data);
 
   console.log(this.users);
 }
 
-  
-
-  deleteUserById(id: number){
-    this.usersService.deleteUserById(id)
+    deleteUserById(id: number){
+    this.usersService.deleteUserById(id).subscribe();
+    window.location.href = '/allusers'
   }
 
 }
