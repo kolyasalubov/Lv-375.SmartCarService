@@ -29,7 +29,6 @@ public class TechnicalServiceController {
     WorkerService workerService;
 
 
-
     /*
     Method for getting all the technical services
      */
@@ -39,7 +38,7 @@ public class TechnicalServiceController {
 
         try {
             responseEntity = new ResponseEntity<>(technicalServiceService.getAllTechnicalServicesDto(), HttpStatus.OK);
-        } catch (Exception e){
+        } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
@@ -66,10 +65,10 @@ public class TechnicalServiceController {
     ResponseEntity<TechnicalServiceDto> getTechnicalService(@PathVariable Long id) {
         ResponseEntity<TechnicalServiceDto> responseEntity;
 
-        try{
+        try {
             responseEntity = new ResponseEntity<>(
                     technicalServiceService.getTechnicalServiceDtoById(id), HttpStatus.OK);
-        } catch (Exception e){
+        } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
@@ -85,12 +84,12 @@ public class TechnicalServiceController {
     ResponseEntity<List<UserEntity>> getTechnicalServiceWorkers(@PathVariable Long id) {
         ResponseEntity<List<UserEntity>> responseEntity;
 
-        try{
+        try {
             responseEntity = new ResponseEntity<List<UserEntity>>(
                     workerService.getWorkersByTechnicalServiceId(
                             technicalServiceService.getTechnicalServiceById(id)),
                     HttpStatus.OK);
-        } catch (Exception e){
+        } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
@@ -103,8 +102,8 @@ public class TechnicalServiceController {
      */
     @PutMapping("/api/v1/techservices/{id}")
     void updateTechnicalService(@PathVariable Long id,
-                                               @RequestParam(value = "name", required = false) String name,
-                                               @RequestParam(value = "address", required = false) String address) {
+                                @RequestParam(value = "name", required = false) String name,
+                                @RequestParam(value = "address", required = false) String address) {
 
         TechnicalServiceEntity technicalServiceEntity = technicalServiceService.getTechnicalServiceById(id);
 
@@ -127,9 +126,23 @@ public class TechnicalServiceController {
         userService.deleteById(workerId);
     }
 
+    @GetMapping("/api/v1/users/{userId}/techservice")
+    public ResponseEntity<TechnicalServiceDto> findTechnicalServiceByUserId(@PathVariable("userId") Long userId) {
+
+        ResponseEntity<TechnicalServiceDto> responseEntity;
+
+        try {
+            responseEntity = new ResponseEntity<TechnicalServiceDto>(technicalServiceService.getTechnicalServiceDtoByUser(userId), HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<TechnicalServiceDto>(HttpStatus.NO_CONTENT);
+        }
+
+        return responseEntity;
+    }
+
     @PostMapping("/api/v1/techservices/{id}/workers/{workerId}")
     @ResponseBody
-    void addWorkerToSerice(@PathVariable Long id, @PathVariable Long workerId){
+    void addWorkerToSerice(@PathVariable Long id, @PathVariable Long workerId) {
         //TODO
     }
 /*

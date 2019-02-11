@@ -46,6 +46,13 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
+    public List<UserEntity> getAllWorkers() {
+
+        List<UserEntity> list = userRepository.getUserEntitiesByRoleName("ROLE_WORKER");
+        return list;
+    }
+
+    @Override
     public void updateWorker(UserEntity workerEntity, SkillEntity skillEntity) {
         userRepository.save(workerEntity);
         workersSkillRepository.save(new WorkersSkill(workerEntity, skillEntity));
@@ -56,12 +63,13 @@ public class WorkerServiceImpl implements WorkerService {
         userRepository.deleteById(workerId);
     }
 
+
     @Override
     public List<WorkerDto> getByUserTechnicalServiceAndWorkersSkill(String name, Long stoId) {
-        List <WorkerDto> workerDtos = new ArrayList<>();
-        for(UserEntity worker : userRepository.getByUserTechnicalServiceAndWorkersSkill(name, stoId)){
+        List<WorkerDto> workerDtos = new ArrayList<>();
+       /* for (UserEntity worker : userRepository.getByUserTechnicalServiceAndWorkersSkill(name, stoId)) {
             workerDtos.add(getWorkerDto(worker));
-        }
+        }*/
         return workerDtos;
     }
 
@@ -73,7 +81,7 @@ public class WorkerServiceImpl implements WorkerService {
         return userRepository.getByUserTechnicalService(userTechnicalService);
     }
 
-    private WorkerDto getWorkerDto(UserEntity worker){
+    private WorkerDto getWorkerDto(UserEntity worker) {
         WorkerDto workerDto = new WorkerDto();
 
         workerDto.setWorkerId(worker.getId());
