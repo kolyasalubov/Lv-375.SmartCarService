@@ -70,6 +70,12 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         return dto;
     }
 
+    @Override
+    public TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId) {
+
+        return convertToDto(technicalServiceRepository.getTechnicalServiceEntitysByUser(userId));
+    }
+
     public TechnicalServiceEntity convertToEntity(TechnicalServiceDto technicalServiceDto) {
         TechnicalServiceEntity entity = new TechnicalServiceEntity();
 

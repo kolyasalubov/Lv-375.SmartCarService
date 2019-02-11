@@ -50,7 +50,11 @@ public class UserEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "worker")
 	Set<WorkTime> workTimes;
-	
+/*
+	@JsonIgnore
+	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	Set<Car> cars;
+	*/
 	public UserEntity() {
 		
 	}
@@ -142,4 +146,13 @@ public class UserEntity {
 	public void setWorkTimes(Set<WorkTime> workTimes) {
 		this.workTimes = workTimes;
 	}
+/*
+	public Set<Car> getCars() {
+		return cars;
+	}
+
+	public void setCars(Set<Car> cars) {
+		this.cars = cars;
+	}
+	*/
 }

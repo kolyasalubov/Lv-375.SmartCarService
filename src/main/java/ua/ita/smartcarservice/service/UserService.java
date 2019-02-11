@@ -20,4 +20,6 @@ public interface UserService {
 
     List<UserDto> findAll();
 
+    UserEntity findUser (String userName);
+
 }
