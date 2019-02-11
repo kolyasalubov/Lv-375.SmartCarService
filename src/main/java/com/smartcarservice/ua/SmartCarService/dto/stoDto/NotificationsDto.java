@@ -1,7 +1,6 @@
 package com.smartcarservice.ua.SmartCarService.dto.stoDto;
 
 import java.util.Date;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +12,7 @@ public class NotificationsDto {
 
 	private Long id;
 	private String message;
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone="GMT")
 	private Date notificationTime;
 	private Long carId;
 	private Long userId;
