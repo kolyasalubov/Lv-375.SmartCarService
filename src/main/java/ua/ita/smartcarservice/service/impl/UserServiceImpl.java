@@ -2,16 +2,19 @@ package ua.ita.smartcarservice.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.bind.annotation.RestController;
+import ua.ita.smartcarservice.dto.UserDto;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.UserService;
 
-@Service
+@RestController
 public class UserServiceImpl implements UserService{
 
 	@Autowired
@@ -19,47 +22,51 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public void createUser(UserEntity userEntity) {
-	
-		userRepository.save(userEntity);
-		
+			userRepository.save(userEntity);
 	}
 
-	@Override
-	public List<UserEntity> findAll() {
-		
-		List<UserEntity> users = userRepository.findAll();
-		
-		return users;
+	public List<UserDto> findAll() {
+		List<UserDto> userDtos = new ArrayList<>();
+		for (UserEntity user : userRepository.findAll()) {
+			userDtos.add(getUserDto(user));
+		}
+		return userDtos;
 	}
 
-	@Override
-	public UserEntity findById(Long id) {
-		UserEntity user = userRepository.findById(id).get();
-		return user;
+	public UserDto getUserById(Long id) {
+		UserEntity user = userRepository.getUserById(id);
+		UserDto carOwnerDto = getUserDto(user);
+		return carOwnerDto;
 	}
 
-	@Override
-	public void deleteById(Long id, UserEntity userEntity) {
-		
-	     userEntity.setId(id);
-	     userRepository.delete(userEntity);
-		
+	public UserDto findByUsername(String username) {
+		UserEntity user = userRepository.findByUsername(username);
+		UserDto userDto = getUserDto(user);
+		return userDto;
 	}
 
-	@Override
 	public void deleteById(Long id) {
-
 		userRepository.deleteById(id);
 
-	}
+}
 
 	@Override
 	public void updateUserById(Long id, UserEntity userEntity) {
-		
-		userEntity.setId(id);
+				userEntity.setId(id);
 		userRepository.save(userEntity);
 		
 	}
 
+
+	//for User => UserDto
+	public UserDto getUserDto(UserEntity user) {
+		UserDto userDto = new UserDto(user.getId(),
+				user.getEmail(),
+				user.getPassword(),
+				user.getFullName(),
+				user.getUsername(),
+				user.getNumberPhone());
+		return userDto;
+	}
 
 }

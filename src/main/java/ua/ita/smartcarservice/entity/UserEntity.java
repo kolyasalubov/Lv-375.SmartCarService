@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -53,9 +55,7 @@ public class UserEntity {
 		
 	}
 
-
 	    public UserEntity(String username, String password, String email, String fullName, String numberPhone) {
-		super();
 		this.username = username;
 		this.password = password;
 		this.email = email;
@@ -63,49 +63,36 @@ public class UserEntity {
 		this.numberPhone = numberPhone;
 	}
 
-
-
-
-
-
-
 	public Long getId() {
 		return id;
 	}
-
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
 
-
-	public void setUserName(String userName) {
-		this.username = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
-	public Set<RoleEntity> getRoles() {
-		return roles;
+	public String getEmail() {
+		return email;
 	}
 
-
-	public void setRoles(Set<RoleEntity> roles) {
-		this.roles = roles;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getFullName() {
@@ -114,5 +101,45 @@ public class UserEntity {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public String getNumberPhone() {
+		return numberPhone;
+	}
+
+	public void setNumberPhone(String numberPhone) {
+		this.numberPhone = numberPhone;
+	}
+
+	public Set<RoleEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<RoleEntity> roles) {
+		this.roles = roles;
+	}
+
+	public UserTechnicalService getUserTechnicalService() {
+		return userTechnicalService;
+	}
+
+	public void setUserTechnicalService(UserTechnicalService userTechnicalService) {
+		this.userTechnicalService = userTechnicalService;
+	}
+
+	public WorkersSkill getWorkersSkill() {
+		return workersSkill;
+	}
+
+	public void setWorkersSkill(WorkersSkill workersSkill) {
+		this.workersSkill = workersSkill;
+	}
+
+	public Set<WorkTime> getWorkTimes() {
+		return workTimes;
+	}
+
+	public void setWorkTimes(Set<WorkTime> workTimes) {
+		this.workTimes = workTimes;
 	}
 }

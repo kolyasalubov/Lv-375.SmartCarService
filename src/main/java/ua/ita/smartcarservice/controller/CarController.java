@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.CarDto;
+import ua.ita.smartcarservice.dto.UserDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.service.impl.CarServiceImpl;
@@ -12,7 +13,7 @@ import ua.ita.smartcarservice.service.impl.UserServiceImpl;
 
 import java.util.List;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class CarController {
 
@@ -28,11 +29,12 @@ public class CarController {
                                     @RequestParam(value = "model") String model,
                                     @RequestParam(value = "graduation_year") String graduation_year,
                                     @RequestParam(value = "number") String number,
-                                    @RequestParam(value = "vin") String vin) {
+                                    @RequestParam(value = "vin") String vin,
+                                    @RequestParam(value = "username") String username){
 
-//TODO take user from token and add to car
-        UserEntity carOwner = new UserEntity("tod@gmail.com", "tod", "tod", "tod", "235688");
-        Car car = new Car(brand, model, graduation_year, number, vin, carOwner);
+        UserDto carOwner = this.userService.findByUsername(username);
+        UserEntity currentUser = new UserEntity (carOwner.getUsername(), carOwner.getPassword(),carOwner.getEmail(), carOwner.getFullName(), carOwner.getNumberPhone());
+        CarDto car = new CarDto(brand, model, graduation_year, number, vin, currentUser);
         carService.create(car);
 
         return new ResponseEntity(HttpStatus.CREATED);
@@ -55,6 +57,7 @@ public class CarController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+
     @GetMapping("/car/{id}")
     public ResponseEntity<CarDto> getCarById(@PathVariable Long id) {
         CarDto car;
@@ -66,6 +69,7 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
+
     @GetMapping("/cars/all")
     public ResponseEntity<List<CarDto>> findAll() {
         List<CarDto> cars = carService.findAll();
@@ -75,7 +79,8 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    //TODO Implement get user from token
+
+
     @GetMapping("/ownercars/{id}")
     public ResponseEntity<List<CarDto>> findByUserId(@PathVariable Long id) {
          List<CarDto> cars = carService.findByUserId(id);

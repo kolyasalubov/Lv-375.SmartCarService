@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.Set;
 
 
-@Data
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -52,8 +51,8 @@ public class Car {
     @JoinColumn(name = "dealer_id", nullable = true)
     private DealerEntity dealer;
 
-    //TODO delete CascadeType.ALL after token implementation
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne (cascade = CascadeType.REFRESH)
     @JoinColumn(name = "owner_id", nullable = true)
     private UserEntity user;
 
@@ -64,11 +63,7 @@ public class Car {
     @JsonIgnore
     @OneToMany (mappedBy = "car")
     private Set<WorkTime> workTimes;
-/*
-    @JsonManagedReference
-    @OneToMany (mappedBy = "car")
-   private Set<Session> sessions;
-*/
+
 
     public Car() {
     }

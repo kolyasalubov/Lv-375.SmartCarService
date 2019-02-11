@@ -17,7 +17,8 @@ public class CarServiceImpl implements CarService {
     private CarRepository carRepository;
 
     //for used car
-    public void create (Car car){
+    public void create (CarDto carDto){
+        Car car = getCar(carDto);
         carRepository.save(car);
     }
 
@@ -55,6 +56,7 @@ public class CarServiceImpl implements CarService {
         return carDto;
     }
 
+
     //for Car => CarDto
     public CarDto getCarDto(Car car) {
         CarDto carDto = new CarDto(car.getId(),
@@ -70,5 +72,17 @@ public class CarServiceImpl implements CarService {
                 car.getVehicleInspections());
 
         return carDto;
+    }
+
+    //for CarDto => CarDto
+    public Car getCar(CarDto carDto) {
+        Car car = new Car(
+                carDto.getBrand(),
+                carDto.getModel(),
+                carDto.getGraduation_year(),
+                carDto.getNumber(),
+                carDto.getVin(),
+                carDto.getCarOwner());
+        return car;
     }
 }
