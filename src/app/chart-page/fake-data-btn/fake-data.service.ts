@@ -11,6 +11,7 @@ import { Tires } from './tires';
 
 @Injectable()
 export class FakeDataService {
+  
   private TIRE: string = 'tire pressure';
   private SENSOR_URL: string = '/api/record';
   private TIRE_URL: string = '/api/record/tire';
@@ -28,9 +29,10 @@ export class FakeDataService {
   };
 
   public addFakeData(carVin: string): void {
+    const RECORD_QUANTITY: number = 1;
     for(let index in SENSORS){
       let sensor: Sensor = SENSORS[index];
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < RECORD_QUANTITY; i++) {
         this.setRandomDto(carVin, sensor.type);
         this.sendToDB();
       }

@@ -48,9 +48,10 @@ export class MenuComponent implements OnInit {
           this.authority = 'worker';
           return false;
         }
-        this.authority = 'viewer';
-        return true;
+        
       });
+          } else {
+            window.location.href = "/auth/login";
           }
   }
 
