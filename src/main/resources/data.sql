@@ -1,4 +1,3 @@
-
 INSERT INTO skills(name, required_time) VALUES('Service Technician', 2);
 INSERT INTO skills(name, required_time) VALUES('Diagnostic Technician', 3);
 INSERT INTO skills(name, required_time) VALUES('Transmission Technician', 4);
