@@ -9,8 +9,8 @@ import java.util.List;
 public interface TechnicalServiceService {
 
     TechnicalServiceEntity getTechnicalServiceById(Long id);
-    public void createTechnicalService(String name, String address, Long userId);
-
+    void createTechnicalService(String name, String address, Long userId);
+    TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId);
 
     List<TechnicalServiceEntity> getAllTechnicalServices();
     List<TechnicalServiceDto> getAllTechnicalServicesDto();

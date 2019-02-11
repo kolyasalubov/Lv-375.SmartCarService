@@ -40,13 +40,13 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public UserDto findByUsername(String username) {
-		UserEntity user = userRepository.findByUsername(username);
+		UserEntity user = userRepository.findByUsername(username).get();
 		UserDto userDto = getUserDto(user);
 		return userDto;
 	}
 
 	public UserEntity findUser (String username) {
-		UserEntity user = userRepository.findByUsername(username);
+		UserEntity user = userRepository.findByUsername(username).get();
 		return user;
 	}
 
