@@ -3,9 +3,6 @@ package ua.ita.smartcarservice.service.impl.technicalservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
-import ua.ita.smartcarservice.dto.technicalservice.WorkerSkilllDto;
-import ua.ita.smartcarservice.entity.RoleEntity;
-import ua.ita.smartcarservice.entity.RoleName;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
@@ -51,7 +48,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public List<UserEntity> getAllWorkers() {
 
-        List<UserEntity> list = userRepository.getByRoles(new RoleEntity(RoleName.ROLE_WORKER));
+        List<UserEntity> list = userRepository.getUserEntitiesByRoleName("ROLE_WORKER");
         return list;
     }
 

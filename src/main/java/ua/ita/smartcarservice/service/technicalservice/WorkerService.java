@@ -1,7 +1,6 @@
 package ua.ita.smartcarservice.service.technicalservice;
 
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
-import ua.ita.smartcarservice.dto.technicalservice.WorkerSkilllDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;

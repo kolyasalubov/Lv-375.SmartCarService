@@ -5,7 +5,7 @@ import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 
 @Data
-public class WorkerSkilllDto {
+public class WorkerSkillDto {
     private UserEntity workerEntity;
     private SkillEntity skillEntity;
 }

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
@@ -22,51 +24,51 @@ import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
 @RestController
 @RequestMapping("users")
 public class UserController {
-	
-	@Autowired
-	private UserService userService;
-	
-	@PostMapping()
-	public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity){
-		
-		userService.createUser(userEntity);
-		
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
-	}
-	
-	@GetMapping
-	public ResponseEntity<List<UserEntity>> getAllUsers(){
-		
-		List<UserEntity> users = userService.findAll();
-		
-		return new ResponseEntity<List<UserEntity>>(users, HttpStatus.OK);
-		
-		
-	}
-	
-	@GetMapping("/{userId}")
-	public ResponseEntity<UserEntity> findUserById(@PathVariable("userId")Long id){
-		
-		UserEntity user = userService.findById(id);
-		
-		return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
-	}
-	
-	@PostMapping("/{userId}")
-	public ResponseEntity<?> updateUser(@PathVariable("userId")Long id, UserEntity userEntity){
-		
-		userService.updateUserById(id, userEntity);
-		
-		return new ResponseEntity<Void> (HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/{userId}")
-	public ResponseEntity<?> deleteUserById(@PathVariable("userId") Long id, UserEntity userEntity){
-		
-		userService.deleteById(id, userEntity);
-		
-		return new ResponseEntity<Void>(HttpStatus.OK);
-		
-	}
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping()
+    public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity) {
+
+        userService.createUser(userEntity);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+
+        List<UserEntity> users = userService.findAll();
+
+        return new ResponseEntity<List<UserEntity>>(users, HttpStatus.OK);
+
+
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserEntity> findUserById(@PathVariable("userId") Long id) {
+
+        UserEntity user = userService.findById(id);
+
+        return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable("userId") Long id, UserEntity userEntity) {
+
+        userService.updateUserById(id, userEntity);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<?> deleteUserById(@PathVariable("userId") Long id, UserEntity userEntity) {
+
+        userService.deleteById(id, userEntity);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
+
+    }
 
 }
