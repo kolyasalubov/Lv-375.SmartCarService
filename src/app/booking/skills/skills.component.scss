@@ -1,11 +1,28 @@
-.list-group{
-    position: fixed;
-    left: 10%;
-    top:10%;
+.list-group-item{
+    margin: 0.5px;
+    &:hover{
+        cursor: pointer;
+    }
 }
+
 .time-value{
-    color: aqua;
-    position: fixed;
-    left: 30%;
-    top: 20%;
+    color: crimson;
+    margin: 20px;
+    align-self: center;
+}
+
+.container{
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.selected{
+    border-color: rgb(0, 200, 81);
+    border-width: 2px;
+}
+
+.non-select{
+    border-color: white;
 }
