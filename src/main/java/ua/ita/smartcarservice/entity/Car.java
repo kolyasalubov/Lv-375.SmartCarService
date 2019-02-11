@@ -51,8 +51,8 @@ public class Car {
     @JoinColumn(name = "dealer_id", nullable = true)
     private DealerEntity dealer;
 
-
-    @ManyToOne (cascade = CascadeType.REFRESH)
+    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "owner_id", nullable = true)
     private UserEntity user;
 

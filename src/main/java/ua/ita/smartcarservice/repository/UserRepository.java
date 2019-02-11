@@ -27,12 +27,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 															  WorkersSkill workersSkill);
 
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
-/*
-	@Query("select a from user as u join user_roles as r on user.id = r.user_id where r.role_id = :id")
-	List<UserEntity> getByRoles(@Param("id") Long roleId);
-*/
 
-    List<UserEntity> getByRoles(RoleEntity roleEntity);
+	UserEntity getUserById(Long id);
+
+	//UserEntity findByUsername (String username);
+
+	List<UserEntity> findAll();
+
 
     @Query(value = "select * from user as u left join user_roles as ur on u.id = ur.user_id left join role as r on ur.role_id = r.id where r.name = name", nativeQuery = true)
 	List<UserEntity> getUserEntitiesByRoleName(@Param("name") String name);
