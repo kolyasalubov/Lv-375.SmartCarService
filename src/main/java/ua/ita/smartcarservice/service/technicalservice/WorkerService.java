@@ -18,6 +18,8 @@ public interface WorkerService {
 
     List<WorkerDto> getByUserTechnicalServiceAndWorkersSkill(String name, Long stoId);
 
+    List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId);
+
     List<UserEntity> getWorkersByTechnicalServiceId(TechnicalServiceEntity technicalServiceEntity);
 
 }
