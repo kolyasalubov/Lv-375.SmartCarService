@@ -3,7 +3,7 @@ import { TokenStorageService } from '../auth/token-storage.service';
 import { User } from '../users/user';
 import { UsersService } from '../users/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { userInfo } from 'os';
+
 
 @Component({
   selector: 'app-menu',
