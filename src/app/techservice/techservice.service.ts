@@ -16,17 +16,22 @@ const httpOptions = {
 })
 export class TechserviceService {
 
-  techserviceUrl = '/api/v1/users/1/techservices';
+  techserviceUrl = '/api/v1/users/{userId}/techservices';
+  usersTechserviceUrl = "/api/v1/users/{userId}/techservice"
 
   constructor(private http: HttpClient) { }
 
-  createTechnicalService(techservice: Techservice) {
-    return this.http.post(this.techserviceUrl + '?name=' + techservice.name
+  createTechnicalService(techservice: Techservice, userId: number) {
+    return this.http.post(this.techserviceUrl.replace('{userId}', userId.toString())
+                                             + '?name=' + techservice.name
                                               + '&address=' + techservice.address
                                               , techservice)
                                               .pipe(catchError(this.errorHandler));
   }
   
+  getTechnicalServiceByCurrentUser(userId: number) {
+    
+  }
   
   errorHandler(error: HttpErrorResponse)  {
     if (error.error instanceof ErrorEvent) {
