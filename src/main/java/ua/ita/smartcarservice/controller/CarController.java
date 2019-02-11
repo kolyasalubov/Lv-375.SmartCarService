@@ -8,6 +8,8 @@ import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.UserDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.Car;
+import ua.ita.smartcarservice.service.CarService;
+import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.service.impl.CarServiceImpl;
 import ua.ita.smartcarservice.service.impl.UserServiceImpl;
 
@@ -18,28 +20,10 @@ import java.util.List;
 public class CarController {
 
     @Autowired
-    private CarServiceImpl carService;
+    private CarService carService;
 
     @Autowired
-    private UserServiceImpl userService;
-
-    //create used car
-    @PostMapping("/ucar")
-    public ResponseEntity createCar(@RequestParam(value = "brand") String brand,
-                                    @RequestParam(value = "model") String model,
-                                    @RequestParam(value = "graduation_year") String graduation_year,
-                                    @RequestParam(value = "number") String number,
-                                    @RequestParam(value = "vin") String vin,
-                                    @RequestParam(value = "username") String username){
-
-        UserDto carOwner = this.userService.findByUsername(username);
-        UserEntity currentUser = new UserEntity (carOwner.getUsername(), carOwner.getPassword(),carOwner.getEmail(), carOwner.getFullName(), carOwner.getNumberPhone());
-        CarDto car = new CarDto(brand, model, graduation_year, number, vin, currentUser);
-        carService.create(car);
-
-        return new ResponseEntity(HttpStatus.CREATED);
-    }
-
+    private UserService userService;
 
     @DeleteMapping("/car/{id}")
     public ResponseEntity deleteById(@PathVariable Long id) {
@@ -100,6 +84,29 @@ public class CarController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(car, HttpStatus.OK);
+    }
+
+    //create used car
+    @PostMapping("/ucar")
+    public ResponseEntity createCar(@RequestParam(value = "brand") String brand,
+                                    @RequestParam(value = "model") String model,
+                                    @RequestParam(value = "graduation_year") String graduation_year,
+                                    @RequestParam(value = "number") String number,
+                                    @RequestParam(value = "vin") String vin,
+                                    @RequestParam(value = "username") String username){
+
+        UserEntity carOwner = this.userService.findUser (username);
+
+        Car car = new Car();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setGraduation_year(graduation_year);
+        car.setNumber(number);
+        car.setVin(vin);
+        car.setUser(carOwner);
+        carService.create(car);
+
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
 }

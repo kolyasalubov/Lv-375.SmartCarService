@@ -17,8 +17,7 @@ public class CarServiceImpl implements CarService {
     private CarRepository carRepository;
 
     //for used car
-    public void create (CarDto carDto){
-        Car car = getCar(carDto);
+    public void create (Car car){
         carRepository.save(car);
     }
 
