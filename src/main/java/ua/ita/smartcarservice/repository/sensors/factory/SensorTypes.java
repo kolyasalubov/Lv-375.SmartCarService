@@ -1,13 +1,13 @@
 package ua.ita.smartcarservice.repository.sensors.factory;
 
 public enum SensorTypes {
-    SPEED("speed"),
-    BATTERY("battery"),
-    FUEL("fuel"),
-    MILEAGE("mileage"),
-    TIRE_PRESSURE("tire pressure"),
-    OIL_PRESSURE("oil pressure"),
-    OIL_LEVEL("oil level");
+    SPEED("speed"), // line
+    BATTERY("battery"), // doughnut
+    FUEL("fuel"), // bar
+    MILEAGE("mileage"), // line
+    TIRE_PRESSURE("tire pressure"), // line
+    OIL_PRESSURE("oil pressure"), // line
+    OIL_LEVEL("oil level"); // bar
 
     private String sensorType;
 
