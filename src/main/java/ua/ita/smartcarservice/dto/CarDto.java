@@ -45,8 +45,7 @@ public class CarDto {
     }
 
     //for user car
-    public CarDto(Long id, String brand, String model, String graduation_year, String number, String vin, UserEntity carOwner) {
-        this.id = id;
+    public CarDto(String brand, String model, String graduation_year, String number, String vin, UserEntity carOwner) {
         this.brand = brand;
         this.model = model;
         this.graduation_year = graduation_year;
