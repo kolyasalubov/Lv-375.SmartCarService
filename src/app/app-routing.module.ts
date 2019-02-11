@@ -67,7 +67,7 @@ const routes: Routes = [
     pathMatch: 'full'
 },
 {
-    path: 'charts', 
+    path: 'charts/:car', 
 component: ChartPageComponent},
 
 {

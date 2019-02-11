@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Car } from '../cars/car';
 import { OwnerCar } from './owner-car';
 import { CarProfileService } from './car-profile.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-car-profile',
@@ -12,25 +13,17 @@ export class CarProfileComponent implements OnInit {
 
   carProfile: any = {};
   car: OwnerCar;
+  username: String;
 
-  constructor(private carService: CarProfileService ) { }
+  constructor(private carService: CarProfileService, private tokenStorage: TokenStorageService ) { }
 
   ngOnInit() {
+    this.username = this.tokenStorage.getUsername();
   }
 
   onSubmit(){
-    console.log(this.carProfile);
-
-    this.car = new OwnerCar(
-      this.carProfile.brand,
-      this.carProfile.model,
-      this.carProfile.graduation_year,
-      this.carProfile.number,
-      this.carProfile.vin);
-
-      console.log(this.car);
-
-this.carService.createCar(this.car);
+    this.carService.createCar(this.carProfile, this.username).subscribe();
+   
     }
     
 }

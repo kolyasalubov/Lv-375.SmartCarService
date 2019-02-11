@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">  
        
    <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">
-   <a class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['/ownercars', user.id]">Your cars</a>
+   <a class="btn btn-outline-success my-2 my-sm-0" (click) = "goToOwnerCars(user.id)" >Your cars</a>
    </ul>
     
   <ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  
@@ -16,8 +16,13 @@
    </ul>
 
  <ul *ngIf="authority === 'sales'" class="navbar-nav mr-auto">   
-<a class="btn btn-outline-success my-2 my-sm-0" routerLink="/">Sales manager</a>
+<a class="btn btn-outline-success my-2 my-sm-0">Sales manager</a>
 </ul>
+
+
+<ul *ngIf="authority === 'dieler'" class="navbar-nav mr-auto">   
+  <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/">Dieler</a>
+  </ul>
 
    <ul *ngIf="authority === 'admin'" class="navbar-nav mr-auto"> 
   <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/allusers">See users</a>
@@ -28,7 +33,7 @@
   </ul>
 
   <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
-      <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/">Notifications</a>
+      <a class="btn btn-outline-success my-2 my-sm-0" (click) = "goToNotifications(user.id)" >Notifications</a>
 </ul>
 
 
@@ -37,7 +42,7 @@
                   Actions 
               </button>
               <div class="dropdown-menu dropdown-primary">
-      <a routerLink="/userprofile">My profile</a>
+      <a routerLink="/userprofile">Review profile</a>
       <a class="nav-link" routerLink="/info">Info/Help</a>
       <a class="nav-link" (click)= "logout()">Logout</a>
       
