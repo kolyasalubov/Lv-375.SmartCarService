@@ -1,16 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'line-chart',
-  templateUrl: '../chart.component.html',
+  templateUrl: '../chart/chart.component.html',
 })
-export class LineChartComponent {
+export class LineChartComponent extends ChartComponent implements OnInit{
+
+  constructor() {
+    super();
+  }
+
+  ngOnInit() {
+    console.log(this.sensorType);
+    console.log(this.chartDatasets[0].label);
+    this.setChartDatasets();
+    this.setChartLabels();
+  }
+
+  private setChartDatasets() {
+    this.chartDatasets = [
+      { data: [65, 59, 80, 81, 56, 55, 40], label: this.sensorType },
+    ]
+  }
+
+  private setChartLabels() {
+    this.chartLabels = this.chartLabels;
+  }
+
   public chartType: string = 'line';
 
-  public chartDatasets: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'My Second dataset' }
-  ];
+  public chartDatasets: Array<any> = [{ data: [65, 59, 80, 81, 56, 55, 40], label: this.sensorType },];
 
   public chartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 

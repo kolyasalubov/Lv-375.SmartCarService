@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'doughnut-bar-chart',
-  templateUrl: '../chart.component.html',
+  templateUrl: '../chart/chart.component.html',
 })
-export class DoughnutBarChartComponent implements OnInit {
+export class DoughnutBarChartComponent extends ChartComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    super();
+   }
 
   ngOnInit() {
   }

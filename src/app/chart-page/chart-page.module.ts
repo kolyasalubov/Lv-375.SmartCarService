@@ -8,8 +8,8 @@ import { ChartPageComponent } from './chart-page.component';
 import { FakeDataBtnComponent } from './fake-data-btn/fake-data-btn.component';
 import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
-import { HorizontalBarChartComponent } from './charts/horizontal-bar-chart/horizontal-bar-chart.component';
 import { DoughnutBarChartComponent } from './charts/doughnut-bar-chart/doughnut-bar-chart.component';
+import { ChartComponent } from './charts/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +17,8 @@ import { DoughnutBarChartComponent } from './charts/doughnut-bar-chart/doughnut-
     FakeDataBtnComponent,
     LineChartComponent,
     BarChartComponent,
-    HorizontalBarChartComponent,
     DoughnutBarChartComponent,
+    ChartComponent,
   ],
   imports: [
     CommonModule,

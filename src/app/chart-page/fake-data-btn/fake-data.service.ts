@@ -11,6 +11,7 @@ import { Tires } from './tires';
 
 @Injectable()
 export class FakeDataService {
+  
   private TIRE: string = 'tire pressure';
   private SENSOR_URL: string = '/api/record';
   private TIRE_URL: string = '/api/record/tire';
