@@ -6,86 +6,69 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import ua.ita.smartcarservice.dto.UserDto;
+import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
-import ua.ita.smartcarservice.service.impl.UserServiceImpl;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
+@RequestMapping("users")
 public class UserController {
-	
-	@Autowired
-	private UserService userService;
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping()
+    public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity) {
+
+        userService.createUser(userEntity);
+
+        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+
+        List<UserEntity> users = userService.findAll();
+
+        return new ResponseEntity<List<UserEntity>>(users, HttpStatus.OK);
 
 
-	@GetMapping("/userbyid/{id}")
-	public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-		UserDto userDto;
-		try {
-			userDto = userService.getUserById(id);
-		} catch (NullPointerException e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(userDto, HttpStatus.OK);
-	}
+    }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserEntity> findUserById(@PathVariable("userId") Long id) {
 
-	@GetMapping("/users/all")
-	public ResponseEntity<List<UserDto>> findAll() {
-		List<UserDto> users = userService.findAll();
-		if (users.isEmpty()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(users, HttpStatus.OK);
-	}
+        UserEntity user = userService.findById(id);
 
+        return new ResponseEntity<UserEntity>(user, HttpStatus.OK);
+    }
 
-	@GetMapping("/userbyname/{username}")
-	public ResponseEntity<UserDto> findByUsername(@PathVariable String username) {
-		UserDto userDto;
-		try {
-			userDto = userService.findByUsername(username);
-		} catch (NullPointerException e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(userDto, HttpStatus.OK);
-	}
+    @PostMapping("/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable("userId") Long id, UserEntity userEntity) {
 
+        userService.updateUserById(id, userEntity);
 
-	@DeleteMapping("/user/{id}")
-	public ResponseEntity deleteUser(@PathVariable Long id) {
-		try {
-			List<UserDto> users = userService.findAll();
-			for (UserDto u : users) {
-				if (u.getId() == id) {
-					userService.deleteById(id);
-					return new ResponseEntity<>(HttpStatus.OK);
-				}
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
 
-			}
-		} catch (NullPointerException e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	}
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<?> deleteUserById(@PathVariable("userId") Long id, UserEntity userEntity) {
 
+        userService.deleteById(id, userEntity);
 
-	@PostMapping("/newuser")
-	public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity){
-		userService.createUser(userEntity);
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
-	}
+        return new ResponseEntity<Void>(HttpStatus.OK);
 
-
-	@PostMapping("/userchange/{userId}")
-	public ResponseEntity<?> updateUser(@PathVariable("userId")Long id, UserEntity userEntity){
-		userService.updateUserById(id, userEntity);
-		return new ResponseEntity<Void> (HttpStatus.OK);
-	}
+    }
 
 }

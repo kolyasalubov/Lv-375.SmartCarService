@@ -8,27 +8,32 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
+import ua.ita.smartcarservice.entity.RoleEntity;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 
+import javax.persistence.NamedNativeQuery;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	
+	Optional<UserEntity> findByUsername(String username);
+	
 	boolean existsByUsername(String username);
 
-	@Query("select u from UserEntity as u left join WorkersSkill as w " +
-			"on u.id = w.workerId left join UserTechnicalService as ut " +
-			"on u.id = ut.userId where w.skill.name = :name and ut.technicalServiceId.technicalServiceId = :stoId")
-	List<UserEntity> getByUserTechnicalServiceAndWorkersSkill(@Param("name") String name, @Param("stoId") Long stoId);
+	List<UserEntity> getByUserTechnicalServiceAndWorkersSkill(UserTechnicalService userTechnicalService,
+															  WorkersSkill workersSkill);
 
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
+/*
+	@Query("select a from user as u join user_roles as r on user.id = r.user_id where r.role_id = :id")
+	List<UserEntity> getByRoles(@Param("id") Long roleId);
+*/
 
-	UserEntity getUserById(Long id);
+    List<UserEntity> getByRoles(RoleEntity roleEntity);
 
-	UserEntity findByUsername(String username);
-
-	List<UserEntity> findAll();
-
-
+    @Query(value = "select * from user as u left join user_roles as ur on u.id = ur.user_id left join role as r on ur.role_id = r.id where r.name = name", nativeQuery = true)
+	List<UserEntity> getUserEntitiesByRoleName(@Param("name") String name);
 }
