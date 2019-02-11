@@ -10,7 +10,7 @@ import { AuthLoginInfo } from '../auth/login-info';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form: any = {};
+  loginForm: any = {};
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
@@ -27,11 +27,11 @@ export class LoginComponent implements OnInit {
   }
  
   onSubmit() {
-    console.log(this.form);
+    console.log(this.loginForm);
  
     this.loginInfo = new AuthLoginInfo(
-      this.form.username,
-      this.form.password);
+      this.loginForm.username,
+      this.loginForm.password);
  
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
   }
  
   reloadPage() {
-    window.location.reload();
+    window.location.href='/home';
   }
 
 }

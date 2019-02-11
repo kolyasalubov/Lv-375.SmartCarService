@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WorkerService } from './worker.service';
 
 @Component({
   selector: 'app-worker',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkerComponent implements OnInit {
 
-  constructor() { }
+  error: ErrorEvent;
+
+  workers: Worker[];
+
+  constructor(private workerService: WorkerService) { }
 
   ngOnInit() {
+    this.recieveWorkers()
   }
 
+  recieveWorkers() {
+    this.workerService.getAllWorkers()
+          .subscribe(data => this.workers = data,
+                    error => this.error = error);
+  }
 }

@@ -1,0 +1,28 @@
+<h1> Users component work </h1>
+
+<ul *ngFor="let user of users">
+  
+ 
+  <tr>
+      <th>Id</th>
+      <th>Username</th>
+      <th>Password</th>
+      <th>Email</th>
+      <th>FullName</th>
+      <th>Phone number</th>
+      <th>Role</th>
+
+      
+    </tr>
+    <tr>
+        <td>{{user.id}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.password}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.fullname}}</td>
+        <td>{{user.phoneNumber}}</td>
+        <td>{{user.role | json}}</td>
+
+       <td><a href="#" (click)="deleteUserById(user.id)" class="btn btn-danger">Delete</a></td>
+      </tr>
+</ul>
