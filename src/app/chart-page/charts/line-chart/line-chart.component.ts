@@ -15,7 +15,7 @@ export class LineChartComponent extends ChartComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.setDataAndLabels();
+    this.changeSelection();
   }
 
   public chartType: string = 'line';

@@ -15,15 +15,10 @@ export class BarChartComponent extends ChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.changeSelection();
   }
 
   public chartType: string = 'bar';
-
-  public chartDatasets: Array<any> = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'My First dataset' }
-  ];
-
-  public chartLabels: Array<any> = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
 
   public chartColors: Array<any> = [
     {
