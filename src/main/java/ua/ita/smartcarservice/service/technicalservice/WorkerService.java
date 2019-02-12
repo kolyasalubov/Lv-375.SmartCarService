@@ -22,4 +22,5 @@ public interface WorkerService {
 
     List<UserEntity> getWorkersByTechnicalServiceId(TechnicalServiceEntity technicalServiceEntity);
 
+    public List<UserEntity> getAllWorkers();
 }

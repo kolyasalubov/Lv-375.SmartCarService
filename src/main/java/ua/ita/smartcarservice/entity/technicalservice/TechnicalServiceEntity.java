@@ -30,7 +30,7 @@ public class TechnicalServiceEntity {
 
 
     @ManyToOne
-    @JoinColumn(name = "dealerEntity",nullable = false)
+    @JoinColumn(name = "dealerEntity")
     private DealerEntity dealerEntity;
 
 

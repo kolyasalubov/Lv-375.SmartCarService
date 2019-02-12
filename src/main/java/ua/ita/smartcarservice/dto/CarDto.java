@@ -3,8 +3,8 @@ package ua.ita.smartcarservice.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
-import ua.ita.smartcarservice.entity.sensors.alert.VehicleInspection;
 
 import java.util.Date;
 import java.util.Set;
@@ -53,5 +53,6 @@ public class CarDto {
         this.vin = vin;
         this.carOwner = carOwner;
     }
+
 
 }
