@@ -9,6 +9,6 @@ public class WorkerWithSkillDto {
 
     private List<String> name;
 
-    private Long stoId;
+    private Long searchId;
 
 }

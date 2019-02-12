@@ -26,11 +26,21 @@ public class WorkerController {
                                                                                         workerWithSkillDto) {
         HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap<>();
         for (String s : workerWithSkillDto.getName()) {
-            workersBySkillName.put(s, workerService.getByUserTechnicalServiceAndWorkersSkill(s, workerWithSkillDto.getStoId()));
+            workersBySkillName.put(s, workerService.getByUserTechnicalServiceAndWorkersSkill(s, workerWithSkillDto.getSearchId()));
         }
 
         return new ResponseEntity<>(workersBySkillName, HttpStatus.OK);
+    }
 
+    @PostMapping("/api/workerByCar")
+    public ResponseEntity<HashMap<String, List<WorkerDto>>> getAllByCarAndSto(@RequestBody WorkerWithSkillDto
+                                                                                        workerWithSkillDto) {
+        HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap<>();
+        for (String s : workerWithSkillDto.getName()) {
+            workersBySkillName.put(s, workerService.getByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()));
+        }
+
+        return new ResponseEntity<>(workersBySkillName, HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/workers")
