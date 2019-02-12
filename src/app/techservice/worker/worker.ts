@@ -1,8 +1,8 @@
 export interface Worker {
     id: number;
-    username: string;
-    fullname: string;
+    userName: string;
+    fullName: string;
+    password: string;
     email: string;
     numberPhone: string;
-    password: string;
 }

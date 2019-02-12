@@ -18,7 +18,7 @@ export class LineChartComponent extends ChartComponent implements OnInit{
     this.changeSelection();
   }
 
-  public chartType: string = 'line';
+  public chartType: string = 'line'; 
 
   public chartColors: Array<any> = [
     {

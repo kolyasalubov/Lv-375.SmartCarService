@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Techservice } from './techservice';
 import { TechserviceService } from './techservice.service';
 
+import { TokenStorageService } from '../auth/token-storage.service';
+import { User } from '../users/user';
+import { UsersService } from '../users/users.service';
+
 @Component({
   selector: 'app-techservice',
   templateUrl: './techservice.component.html',
@@ -9,17 +13,58 @@ import { TechserviceService } from './techservice.service';
 })
 export class TechserviceComponent implements OnInit {
 
-  techservice: Techservice = {name: '', address: '', workers:[], dealer: null, techManager: null};
+ 
+  techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
+  techservice: Techservice = this.techserviceStub;
+  created: boolean;
   error: ErrorEvent;
 
-  constructor(private techserviceService: TechserviceService) { }
+  user: User;
+
+  constructor(private techserviceService: TechserviceService,
+    private tokenStorage: TokenStorageService, private userService: UsersService) { }
 
   ngOnInit() {
+    this.getCurrentUser();
   }
 
-  createTechservice(techservice: Techservice) {
-    this.techserviceService.createTechnicalService(techservice)
+
+  getCurrentUser() {
+    this.userService.getUserByUsername(this.tokenStorage.getUsername())
+    .subscribe(data =>{ this.user = data;
+                        this.getTechservice(this.user);});
+  }
+
+  createTechservice(techservice: Techservice, user: User) {
+    this.techserviceService.createTechnicalService(techservice, user.id)
+    .subscribe(() => {
+                      this.getTechservice(user);
+                    });
+    
+  }
+
+  getTechservice(user: User) {
+    this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
+    .subscribe(data => {if (data!=null) {
+                          this.techservice = data;
+                          this.toggleCreated(); 
+                          }
+                        });
+  }
+
+  updateTechservice() {
+    this.techserviceService.updateTechnicalService(this.techservice)
     .subscribe();
   }
 
+  deleteTechservice() {
+    this.techserviceService.deleteTechservice(this.techservice.stoId)
+    .subscribe();
+    this.techservice = this.techserviceStub;
+    this.toggleCreated();
+  }
+
+  toggleCreated() {
+    this.created = !this.created;
+  }
 }

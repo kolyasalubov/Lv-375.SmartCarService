@@ -31,5 +31,4 @@ export class UsersService {
   getUserByUsername(username: String): Observable<User>{
     return this.http.get<User>('http://localhost:9501/userbyname/' + username);
   }
-
 }
