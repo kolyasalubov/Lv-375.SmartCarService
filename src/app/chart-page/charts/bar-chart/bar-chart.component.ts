@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ChartComponent } from '../chart/chart.component';
+import { ChartService } from '../chart/chart.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'bar-chart',
@@ -8,9 +10,9 @@ import { ChartComponent } from '../chart/chart.component';
 })
 export class BarChartComponent extends ChartComponent implements OnInit {
 
-  constructor() {
-    super();
-   }
+  constructor(private http: HttpClient) {
+    super(new ChartService(http));
+  }
 
   ngOnInit() {
   }

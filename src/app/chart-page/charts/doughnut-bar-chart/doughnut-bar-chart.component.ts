@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ChartComponent } from '../chart/chart.component';
+import { ChartService } from '../chart/chart.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'doughnut-bar-chart',
@@ -8,20 +10,14 @@ import { ChartComponent } from '../chart/chart.component';
 })
 export class DoughnutBarChartComponent extends ChartComponent implements OnInit {
 
-  constructor() {
-    super();
-   }
+  constructor(private http: HttpClient) {
+    super(new ChartService(http));
+  }
 
   ngOnInit() {
   }
 
   public chartType: string = 'doughnut';
-
-  public chartDatasets: Array<any> = [
-    { data: [300, 50, 100, 40, 120], label: 'My First dataset' }
-  ];
-
-  public chartLabels: Array<any> = ['Red', 'Green', 'Yellow', 'Grey', 'Dark Grey'];
 
   public chartColors: Array<any> = [
     {

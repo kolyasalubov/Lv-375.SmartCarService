@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule }    from '@angular/platform-browser';
 
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
@@ -24,6 +25,7 @@ import { ChartComponent } from './charts/chart/chart.component';
     CommonModule,
     MDBBootstrapModule.forRoot(),
     HttpClientModule,
+    BrowserModule,
   ],
   bootstrap: [ChartPageComponent],
   exports: [ChartPageComponent]
