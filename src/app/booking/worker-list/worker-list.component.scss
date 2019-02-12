@@ -1,0 +1,30 @@
+.skill-worker-container{
+    margin: 5px;
+    padding: 20px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(164, 167, 165, 0.733);
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.select{
+    border-color: rgb(0, 200, 81);
+    border-width: 2px;
+}
+
+.non-select{
+    border-color: rgb(196, 194, 194);
+    border-width: 2px;
+}
+.worker-container{
+    position: fixed;
+    left: 30%;
+    top: 10%;
+}
+.free-time{
+    display: flex;
+    flex-flow: column;
+}

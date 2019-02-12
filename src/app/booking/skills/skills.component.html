@@ -1,12 +1,20 @@
-<div class='container'>
-  <ul class = "list-group">
-    <li class = "list-group-item d-flex justify-content-between" id='{{skill.id}}'
-      *ngFor = "let skill of skills" (click)="addOrDelete(skill)">
-      {{skill.name}}
-      <span class="badge badge-primary badge-pill">{{skill.requiredTime}}</span>
-    </li>
-  </ul>
+<div class="d-flex justify-content-start">
+  <div class="container">
+    <ul class = "list-group">
+      <li class = "list-group-item d-flex justify-content-between" id='{{skill.id}}'
+        *ngFor = "let skill of skills" (click)="addOrDelete(skill)">
+        {{skill.name}}
+        <span class="badge badge-primary badge-pill">{{skill.requiredTime}}</span>
+      </li>
+    </ul>
 
-  <h3 class = "time-value">Required Time: {{timeValue}} hours</h3>
-  <button class="btn btn-outline-success my-2 my-sm-0" (click)="changeShow()">Get Worker</button>
+    <h3 class = "time-value">Required Time: {{timeValue}} hours</h3>
+    <button *ngIf ="!show" class="btn btn-outline-success my-2 my-sm-0" (click)="changeShow()">Get Worker</button>
+    <button *ngIf="show; else newComponent;" class="btn btn-outline-success my-2 my-sm-0" (click)="changeShow()">Get Worker</button>
+  </div>
+</div>
+<div class = "worker-container">
+<ng-template #newComponent>
+<app-worker-list [workerList] = workerList  [requiredTime] = timeValue ></app-worker-list>
+</ng-template>
 </div>

@@ -1,0 +1,8 @@
+<div class = "time-container" *ngFor="let item of map | keyvalue">
+  {{item.key}}
+  <ul class = "list-group">
+    <li class = "list-group-item d-flex justify-content-between"  
+    *ngFor = "let value of item.value">{{value.startSession}} - {{value.endSession}}</li>
+  </ul>
+</div>
+<button class="btn btn-outline-success my-2 my-sm-0" (click)="buttonClick()">Update</button>

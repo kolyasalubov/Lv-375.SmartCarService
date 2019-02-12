@@ -1,3 +1,4 @@
-<p>
-  worker works!
-</p>
+<div>{{workers | json}}</div>
+<ul class="list-group list-group-flush">
+  <li class="list-group-item" *ngFor="let worker of workers">{{worker | json}}</li>
+</ul>
