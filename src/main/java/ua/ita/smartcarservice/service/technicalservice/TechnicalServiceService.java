@@ -11,6 +11,7 @@ public interface TechnicalServiceService {
     TechnicalServiceEntity getTechnicalServiceById(Long id);
     void createTechnicalService(String name, String address, Long userId);
     TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId);
+    void deleteTechnicalService(Long id);
 
     List<TechnicalServiceEntity> getAllTechnicalServices();
     List<TechnicalServiceDto> getAllTechnicalServicesDto();
@@ -18,4 +19,5 @@ public interface TechnicalServiceService {
     TechnicalServiceDto getTechnicalServiceDtoById(Long id);
     TechnicalServiceDto updateTechnicalService(TechnicalServiceEntity technicalService);
     TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto);
+
 }

@@ -24,7 +24,7 @@ public class TechnicalServiceEntity {
     private String address;
 
 
-    @OneToMany(mappedBy = "technicalServiceId")
+    @OneToMany(mappedBy = "technicalServiceId", orphanRemoval = true)
     private List<UserTechnicalService> userTechnicalServices;
 
 

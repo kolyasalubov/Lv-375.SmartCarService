@@ -53,6 +53,12 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     }
 
     @Override
+    public void deleteTechnicalService(Long id) {
+        technicalServiceRepository.deleteById(id);
+       // userTechnicalServiceRepository.deleteByTechnicalServiceId(id);
+    }
+
+    @Override
     public TechnicalServiceDto getTechnicalServiceDtoById(Long id) {
         return convertToDto(getTechnicalServiceById(id));
     }

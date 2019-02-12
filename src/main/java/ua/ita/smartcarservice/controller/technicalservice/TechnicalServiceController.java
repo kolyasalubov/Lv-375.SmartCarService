@@ -140,6 +140,11 @@ public class TechnicalServiceController {
         return responseEntity;
     }
 
+    @DeleteMapping("/api/v1/techservices/{techServiceId}")
+    void deleteTechnicalService(@PathVariable Long techServiceId) throws Exception {
+        technicalServiceService.deleteTechnicalService(techServiceId);
+    }
+
     @PostMapping("/api/v1/techservices/{id}/workers/{workerId}")
     @ResponseBody
     void addWorkerToSerice(@PathVariable Long id, @PathVariable Long workerId) {
