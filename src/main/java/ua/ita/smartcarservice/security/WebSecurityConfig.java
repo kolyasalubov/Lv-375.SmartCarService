@@ -57,8 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/skillbysto/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/skillBySto/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/workerBySkill").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/workerByCar/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/addBooking").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/sessionById").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/bookingTime").permitAll()
@@ -67,6 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/chart/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/faultCode/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/notifications/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/notifications/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/car/**").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/car/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/ucar/**").permitAll()
