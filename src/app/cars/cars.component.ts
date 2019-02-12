@@ -5,7 +5,7 @@ import { User } from '../users/user';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { UsersService } from '../users/users.service';
 import { identifierModuleUrl } from '@angular/compiler';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -19,53 +19,52 @@ export class CarsComponent implements OnInit {
   cars: Car[];
   private username: String;
   user: User;
-  private sub: any;
-
+  
   @Input()
   id: number;
 
 
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute) { }
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
   
   ngOnInit(){
 
-    this.sub = this.route.params.subscribe(params => {
-      let id = + params['id'];  
-      this.carsService.getOwnerCarsById(id)
-      .subscribe( data => this.cars = data); 
-   });
+   this.route.params.subscribe(params => {
+    this.id = params["id"];
+});
 
- //  let id = this.route.snapshot.params['id'];
-/*
-this.username = this.tokenStorage.getUsername();
-
-console.log(this.username);
-
-this.userService.getUserByUsername(this.username)
-.subscribe(data => this.user = data);
-*/
-console.log(this.id);
-console.log(this.sub);
-
- this.carsService.getOwnerCarsById(2)
+ this.carsService.getOwnerCarsById(this.id)
  .subscribe(data => this.cars = data);
 
  }
    
-    applyToSTO(id: number){
+    deleteCarById(id: number){
+    this.carsService.deleteCarById(id).subscribe();
+    this.reloadPage();
+ }
 
+    applyToSTO(id: number){
+    this.router.navigate(['/booking']);
     }
 
     applyToTradeIn (id: number){
 
     }
 
-    wiewCharts(id: number){
-
+    goToCharts(car: Car){
+      this.router.navigate(['/charts'], 
+        {queryParams: {
+          carId: car.id, 
+          carVin: car.vin
+        }}
+      );
     }
 
     history(id: number){
 
+    }
+
+    reloadPage() {
+      window.location.href='/ownercars/' + this.id;
     }
 
 }
