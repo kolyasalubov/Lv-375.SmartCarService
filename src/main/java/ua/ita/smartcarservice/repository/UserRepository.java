@@ -18,31 +18,30 @@ import javax.persistence.NamedNativeQuery;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-
+	
+	Optional<UserEntity> findByUsername(String username);
+	
 	boolean existsByUsername(String username);
 
-	@Query("select u from UserEntity as u left join WorkersSkill as w " +
+	List<UserEntity> getByUserTechnicalServiceAndWorkersSkill(UserTechnicalService userTechnicalService,
+															  WorkersSkill workersSkill);
+
+
+	@Query("select distinct u from UserEntity as u left join WorkersSkill as w " +
 			"on u.id = w.workerId left join UserTechnicalService as ut " +
-			"on u.id = ut.userId where w.skill.name = :name and ut.technicalServiceId.technicalServiceId = :stoId")
-	List<UserEntity> getByUserTechnicalServiceAndWorkersSkill(@Param("name") String name, @Param("stoId") Long stoId);
+			"on u.id = (select ut.userId from UserTechnicalService as ut " +
+			"left join Car as c on ut.userId = c.user " +
+			"where c.id = :id) where w.skill.name = :name")
+	List<UserEntity> getByCarIdAndWorkersSkill(@Param("name") String name, @Param("id") Long id);
 
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
 
 	UserEntity getUserById(Long id);
 
+	//UserEntity findByUsername (String username);
+
 	List<UserEntity> findAll();
 
-	UserEntity findByUsername(String username);
-
-	List<UserEntity> getByUserTechnicalServiceAndWorkersSkill(UserTechnicalService userTechnicalService,
-															  WorkersSkill workersSkill);
-
-/*
-	@Query("select a from user as u join user_roles as r on user.id = r.user_id where r.role_id = :id")
-	List<UserEntity> getByRoles(@Param("id") Long roleId);
-*/
-
-    List<UserEntity> getByRoles(RoleEntity roleEntity);
 
     @Query(value = "select * from user as u left join user_roles as ur on u.id = ur.user_id left join role as r on ur.role_id = r.id where r.name = name", nativeQuery = true)
 	List<UserEntity> getUserEntitiesByRoleName(@Param("name") String name);

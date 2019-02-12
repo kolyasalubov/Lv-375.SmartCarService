@@ -9,6 +9,4 @@ public enum RoleName {
 	ROLE_WORKER,
 	ROLE_ADMIN
 	
-	
-
 }

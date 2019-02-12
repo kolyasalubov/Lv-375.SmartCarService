@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.entity.sensors.alert;
+package ua.ita.smartcarservice.entity.alerts;
 
 import java.sql.Date;
 
@@ -11,8 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import ua.ita.smartcarservice.entity.Car;
 import lombok.Data;
+import ua.ita.smartcarservice.entity.Car;
 
 @Data
 @Entity
@@ -32,6 +32,9 @@ public class VehicleInspection {
 	@ManyToOne
 	@JoinColumn(name = "car_id")
 	private Car car;
+
+	public VehicleInspection() {
+	}
 	
 	public VehicleInspection(long id, Date dateOfInspection, Integer mileageOfCar, Car car) {
 		this.id = id;
