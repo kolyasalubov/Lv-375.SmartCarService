@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">  
        
    <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">
-   <a class="btn btn-outline-success my-2 my-sm-0" (click) = "goToOwnerCars(user.id)" >Your cars</a>
+   <a class="btn btn-outline-success my-2 my-sm-0" (click) = "goToOwnerCars()" >Your cars</a>
    </ul>
     
   <ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  
@@ -33,7 +33,7 @@
   </ul>
 
   <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
-      <a class="btn btn-outline-success my-2 my-sm-0" (click)="goToNotifications(user.id)" >Notifications</a>
+      <a class="btn btn-outline-success my-2 my-sm-0" (click)="goToNotifications()" >Notifications</a>
 </ul>
 
 
