@@ -23,9 +23,8 @@ public class NotificationsController {
 	private NotificationService notificationsService;
 	
 	@GetMapping(path ={"/{id}"})
-	public List<NotificationsDto> getNotifications 
-	(@RequestParam(value = "userId")Long userId){
-		return notificationsService.getAllNotificationsForUser(userId);
+	public List<NotificationsDto> getNotifications(@PathVariable("id") Long id){
+		return notificationsService.getAllNotificationsForUser(id);
 	}
 	
 	@DeleteMapping(path ={"/{id}"})
