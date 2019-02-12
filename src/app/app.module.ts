@@ -21,6 +21,9 @@ import { UsersComponent } from './users/users.component';
 import { InfoComponent } from './info/info.component';
 import { CarProfileComponent } from './car-profile/car-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NotificationsApprovementComponent } from './notifications/notifications-approvement/notifications-approvement.component';
+import { NotificationsListComponent } from './notifications/notifications-list/notifications-list.component';
+
 
 
 
@@ -39,7 +42,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     InfoComponent,
     CarProfileComponent,
     UserProfileComponent,
-    
+    NotificationsApprovementComponent,
+    NotificationsListComponent
+
 
   ],
   imports: [
