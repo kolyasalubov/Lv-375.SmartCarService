@@ -13,7 +13,10 @@ import { UsersService } from '../users/users.service';
 })
 export class TechserviceComponent implements OnInit {
 
-  techservice: Techservice = {name: '', address: '', workers:[], dealer: null, techManager: null};
+ 
+  techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
+  techservice: Techservice = this.techserviceStub;
+  created: boolean;
   error: ErrorEvent;
 
   user: User;
@@ -22,13 +25,46 @@ export class TechserviceComponent implements OnInit {
     private tokenStorage: TokenStorageService, private userService: UsersService) { }
 
   ngOnInit() {
-    this.userService.getUserByUsername(this.tokenStorage.getUsername())
-    .subscribe(data => this.user = data);
+    this.getCurrentUser();
   }
 
-  createTechservice(techservice: Techservice) {
-    this.techserviceService.createTechnicalService(techservice, this.user.id)
+
+  getCurrentUser() {
+    this.userService.getUserByUsername(this.tokenStorage.getUsername())
+    .subscribe(data =>{ this.user = data;
+                        this.getTechservice(this.user);});
+  }
+
+  createTechservice(techservice: Techservice, user: User) {
+    this.techserviceService.createTechnicalService(techservice, user.id)
+    .subscribe(() => {
+                      this.getTechservice(user);
+                    });
+    
+  }
+
+  getTechservice(user: User) {
+    this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
+    .subscribe(data => {if (data!=null) {
+                          this.techservice = data;
+                          this.toggleCreated(); 
+                          }
+                        });
+  }
+
+  updateTechservice() {
+    this.techserviceService.updateTechnicalService(this.techservice)
     .subscribe();
   }
 
+  deleteTechservice() {
+    this.techserviceService.deleteTechservice(this.techservice.stoId)
+    .subscribe();
+    this.techservice = this.techserviceStub;
+    this.toggleCreated();
+  }
+
+  toggleCreated() {
+    this.created = !this.created;
+  }
 }

@@ -1,4 +1,6 @@
-<div style="width: 400px;">
+<app-menu></app-menu>
+<!--<div>{{user | json}}</div>-->
+<div  style="width: 400px;">
   <div class="md-form input-group mb-3" >
     <div class="input-group-prepend">
         <span class="input-group-text md-addon">Name: </span>
@@ -12,6 +14,17 @@
       </div>
       <input type="text" class="form-control" [(ngModel)]="techservice.address" aria-describedby="material-addon1">
   </div>
-
-  <button (click)="createTechservice(techservice)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
+  
+    <div *ngIf="techservice.stoId < 0">
+        <button (click)="createTechservice(techservice, user)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
+    </div>
+    <div *ngIf="techservice.stoId > 0">
+        <button (click)="updateTechservice(techservice)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Update Info</button>
+        <br>
+        <button (click)="deleteTechservice(techservice.id)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Delete Technical Service</button>
+    </div>
 </div>
+<!--
+{{techservice.created | json}}
+{{techservice | json}}
+-->
