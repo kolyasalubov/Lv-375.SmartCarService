@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ChartComponent } from '../chart/chart.component';
+import { ChartService } from '../chart/chart.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'line-chart',
@@ -8,32 +10,15 @@ import { ChartComponent } from '../chart/chart.component';
 })
 export class LineChartComponent extends ChartComponent implements OnInit{
 
-  constructor() {
-    super();
+  constructor(private http: HttpClient) {
+    super(new ChartService(http));
   }
 
   ngOnInit() {
-    console.log(this.sensorType);
-    console.log(this.chartDatasets[0].label);
-    this.setChartDatasets();
-    this.setChartLabels();
-  }
-
-  private setChartDatasets() {
-    this.chartDatasets = [
-      { data: [65, 59, 80, 81, 56, 55, 40], label: this.sensorType },
-    ]
-  }
-
-  private setChartLabels() {
-    this.chartLabels = this.chartLabels;
+    this.setDataAndLabels();
   }
 
   public chartType: string = 'line';
-
-  public chartDatasets: Array<any> = [{ data: [65, 59, 80, 81, 56, 55, 40], label: this.sensorType },];
-
-  public chartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
   public chartColors: Array<any> = [
     {

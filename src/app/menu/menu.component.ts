@@ -56,7 +56,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToNotifications(id){
-
+    this.router.navigate(['/notifications-list', id]);
   }
 
   goToOwnerCars(id) {
