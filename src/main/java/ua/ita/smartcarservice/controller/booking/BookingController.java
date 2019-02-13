@@ -23,23 +23,22 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping("/api/sessionById")
-    public ResponseEntity<List<WorkTimeDto>> findAllByWorker_WorkerId(@RequestParam(value = "workerId", required = false)
-                                                                             String workerId){
+    public ResponseEntity <List <WorkTimeDto>> findAllByWorker_WorkerId(@RequestParam(value = "workerId", required = false)
+                                                                                String workerId) {
         return new ResponseEntity <>(bookingService.findAllByWorkerId(Long.valueOf(workerId)), HttpStatus.OK);
 
     }
 
     @PostMapping("/api/bookingTime")
-    public ResponseEntity<HashMap<LocalDate, List<WorkTimeDto>>> findTimeToBooking(@RequestBody BookingDto bookingDto){
+    public ResponseEntity <HashMap <LocalDate, List <WorkTimeDto>>> findTimeToBooking(@RequestBody BookingDto bookingDto) {
         return new ResponseEntity <>(bookingService.findTimeToBooking(bookingDto), HttpStatus.OK);
     }
 
     @PostMapping("/api/addBooking")
-    public ResponseEntity<HttpStatus> addSession(@RequestBody NewBookingDto newSessionDto){
-        if(bookingService.addSession(newSessionDto)){
+    public ResponseEntity <HttpStatus> addSession(@RequestBody NewBookingDto newSessionDto) {
+        if (bookingService.addSession(newSessionDto)) {
             return new ResponseEntity <>(HttpStatus.OK);
-        }
-        else {
+        } else {
             return new ResponseEntity <>(HttpStatus.BAD_REQUEST);
         }
     }
