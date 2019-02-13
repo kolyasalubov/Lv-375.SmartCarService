@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { ChartService } from './chart.service';
 import { ChartDto } from './chart-dto';
+import { Tires } from '../../fake-data-btn/tires';
 
 @Component({
   selector: 'chart',
@@ -31,19 +32,29 @@ export class ChartComponent implements OnInit {
   public setDataAndLabels(chartDto: ChartDto){
     this.getLabel();
     let isNull: boolean = chartDto === null;
-    this.chartDatasets = [
-      { data: isNull ? null : chartDto.data, label: this.date },
-    ];
+    if(this.sensorType == 'tire pressure'){
+      this.chartDatasets = [
+        { data: isNull ? null : chartDto.data['frontLeft'], label: 'frontLeft' },
+        { data: isNull ? null : chartDto.data['frontRight'], label: 'frontRight' },
+        { data: isNull ? null : chartDto.data['backLeft'], label: 'backLeft' },
+        { data: isNull ? null : chartDto.data['backRight'], label: 'backRight' },
+      ];
+    } else {
+      this.chartDatasets = [
+        { data: isNull ? null : chartDto.data, label: this.date },
+      ];
+    }
+
     this.chartLabels = isNull ? null : chartDto.labels;
   }
 
-  public setColors() {
-    console.log(this.chartDatasets[0].data);
-    for(let i = 0; i < this.chartDatasets[0].data; i++){
-      this.colors[0].backgroundColor.push('rgba(153, 102, 255, 0.2)');
-      this.colors[0].borderColor.push('rgba(153, 102, 255, 1)');
-    }
-  }
+  // public setColors() {
+  //   console.log(this.chartDatasets[0].data.length());
+  //   for(let i = 0; i < this.chartDatasets[0].data; i++){
+  //     this.colors[0].backgroundColor.push('rgba(153, 102, 255, 0.2)');
+  //     this.colors[0].borderColor.push('rgba(153, 102, 255, 1)');
+  //   }
+  // }
 
   private getLabel(): void{
     const MONTHS = ["January", "February", "March", "April", "May", "June",
@@ -71,7 +82,7 @@ export class ChartComponent implements OnInit {
     .subscribe(
       data => {
         this.setDataAndLabels(data)
-        this.setColors();
+        // this.setColors();
       },
       error => console.error('Error: ', error)
     );
