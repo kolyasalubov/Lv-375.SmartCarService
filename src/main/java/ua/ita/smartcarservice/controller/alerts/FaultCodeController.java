@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ import ua.ita.smartcarservice.service.alerts.FaultCodeService;
 import ua.ita.smartcarservice.service.alerts.NotificationService;
 
 @RestController
-@RequestMapping({"/api"})
+@RequestMapping("/api")
 public class FaultCodeController {
 	
 	FaultCodeService faultCodeService;
@@ -32,7 +33,7 @@ public class FaultCodeController {
 		this.notificationsService = notificationsService;
 	}
 
-	@GetMapping("/faultCode")
+	@PostMapping("/faultCode")
 	public void handleFaultCode(@RequestParam(value="vinNumber") String vinNumber, 
 							   	   @RequestParam(value="code") String code) {
 		try {

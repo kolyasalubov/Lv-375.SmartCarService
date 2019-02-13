@@ -41,17 +41,6 @@ public interface VehicleInspectionRepository extends JpaRepository<VehicleInspec
 			"	);" , 
 			nativeQuery = true)
 	List<VehicleInspection> getCarsForYearlyInspection ();
-
-//	"select * from vehicle_inspection v \r\n" + 
-//	"where v.date_of_inspection in\r\n" + 
-//	"	(select max(date_of_inspection) from vehicle_inspection \r\n" + 
-//	"	where DATE(date_of_inspection) <= date_sub(NOW(), INTERVAL 365 DAY)\r\n" + 
-//	"	group by car_id)\r\n" + 
-//	"AND v.car_id not in \r\n" + 
-//	"	(select id from schedule s\r\n" + 
-//	"	inner join user w on w.worker_id = s.worker_id \r\n" + 
-//	"	where skill_id = 7);"
-	
 	
 	 @Query("select c from Car c "
 			+ "inner join c.vehicleInspections v "
@@ -66,3 +55,16 @@ public interface VehicleInspectionRepository extends JpaRepository<VehicleInspec
 			)
 	List<Car> getCarsForInspectionByMileage();
 }
+
+
+
+
+//"select * from vehicle_inspection v \r\n" + 
+//"where v.date_of_inspection in\r\n" + 
+//"	(select max(date_of_inspection) from vehicle_inspection \r\n" + 
+//"	where DATE(date_of_inspection) <= date_sub(NOW(), INTERVAL 365 DAY)\r\n" + 
+//"	group by car_id)\r\n" + 
+//"AND v.car_id not in \r\n" + 
+//"	(select id from schedule s\r\n" + 
+//"	inner join user w on w.worker_id = s.worker_id \r\n" + 
+//"	where skill_id = 7);"

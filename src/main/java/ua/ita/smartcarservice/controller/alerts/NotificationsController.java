@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.ita.smartcarservice.dto.alerts.NotificationsDto;
 import ua.ita.smartcarservice.service.alerts.NotificationService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping({"/api/notifications"})
 public class NotificationsController {
