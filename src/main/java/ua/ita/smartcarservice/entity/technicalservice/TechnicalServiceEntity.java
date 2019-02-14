@@ -11,7 +11,8 @@ import java.util.List;
 @Table(name = "technical_services")
 public class TechnicalServiceEntity {
 
-    public TechnicalServiceEntity(){}
+    public TechnicalServiceEntity() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,22 +29,9 @@ public class TechnicalServiceEntity {
     private List<UserTechnicalService> userTechnicalServices;
 
 
-
     @ManyToOne
     @JoinColumn(name = "dealerEntity")
     private DealerEntity dealerEntity;
 
 
-/*
-    @ManyToOne
-    @JoinColumn(name = "dealer_id")
-    private UserEntity dealer;
-
-
-
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "technicalService")
-    private Set<UserEntity> workers;
-*/
 }

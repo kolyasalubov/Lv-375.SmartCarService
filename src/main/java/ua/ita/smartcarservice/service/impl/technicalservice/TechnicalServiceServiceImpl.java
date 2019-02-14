@@ -55,7 +55,7 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     @Override
     public void deleteTechnicalService(Long id) {
         technicalServiceRepository.deleteById(id);
-       // userTechnicalServiceRepository.deleteByTechnicalServiceId(id);
+        // userTechnicalServiceRepository.deleteByTechnicalServiceId(id);
     }
 
     @Override
@@ -71,7 +71,6 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         dto.setAddress(technicalServiceEntity.getAddress());
 
         dto.setTechnicalManager(userTechnicalServiceRepository.getOne(technicalServiceEntity.getTechnicalServiceId()).getUserId());
-        //dto.setWorkerSet(technicalServiceEntity.getWorkers());
 
         return dto;
     }
