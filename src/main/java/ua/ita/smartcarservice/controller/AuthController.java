@@ -88,40 +88,41 @@ public class AuthController {
 			switch (role) {
 			case "ADMIN":
 				RoleEntity adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: Admin Role not find."));
 				roles.add(adminRole);
  
 				break;
 			case "SALES_MANAGER":
 				RoleEntity saleManagerRole = roleRepository.findByName(RoleName.ROLE_SALES_MANAGER)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: SaleManager Role not find."));
 				roles.add(saleManagerRole);
  
 				break;
 			case "TECHNICAL_MANAGER":
 				RoleEntity technicalManagerRole = roleRepository.findByName(RoleName.ROLE_TECHNICAL_MANAGER)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: TechnicalManager Role not find."));
 				roles.add(technicalManagerRole);
  
 				break;
 			case "DIELER":
 				RoleEntity dielerRole = roleRepository.findByName(RoleName.ROLE_DIELER)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: DIELER Role not find."));
 				roles.add(dielerRole);
  
 				break;
 			case "WORKER":
 				RoleEntity workerRole = roleRepository.findByName(RoleName.ROLE_WORKER)
-						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
+						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: WORKER Role not find."));
 				roles.add(workerRole);
 
 				break;
 
-				default:
+			default:
 				RoleEntity carOwnerROle = roleRepository.findByName(RoleName.ROLE_CAR_OWNER)
 						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
 				roles.add(carOwnerROle);
-
+				
+				break;
 
 			}
 		});

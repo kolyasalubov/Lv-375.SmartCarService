@@ -74,6 +74,15 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
+    public List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId) {
+        List <WorkerDto> workerDtos = new ArrayList<>();
+        for(UserEntity worker : userRepository.getByCarIdAndWorkersSkill(name, carId)){
+            workerDtos.add(getWorkerDto(worker));
+        }
+        return workerDtos;
+    }
+
+    @Override
     public List<UserEntity> getWorkersByTechnicalServiceId(TechnicalServiceEntity technicalServiceEntity) {
         UserTechnicalService userTechnicalService = userTechnicalServiceRepository.getByTechnicalServiceId(technicalServiceEntity);
 

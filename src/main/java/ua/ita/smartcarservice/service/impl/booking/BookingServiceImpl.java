@@ -46,7 +46,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public boolean addSession(NewBookingDto newBookingDto) {
         Car car = carRepository.getOne(newBookingDto.getCarId());
-        List<WorkTime> sessionsToAdd = new ArrayList<>();
+        List <WorkTime> sessionsToAdd = new ArrayList <>();
         if (bookingRepository.selectNumberOfSessionWithDate(parseDate(newBookingDto.getStarttime()), parseDate(newBookingDto.getEndtime())) != 0
                 && LocalDateTime.now().compareTo(parseDate(newBookingDto.getStarttime())) < 0) {
             return false;
@@ -63,13 +63,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public HashMap<LocalDate, List<WorkTimeDto>> findTimeToBooking(BookingDto bookingDto) {
+    public HashMap <LocalDate, List <WorkTimeDto>> findTimeToBooking(BookingDto bookingDto) {
         List <Long> workerId = new ArrayList <>();
         Integer timeToNeedInMinute = Integer.parseInt(bookingDto.getNeedTime());
         Integer numberOfDay = Integer.parseInt(bookingDto.getNumberOfDay());
         LocalDate time = LocalDate.parse(bookingDto.getTime());
 
-        for(String s : bookingDto.getWorkerId()){
+        for (String s : bookingDto.getWorkerId()) {
             workerId.add(Long.valueOf(s));
         }
 
@@ -96,10 +96,10 @@ public class BookingServiceImpl implements BookingService {
     private HashMap <LocalDate, List <WorkTimeDto>> getFreeTimeForEveryDay(List <WorkTimeDto> timeToWork, LocalDate time, int numberOfDay, int timeToNeed) {
         HashMap <LocalDate, List <WorkTimeDto>> freeTime = new HashMap <>();
         HashMap <LocalDate, List <WorkTimeDto>> bookingShedule = new HashMap <>();
-        for(int i = 0; i<=numberOfDay;i++){
+        for (int i = 0; i <= numberOfDay; i++) {
             freeTime.put(time.plusDays(i), new ArrayList <>());
         }
-        if(timeToWork != null) {
+        if (timeToWork != null) {
             for (WorkTimeDto sessionDto : timeToWork) {
                 List <WorkTimeDto> newList = freeTime.get(getKey(sessionDto.getStartSession()));
                 newList.add(sessionDto);
@@ -107,16 +107,17 @@ public class BookingServiceImpl implements BookingService {
             }
         }
 
-        for(LocalDate localDate : freeTime.keySet()){
+        for (LocalDate localDate : freeTime.keySet()) {
             bookingShedule.put(localDate, findFreeTime(findAllTimePoints(freeTime.get(localDate), localDate), timeToNeed));
         }
 
+    
         return bookingShedule;
 
 
     }
 
-    private LocalDate getKey(LocalDateTime time){
+    private LocalDate getKey(LocalDateTime time) {
         return LocalDate.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth());
     }
 
@@ -160,7 +161,8 @@ public class BookingServiceImpl implements BookingService {
                 workNow--;
             }
         }
-        if (freeTime.isEmpty() && timePoints.size() == 2) {
+        if (freeTime.isEmpty() && timePoints.size() == 2
+                && getDeltaTimeInMinut(timePoints.get(timePoints.size() - 2).getTime(), timePoints.get(timePoints.size() - 1).getTime()) >= timeToNeedInMinute) {
             WorkTimeDto sessionDto = new WorkTimeDto();
             sessionDto.setStartSession(start.getTime());
             sessionDto.setEndSession(timePoints.get(timePoints.size() - 1).getTime());

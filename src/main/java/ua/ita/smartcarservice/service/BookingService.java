@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface BookingService {
 
-    HashMap<LocalDate, List<WorkTimeDto>> findTimeToBooking(BookingDto bookingDto);
+    HashMap <LocalDate, List <WorkTimeDto>> findTimeToBooking(BookingDto bookingDto);
 
     boolean addSession(NewBookingDto newSessionDto);
 
-    List<WorkTimeDto> findAllByWorkerId(Long workerId);
+    List <WorkTimeDto> findAllByWorkerId(Long workerId);
 }

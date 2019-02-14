@@ -21,5 +21,5 @@ public interface BookingRepository extends JpaRepository<WorkTime, Long> {
     @Query("select count(w) from WorkTime as w where :starttime < w.endSession and :endtime > w.startSession")
     int selectNumberOfSessionWithDate(@Param("starttime") LocalDateTime starttime, @Param("endtime") LocalDateTime endtime);
 
-    List<WorkTime> findAllByWorkerId(Long workerId);
+    List<WorkTime> findAllByWorkerId(Long id);
 }

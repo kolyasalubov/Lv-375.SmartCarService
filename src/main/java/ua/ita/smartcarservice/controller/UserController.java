@@ -19,6 +19,7 @@ import ua.ita.smartcarservice.service.impl.UserServiceImpl;
 @RestController
 public class UserController {
 
+
     @Autowired
     private UserService userService;
 
@@ -48,7 +49,9 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
-    }
+
+  }
+
 
     /*
      *   Get user by username
@@ -84,7 +87,9 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+
+   
+  }
 
 
     @PostMapping("/newuser")
@@ -99,5 +104,6 @@ public class UserController {
         userService.updateUserById(id, userEntity);
         return new ResponseEntity<Void> (HttpStatus.OK);
     }
+
 
 }
