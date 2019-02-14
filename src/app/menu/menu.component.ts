@@ -55,12 +55,12 @@ export class MenuComponent implements OnInit {
           }
   }
 
-  goToNotifications(id){
-    this.router.navigate(['/notifications-list', id]);
+  goToNotifications(){
+    this.router.navigate(['/notifications-list', this.user.id]);
   }
 
-  goToOwnerCars(id) {
-    this.router.navigate(['/ownercars', id]);
+  goToOwnerCars() {
+    this.router.navigate(['/ownercars', this.user.id]);
   }
 
   logout(){

@@ -1,4 +1,10 @@
-<div>{{workers | json}}</div>
+
+
 <ul class="list-group list-group-flush">
-  <li class="list-group-item" *ngFor="let worker of workers">{{worker | json}}</li>
+  <li class="list-group-item" *ngFor="let worker of workers">
+    <h1>Worker {{worker.userName}}</h1>
+    <p>Full name: {{worker.fullName}}</p>
+    <p>Email: {{worker.email}}</p>
+    <p>Phone: {{worker.numberPhone}}</p>
+  </li>
 </ul>

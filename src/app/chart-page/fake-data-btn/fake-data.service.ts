@@ -42,19 +42,19 @@ export class FakeDataService {
 
   private sendToDB(): void {
 
-    fetch(this.url, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type':  'application/json'
-      }),
-      body: JSON.stringify(this.recordDto)
-    }).then(res => console.log('SAVE Record status: ', res.status))
-      .catch(error => console.error('Error: ', error));
+    // fetch(this.url, {
+    //   method: 'POST',
+    //   headers: new Headers({
+    //     'Content-Type':  'application/json'
+    //   }),
+    //   body: JSON.stringify(this.recordDto)
+    // }).then(res => console.log('SAVE Record status: ', res.status))
+    //   .catch(error => console.error('Error: ', error));
 
-      // this.http.post(this.url, this.recordDto, this.httpOptions)
-      // .pipe(
-      //   catchError(this.errorHandler)
-      // );
+      this.http.post<RecordDto>(this.url, this.recordDto, this.httpOptions)
+      .subscribe(
+        () => console.log("SAVE OK")
+      );
 
       console.log("add");
   }
@@ -87,7 +87,6 @@ export class FakeDataService {
   private setGeneralRecordDto(carVin: string, sensorType: string): void {
     let recordDto = this.recordDto;
     recordDto.date = this.getRandomDate();
-    // recordDto.sensorType = this.getRandomSensorType();
     recordDto.carVin = carVin;
     recordDto.sensorType = sensorType;
   }
@@ -120,11 +119,6 @@ export class FakeDataService {
   // RANDOM DATA
   // ***********
 
-  private getRandomSensorType(): string {
-    let index: number = this.getRandomInt(0, SENSORS.length - 1);
-    return SENSORS[index]['type'];
-  }
-
   private getRandomInt(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -135,19 +129,19 @@ export class FakeDataService {
 
   private getRandomDate(): string {
 
-    const MIN_YEAR: number = 2018;
+    const MIN_YEAR: number = 2019;
     const MIN_MONTH_DAY: number = 1;
     const MIN_TIME: number = 0;
 
     const MAX_YEAR: number = 2019;
-    const MAX_MONTH: number = 12;
+    const MAX_MONTH: number = 2;
     const MAX_HOUR: number = 23;
     const MAX_MINUTES_SECONDS: number = 59;
 
     let year: number = this.getRandomInt(MIN_YEAR, MAX_YEAR);
     let month: number = this.getRandomInt(MIN_MONTH_DAY, MAX_MONTH);
 
-    const MAX_DAY = this.getLastDayInMonth(month, year);
+    const MAX_DAY = 13;
 
     let day: number = this.getRandomInt(MIN_MONTH_DAY, MAX_DAY);
     let hour: number = this.getRandomInt(MIN_TIME, MAX_HOUR);

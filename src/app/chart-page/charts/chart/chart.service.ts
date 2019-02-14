@@ -19,13 +19,12 @@ export class ChartService {
   constructor(private http: HttpClient) { }
 
   public getChartData(sensorType: string, carId: number, period: string) {
-    let date: string =  this.dateToMySqlString(new Date());
+    let date: string =  this.newDateInMySqlString();
     let dateDto: DateDto = new DateDto(sensorType, carId, date);
     return this.getDataFromDB(dateDto, this.URL + period);
   }
 
   private getDataFromDB(dateDto: DateDto, url: string) {
-    // let chartDto: ChartDto;
 
     this.httpOptions.params = new HttpParams()
       .set("sensorType", dateDto.sensorType)
@@ -33,17 +32,12 @@ export class ChartService {
       .set("date", dateDto.date);
 
     return this.http.get<ChartDto>(url, this.httpOptions);
-    // .subscribe(
-    //   data => chartDto = data,
-    //   error => console.error('Error: ', error)
-    // );
-
-    // console.log(chartDto);
-    // return chartDto;
   }
 
-  private dateToMySqlString(date: Date): string{
-    return date.toISOString().slice(0, 10) + ' ' + date.toLocaleTimeString();
+  private newDateInMySqlString(): string{
+    let date: Date = new Date();
+    let iso: string = date.toISOString();
+    return iso.slice(0, 10) + ' ' + iso.slice(11, 19);
   }
 
 }

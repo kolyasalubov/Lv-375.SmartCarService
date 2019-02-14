@@ -15,6 +15,7 @@ export class DoughnutBarChartComponent extends ChartComponent implements OnInit 
   }
 
   ngOnInit() {
+    this.changeSelection();
   }
 
   public chartType: string = 'doughnut';

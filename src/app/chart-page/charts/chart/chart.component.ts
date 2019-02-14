@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ChartService } from './chart.service';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ChartDto } from './chart-dto';
+import { Tires } from '../../fake-data-btn/tires';
 
 @Component({
   selector: 'chart',
@@ -19,56 +19,82 @@ export class ChartComponent implements OnInit {
 
   private period: string = '/day';
 
-  public chartDto: ChartDto = new ChartDto();
+  public chartDatasets: Array<any> = [];
+  public chartLabels: Array<any> = [];
+  public colors: Array<any> = [{ borderWidth: 2, }];
 
-  public chartDatasets: Array<any>;
-  public chartLabels: Array<any>;
+  private date: string;
 
 
   constructor(private chartService: ChartService) {
-    // this.chartDatasets = [{ data: this.chartDto.data, label: this.sensorType },];
-    // this.chartLabels = this.chartDto.labels;
-
-    // console.log("NGONINIT");
-    // this.getChartDto();
-    // this.setDataAndLabels();
   }
 
-  public setDataAndLabels(){
-    let isNull: boolean = this.chartDto === null;
-    this.chartDatasets = [
-      { data: isNull ? null : this.chartDto.data, label: this.sensorType },
-    ];
-    this.chartLabels = isNull ? null : this.chartDto.labels;
+  public setDataAndLabels(chartDto: ChartDto){
+    this.getLabel();
+    let isNull: boolean = chartDto === null;
+    if(this.sensorType == 'tire pressure'){
+      this.chartDatasets = [
+        { data: isNull ? null : chartDto.data['frontLeft'], label: 'frontLeft' },
+        { data: isNull ? null : chartDto.data['frontRight'], label: 'frontRight' },
+        { data: isNull ? null : chartDto.data['backLeft'], label: 'backLeft' },
+        { data: isNull ? null : chartDto.data['backRight'], label: 'backRight' },
+      ];
+    } else {
+      this.chartDatasets = [
+        { data: isNull ? null : chartDto.data, label: this.date },
+      ];
+    }
 
-    console.log(this.chartDto);
-    console.log(this.chartDatasets);
+    this.chartLabels = isNull ? null : chartDto.labels;
+  }
+
+  // public setColors() {
+  //   console.log(this.chartDatasets[0].data.length());
+  //   for(let i = 0; i < this.chartDatasets[0].data; i++){
+  //     this.colors[0].backgroundColor.push('rgba(153, 102, 255, 0.2)');
+  //     this.colors[0].borderColor.push('rgba(153, 102, 255, 1)');
+  //   }
+  // }
+
+  private getLabel(): void{
+    const MONTHS = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    let date: Date = new Date();
+    let day = date.getDate();
+    let month = MONTHS[date.getMonth()];
+    let year = date.getFullYear();
+
+    if(this.period.includes('day'))
+      this.date = `${day}  ${month}, ${year}`
+    else if(this.period.includes('month'))
+      this.date = `${month}, ${year}`
+    else
+      this.date = year.toString();
   }
 
   ngOnInit(): void {
   }
 
+  private getChartDto(period = this.period): void {
+    this.chartService.getChartData(this.sensorType, this.carId, period)
+    .subscribe(
+      data => {
+        this.setDataAndLabels(data)
+        // this.setColors();
+      },
+      error => console.error('Error: ', error)
+    );
+  }
+
   changePeriod(period: string): void {
     this.period = period;
     this.getChartDto();
-    this.setDataAndLabels();
   }
 
   changeSelection(selection = ''): void {
     this.getChartDto(this.period + selection);
-    this.setDataAndLabels();
-  }
-
-  private getChartDto(period = this.period): void {
-    this.chartService.getChartData(this.sensorType, this.carId, period)
-    .subscribe(
-      // data => console.log(data),
-      data => {
-        this.chartDto = data;
-        this.setDataAndLabels();
-      },
-      error => console.error('Error: ', error)
-    );
   }
 
 }
