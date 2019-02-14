@@ -1,5 +1,5 @@
 <app-menu></app-menu>
-<!--<div>{{user | json}}</div>-->
+
 <div style="display: flex; justify-content: center;">
     <div  style="width: 400px;">
     <div class="md-form input-group mb-3" >
@@ -25,8 +25,7 @@
             <button (click)="deleteTechservice(techservice.id)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Delete Technical Service</button>
         </div>
     </div>
-    <!--
-    {{techservice.created | json}}
-    {{techservice | json}}
-    -->
 </div>
+
+<div>{{techservice | json}}</div>
+<div>{{user | json}}</div>
