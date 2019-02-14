@@ -14,7 +14,7 @@ import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.UserService;
 
-@RestController
+@Service
 public class UserServiceImpl implements UserService{
 
 	@Autowired

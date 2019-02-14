@@ -114,12 +114,15 @@ public class AuthController {
 				RoleEntity workerRole = roleRepository.findByName(RoleName.ROLE_WORKER)
 						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
 				roles.add(workerRole);
- 
+
 				break;
-			default:
+
+				default:
 				RoleEntity carOwnerROle = roleRepository.findByName(RoleName.ROLE_CAR_OWNER)
 						.orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
 				roles.add(carOwnerROle);
+
+
 			}
 		});
 		
