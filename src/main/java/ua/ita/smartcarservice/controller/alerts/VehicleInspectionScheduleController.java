@@ -17,10 +17,11 @@ import ua.ita.smartcarservice.service.alerts.VehicleInspectionService;
 
 @RestController
 public class VehicleInspectionScheduleController {
-	private final String yearlyInspection = ": It's time for yearly inspection. Last inspection was on: ";
+	private final String yearlyInspection = ": It's time for yearly inspection. ";
 	private final String mileageInspection = ": You have ridden more than 10 km since "
 			+"your last overal inspection";
-
+	private final Long vehicleInspector = new Long(7);
+	
 	VehicleInspectionService vehicleInspectionService;
 	NotificationService notificationService;
 
@@ -30,7 +31,6 @@ public class VehicleInspectionScheduleController {
 		this.vehicleInspectionService = vehicleInspectionService;
 		this.notificationService = notificationService;
 	}
-	
 	@Scheduled(cron = "0 0 8 * * *", zone="Europe/Athens")
 	public void getCarsForYearlyInspection() {
 		List<NotificationsDto> toSave = new ArrayList<>();
@@ -40,18 +40,16 @@ public class VehicleInspectionScheduleController {
 		for (VehicleInspectionDto v : viDto) {
 			toSave.add(new NotificationsDto(
 					v.getCar().getBrand() + " " + v.getCar().getModel() +
-					yearlyInspection
-					+ String.valueOf(vehicleInspectionService.getDateOfLastVehicleInspection(v.getCar().getId())),
+					yearlyInspection,
 					new Timestamp(System.currentTimeMillis()),
 					v.getCar().getId(),
 					v.getCar().getUser().getId(),
-					7l
+					vehicleInspector
 			));
 		}
 		//users to warn by car mileage
 		List<Car> inspectionsMileage = 
 				vehicleInspectionService.getCarsForVehicleInspectionByMileage();
-		System.out.println("****inspectionsMileage size: " + inspectionsMileage.size());
 		for (Car c : inspectionsMileage) {
 			toSave.add(new NotificationsDto(
 					c.getBrand() + " " + c.getModel() +
@@ -59,12 +57,8 @@ public class VehicleInspectionScheduleController {
 					new Timestamp(System.currentTimeMillis()),
 					c.getId(),
 					c.getUser().getId(),
-					7l
+					vehicleInspector
 			));
-		}
-		System.out.println(toSave.size());
-		for (NotificationsDto n : toSave) {
-			System.out.println(n.toString());
 		}
 		if (!toSave.isEmpty()) {
 			notificationService.saveAllNotifications(toSave);

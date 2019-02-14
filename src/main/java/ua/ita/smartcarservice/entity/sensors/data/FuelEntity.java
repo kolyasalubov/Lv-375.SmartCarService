@@ -1,50 +1,13 @@
 package ua.ita.smartcarservice.entity.sensors.data;
 
-import java.time.LocalDateTime;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import ua.ita.smartcarservice.entity.Car;
-
+@Data
 @Entity
 @Table(name = "fact_fuel")
 public class FuelEntity extends SensorEntity implements ISensorEntity {
-
-	@Override
-	public void setDate(LocalDateTime date) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public LocalDateTime getDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValue(double value) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Car getCar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setCar(Car car) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
