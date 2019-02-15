@@ -62,15 +62,10 @@ export class MenuComponent implements OnInit {
   goToOwnerCars() {
     this.router.navigate(['/ownercars', this.user.id]);
   }
-  openUserProfile(){}
-
-  openHelp(){}
 
   logout(){
     this.tokenStorage.signOut();
     window.location.href='/auth/login';
     }
-
-  getAllUsers(){}
 
 }
