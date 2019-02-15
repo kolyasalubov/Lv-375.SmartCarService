@@ -5,30 +5,24 @@ import { ChartService } from '../chart/chart.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'line-chart',
+  selector: 'doughnut-bar-chart',
   templateUrl: '../chart/chart.component.html',
 })
-export class LineChartComponent extends ChartComponent implements OnInit{
+export class DoughnutBarChartComponent extends ChartComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     super(new ChartService(http));
   }
 
   ngOnInit() {
-    this.setDataAndLabels();
   }
 
-  public chartType: string = 'line';
+  public chartType: string = 'doughnut';
 
   public chartColors: Array<any> = [
     {
-      backgroundColor: 'rgba(105, 0, 132, .2)',
-      borderColor: 'rgba(200, 99, 132, .7)',
-      borderWidth: 2,
-    },
-    {
-      backgroundColor: 'rgba(0, 137, 132, .2)',
-      borderColor: 'rgba(0, 10, 130, .7)',
+      backgroundColor: ['#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
+      hoverBackgroundColor: ['#FF5A5E', '#5AD3D1', '#FFC870', '#A8B3C5', '#616774'],
       borderWidth: 2,
     }
   ];
@@ -36,6 +30,8 @@ export class LineChartComponent extends ChartComponent implements OnInit{
   public chartOptions: any = {
     responsive: true
   };
+  
   public chartClicked(e: any): void { }
   public chartHovered(e: any): void { }
+
 }

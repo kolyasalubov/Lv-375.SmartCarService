@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { User } from '../users/user';
 import { UsersService } from '../users/users.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-menu',
@@ -15,8 +16,8 @@ export class MenuComponent implements OnInit {
   private authority: String;
   private username: String;
   user: User;
-
-  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute) { }
+  
+  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
@@ -47,18 +48,27 @@ export class MenuComponent implements OnInit {
           this.authority = 'worker';
           return false;
         }
-        this.authority = 'viewer';
-        return true;
+        
       });
+          } else {
+            window.location.href = "/auth/login";
           }
   }
 
+  goToNotifications(id){
+
+  }
+
+  goToOwnerCars(id) {
+    this.router.navigate(['/ownercars', id]);
+  }
   openUserProfile(){}
 
   openHelp(){}
 
   logout(){
     this.tokenStorage.signOut();
+    window.location.href='/auth/login';
     }
 
   getAllUsers(){}
