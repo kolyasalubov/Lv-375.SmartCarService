@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,7 +43,7 @@ public class CarController {
                 carService.deleteById(id);
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-        } catch (NullPointerException e) {        //which exeption???
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -95,8 +95,20 @@ public class CarController {
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
+    /*  Get car by number */
+    @GetMapping("/carbynumber/{number}")
+    public ResponseEntity<CarDto> findByNumber(@PathVariable String number) {
+        CarDto car;
+        try {
+            car = carService.findByNumber(number);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(car, HttpStatus.OK);
+    }
+
     /* Create car */
-    @PutMapping("/ucar")
+    @PostMapping("/ucar")
     public ResponseEntity createCar(@RequestParam(value = "brand") String brand,
                                     @RequestParam(value = "model") String model,
                                     @RequestParam(value = "graduationyear") String graduation_year,
@@ -104,17 +116,7 @@ public class CarController {
                                     @RequestParam(value = "vin") String vin,
                                     @RequestParam(value = "username") String username) {
 
-        UserEntity carOwner = this.userService.findUser(username);
-
-        Car car = new Car();
-        car.setBrand(brand);
-        car.setModel(model);
-        car.setGraduation_year(graduation_year);
-        car.setNumber(number);
-        car.setVin(vin);
-        car.setUser(carOwner);
-        carService.create(car);
-
+        carService.create(brand, model, graduation_year, number, vin, username);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

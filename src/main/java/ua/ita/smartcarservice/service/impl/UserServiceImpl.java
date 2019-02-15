@@ -45,10 +45,6 @@ public class UserServiceImpl implements UserService{
 		return userDto;
 	}
 
-	public UserEntity findUser (String username) {
-		UserEntity user = userRepository.findByUsername(username).get();
-		return user;
-	}
 
 	public void deleteById(Long id) {
 		userRepository.deleteById(id);

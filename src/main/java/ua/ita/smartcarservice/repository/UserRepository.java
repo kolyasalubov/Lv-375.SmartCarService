@@ -40,7 +40,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 	List<UserEntity> findAll();
 
-
     @Query(value = "select * from user as u left join user_roles as ur on u.id = ur.user_id left join role as r on ur.role_id = r.id where r.name = name", nativeQuery = true)
 	List<UserEntity> getUserEntitiesByRoleName(@Param("name") String name);
 }

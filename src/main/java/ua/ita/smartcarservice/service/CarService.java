@@ -15,10 +15,12 @@ public interface CarService {
 
     CarDto getCarById(Long id);
 
-    void create(Car car);
+    void create(String brand, String model,String graduation_year,String number,String vin, String username);
 
     List<CarDto> findAll ();
 
     void deleteById (Long id);
+
+    CarDto findByNumber (String number);
 
 }

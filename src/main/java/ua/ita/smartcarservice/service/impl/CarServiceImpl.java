@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.entity.Car;
 
+import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.CarService;
@@ -18,9 +19,21 @@ public class CarServiceImpl implements CarService {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private UserRepository userRepository;
 
     //for used car
-    public void create (Car car){
+    public void create(String brand, String model, String graduation_year, String number, String vin, String username) {
+        UserEntity carOwner = this.userRepository.findByUsername(username).get();
+
+        Car car = new Car();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setGraduation_year(graduation_year);
+        car.setNumber(number);
+        car.setVin(vin);
+        car.setUser(carOwner);
+
         carRepository.save(car);
     }
 
@@ -54,6 +67,12 @@ public class CarServiceImpl implements CarService {
 
     public CarDto findByVin(String vin) {
         Car car = carRepository.findByVin(vin);
+        CarDto carDto = getCarDto(car);
+        return carDto;
+    }
+
+    public CarDto findByNumber(String number) {
+        Car car = carRepository.findByNumber(number);
         CarDto carDto = getCarDto(car);
         return carDto;
     }

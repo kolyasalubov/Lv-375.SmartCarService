@@ -17,5 +17,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     Car getCarById(Long id);
 
+    Car findByNumber (String number);
+
  }
 
