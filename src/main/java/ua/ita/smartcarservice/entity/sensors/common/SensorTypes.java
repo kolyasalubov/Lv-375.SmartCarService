@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.repository.sensors.factory;
+package ua.ita.smartcarservice.entity.sensors.common;
 
 public enum SensorTypes {
     SPEED("speed"), // line

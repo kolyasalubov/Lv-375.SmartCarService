@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.entity.sensors.data;
+package ua.ita.smartcarservice.entity.sensors;
 
 
 import ua.ita.smartcarservice.entity.Car;

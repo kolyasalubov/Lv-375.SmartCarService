@@ -1,7 +1,7 @@
 package ua.ita.smartcarservice.service.impl.sensors;
 
-import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
-import ua.ita.smartcarservice.entity.sensors.data.TirePressureEntity;
+import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
+import ua.ita.smartcarservice.entity.sensors.TirePressureEntity;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;

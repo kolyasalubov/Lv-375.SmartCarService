@@ -3,7 +3,7 @@ package ua.ita.smartcarservice.service.impl.sensors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.sensors.*;
-import ua.ita.smartcarservice.entity.sensors.data.TirePressureEntity;
+import ua.ita.smartcarservice.entity.sensors.TirePressureEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.TirePressureRepository;
 import ua.ita.smartcarservice.service.sensors.SensorService;

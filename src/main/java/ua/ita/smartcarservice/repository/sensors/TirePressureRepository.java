@@ -3,8 +3,7 @@ package ua.ita.smartcarservice.repository.sensors;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ua.ita.smartcarservice.entity.sensors.data.TirePressureEntity;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorRepository;
+import ua.ita.smartcarservice.entity.sensors.TirePressureEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
