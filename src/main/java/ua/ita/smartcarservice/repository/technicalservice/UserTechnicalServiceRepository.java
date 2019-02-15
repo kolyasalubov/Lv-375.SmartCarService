@@ -13,4 +13,5 @@ public interface UserTechnicalServiceRepository extends JpaRepository<UserTechni
 
     UserTechnicalService getByTechnicalServiceId(TechnicalServiceEntity technicalServiceEntity);
     UserTechnicalService getById(Long id);
+    void deleteByTechnicalServiceId(Long id);
 }

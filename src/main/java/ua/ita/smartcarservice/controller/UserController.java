@@ -23,6 +23,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /*
+     *   Get user by id
+     */
 
     @GetMapping("/userbyid/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
@@ -35,6 +38,9 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    /*
+     *   Get all users
+     */
 
     @GetMapping("/users/all")
     public ResponseEntity<List<UserDto>> findAll() {
@@ -47,6 +53,9 @@ public class UserController {
   }
 
 
+    /*
+     *   Get user by username
+     */
 
     @GetMapping("/userbyname/{username}")
     public ResponseEntity<UserDto> findByUsername(@PathVariable String username) {
@@ -59,6 +68,9 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
+    /*
+     *   Delete user by id
+     */
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {

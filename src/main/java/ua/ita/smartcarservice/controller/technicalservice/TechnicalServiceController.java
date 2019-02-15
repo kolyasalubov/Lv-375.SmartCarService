@@ -126,6 +126,9 @@ public class TechnicalServiceController {
         userService.deleteById(workerId);
     }
 
+    /*
+    Method for getting Technical Service bu User ID
+     */
     @GetMapping("/api/v1/users/{userId}/techservice")
     public ResponseEntity<TechnicalServiceDto> findTechnicalServiceByUserId(@PathVariable("userId") Long userId) {
 
@@ -140,19 +143,21 @@ public class TechnicalServiceController {
         return responseEntity;
     }
 
+    /*
+    Method for deleting Technical Service by ID
+     */
+    @DeleteMapping("/api/v1/techservices/{techServiceId}")
+    void deleteTechnicalService(@PathVariable Long techServiceId) throws Exception {
+        technicalServiceService.deleteTechnicalService(techServiceId);
+    }
+
+    /*
+    Method for adding Worker to Technical Service, both by ID
+     */
     @PostMapping("/api/v1/techservices/{id}/workers/{workerId}")
     @ResponseBody
-    void addWorkerToSerice(@PathVariable Long id, @PathVariable Long workerId) {
+    void addWorkerToService(@PathVariable Long id, @PathVariable Long workerId) {
         //TODO
     }
-/*
-    @PostMapping("/addtechservicesToDealer")
-    @ResponseBody
-    void createTechnicalServiceByDealer(@RequestParam(value = "name") String name,
-                                        @RequestParam(value = "address") String address,
-                                        @RequestParam(value = "DealerId") Long id) {
 
-        technicalServiceService.createTechnicalServiceByDealer(name, address, id);
-
-    }*/
 }

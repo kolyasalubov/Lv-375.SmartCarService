@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.entity.Car;
+
 import ua.ita.smartcarservice.repository.CarRepository;
+import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.CarService;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private CarRepository carRepository;
+
 
     //for used car
     public void create (Car car){
