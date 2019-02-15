@@ -1,6 +1,6 @@
-package ua.ita.smartcarservice.repository.sensors.factory;
+package ua.ita.smartcarservice.entity.sensors.common;
 
-import ua.ita.smartcarservice.entity.sensors.data.*;
+import ua.ita.smartcarservice.entity.sensors.*;
 
 public enum SensorEntities {
 

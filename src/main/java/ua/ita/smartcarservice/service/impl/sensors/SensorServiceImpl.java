@@ -6,10 +6,11 @@ import ua.ita.smartcarservice.dto.sensors.ARecordDto;
 import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
-import ua.ita.smartcarservice.entity.sensors.data.ISensorEntity;
+import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
+import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
 import ua.ita.smartcarservice.repository.CarRepository;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorFactory;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorRepository;
+import ua.ita.smartcarservice.repository.sensors.SensorRepository;
+import ua.ita.smartcarservice.repository.sensors.SensorRepositoryFactory;
 import ua.ita.smartcarservice.service.sensors.SensorService;
 
 import java.util.ArrayList;
@@ -19,7 +20,10 @@ import java.util.List;
 public class SensorServiceImpl implements SensorService {
 
     @Autowired
-    SensorFactory factory;
+    SensorRepositoryFactory repositoryFactory;
+
+    @Autowired
+    SensorEntityFactory entityFactory;
 
     @Autowired
     CarRepository carRepository;
@@ -29,14 +33,14 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public void addRecord(ARecordDto recordDto) {
-        SensorRepository rep = factory.getRepository(recordDto.getSensorType());
+        SensorRepository rep = repositoryFactory.getRepository(recordDto.getSensorType());
         rep.save(recordDtoToEntity((RecordDto)recordDto));
     }
 
     private ISensorEntity recordDtoToEntity(RecordDto recordDto){
         String repositoryType = recordDto.getSensorType();
 
-        ISensorEntity entity = factory.getEntity(repositoryType);
+        ISensorEntity entity = entityFactory.getEntity(repositoryType);
         entity.setCar(carRepository.findByVin(recordDto.getCarVin()));
         entity.setValue(recordDto.getValue());
         if(recordDto.getDate() != null)
@@ -61,7 +65,7 @@ public class SensorServiceImpl implements SensorService {
     }
 
     private SensorRepository getRepository(DateForChartDto dateForChartDto){
-        return factory.getRepository(dateForChartDto.getSensorType());
+        return repositoryFactory.getRepository(dateForChartDto.getSensorType());
     }
 
     @Override

@@ -1,10 +1,10 @@
-package ua.ita.smartcarservice.repository.sensors.factory;
+package ua.ita.smartcarservice.repository.sensors;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
-import ua.ita.smartcarservice.entity.sensors.data.BaseSensorEntity;
+import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

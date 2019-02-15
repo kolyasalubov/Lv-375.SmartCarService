@@ -7,7 +7,7 @@ import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
-import ua.ita.smartcarservice.entity.sensors.data.MileageEntity;
+import ua.ita.smartcarservice.entity.sensors.MileageEntity;
 
 import javax.persistence.*;
 import java.util.Date;
