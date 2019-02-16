@@ -19,7 +19,6 @@ void deleteTradeIn(TradeIn tradeIn);
 
  List<TradeIn>findAllByDealerEntity(DealerEntity dealerEntity);
 
- List<TradeIn>findAllByUserDealer(UserDealer userDealer);
 
  List<TradeIn>findAllToSM(UserSaleManager userSaleManager);
 

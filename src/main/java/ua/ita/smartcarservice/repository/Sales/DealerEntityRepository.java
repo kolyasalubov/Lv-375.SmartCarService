@@ -11,12 +11,7 @@ import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
  */
 public interface DealerEntityRepository extends JpaRepository<DealerEntity,Long> {
 
-//    getBySaleManager(UserSaleManager userSaleManager) {
-    DealerEntity getBySaleManagerEntities(SaleManagerEntity saleManagerEntity);
+DealerEntity findByUserEntity_Username(String username);
 
-    DealerEntity getByUserDealers(UserDealer userDealer);
-
-    DealerEntity getByTechnicalServiceEntities(TechnicalServiceEntity technicalServiceEntity);
-
-DealerEntity getByTradeIns(TradeIn tradeIn);
+DealerEntity findByDealerEdr(String edr);
 }

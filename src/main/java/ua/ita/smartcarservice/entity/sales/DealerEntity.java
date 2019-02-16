@@ -20,6 +20,7 @@ public class DealerEntity {
 
         public DealerEntity() {
         }
+
         @OneToOne
         @JoinColumn(name = "user_id", nullable = false)
         private UserEntity userEntity;
