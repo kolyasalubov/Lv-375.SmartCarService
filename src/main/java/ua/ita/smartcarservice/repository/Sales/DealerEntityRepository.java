@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sales.SaleManagerEntity;
 import ua.ita.smartcarservice.entity.sales.TradeIn;
-import ua.ita.smartcarservice.entity.sales.UserDealer;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 /**
