@@ -2,7 +2,6 @@ package ua.ita.smartcarservice.service.sales;
 
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sales.SaleManagerEntity;
-import ua.ita.smartcarservice.entity.sales.UserDealer;
 import ua.ita.smartcarservice.entity.sales.UserSaleManager;
 
 import java.util.List;
