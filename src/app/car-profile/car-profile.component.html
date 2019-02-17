@@ -1,24 +1,23 @@
 <app-menu></app-menu>
-  <div class="container">
+<br><br><br><br>
+  <div class="container" style="width: 500px;">
   <form form="carProfile" (ngSubmit)="onSubmit()">
-
   <p class="h3 mb-4">Car profile</p>
   <label><b>Brand</b></label>
   <input type="text" class="form-control" [(ngModel)]="carProfile.brand" name="brand" required>
   <label><b>Model</b></label>
   <input type="text" class="form-control" [(ngModel)]="carProfile.model" name="model" required>
   <label><b>Graduation year</b></label>
-  <input type="text" class="form-control" [(ngModel)]="carProfile.graduationyear" name="graduation_year" required>
+  <input type="number" class="form-control" [(ngModel)]="carProfile.graduationyear" name="graduation_year" required>
   <label><b>Number</b></label>
   <input type="text" class="form-control" [(ngModel)]="carProfile.number" name="number" required>
   <label><b>Vin</b></label>
   <input type="text" class="form-control" [(ngModel)]="carProfile.vin" name="vin" required>
   <br> 
   <div>
-  <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Create</button>
-  <a href="/home" type="button" class="btn btn-outline-info my-2 my-sm-0">Back to home page</a>
+  <button type="submit" class="btn my-2 my-sm-0" style="background-color:#336B87; color: white;">Create</button>
+  <a href="/home" type="button"  class="btn my-2 my-sm-0" style="background-color:#C4001A; color: white;" >Cancel</a>
   </div>
   </form>
   </div>
- 
  

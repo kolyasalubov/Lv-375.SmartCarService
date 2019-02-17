@@ -1,22 +1,31 @@
 <app-menu></app-menu>
 
-<br><br>
-<div class="container-fluid">
-    <ul *ngFor="let car of cars">
-  
+<br><br><br><br>
+<div class="container-fluid" *ngFor="let car of cars">
+  <ul>
   <h3> {{car.brand}} {{car.model}} </h3>
+  <div class="points" >
   <li>Graduation year : {{car.graduation_year}} </li>
   <li>Number : {{car.number}} </li>
   <li>Vin : {{car.vin}} </li>
   <li *ngIf="!car.price == null">Price : {{car.price}} </li>
   <li *ngIf="!car.end_guarantee == null">End of guarantee : {{car.end_guarantee}} </li>
-    
+  </div> 
   <br>
-  <button  class="btn btn-outline-success my-2 my-sm-0" (click) = "applyToSTO(user.id)">Apply to STO</button>
-  <button  class="btn btn-outline-success my-2 my-sm-0" (click) = "applyToTradeIn()">Apply for Trade in</button>
-  <button class="btn btn-outline-success my-2 my-sm-0" (click) = "goToCharts(car)">View charts</button>
-  <button class="btn btn-outline-success my-2 my-sm-0" (click) = "history(user.id)">Service history</button>
-  <button class="btn btn-outline-success my-2 my-sm-0" (click) = "deleteCarById(car.id)">Delete {{car.brand}} {{car.model}}</button>
-    </ul>
-  </div>  
+  <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(user.id)" style="background-color: #336B87">Apply to STO <i class="fa fa-wrench" aria-hidden="true"></i></button>
+  <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn()" style="background-color: #336B87">Apply for Trade in <i class="fa fa-refresh" aria-hidden="true"></i></button>
+  <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" style="background-color: #336B87"> View charts <i class="fa fa-line-chart" aria-hidden="true"></i></button>
+  <button class="btn btn-outline my-2 my-sm-0" (click) = "history(user.id)" style="background-color: #336B87">Service history <i class="fa fa-history" aria-hidden="true"></i> </button>
+  <button class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(car.id)" style="background-color: #c5001a">Delete <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+  </ul>
+  </div>
+  <br><br> 
 
+
+
+
+
+
+
+
+    
