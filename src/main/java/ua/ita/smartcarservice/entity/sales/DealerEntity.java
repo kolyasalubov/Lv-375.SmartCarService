@@ -13,10 +13,8 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "dealer")
-
 public class DealerEntity {
 
- 
 
         public DealerEntity() {
         }
@@ -54,11 +52,9 @@ public class DealerEntity {
 //    private List<SaleManagerEntity>saleManagerEntities;
 //
 //
-//    @OneToMany(mappedBy = "dealerEntity")
-//    private List<TradeIn>tradeIns;
-//
-//    @OneToMany(mappedBy = "dealerEntity")
-//     private List<TechnicalServiceEntity>technicalServiceEntities;
+    @OneToMany(mappedBy = "dealerEntity")
+    private List<TradeIn>tradeIns;
+
 
         public UserEntity getUserEntity() {
             return userEntity;

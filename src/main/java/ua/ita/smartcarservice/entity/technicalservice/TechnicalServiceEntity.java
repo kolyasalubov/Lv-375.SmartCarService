@@ -33,5 +33,9 @@ public class TechnicalServiceEntity {
     @JoinColumn(name = "dealerEntity")
     private DealerEntity dealerEntity;
 
-
+    public TechnicalServiceEntity(String name, String address, DealerEntity dealerEntity) {
+        this.name = name;
+        this.address = address;
+        this.dealerEntity = dealerEntity;
+    }
 }

@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Table(name = "TradeIn")
 public class TradeIn {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,7 +41,12 @@ public class TradeIn {
     private DealerEntity dealerEntity;
 
 
-
-
-
+    public TradeIn(String vinNewCar, String vinUsedCar, Long idUser, Long idDealer, String isactive, DealerEntity dealerEntity) {
+        this.vinNewCar = vinNewCar;
+        this.vinUsedCar = vinUsedCar;
+        this.idUser = idUser;
+        this.idDealer = idDealer;
+        this.isactive = isactive;
+        this.dealerEntity = dealerEntity;
+    }
 }

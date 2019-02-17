@@ -27,7 +27,8 @@ public interface TradeInRepository extends JpaRepository<TradeIn,Long> {
 //    }
 
 
-    List<TradeIn>findAllByDealerEntity(DealerEntity dealerEntity);
+
+//    List<TradeIn>findAllByDealerEntity(DealerEntity dealerEntity);
 
 
 
