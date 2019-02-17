@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.dto.sales.DealerDto;
+import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.service.sales.DealerService;
+import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 
 import java.util.List;
 
@@ -30,7 +32,11 @@ public class DealerController {
     CarService carService;
 
 @Autowired
-    DealerService dealerService;
+ DealerService dealerService;
+
+@Autowired
+    TechnicalServiceService technicalServiceService;
+
 
     @GetMapping(path = "api/dealer/get/{username}")
     public ResponseEntity<DealerDto> getDealerDto(@PathVariable String username ){
@@ -82,7 +88,13 @@ return new ResponseEntity<Void> (HttpStatus.OK);
 
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllCarDtoByUserNameDealer(username));
+    }
 
+
+    @PostMapping(path = "api/dealer/{username}/createSto")
+    public ResponseEntity<?>createDealerSto(@PathVariable String username, DealerStoAddDto stoAddDto){
+technicalServiceService.createTechnicalServiceByDealer(stoAddDto,username);
+        return new ResponseEntity<Void> (HttpStatus.OK);
     }
 
 
