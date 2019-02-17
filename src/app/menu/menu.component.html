@@ -1,48 +1,48 @@
 <div class="home">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-    <a class="navbar-brand" href="/home">Smart car service</a>
+  <nav class="navbar navbar-expand-lg" style="background-color:#2D4161;" >
+    <a class="navbar-brand" href="/home" style="color:white" >SmartCarService</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">  
+  <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent" style="color:white">  
        
    <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">
-   <a class="btn btn-outline-success my-2 my-sm-0" (click) = "goToOwnerCars(user.id)" >Your cars</a>
+   <a class="btn my-2 my-sm-0" (click) = "goToOwnerCars()" style="border-bottom: 2px solid white">Your cars</a>
    </ul>
     
   <ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  
-   <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/">Techmanager manager</a>
+   <a class="btn my-2 my-sm-0" routerLink="/techservice">Technical Service</a>
    </ul>
 
  <ul *ngIf="authority === 'sales'" class="navbar-nav mr-auto">   
-<a class="btn btn-outline-success my-2 my-sm-0">Sales manager</a>
+<a class="btn my-2 my-sm-0">Sales manager</a>
 </ul>
 
 
 <ul *ngIf="authority === 'dieler'" class="navbar-nav mr-auto">   
-  <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/">Dieler</a>
+  <a class="btn  my-2 my-sm-0" routerLink="/">Dieler</a>
   </ul>
 
    <ul *ngIf="authority === 'admin'" class="navbar-nav mr-auto"> 
-  <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/allusers">See users</a>
+  <a class="btn my-2 my-sm-0" routerLink="/allusers">See users</a>
   </ul>
 
   <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
-    <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/newcar">Add new car</a>
+    <a class="btn my-2 my-sm-0" routerLink="/newcar" style="border-bottom: 2px solid white">Add new car</a>
   </ul>
 
   <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
-      <a class="btn btn-outline-success my-2 my-sm-0" (click)="goToNotifications(user.id)" >Notifications</a>
+      <a class="btn my-2 my-sm-0" (click)="goToNotifications()" style="border-bottom: 2px solid white">Notifications</a>
 </ul>
 
 
-      <div class="btn-group" mdbDropdown>
-              <button mdbDropdownToggle type="button" mdbBtn color="success" class="dropdown-toggle" mdbWavesEffect>
+      <div class="btn-group" mdbDropdown >
+              <button mdbDropdownToggle type="button" mdbBtn style="color:white; background-color: #2987BB" class="dropdown-toggle" mdbWavesEffect>
                   Actions 
               </button>
               <div class="dropdown-menu dropdown-primary">
-      <a routerLink="/userprofile">Review profile</a>
+      <a class="nav-link" routerLink="/userprofile">Review profile</a>
       <a class="nav-link" routerLink="/info">Info/Help</a>
       <a class="nav-link" (click)= "logout()">Logout</a>
       
