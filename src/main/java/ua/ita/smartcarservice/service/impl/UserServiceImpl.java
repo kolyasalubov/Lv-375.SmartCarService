@@ -62,10 +62,10 @@ public class UserServiceImpl implements UserService{
 	//for User => UserDto
 	public UserDto getUserDto(UserEntity user) {
 		UserDto userDto = new UserDto(user.getId(),
-				user.getEmail(),
-				user.getPassword(),
-				user.getFullName(),
 				user.getUsername(),
+				user.getPassword(),
+				user.getEmail(),
+				user.getFullName(),
 				user.getNumberPhone());
 		return userDto;
 	}

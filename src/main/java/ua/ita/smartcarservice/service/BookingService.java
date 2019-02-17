@@ -15,4 +15,6 @@ public interface BookingService {
     boolean addSession(NewBookingDto newSessionDto);
 
     List <WorkTimeDto> findAllByWorkerId(Long workerId);
+
+    List <WorkTimeDto> findAllByCarId(Long carId);
 }

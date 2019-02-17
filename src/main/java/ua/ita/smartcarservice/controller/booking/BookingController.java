@@ -3,10 +3,7 @@ package ua.ita.smartcarservice.controller.booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.booking.BookingDto;
 import ua.ita.smartcarservice.dto.booking.NewBookingDto;
 import ua.ita.smartcarservice.dto.booking.WorkTimeDto;
@@ -41,5 +38,12 @@ public class BookingController {
         } else {
             return new ResponseEntity <>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping ("/api/sessionbycarid")
+    public ResponseEntity <List <WorkTimeDto>> findAllByCarId(@RequestParam(value = "carId")
+                                                                                Long carId) {
+        return new ResponseEntity <>(bookingService.findAllByCarId(carId), HttpStatus.OK);
+
     }
 }

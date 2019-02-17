@@ -22,4 +22,6 @@ public interface BookingRepository extends JpaRepository<WorkTime, Long> {
     int selectNumberOfSessionWithDate(@Param("starttime") LocalDateTime starttime, @Param("endtime") LocalDateTime endtime);
 
     List<WorkTime> findAllByWorkerId(Long id);
+
+    List<WorkTime> findAllByCarId (Long id);
 }

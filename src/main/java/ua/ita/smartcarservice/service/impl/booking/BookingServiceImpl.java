@@ -42,6 +42,14 @@ public class BookingServiceImpl implements BookingService {
         return workDtos;
     }
 
+    @Override
+    public List <WorkTimeDto> findAllByCarId(Long carId) {
+        List <WorkTimeDto> workDtos = new ArrayList <>();
+        for (WorkTime workTime : bookingRepository.findAllByCarId(carId)) {
+            workDtos.add(getSessionDto(workTime));
+        }
+        return workDtos;
+    }
 
     @Override
     public boolean addSession(NewBookingDto newBookingDto) {
