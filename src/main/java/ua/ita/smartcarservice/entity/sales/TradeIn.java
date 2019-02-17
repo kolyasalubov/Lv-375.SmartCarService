@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.entity.sales;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -35,6 +36,7 @@ public class TradeIn {
 
     @ManyToOne
     @JoinColumn(name = "dealerEntity",nullable = false)
+    @JsonIgnore
     private DealerEntity dealerEntity;
 
 

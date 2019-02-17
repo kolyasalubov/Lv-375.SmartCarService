@@ -20,6 +20,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     Car findByNumber (String number);
 
+ List<Car>findAllByDealer(DealerEntity dealerEntity);
 
  }
 

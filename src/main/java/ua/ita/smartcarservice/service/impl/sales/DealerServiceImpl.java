@@ -6,6 +6,7 @@ import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.dto.sales.DealerDto;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
+import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.Sales.DealerEntityRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.sales.DealerService;
@@ -25,6 +26,8 @@ public class DealerServiceImpl implements DealerService {
     @Autowired
     private DealerEntityRepository dealerRepository;
 
+    @Autowired
+    private CarRepository carRepository;
     @Override
     public void createDealer(DealerEntity dealerEntity, String username) {
         dealerRepository.save(new DealerEntity(userRepository.getUserById(userRepository.findByUsername(username).get().getId()),dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail()));
@@ -78,8 +81,8 @@ dealerRepository.save(dealerEntity);
     @Override
     public List<DealerCarDto> getAllCarDtoByUserNameDealer(String username) {
         List<DealerCarDto> dealerCarDtos=new ArrayList<>();
-        List<Car>cars=dealerRepository.findAllCarByDealer(dealerRepository.findByUserEntity_Username(username));
-
+//        List<Car>cars=dealerRepository.findAllCarByDealer(dealerRepository.findByUserEntity_Username(username));
+List<Car>cars=carRepository.findAllByDealer(dealerRepository.findByUserEntity_Username(username));
         for (Car car:cars){
             dealerCarDtos.add(new DealerCarDto(car.getBrand(),
                                                car.getModel(),

@@ -113,7 +113,6 @@ public class CarServiceImpl implements CarService {
         return car;
     }
 
-    @Override
     public void createByDealer(DealerCarDto dealerCarDto,String usernmae) {
         Car car=new Car(dealerCarDto.getBrand(),
                         dealerCarDto.getModel(),

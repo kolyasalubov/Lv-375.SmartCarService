@@ -18,7 +18,8 @@ DealerEntity findByUserEntity_Username(String username);
 
 DealerEntity findByDealerEdr(String edr);
 
-    List<Car> findAllCarByDealer(DealerEntity dealerEntity);
+//    List<Car> findAllCarByDealer(DealerEntity dealerEntity);
+
 
 
 }

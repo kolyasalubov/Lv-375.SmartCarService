@@ -34,45 +34,55 @@ public class DealerController {
 
     @GetMapping(path = "api/dealer/get/{username}")
     public ResponseEntity<DealerDto> getDealerDto(@PathVariable String username ){
+
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getDealerDtoByUserName(username));
 
-//        return dealerService.getDealerDtoByUserName(username);
     }
 
     @PostMapping(path = "api/dealer/edit/{username}")
     public ResponseEntity<?>updateDealer(@PathVariable String username,DealerDto dealerDto ){
+
         System.out.println("dealerDto "+dealerDto);
         dealerService.editDealerByDealerDto(dealerDto);
 return new ResponseEntity<Void> (HttpStatus.OK);
+
     }
 
 
     @PostMapping(path = "api/dealer/create/{username}")
     public ResponseEntity<?>createDealer(@PathVariable String username,DealerDto dealerDto ){
+
         dealerService.createDealer(dealerService.dealerDtoToEntity(dealerDto),username);
         return new ResponseEntity<Void> (HttpStatus.OK);
+
     }
 
 
     @GetMapping(path = "api/dealer/getAllDealer")
     public ResponseEntity<List<DealerDto>>getAllDealerDto(){
+
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllDealerDto());
+
     }
 
 
     @PostMapping(path = "api/dealer/{username}/createcar")
     public ResponseEntity<?>createDealerCar(@PathVariable String username,DealerCarDto dealerCarDto ){
+
         carService.createByDealer(dealerCarDto,username);
         return new ResponseEntity<Void> (HttpStatus.OK);
+
     }
 
 
     @GetMapping(path = "api/dealer/{username}/getAllCar")
     public ResponseEntity<List<DealerCarDto>>getAllDealerCar(@PathVariable String username){
+
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllCarDtoByUserNameDealer(username));
+
     }
 
 
