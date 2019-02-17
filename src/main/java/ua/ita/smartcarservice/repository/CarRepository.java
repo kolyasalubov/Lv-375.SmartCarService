@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.ita.smartcarservice.entity.Car;
+import ua.ita.smartcarservice.entity.sales.DealerEntity;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     Car getCarById(Long id);
 
     Car findByNumber (String number);
+
 
  }
 

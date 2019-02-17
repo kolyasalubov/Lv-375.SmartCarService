@@ -52,4 +52,14 @@ public class DealerDto {
     public void setDealerEmail(String dealerEmail) {
         this.dealerEmail = dealerEmail;
     }
+
+    @Override
+    public String toString() {
+        return "DealerDto{" +
+                "dealerName='" + dealerName + '\'' +
+                ", dealerAddress='" + dealerAddress + '\'' +
+                ", dealerEdr='" + dealerEdr + '\'' +
+                ", dealerEmail='" + dealerEmail + '\'' +
+                '}';
+    }
 }

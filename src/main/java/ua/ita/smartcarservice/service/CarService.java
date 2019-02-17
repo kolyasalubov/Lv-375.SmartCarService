@@ -3,7 +3,9 @@ package ua.ita.smartcarservice.service;
 
 import org.springframework.data.repository.query.Param;
 import ua.ita.smartcarservice.dto.CarDto;
+import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.entity.Car;
+import ua.ita.smartcarservice.entity.sales.DealerEntity;
 
 import java.util.List;
 
@@ -22,5 +24,7 @@ public interface CarService {
     void deleteById (Long id);
 
     CarDto findByNumber (String number);
+
+    void createByDealer(DealerCarDto dealerCarDto,String username);
 
 }

@@ -2,7 +2,9 @@ package ua.ita.smartcarservice.service.impl.sales;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.dto.sales.DealerDto;
+import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.repository.Sales.DealerEntityRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
@@ -67,13 +69,27 @@ dealerRepository.save(dealerEntity);
     public List<DealerDto> getAllDealerDto() {
         List<DealerEntity>dealerEntities=dealerRepository.findAll();
         List<DealerDto>dealerDtos=new ArrayList<>();
-
         for(DealerEntity dealerEntity:dealerEntities){
-
             dealerDtos.add(new DealerDto(dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail()));
-
         }
-
         return dealerDtos;
+    }
+
+    @Override
+    public List<DealerCarDto> getAllCarDtoByUserNameDealer(String username) {
+        List<DealerCarDto> dealerCarDtos=new ArrayList<>();
+        List<Car>cars=dealerRepository.findAllCarByDealer(dealerRepository.findByUserEntity_Username(username));
+
+        for (Car car:cars){
+            dealerCarDtos.add(new DealerCarDto(car.getBrand(),
+                                               car.getModel(),
+                                               car.getGraduation_year(),
+                                               car.getNumber(),
+                                               car.getPrice(),
+                                               car.getVin(),
+                                               car.getEnd_guarantee(),
+                                               car.getDealer().getDealerName()));
+        }
+        return dealerCarDtos;
     }
 }

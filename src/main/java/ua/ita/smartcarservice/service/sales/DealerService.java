@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.service.sales;
 
+import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.dto.sales.DealerDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.sales.*;
@@ -31,7 +32,7 @@ void editDealerByDealerDto(DealerDto dealerDto);
 List<DealerDto> getAllDealerDto();
 
 
-
+List<DealerCarDto> getAllCarDtoByUserNameDealer(String username);
 
 
 }
