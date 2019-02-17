@@ -31,8 +31,6 @@
   }
 
          /*----------Dropdown-----------*/
-
-
   .dropbtn {
     background-color:#2D4161;
     color: white;
@@ -78,9 +76,8 @@
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdown:hover .dropbtn {
     background-color: #2987BB;
+    border-radius: 4px;
   }
-
-
 
 
 
@@ -120,7 +117,6 @@
     left: 150px;
 }
 
-
 #sidebar_menu li a, .sidebar-nav li a {
     color: white;
     display: block;
@@ -150,7 +146,6 @@
   -ms-transition: background .5s;
   transition: background .5s;
 }
-
 
 .sidebar_name {
     padding-top: 25px;

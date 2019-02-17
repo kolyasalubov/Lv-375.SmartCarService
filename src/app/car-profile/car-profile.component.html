@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 <br><br><br><br>
-  <div class="container" style="width: 500px;">
+  <div class="container">
   <form form="carProfile" (ngSubmit)="onSubmit()">
   <p class="h3 mb-4">Car profile</p>
   <label><b>Brand</b></label>
@@ -15,9 +15,10 @@
   <input type="text" class="form-control" [(ngModel)]="carProfile.vin" name="vin" required>
   <br> 
   <div>
-  <button type="submit" class="btn my-2 my-sm-0" style="background-color:#336B87; color: white;">Create</button>
-  <a href="/home" type="button"  class="btn my-2 my-sm-0" style="background-color:#C4001A; color: white;" >Cancel</a>
+  <button id="create" type="submit" class="btn my-2 my-sm-0">Create</button>
+  <a id="cancel" href="/home" type="button" class="btn my-2 my-sm-0">Cancel</a>
   </div>
   </form>
   </div>
+
  
