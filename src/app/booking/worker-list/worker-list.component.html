@@ -1,28 +1,29 @@
+<div class="d-flex justify-content-start">
+  <div class="container">
+    <div class= "d-flex flex-row flex-wrap">
+    <div class="work-container" *ngFor="let item of map | keyvalue">
+      {{item.key}}
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between" *ngFor="let value of item.value"
+          id='worker{{value.workerId}}' (click)="ChooseWorker(value, item.key)">{{value.fullName}}</li>
+      </ul>
+    </div>
+  </div>
+    <div>
+      <div class="md-form free-time date">
+        <input mdbInput type="datetime-local" name="time" [(ngModel)]="workerForm.time" class="form-control mb-4"
+          placeholder="Select Time">
+      </div>
+      <div class="md-form free-time date">
+        <input mdbInput type="text" name="day" [(ngModel)]="workerForm.day" class="form-control mb-4" placeholder="Day">
+      </div>
+    </div>
+    <button *ngIf="showTime" class="btn btn-outline-success my-2 my-sm-0" (click)="getFreeTime()">Get Free Time</button>
+    <button *ngIf="!showTime" class="btn btn-outline-success my-2 my-sm-0" (click)="getFreeTime()">Get Free
+      Time</button>
+  </div>
 
-<div class = "skill-worker-container" *ngFor="let item of map | keyvalue">
-  {{item.key}}
-  <ul class = "list-group">
-    <li class = "list-group-item d-flex justify-content-between"  
-    *ngFor = "let value of item.value"
-    id='worker{{value.workerId}}'
-    (click)="ChooseWorker(value, item.key)">{{value.fullName}}</li>
-  </ul>
-</div>
-<div>
-<div class="md-form free-time">
-  <input mdbInputDirective type="text" id="form1" class="form-control">
-  <input type="text" name="time" [(ngModel)]="workerForm.time" class="form-control mb-4" placeholder="Select Time">
-</div>
-<div class="md-form free-time">
-  <input mdbInputDirective type="text" id="form1" class="form-control">
-  <input type="text" name="day" [(ngModel)]="workerForm.day" class="form-control mb-4" placeholder="Day">
-</div>
-<button *ngIf ="showTime" class="btn btn-outline-success my-2 my-sm-0" (click)="getFreeTime()">Get Free Time</button>
-<button *ngIf ="!showTime; else newComponent;" class="btn btn-outline-success my-2 my-sm-0" (click)="getFreeTime()">Get Free Time</button>
-</div>
-
-<div>
-  <ng-template #newComponent>
-    <app-time-list [timeList] = timeList></app-time-list>
-    </ng-template>
+  <div *ngIf="showTime">
+    <app-time-list [timeList]=timeList></app-time-list>
+  </div>
 </div>

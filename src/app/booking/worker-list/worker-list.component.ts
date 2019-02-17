@@ -36,6 +36,9 @@ export class WorkerListComponent implements OnInit {
     error => this.error = error);
   }
   ChooseWorker(worker : Worker, skillname : string) :void{
+
+    this.showTime = false;
+
       if(this.lastIndexMap.get(skillname) != undefined){
         if(this.lastIndexMap.get(skillname) == -1){
           this.setClass(worker.workerId, 'select');

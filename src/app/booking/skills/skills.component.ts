@@ -4,6 +4,7 @@ import { SkillService } from './skill-service';
 import { ActivatedRoute } from '@angular/router';
 import { WorkerList } from '../worker-list/worker-list';
 import { WorkerListReal } from '../worker-list/worker-list-real';
+import { NumberValueAccessor } from '@angular/forms/src/directives';
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
@@ -16,15 +17,15 @@ export class StoSkillComponent implements OnInit {
   timeValue : number = 0;
   skills : Array<Skill>;
   error: ErrorEvent;
-  searchId : number = 1;
+  searchId : number;
 
   show : boolean = true;
 
   constructor(private skillService: SkillService, private route: ActivatedRoute) {}
   ngOnInit() {
-  //   this.route.params.subscribe(params => {
-  //     this.searchId = params["id"];
-  // });
+     this.route.params.subscribe(params => {
+     this.searchId = params["id"];
+   });
      this.skillService.getAllSkillsToStoResp(this.searchId)
      .subscribe((data : Skill[])=> this.skills = data,
       error => this.error = error);
@@ -56,7 +57,7 @@ export class StoSkillComponent implements OnInit {
   }
 
   private setClass(id: number, className: string): void{
-    document.getElementById(String(id)).className = "list-group-item d-flex justify-content-between " + className;
+    document.getElementById(String(id)).className = "jumbotron text-center hoverable p-4 " + className;
   }
 
   changeShow(){

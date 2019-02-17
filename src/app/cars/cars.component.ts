@@ -43,15 +43,20 @@ export class CarsComponent implements OnInit {
  }
 
     applyToSTO(id: number){
-    this.router.navigate(['/booking']);
+    this.router.navigate(['/booking', id]);
     }
 
     applyToTradeIn (id: number){
 
     }
 
-    goToCharts(id: number){
-    this.router.navigate(['/charts', id]);
+    goToCharts(car: Car){
+      this.router.navigate(['/charts'], 
+        {queryParams: {
+          carId: car.id, 
+          carVin: car.vin
+        }}
+      );
     }
 
     history(id: number){

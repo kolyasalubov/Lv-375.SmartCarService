@@ -55,22 +55,17 @@ export class MenuComponent implements OnInit {
           }
   }
 
-  goToNotifications(id){
-
+  goToNotifications(){
+    this.router.navigate(['/notifications-list', this.user.id]);
   }
 
-  goToOwnerCars(id) {
-    this.router.navigate(['/ownercars', id]);
+  goToOwnerCars() {
+    this.router.navigate(['/ownercars', this.user.id]);
   }
-  openUserProfile(){}
-
-  openHelp(){}
 
   logout(){
     this.tokenStorage.signOut();
     window.location.href='/auth/login';
     }
-
-  getAllUsers(){}
 
 }

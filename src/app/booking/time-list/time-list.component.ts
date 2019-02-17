@@ -13,7 +13,7 @@ export class TimeListComponent implements OnInit {
   @Input()
   timeList : TimeList;
   error: ErrorEvent;
-  map : Map<string, Array<WorkTime>>;
+  workTime : Map<string, Array<WorkTime>> = new Map();
   constructor(private timeListServices : TimeListService) {}
 
   ngOnInit() {
@@ -22,12 +22,21 @@ export class TimeListComponent implements OnInit {
 
   getTimeList(){
     this.timeListServices.getBookingTime(this.timeList)
-    .subscribe((data) => this.map = data,
+    .subscribe((data) => this.workTime = data,
     error => this.error = error);
   }
 
   buttonClick(){
     this.getTimeList();
+  }
+
+  getHourFromDate(date : string) : string{
+    return date.slice(11, 16);
+  }
+
+  isEmptyDate(date : Array<WorkTime>): boolean{
+   return date.length == 0;
+    //return work.length == 0;
   }
 
 }

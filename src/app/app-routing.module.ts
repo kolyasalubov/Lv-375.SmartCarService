@@ -20,6 +20,8 @@ import { SkillComponent } from './techservice/worker/skill/skill.component';
 import { WorkerComponent } from './techservice/worker/worker.component';
 import { TechserviceComponent } from './techservice/techservice.component';
 import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
+import { NotificationsListComponent } from './notifications/notifications-list/notifications-list.component';
+import { NotificationsApprovementComponent } from './notifications/notifications-approvement/notifications-approvement.component';
 
 const routes: Routes = [
     // { path: '**', redirectTo: 'auth/login'},
@@ -70,7 +72,7 @@ const routes: Routes = [
     pathMatch: 'full'
 },
 {
-    path: 'charts/:car', 
+    path: 'charts', 
 component: ChartPageComponent},
 
 {
@@ -83,7 +85,7 @@ component: ChartPageComponent},
 },
 
 {
-    path : 'booking',
+    path : 'booking/:id',
     component : BookingComponent
 },
 
@@ -100,6 +102,14 @@ component: ChartPageComponent},
 {
     path: 'userprofile',
     component: UserProfileComponent
+},
+{
+    path: 'notifications-list/:id',
+    component: NotificationsListComponent
+},
+{
+    path: 'notifications-approvement/:id',
+    component: NotificationsApprovementComponent
 }
 ]
 

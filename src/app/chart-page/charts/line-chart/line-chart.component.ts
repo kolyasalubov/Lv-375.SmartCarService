@@ -15,10 +15,10 @@ export class LineChartComponent extends ChartComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.setDataAndLabels();
+    this.changeSelection();
   }
 
-  public chartType: string = 'line';
+  public chartType: string = 'line'; 
 
   public chartColors: Array<any> = [
     {
@@ -29,6 +29,14 @@ export class LineChartComponent extends ChartComponent implements OnInit{
     {
       backgroundColor: 'rgba(0, 137, 132, .2)',
       borderColor: 'rgba(0, 10, 130, .7)',
+      borderWidth: 2,
+    },     {
+      backgroundColor: 'rgba(153, 102, 255, 0.2)',
+      borderColor:'rgba(153, 102, 255, 1)',
+      borderWidth: 2,
+    },    {
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 2,
     }
   ];
