@@ -2,7 +2,6 @@ package ua.ita.smartcarservice.service.sales;
 
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sales.TradeIn;
-import ua.ita.smartcarservice.entity.sales.UserDealer;
 import ua.ita.smartcarservice.entity.sales.UserSaleManager;
 
 import java.util.List;
@@ -20,7 +19,6 @@ void deleteTradeIn(TradeIn tradeIn);
 
  List<TradeIn>findAllByDealerEntity(DealerEntity dealerEntity);
 
- List<TradeIn>findAllByUserDealer(UserDealer userDealer);
 
  List<TradeIn>findAllToSM(UserSaleManager userSaleManager);
 

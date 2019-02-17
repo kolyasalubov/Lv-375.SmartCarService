@@ -3,10 +3,13 @@ package ua.ita.smartcarservice.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.CarDto;
+import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.entity.Car;
 
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
+import ua.ita.smartcarservice.repository.Sales.DealerEntityRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.CarService;
 
@@ -21,6 +24,9 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private DealerEntityRepository dealerRepository;
 
     //for used car
     public void create(String brand, String model, String graduation_year, String number, String vin, String username) {
@@ -106,4 +112,18 @@ public class CarServiceImpl implements CarService {
                 carDto.getCarOwner());
         return car;
     }
+
+    public void createByDealer(DealerCarDto dealerCarDto,String usernmae) {
+        Car car=new Car(dealerCarDto.getBrand(),
+                        dealerCarDto.getModel(),
+                        dealerCarDto.getGraduation_year(),
+                        dealerCarDto.getNumber(),
+                        dealerCarDto.getPrice(),
+                        dealerCarDto.getVin(),
+                        dealerRepository.findByUserEntity_Username(usernmae));
+        carRepository.save(car);
+    }
+
+
+
 }
