@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import { Skill } from './skill/skill';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,27 +15,28 @@ const httpOptions = {
 })
 export class WorkerService {
 
-  allWorkersUrl = '/api/v1/techservices/{id}/workers';//'/api/v1/workers'
-  addWorkerToTechnicalService = '/api/v1/techservices/{id}/workers/{username}';
+  allWorkersUrl = '/api/v1/techservices/{id}/workers';
+  connectWorker = '/api/v1/techservices/{id}/workers/{username}/skills/{skillId}';
+  deleteWorker = '/api/v1/workers/{id}';
 
   constructor(private http: HttpClient) { }
-/*
-  getAllWorkers() {
-    return this.http.get<Worker[]>(this.allWorkersUrl)
+
+  deleteWorkerById(workerId: number) {
+    return this.http.delete(this.deleteWorker.replace('{id}', workerId.toString()))
                     .pipe(catchError(this.errorHandler));
-    
   }
-*/
+
   getAllWorkers(techServiceId: number) {
     return this.http.get<Worker[]>(this.allWorkersUrl.replace('{id}', techServiceId.toString()))
                     .pipe(catchError(this.errorHandler));
   }
 
-  registerWorker(username: string, techServiceId: number) {
-    return this.http.post(this.addWorkerToTechnicalService
+  initialiseWorker(username: string, techServiceId: number, skill: Skill) {
+    return this.http.post(this.connectWorker
                                 .replace('{id}', techServiceId.toString())
-                                .replace('{username}', username), httpOptions)
-                                .pipe(catchError(this.errorHandler));
+                                .replace('{username}', username)
+                                .replace('{skillId}', skill.id.toString()), httpOptions)
+                                  .pipe(catchError(this.errorHandler));
   }
 
   errorHandler(error: HttpErrorResponse)  {

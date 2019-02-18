@@ -1,9 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { WorkerService } from './worker.service';
 import { TechserviceComponent } from '../techservice.component'
 import { AuthService } from 'src/app/auth/auth.service';
 import { SignUpInfo } from 'src/app/auth/signup-info'
 import { ROLES } from 'src/app/roles/mock-roles';
+import { SkillComponent } from 'src/app/techservice/worker/skill/skill.component'
+import { Skill } from './skill/skill';
 
 @Component({
   selector: 'app-worker',
@@ -13,10 +15,10 @@ import { ROLES } from 'src/app/roles/mock-roles';
 export class WorkerComponent implements OnInit {
 
   error: ErrorEvent;
-
   workers: Worker[];
 
   @Input() techserviceId: number;
+  @ViewChild(SkillComponent) skill: SkillComponent; 
 
   registerFormStub: SignUpInfo = new SignUpInfo('', '', '', '', '', 'WORKER');
   registerForm: SignUpInfo = this.registerFormStub;
@@ -27,6 +29,10 @@ export class WorkerComponent implements OnInit {
     this.recieveWorkers()
   } 
 
+  deleteWorker(workerId: number) {
+    this.workerService.deleteWorkerById(workerId).subscribe();
+  }
+
   recieveWorkers() {
     this.workerService.getAllWorkers(this.techserviceId)
           .subscribe(data => this.workers = data,
@@ -34,13 +40,15 @@ export class WorkerComponent implements OnInit {
   }
 
   registerWorker() {
-    //this.registerForm.role.push('WORKER');
     this.authService.signUp(this.registerForm).subscribe();
     setTimeout(() => {
-      this.workerService.registerWorker(this.registerForm.username, this.techserviceId)
-      .subscribe(() => {
-        this.recieveWorkers()}
-      )}, 2000);
-      this.registerForm = this.registerFormStub; //not works
+      this.workerService.initialiseWorker(
+        this.registerForm.username, 
+        this.techserviceId, 
+        this.skill.selectedSkill)
+          .subscribe(() => { this.recieveWorkers() })
+    }, 2000);
+    
+    this.registerForm = this.registerFormStub; //not works
   }
 }

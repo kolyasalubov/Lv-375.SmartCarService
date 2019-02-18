@@ -4,10 +4,12 @@
     <p>Full name: {{worker.fullName}}</p>
     <p>Email: {{worker.email}}</p>
     <p>Phone: {{worker.numberPhone}}</p>
+    <p>Skill: {{worker.skill.name}}</p>
+    <button (click)="deleteWorker(worker.id)" type="button" block="true" style="background-color:#336B87; color: white;" mdbWavesEffec mdbBtn>Delete</button>
   </li>
 </ul>
 
-<div>
+<div> 
   <h1>REGISTRATION OF NEW WORKER</h1>
   <app-skill></app-skill>
   <input type="text" name="username" [(ngModel)]="registerForm.username" class="form-control mb-2" placeholder="User Name">
