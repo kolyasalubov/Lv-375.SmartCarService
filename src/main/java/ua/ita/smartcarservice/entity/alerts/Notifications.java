@@ -15,7 +15,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter 
+@Setter 
+@NoArgsConstructor
 @Entity
 @Table (name = "notifications")
 public class Notifications {
@@ -30,6 +32,9 @@ public class Notifications {
 	@Column (name = "notification_time", columnDefinition = "DATETIME")
 	@Temporal (TemporalType.TIMESTAMP)
 	private Date notificationTime;
+	
+	@Column (length = 25, name = "type", nullable = false)
+	private String type;
 	
 	@Column (name = "car_id")
 	private Long carId;
