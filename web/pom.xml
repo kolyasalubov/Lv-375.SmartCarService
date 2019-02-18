@@ -10,8 +10,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>web</artifactId>
-    <name>web</name>
+    <artifactId>Web</artifactId>
+    <name>Web</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>ua.ita.smartcarservice</groupId>
-            <artifactId>services</artifactId>
+            <artifactId>Services</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

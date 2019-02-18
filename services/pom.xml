@@ -11,14 +11,15 @@
     </parent>
 
 
-    <artifactId>services</artifactId>
-    <name>services</name>
+    <artifactId>Services</artifactId>
+    <name>Services</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
+
         <dependency>
             <groupId>ua.ita.smartcarservice</groupId>
-            <artifactId>persistance</artifactId>
+            <artifactId>Persistance</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

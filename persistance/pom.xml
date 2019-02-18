@@ -11,8 +11,8 @@
     </parent>
 
 
-    <artifactId>persistance</artifactId>
-    <name>persistance</name>
+    <artifactId>Persistance</artifactId>
+    <name>Persistance</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
