@@ -4,6 +4,9 @@
     <fake-data-btn [carVin]=carVin></fake-data-btn>
 </div>
 <div class='m-5 d-flex justify-content-center flex-wrap'>
+    <progress-chart class="align-self-center" sensorType='battery' [carId]=carId ></progress-chart>
+    <progress-chart class="align-self-center" sensorType='Max battery capacity' [carId]=carId ></progress-chart>
+
     <line-chart sensorType='speed' [carId]=carId></line-chart>
     <line-chart sensorType='mileage' [carId]=carId></line-chart>
     <line-chart sensorType='tire pressure' [carId]=carId></line-chart>
@@ -12,5 +15,5 @@
     <bar-chart sensorType='fuel' [carId]=carId ></bar-chart>
     <bar-chart sensorType='oil level' [carId]=carId ></bar-chart>
 
-    <!-- <doughnut-bar-chart sensorType='battery' [carId]=carId ></doughnut-bar-chart> -->
+    <!-- <progress-chart sensorType='battery' [carId]=carId ></progress-chart> -->
 </div>
