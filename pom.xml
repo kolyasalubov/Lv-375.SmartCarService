@@ -97,7 +97,7 @@
     <modules>
         <module>services</module>
         <module>web</module>
-        <module>persistance</module>
+        <module>persistence</module>
     </modules>
 
 
