@@ -1,34 +1,34 @@
 <app-menu></app-menu>
 
 <div class="notification-header">
-  <button mdbBtn color="teal" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect (click)="applyFor()" >Make an appoinment</button>
+  <button mdbBtn color="" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect (click)="applyFor()" >Make an appoinment</button>
 </div>
 
-<table class="table table-striped table-responsive-md">
-  <thead>
-    <tr>
-      <th></th>
-      <th class="th-lg message-column"> 
-        <a (click)="sortBy('message')">Message</a>
-      </th>
-      <th class="th-lg">
-        <a (click)="sortBy('date')">Date</a>
-      </th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let n of notifications">
-      <td >
-        <div class="custom-control custom-checkbox">
-            <mdb-checkbox [(ngModel)]="n.isSelected" [default]="false"></mdb-checkbox>
-        </div>
-      </td>
-      <td>{{n.message}}</td>
-      <td>{{n.notificationTime | date : "MMM d, y h:mm a"}}</td>
-      <td>
-        <button class="delete-button btn btn-sm" (click)="deleteNotification(n.id)">X</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="notification" *ngFor="let n of notifications">
+  <div class="header">
+      <div class="icon">
+          <img src="assets/icons/icon_warning.png" alt="warning">
+      </div>
+      <div class="label">
+          Warning
+      </div>
+      <div class="date">
+        {{n.notificationTime | date : "MMM d, y h:mm a"}}
+      </div>
+      <div class="icon cursor-pointer">
+        <div (click)="deleteNotification(n.id)">
+            <img src="assets/icons/icon_close.png" width="35">
+        </div> 
+      </div>
+  </div>
+  <div class="message">
+      <div class="boxes">
+              <input type="checkbox" id="{{n.id}}" [(ngModel)]="n.isSelected" [default]="false">
+              <label for="{{n.id}}">{{n.message}}</label>
+      </div>        
+  </div>
+</div>
+
+<div class="notification-header">
+    <button mdbBtn color="" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect (click)="applyFor()" >Make an appoinment</button>
+  </div>

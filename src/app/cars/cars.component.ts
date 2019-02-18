@@ -27,7 +27,6 @@ export class CarsComponent implements OnInit {
   constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
   
   ngOnInit(){
-
    this.route.params.subscribe(params => {
     this.id = params["id"];
 });
