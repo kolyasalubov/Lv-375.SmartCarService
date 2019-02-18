@@ -17,6 +17,7 @@ export class TechserviceComponent implements OnInit {
   techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
   techservice: Techservice = this.techserviceStub;
   created: boolean;
+  
   error: ErrorEvent;
 
   user: User;
@@ -47,7 +48,6 @@ export class TechserviceComponent implements OnInit {
     this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
     .subscribe(data => {if (data!=null) {
                           this.techservice = data;
-                          this.toggleCreated(); 
                           }
                         });
   }
@@ -61,10 +61,6 @@ export class TechserviceComponent implements OnInit {
     this.techserviceService.deleteTechservice(this.techservice.stoId)
     .subscribe();
     this.techservice = this.techserviceStub;
-    this.toggleCreated();
   }
 
-  toggleCreated() {
-    this.created = !this.created;
-  }
 }

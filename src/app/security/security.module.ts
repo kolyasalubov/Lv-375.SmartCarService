@@ -35,6 +35,7 @@ import { from } from 'rxjs';
     MDBBootstrapModule.forRoot(),
   ],
   providers: [httpInterceptorProviders],
-  bootstrap: []
+  bootstrap: [],
+  exports: [LoginComponent]
 })
 export class SecurityModule { }

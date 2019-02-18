@@ -1,54 +1,89 @@
-<div class="home">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
-    <a class="navbar-brand" href="/home">Smart car service</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+
+<div class="page-container">
+    <nav class="navbar navbar-expand-lg" style="background-color:#2D4161;" >
+      <a class="navbar-brand" href="/home" style="color:white" > SmartCarService  </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <br>
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent" style="color:white" >  
+<!--
+     <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">
+     <a class="notification" (click) = "goToOwnerCars()" style="border-bottom: 2px solid white">Your cars</a>
+     </ul>
   
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">  
-       
-   <ul *ngIf="authority === 'owner'"class="navbar-nav mr-auto">
-   <a class="btn btn-outline-success my-2 my-sm-0" (click) = "goToOwnerCars()" >Your cars</a>
-   </ul>
-    
-  <ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  
-   <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/techservice">Technical Service</a>
-   </ul>
-
- <ul *ngIf="authority === 'sales'" class="navbar-nav mr-auto">   
-<a class="btn btn-outline-success my-2 my-sm-0">Sales manager</a>
-</ul>
-
-
-<ul *ngIf="authority === 'dieler'" class="navbar-nav mr-auto">   
-  <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/">Dieler</a>
+     <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
+      <a class="notification" routerLink="/newcar" style="border-bottom: 2px solid white">Add new car</a>
+    </ul>
+-->   
+  <div>
+    <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
+      <a class="notification" (click)="goToNotifications()" style="border-bottom: 2px solid white;">
+         <span *ngIf="!notificationsOpen"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+         <span *ngIf="notificationsOpen"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
+        <span class="badge">3</span>
+      </a>
   </ul>
-
-   <ul *ngIf="authority === 'admin'" class="navbar-nav mr-auto"> 
-  <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/allusers">See users</a>
-  </ul>
-
-  <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
-    <a class="btn btn-outline-success my-2 my-sm-0" routerLink="/newcar">Add new car</a>
-  </ul>
-
-  <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
-      <a class="btn btn-outline-success my-2 my-sm-0" (click)="goToNotifications()" >Notifications</a>
-</ul>
-
-
-      <div class="btn-group" mdbDropdown>
-              <button mdbDropdownToggle type="button" mdbBtn color="success" class="dropdown-toggle" mdbWavesEffect>
-                  Actions 
-              </button>
-              <div class="dropdown-menu dropdown-primary">
-      <a routerLink="/userprofile">Review profile</a>
-      <a class="nav-link" routerLink="/info">Info/Help</a>
-      <a class="nav-link" (click)= "logout()">Logout</a>
-      
-      </div>
-          </div>
-      </div>
-   
-  </nav> 
   </div>
+  <!--
+    <ul *ngIf="authority === 'techmanager'" class="navbar-nav mr-auto">  
+     <a class="btn my-2 my-sm-0" routerLink="/techservice">Technical Service</a>
+     </ul>
+   <ul *ngIf="authority === 'sales'" class="navbar-nav mr-auto">   
+  <a class="btn my-2 my-sm-0">Sales manager</a>
+  </ul>
+  <ul *ngIf="authority === 'dieler'" class="navbar-nav mr-auto">   
+    <a class="btn  my-2 my-sm-0" routerLink="/">Dieler</a>
+    </ul>
+     <ul *ngIf="authority === 'admin'" class="navbar-nav mr-auto"> 
+    <a class="btn my-2 my-sm-0" routerLink="/allusers">See users</a>
+    </ul>
+-->  
+      <div class="dropdown">
+        <button class="dropbtn">{{user.fullName}} <i class="fa fa-caret-square-o-down" aria-hidden="true"></i> </button>
+        <div class="dropdown-content">
+          <a class="fa fa-user-circle" routerLink="/userprofile"> Profile</a>
+          <a class="fa fa-info-circle" routerLink="/info"> Help</a>  
+          <div class="dropdown-divider"></div>
+          <a class="fa fa-sign-out" (click)= "logout()"> Logout</a>
+        </div>
+      </div>
+  
+    </div>  
+    </nav> 
+    </div>
+  
+  
+              <!-- Sidebar -->
+  <div id="wrapper" class="active">  
+  <div id="sidebar-wrapper">
+  <ul id="sidebar_menu" class="sidebar-nav">
+  <li class="sidebar-brand">
+    <a id="menu-toggle" href="/home">SmartCarService</a></li>
+  </ul>
+  <br>
+  <ul id="sidebar" class="sidebar-nav" >
+  <li class="sidebar-user">
+  <img src="assets/img/avatar.png" width="110px" height="110px">
+  <a id="menu-toggle">{{user.fullName}}</a></li>
+  <li *ngIf="authority === 'owner'"> <a class="" (click) = "goToOwnerCars()">Your cars <i class="fa fa-car" aria-hidden="true"></i></a></li>
+  <li *ngIf="authority === 'owner'"> <a class="" routerLink="/newcar" >Add new car <i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
+  <!--
+  <li *ngIf="authority === 'owner'"><a class="notification" (click)="goToNotifications()" >
+         <span>Notifications</span>
+        <span class="badge">3</span>
+      </a></li>
+  -->
+  <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/techservice">Tech service</a></li>
+  <li *ngIf="authority === 'sales'"><a class="" routerLink="/">Sales manager</a></li>
+  <li *ngIf="authority === 'dieler'"><a class="" routerLink="/">Dieler</a></li>
+  <li *ngIf="authority === 'admin'"><a class="" routerLink="/allusers">See users <i class="fa fa-users" aria-hidden="true"></i></a></li>
+  </ul>
+  </div>
+  </div>
+
+  
+  
+  
+  
+    

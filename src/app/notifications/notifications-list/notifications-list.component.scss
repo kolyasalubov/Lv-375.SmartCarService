@@ -1,25 +1,120 @@
-.notification-header {
+
+.notification-header{
     padding: 12px;
+    padding-right: 10%;
     display: flex;
     justify-content: flex-end;
-    background: linear-gradient(40deg, #06849D, #034653)
 }
-.delete-button {
-    background-color: #F42334;
-    border-radius: 15px;
-}
-.custom-checkbox {
+
+.notification{
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 80%;
     justify-content: center;
+    padding: 0%;
+}
+
+.message{
+    padding: 20px;
+    background-color:#E4E3DB;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+    padding: 20px 30px 20px 30px;
+}
+.header{
+    background-color:#2988BC;
+    width: 100%;
     display: flex;
+    align-items: center;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
 }
-.message-column {
-    width: 45%;
+.icon{
+    padding: 0px 1rem 0px 1rem;
 }
-thead th {
-    font-weight: bold;
-    font-size: 18px;
+.label{
+    font-size: 20px;
+    font-family: sans-serif;
+    flex: 1;
 }
-tbody td {
-    font-size: 15px;
-    vertical-align: middle;
+.date{
+    color: #d0cecc;
+    padding: 0 20px 0 20px;
+    font-style: italic;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
+
+/* for checkbox */
+
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 52px;
+  margin-bottom: 20px;
+  color: #2D4262;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #2D4262;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+
+// .notification-header {
+//     padding: 12px;
+//     display: flex;
+//     justify-content: flex-end;
+//     background: linear-gradient(40deg, #06849D, #034653)
+// }
+// .delete-button {
+//     background-color: #F42334;
+//     border-radius: 15px;
+// }
+// .custom-checkbox {
+//     justify-content: center;
+//     display: flex;
+// }
+// .message-column {
+//     width: 45%;
+// }
+// thead th {
+//     font-weight: bold;
+//     font-size: 18px;
+// }
+// tbody td {
+//     font-size: 15px;
+//     vertical-align: middle;
+// }
