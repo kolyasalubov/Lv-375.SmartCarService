@@ -47,15 +47,16 @@ public class BookingServiceImpl implements BookingService {
     public boolean addSession(NewBookingDto newBookingDto) {
         Car car = carRepository.getOne(newBookingDto.getCarId());
         List <WorkTime> sessionsToAdd = new ArrayList <>();
-        if (bookingRepository.selectNumberOfSessionWithDate(parseDate(newBookingDto.getStarttime()), parseDate(newBookingDto.getEndtime())) != 0
-                && LocalDateTime.now().compareTo(parseDate(newBookingDto.getStarttime())) < 0) {
+        LocalDateTime end = parseDate(newBookingDto.getStart()).plusDays(newBookingDto.getRequiredTime());
+        if (bookingRepository.selectNumberOfSessionWithDate(parseDate(newBookingDto.getStart()), end) != 0
+                && LocalDateTime.now().compareTo(parseDate(newBookingDto.getStart())) < 0) {
             return false;
         }
         for (String id : newBookingDto.getWorkerId()) {
-            WorkTime session = getEntity(newBookingDto);
-            session.setCar(car);
-            session.setWorker(userRepository.getOne(Long.valueOf(id)));
-            sessionsToAdd.add(session);
+            WorkTime newBooking = getEntity(newBookingDto);
+            newBooking.setCar(car);
+            newBooking.setWorker(userRepository.getOne(Long.valueOf(id)));
+            sessionsToAdd.add(newBooking);
         }
 
         bookingRepository.saveAll(sessionsToAdd);
@@ -202,8 +203,8 @@ public class BookingServiceImpl implements BookingService {
     private WorkTime getEntity(NewBookingDto newBookingDto) {
 
         WorkTime session = new WorkTime();
-        session.setStartSession(parseDate(newBookingDto.getStarttime()));
-        session.setEndSession(parseDate(newBookingDto.getEndtime()));
+        session.setStartSession(parseDate(newBookingDto.getStart()));
+        session.setEndSession(parseDate(newBookingDto.getStart()).plusDays(newBookingDto.getRequiredTime()));
         return session;
     }
 

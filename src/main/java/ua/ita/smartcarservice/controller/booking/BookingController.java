@@ -34,9 +34,9 @@ public class BookingController {
         return new ResponseEntity <>(bookingService.findTimeToBooking(bookingDto), HttpStatus.OK);
     }
 
-    @PostMapping("/api/addBooking")
-    public ResponseEntity <HttpStatus> addSession(@RequestBody NewBookingDto newSessionDto) {
-        if (bookingService.addSession(newSessionDto)) {
+    @PostMapping("/api/newbooking")
+    public ResponseEntity <HttpStatus> addSession(@RequestBody NewBookingDto newBookingDto) {
+        if (bookingService.addBooking(newBookingDto)) {
             return new ResponseEntity <>(HttpStatus.OK);
         } else {
             return new ResponseEntity <>(HttpStatus.BAD_REQUEST);

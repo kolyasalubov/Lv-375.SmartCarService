@@ -12,7 +12,7 @@ public interface BookingService {
 
     HashMap <LocalDate, List <WorkTimeDto>> findTimeToBooking(BookingDto bookingDto);
 
-    boolean addSession(NewBookingDto newSessionDto);
+    boolean addBooking(NewBookingDto newSessionDto);
 
     List <WorkTimeDto> findAllByWorkerId(Long workerId);
 }
