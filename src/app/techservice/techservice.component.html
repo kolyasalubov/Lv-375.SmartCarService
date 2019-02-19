@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <div style="display: flex; justify-content: center;">
     <div  style="width: 400px;">
@@ -28,3 +29,37 @@
 
 <div>{{techservice | json}}</div>
 <div>{{user | json}}</div>
+=======
+<app-menu></app-menu>
+
+<mdb-card style="display: flex; position: relative;  width: 300px; left: 210px; top: 80px">
+    <mdb-card-body>
+        <mdb-card-title>
+            <h4>Repair Car Shop</h4>
+        </mdb-card-title>
+
+        <mdb-card-text>
+            <input type="text" name="username" [(ngModel)]="techservice.name" class="form-control mb-2" placeholder="Service Name">
+            <input type="text" name="username" [(ngModel)]="techservice.address" class="form-control mb-2" placeholder="Address">
+               
+            <div *ngIf="techservice.stoId < 0">
+                <button (click)="createTechservice(techservice, user)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
+            </div>
+        
+            <div class="container">
+                <div *ngIf="techservice.stoId > 0" class="row">
+                    <div class="col">
+                        <button (click)="updateTechservice(techservice)" type="button" block="true" style="background-color:#336B87; color: white;" mdbWavesEffec mdbBtn>Update Info</button>
+                    </div>
+        
+                    <div class="col">
+                        <button (click)="deleteTechservice(techservice.id)" type="button" block="true" style="background-color:#C4001A; color: white;" mdbWavesEffect mdbBtn>Delete</button>
+                    </div>
+                </div>
+            </div>
+        </mdb-card-text>
+    </mdb-card-body>
+</mdb-card>
+
+<app-worker *ngIf="techservice.stoId > 0" [techserviceId]="techservice.stoId"></app-worker>
+>>>>>>> a60f38067cdc5bfe7d1454fc328b487f3f2b9d3a

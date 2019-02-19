@@ -1,3 +1,5 @@
+import { Skill } from './skill/skill';
+
 export interface Worker {
     id: number;
     userName: string;
@@ -5,4 +7,5 @@ export interface Worker {
     password: string;
     email: string;
     numberPhone: string;
+    skill: Skill;
 }

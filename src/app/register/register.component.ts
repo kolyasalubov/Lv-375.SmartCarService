@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
  
 import { AuthService } from '../auth/auth.service';
-import { SignUpInfo } from '../auth/sigup-info';
+import { SignUpInfo } from '../auth/signup-info';
 import { ROLES } from '../roles/mock-roles';
 
 @Component({
