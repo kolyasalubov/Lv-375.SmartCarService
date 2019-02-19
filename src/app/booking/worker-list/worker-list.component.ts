@@ -12,6 +12,10 @@ import { TimeList } from '../time-list/time-list';
 export class WorkerListComponent implements OnInit {
 
   showTime : boolean = false;
+  showWorker: boolean = true;
+
+  @Input()
+  carId : number;
 
   @Input()
   workerList : WorkerListReal;
@@ -27,11 +31,12 @@ export class WorkerListComponent implements OnInit {
   constructor(private workerListService : WorkerListService) {}
 
   ngOnInit() {
-    this.getWorkerList()
+    this.getWorkerList();
+    console.log(this.map);
   }
 
   getWorkerList(){
-    this.workerListService.getWorkerBySkill(this.workerList)
+    this.workerListService.getWorkerByCar(this.workerList)
     .subscribe((data) => this.map = data,
     error => this.error = error);
   }
@@ -61,13 +66,13 @@ export class WorkerListComponent implements OnInit {
       }
   }
 
-  private setClass(id: number, className: string): void{;
-    document.getElementById('worker'+String(id)).className = "list-group-item d-flex justify-content-between " + className;
+  private setClass(id: number, className: string): void{
+    document.getElementById('worker'+String(id)).className = "jumbotron text-center hoverable p-4 " + className;
   }
 
   getFreeTime(){
     this.timeList.time = this.workerForm.time;
-    this.timeList.numberOfDay = this.workerForm.day;
+    this.timeList.numberOfDay = (String)((Number)(this.workerForm.day) - 1);
     
     let workId : Array<number> = new Array();
 
@@ -79,7 +84,9 @@ export class WorkerListComponent implements OnInit {
     this.timeList.workerId = workId;
     this.timeList.needTime = this.requiredTime*60;
 
+    this.showWorker = false;
     this.showTime = true;
+    
   }
 
 

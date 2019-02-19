@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { TimeList } from './time-list';
 import { WorkTime } from './work-time';
+import { NewBooking } from './new-booking';
 
 
 const httpOptions = {
@@ -17,7 +18,8 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class TimeListService{
-    bookingTime : string = "/api/bookingTime";
+    bookingTime : string = "/api/v1/bookingtime";
+    newBooking : string = "/api/v1/newbooking";
 
     constructor(private http: HttpClient) {}
 
@@ -26,6 +28,13 @@ const httpOptions = {
         .pipe(
             catchError(this.errorHandler)
         );
+    }
+
+    postNewBooking(newBooking : NewBooking) : Observable<number>{
+      return this.http.post<number>(this.newBooking, newBooking, httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
     }
 
 

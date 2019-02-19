@@ -16,7 +16,7 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class SkillService {
-    skillByStoUrl = '/api/skillByCar/';
+    skillByStoUrl = '/api/v1/skillbycar/';
 
     constructor(private http: HttpClient) {}
 

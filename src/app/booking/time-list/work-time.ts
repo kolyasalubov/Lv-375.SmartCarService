@@ -1,4 +1,4 @@
 export class WorkTime {
-    startSession : string;
-    endSession : string;
+    startBooking : string;
+    endBooking : string;
 }

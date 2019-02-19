@@ -30,4 +30,20 @@ export class NotificationsApprovementComponent implements OnInit {
   removeFromApprovement(id){
     this.notifications.forEach( n => { if(n.id === id) n.isSelected = false })
   }
+
+  approve() : void{
+    let isSelected = false;
+    this.notifications.forEach(
+      n => {
+        if(n.isSelected) { 
+          isSelected = true; 
+        }
+      }
+    )
+    if(isSelected) {
+      this.router.navigate(['/booking', this.id]);
+    } else {
+      alert("Nothing to approve");
+    }
+  }
 }

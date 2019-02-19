@@ -16,11 +16,13 @@ export class MenuComponent implements OnInit {
   private authority: String;
   private username: String;
   user: User;
+  private notificationsOpen: boolean;
   
   constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
 
+    this.notificationsOpen = false;
     this.username = this.tokenStorage.getUsername();
 
     this.userService.getUserByUsername(this.username)
@@ -57,6 +59,7 @@ export class MenuComponent implements OnInit {
 
   goToNotifications(){
     this.router.navigate(['/notifications-list', this.user.id]);
+    this.notificationsOpen = true;
   }
 
   goToOwnerCars() {

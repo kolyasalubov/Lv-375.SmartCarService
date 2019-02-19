@@ -16,12 +16,12 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class WorkerListService{
-    workerBySkillUrl : string = '/api/workerByCar';
+    workerByCarUrl : string = '/api/v1/workerbycar';
 
     constructor(private http: HttpClient) {}
 
-    getWorkerBySkill(workerList : WorkerList): Observable<Map<string, Array<Worker>>>{
-        return this.http.post<Map<string, Array<Worker>>>(this.workerBySkillUrl, workerList, httpOptions)
+    getWorkerByCar(workerList : WorkerList): Observable<Map<string, Array<Worker>>>{
+        return this.http.post<Map<string, Array<Worker>>>(this.workerByCarUrl, workerList, httpOptions)
         .pipe(
             catchError(this.errorHandler)
         );

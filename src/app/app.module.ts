@@ -57,8 +57,7 @@ import { NotificationsListComponent } from './notifications/notifications-list/n
     MDBBootstrapModule.forRoot(),
     BookingModule,
     ChartPageModule,
-    SecurityModule,
-    BookingModule
+    SecurityModule
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],

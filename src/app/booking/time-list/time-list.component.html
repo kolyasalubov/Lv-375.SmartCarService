@@ -1,3 +1,4 @@
+<div class = "full-page-container">
 <div class= "d-flex flex-row flex-wrap" style="margin: 10px; padding: 10px">
 <ng-container class="time-container" *ngFor="let item of workTime | keyvalue">
   <div *ngIf="!isEmptyDate(item.value)">
@@ -8,8 +9,11 @@
           <h5> Available time: </h5>
         </mdb-card-title>
         <mdb-card-text>
-          <div class="jumbotron text-center hoverable p-4" *ngFor="let value of item.value">
-            {{getHourFromDate(value.startSession)}} - {{getHourFromDate(value.endSession)}}
+          <div class="jumbotron text-center hoverable p-4" 
+            *ngFor="let value of item.value; let i = index" 
+              id="{{value.startSession}}"
+            (click)="chooseDate(value.startBooking); select(value.endBooking)">
+            {{getHourFromDate(value.startBooking)}} - {{getHourFromDate(value.endBooking)}}
           </div>
         </mdb-card-text>
       </mdb-card-body>
@@ -17,3 +21,9 @@
   </div>
 </ng-container>
 </div>
+<div class="button-time">
+<button  mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="postBooking()" mdbWavesEffect>Apply</button>
+<button  mdbBtn type="button" class ="justify-content-end" style="background-color: #c5001a" (click)="goToHomePage()" mdbWavesEffect>Cancel</button>
+</div>
+</div>
+

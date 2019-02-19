@@ -1,3 +1,5 @@
+<!-- <app-menu></app-menu> -->
+
 <div class="d-flex">
   <div class="d-flex justify-content-start">
     <div class="container">
@@ -11,16 +13,16 @@
             *ngFor="let skill of skills"
             (click)="addOrDelete(skill)">
             {{skill.name}}
-            <span class="badge badge-primary badge-pill">{{skill.requiredTime}}</span>
+            <span class="badge badge-pill" style="background-color: #2D4262">{{skill.requiredTime}}</span>
         </div>
       <!-- </ul> -->
 
       <h3 class="time-value">Required Time: {{timeValue}} hours</h3>
-      <button *ngIf="!show" class="btn btn-outline-success my-2 my-sm-0" (click)="changeShow()">Get Worker</button>
-      <button *ngIf="show" class="btn btn-outline-success my-2 my-sm-0" (click)="changeShow()">Get Worker</button>
+      <button  *ngIf="!show" mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="changeShow()" mdbWavesEffect>Get Worker</button>
+      <button *ngIf="show" mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="changeShow()" mdbWavesEffect>Get Worker</button>
     </div>
   </div>
   <div *ngIf="!show">
-    <app-worker-list [workerList]=workerList [requiredTime]=timeValue></app-worker-list>
+    <app-worker-list [workerList]=workerList [requiredTime]=timeValue [carId] = searchId ></app-worker-list>
   </div>
 </div>
