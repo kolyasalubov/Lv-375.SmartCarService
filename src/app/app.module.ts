@@ -24,6 +24,7 @@ import { CarProfileComponent } from './car-profile/car-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NotificationsApprovementComponent } from './notifications/notifications-approvement/notifications-approvement.component';
 import { NotificationsListComponent } from './notifications/notifications-list/notifications-list.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -45,8 +46,7 @@ import { NotificationsListComponent } from './notifications/notifications-list/n
     CarProfileComponent,
     UserProfileComponent,
     NotificationsApprovementComponent,
-    NotificationsListComponent
-
+    NotificationsListComponent,
 
   ],
   imports: [
@@ -61,6 +61,7 @@ import { NotificationsListComponent } from './notifications/notifications-list/n
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [SecurityModule]
 })
 export class AppModule { }

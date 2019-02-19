@@ -1,23 +1,24 @@
 <div style="width: 530px" class='ml-5 mb-5 mr-5'>
   <h3 class="pl-3"> {{ sensorType | uppercase }} </h3>
 
-  <div class="m-3 p-3 border border-unique rounded mb-0">
+  <!-- <div class="m-3 p-3 border border-unique rounded mb-0"> -->
+      <div class="m-3 mb-0 p-3 jumbotron">
     <div class='d-flex justify-content-between'>
-      <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-        <button mdbBtn type="button" color="unique" size="sm" class="waves-light" (click)='changePeriod("/day")'
+      <div class="btn-group btn-group-sm"  role="group" aria-label="Basic example">
+        <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changePeriod("/day")'
           mdbWavesEffect>Day</button>
-        <button mdbBtn type="button" color="unique" size="sm" class="waves-light" (click)='changePeriod("/month")'
+        <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changePeriod("/month")'
           mdbWavesEffect>Month</button>
-        <button mdbBtn type="button" color="unique" size="sm" class="waves-light" (click)='changePeriod("/year")'
+        <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changePeriod("/year")'
           mdbWavesEffect>Year</button>
       </div>
 
       <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-        <button mdbBtn type="button" color="unique" size="sm" class="waves-light" (click)='changeSelection()'
+        <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changeSelection()'
           mdbWavesEffect>Avg</button>
-        <button mdbBtn type="button" color="unique" size="sm" class="waves-light" (click)='changeSelection("/min")'
+        <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changeSelection("/min")'
           mdbWavesEffect>Min</button>
-        <button mdbBtn type="button" color="unique" size="sm" class="waves-light" (click)='changeSelection("/max")'
+        <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changeSelection("/max")'
           mdbWavesEffect>Max</button>
       </div>
     </div>

@@ -1,31 +1,30 @@
-<app-menu></app-menu>
+<mdb-card style="display: flex; position: relative;  width: 300px; left: 210px; top: 80px">
+    <mdb-card-body>
+        <mdb-card-title>
+            <h4>Repair Car Shop</h4>
+        </mdb-card-title>
 
-<div style="display: flex; justify-content: center;">
-    <div  style="width: 400px;">
-    <div class="md-form input-group mb-3" >
-        <div class="input-group-prepend">
-            <span class="input-group-text md-addon">Name: </span>
-        </div>
-        <input type="text" class="form-control" [(ngModel)]="techservice.name" aria-label="Username" aria-describedby="material-addon1">
-    </div>
+        <mdb-card-text>
+            <input type="text" name="username" [(ngModel)]="techservice.name" class="form-control mb-2" placeholder="Service Name">
+            <input type="text" name="username" [(ngModel)]="techservice.address" class="form-control mb-2" placeholder="Address">
+               
+            <div *ngIf="techservice.stoId < 0">
+                <button (click)="createTechservice(techservice, user)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
+            </div>
+        
+            <div class="container">
+                <div *ngIf="techservice.stoId > 0" class="row">
+                    <div class="col">
+                        <button (click)="updateTechservice(techservice)" type="button" block="true" style="background-color:#336B87; color: white;" mdbWavesEffec mdbBtn>Update Info</button>
+                    </div>
+        
+                    <div class="col">
+                        <button (click)="deleteTechservice(techservice.id)" type="button" block="true" style="background-color:#C4001A; color: white;" mdbWavesEffect mdbBtn>Delete</button>
+                    </div>
+                </div>
+            </div>
+        </mdb-card-text>
+    </mdb-card-body>
+</mdb-card>
 
-    <div class="md-form input-group mb-3" >
-        <div class="input-group-prepend">
-            <span class="input-group-text md-addon">Address: </span>
-        </div>
-        <input type="text" class="form-control" [(ngModel)]="techservice.address" aria-describedby="material-addon1">
-    </div>
-    
-        <div *ngIf="techservice.stoId < 0">
-            <button (click)="createTechservice(techservice, user)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
-        </div>
-        <div *ngIf="techservice.stoId > 0">
-            <button (click)="updateTechservice(techservice)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Update Info</button>
-            <br>
-            <button (click)="deleteTechservice(techservice.id)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Delete Technical Service</button>
-        </div>
-    </div>
-</div>
-
-<div>{{techservice | json}}</div>
-<div>{{user | json}}</div>
+<app-worker *ngIf="techservice.stoId > 0" [techserviceId]="techservice.stoId"></app-worker>
