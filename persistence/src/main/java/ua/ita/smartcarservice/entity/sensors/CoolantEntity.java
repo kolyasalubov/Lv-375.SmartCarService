@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(name = "fact_fuel")
-public class FuelEntity extends SensorEntity {
+@Table(name = "fact_coolant")
+public class CoolantEntity extends SensorEntity {
 
 }

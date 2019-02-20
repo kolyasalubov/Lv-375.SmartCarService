@@ -1,6 +1,5 @@
-package ua.ita.smartcarservice.repository.sensors;
+package ua.ita.smartcarservice.repository.sensors.common;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
@@ -10,11 +9,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @NoRepositoryBean
-public interface SensorRepository<T extends BaseSensorEntity> extends JpaRepository<T, Long> {
+public interface ChartSensorRepository<T extends BaseSensorEntity> extends BasicSensorRepository<T> {
 
     /* READ */
 
-    @Query("SELECT t FROM #{#entityName} t WHERE t.car.id = :carId " +
+    @Query("SELECT TIME(t.date), t.value FROM #{#entityName} t WHERE t.car.id = :carId " +
             "AND DAY(t.date) = DAY(:date) AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "ORDER BY t.date")
     List<T> getAllByDay(@Param("date") LocalDateTime date,

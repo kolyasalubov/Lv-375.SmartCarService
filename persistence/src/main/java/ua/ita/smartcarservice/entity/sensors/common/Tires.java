@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.dto.sensors;
+package ua.ita.smartcarservice.entity.sensors.common;
 
 public enum Tires {
     FRONT_LEFT("frontLeft"),

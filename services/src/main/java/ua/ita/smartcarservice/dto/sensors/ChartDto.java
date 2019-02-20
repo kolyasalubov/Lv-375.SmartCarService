@@ -1,24 +1,20 @@
 package ua.ita.smartcarservice.dto.sensors;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @ToString
 @NoArgsConstructor
-public class ChartDto implements IChartDto {
+@AllArgsConstructor
+public class ChartDto {
 
-    private List<Double> data;
-
-    private List<String> labels;
-
-    public ChartDto(List<Double> data, List<String> labels) {
-        this.data = data;
-        this.labels = labels;
-    }
+    private Map<String, List<Double>> data; // keys --> labels
 
     public int dataSize(){
         return data.size();

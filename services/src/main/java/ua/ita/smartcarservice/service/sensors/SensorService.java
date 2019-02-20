@@ -1,8 +1,8 @@
 package ua.ita.smartcarservice.service.sensors;
 
-import ua.ita.smartcarservice.dto.sensors.ARecordDto;
+import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
-import ua.ita.smartcarservice.dto.sensors.IChartDto;
+import ua.ita.smartcarservice.dto.sensors.RecordDto;
 import ua.ita.smartcarservice.service.impl.sensors.ParamsProvider;
 
 import java.time.LocalDateTime;
@@ -12,24 +12,24 @@ public interface SensorService {
 
     /* READ */
 
-    IChartDto getAllByDay(DateForChartDto dateForChartDto);
+    ChartDto getAllByDay(DateForChartDto dateForChartDto);
 
-    IChartDto getAvgByMonth(DateForChartDto dateForChartDto);
+    ChartDto getAvgByMonth(DateForChartDto dateForChartDto);
 
-    IChartDto getMaxByMonth(DateForChartDto dateForChartDto);
+    ChartDto getMaxByMonth(DateForChartDto dateForChartDto);
 
-    IChartDto getMinByMonth(DateForChartDto dateForChartDto);
+    ChartDto getMinByMonth(DateForChartDto dateForChartDto);
 
-    IChartDto getAvgByYear(DateForChartDto dateForChartDto);
+    ChartDto getAvgByYear(DateForChartDto dateForChartDto);
 
-    IChartDto getMaxByYear(DateForChartDto dateForChartDto);
+    ChartDto getMaxByYear(DateForChartDto dateForChartDto);
 
-    IChartDto getMinByYear(DateForChartDto dateForChartDto);
+    ChartDto getMinByYear(DateForChartDto dateForChartDto);
 
 
     /* CREATE */
 
-    void addRecord(ARecordDto recordDto);
+    void addRecord(RecordDto recordDto);
 
     /* DEFAULT METHODS */
 

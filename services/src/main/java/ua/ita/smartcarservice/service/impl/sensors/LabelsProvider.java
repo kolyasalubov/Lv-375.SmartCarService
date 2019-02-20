@@ -1,6 +1,6 @@
 package ua.ita.smartcarservice.service.impl.sensors;
 
-import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
+import ua.ita.smartcarservice.entity.sensors.ISingleValueEntity;
 import ua.ita.smartcarservice.entity.sensors.TirePressureEntity;
 
 import java.time.LocalDateTime;
@@ -30,7 +30,7 @@ class LabelsProvider {
         return lables;
     }
 
-    List<String> getHours(List<ISensorEntity> records){
+    List<String> getHours(List<ISingleValueEntity> records){
         List<String> labels = new ArrayList<>();
         records.forEach((entity) -> labels.add(dateTimeToTime(entity.getDate())));
         return labels;
