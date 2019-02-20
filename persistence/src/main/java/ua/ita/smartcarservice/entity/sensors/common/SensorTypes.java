@@ -16,7 +16,7 @@ public enum SensorTypes {
 
     private String sensorType;
 
-    private SensorTypes(String sensorType){
+    private SensorTypes(String sensorType) {
         this.sensorType = sensorType;
     }
 

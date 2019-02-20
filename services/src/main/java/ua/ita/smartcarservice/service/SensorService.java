@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.service.sensors;
+package ua.ita.smartcarservice.service;
 
 import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
@@ -33,12 +33,12 @@ public interface SensorService {
 
     /* DEFAULT METHODS */
 
-    default LocalDateTime parseDateToLocal(String strDate){
+    default LocalDateTime parseDateToLocal(String strDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(strDate, formatter);
     }
 
-    default ParamsProvider getParams(DateForChartDto dateForChartDto){
+    default ParamsProvider getParams(DateForChartDto dateForChartDto) {
         LocalDateTime date = parseDateToLocal(dateForChartDto.getDate());
         Long carId = dateForChartDto.getCarId();
         return new ParamsProvider(date, carId);

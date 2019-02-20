@@ -44,6 +44,7 @@ public class SensorRepositoryFactory {
     @Autowired
     private GlassWasherFluidRepository glassWasherFluidRepository;
 
+
     private Map<String, BasicSensorRepository<? extends BaseSensorEntity>> repositoryFactory = new HashMap<>();
 
     public BasicSensorRepository<? extends BaseSensorEntity> getRepository(String type) {

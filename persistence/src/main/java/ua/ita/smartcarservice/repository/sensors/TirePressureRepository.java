@@ -20,7 +20,7 @@ public interface TirePressureRepository extends ChartSensorRepository<TirePressu
             "AND DAY(t.date) = DAY(:date) AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "ORDER BY t.date")
     List getAllByDay(@Param("date") LocalDateTime date,
-                                         @Param("carId") long carId);
+                     @Param("carId") long carId);
 
     @Override
     @Query("SELECT DAY(t.date), AVG(t.valueFrontLeft), AVG(t.valueFrontRight), AVG(t.valueBackLeft), AVG(t.valueBackRight) " +

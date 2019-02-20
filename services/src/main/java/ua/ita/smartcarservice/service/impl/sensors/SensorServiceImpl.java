@@ -11,7 +11,7 @@ import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.common.BasicSensorRepository;
 import ua.ita.smartcarservice.repository.sensors.common.ChartSensorRepository;
 import ua.ita.smartcarservice.repository.sensors.common.SensorRepositoryFactory;
-import ua.ita.smartcarservice.service.sensors.SensorService;
+import ua.ita.smartcarservice.service.SensorService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +73,7 @@ public class SensorServiceImpl implements SensorService {
     }
 
     private ChartSensorRepository getChartRepository(DateForChartDto dateForChartDto) {
-        return (ChartSensorRepository)getRepository(dateForChartDto);
+        return (ChartSensorRepository) getRepository(dateForChartDto);
     }
 
     @Override

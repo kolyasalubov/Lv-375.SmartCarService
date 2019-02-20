@@ -8,7 +8,7 @@ public enum Tires {
 
     private String tire;
 
-    private Tires(String tire){
+    private Tires(String tire) {
         this.tire = tire;
     }
 

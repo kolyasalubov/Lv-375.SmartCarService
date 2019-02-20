@@ -11,7 +11,7 @@ import java.util.Map;
 @Data
 @Entity
 @Table(name = "fact_tire_pressure")
-public class TirePressureEntity extends BaseSensorEntity implements ISensorEntity{
+public class TirePressureEntity extends BaseSensorEntity implements ISensorEntity {
 
     @Column(nullable = false)
     protected double valueFrontLeft;
@@ -25,7 +25,7 @@ public class TirePressureEntity extends BaseSensorEntity implements ISensorEntit
     @Column(nullable = false)
     protected double valueBackRight;
 
-    public ISensorEntity setValues(ISensorEntity entity, Map<String, Double> values){
+    public ISensorEntity setValues(ISensorEntity entity, Map<String, Double> values) {
         TirePressureEntity iEntity = (TirePressureEntity) entity;
         iEntity.setValueBackRight(values.get(Tires.BACK_RIGHT.toString()));
         iEntity.setValueBackLeft(values.get(Tires.BACK_LEFT.toString()));

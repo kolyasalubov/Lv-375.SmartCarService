@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
-import ua.ita.smartcarservice.service.sensors.SensorService;
+import ua.ita.smartcarservice.service.SensorService;
 
 @RestController
 @RequestMapping(value = "/api/v1/record")
@@ -16,8 +16,8 @@ public class RecordController {
     private SensorService sensorService;
 
     @PostMapping
-    public void addRecord(@RequestBody RecordDto recordDto){
-        sensorService.addRecord(recordDto); 
+    public void addRecord(@RequestBody RecordDto recordDto) {
+        sensorService.addRecord(recordDto);
     }
 
 }

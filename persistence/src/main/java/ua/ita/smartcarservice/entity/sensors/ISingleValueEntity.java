@@ -9,7 +9,7 @@ public interface ISingleValueEntity extends ISensorEntity {
 
     double getValue();
 
-    default ISensorEntity setValues(ISensorEntity entity, Map<String, Double> values){
+    default ISensorEntity setValues(ISensorEntity entity, Map<String, Double> values) {
         ISingleValueEntity iEntity = (ISingleValueEntity) entity;
         iEntity.setValue(values.get("value"));
 
