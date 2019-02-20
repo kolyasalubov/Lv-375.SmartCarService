@@ -14,10 +14,11 @@ public interface TirePressureRepository extends SensorRepository<TirePressureEnt
     /* READ */
 
     @Override
-    @Query("SELECT t FROM TirePressureEntity t WHERE t.car.id = :carId " +
+    @Query("SELECT TIME(t.date), t.valueFrontLeft, t.valueFrontRight, t.valueBackLeft, t.valueBackRight " +
+            "FROM TirePressureEntity t WHERE t.car.id = :carId " +
             "AND DAY(t.date) = DAY(:date) AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "ORDER BY t.date")
-    List<TirePressureEntity> getAllByDay(@Param("date") LocalDateTime date,
+    List getAllByDay(@Param("date") LocalDateTime date,
                                          @Param("carId") long carId);
 
     @Override

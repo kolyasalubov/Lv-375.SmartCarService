@@ -8,6 +8,6 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "fact_speed")
-public class SpeedEntity extends SensorEntity implements ISensorEntity {
+public class SpeedEntity extends SensorEntity {
 
 }

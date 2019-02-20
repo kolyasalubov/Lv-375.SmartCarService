@@ -31,6 +31,9 @@ public class SensorRepositoryFactory {
     @Autowired
     private OilLevelRepository oilLevelRepository;
 
+    @Autowired
+    private TirePressureRepository tirePressureRepository;
+
 
     private Map<String, SensorRepository<? extends BaseSensorEntity>> repositoryFactory = new HashMap<>();
 
@@ -47,6 +50,7 @@ public class SensorRepositoryFactory {
         repositoryFactory.put(SensorTypes.MILEAGE.toString(), mileageRepository);
         repositoryFactory.put(SensorTypes.OIL_PRESSURE.toString(), oilPressureRepository);
         repositoryFactory.put(SensorTypes.OIL_LEVEL.toString(), oilLevelRepository);
+        repositoryFactory.put(SensorTypes.TIRE_PRESSURE.toString(), tirePressureRepository);
     }
 
 }

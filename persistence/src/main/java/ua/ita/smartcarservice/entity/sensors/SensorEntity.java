@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
 
 @Data
 @MappedSuperclass
-public abstract class SensorEntity extends BaseSensorEntity{
+public abstract class SensorEntity extends BaseSensorEntity implements ISingleValueEntity {
 
     @Column(nullable = false)
     protected double value;

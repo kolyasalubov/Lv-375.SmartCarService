@@ -14,7 +14,7 @@ public interface SensorRepository<T extends BaseSensorEntity> extends JpaReposit
 
     /* READ */
 
-    @Query("SELECT t FROM #{#entityName} t WHERE t.car.id = :carId " +
+    @Query("SELECT TIME(t.date), t.value FROM #{#entityName} t WHERE t.car.id = :carId " +
             "AND DAY(t.date) = DAY(:date) AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "ORDER BY t.date")
     List<T> getAllByDay(@Param("date") LocalDateTime date,
