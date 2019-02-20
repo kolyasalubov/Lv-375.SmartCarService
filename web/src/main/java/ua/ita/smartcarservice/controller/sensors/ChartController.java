@@ -12,7 +12,7 @@ import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.service.SensorService;
 
 @RestController
-@RequestMapping(value = "/api/v1/chart")
+@RequestMapping(value = "/chart")
 public class ChartController {
 
     @Autowired
