@@ -8,7 +8,7 @@
 
         <mdb-card-text>
             <input type="text" name="username" [(ngModel)]="techservice.name" class="form-control mb-2" placeholder="Service Name">
-            <input type="text" name="username" [(ngModel)]="techservice.address" class="form-control mb-2" placeholder="Address">
+            <input type="text" name="username" [(ngModel)]="techservice.address" (keyup)="locationAutocomplete($event)" class="form-control mb-2" placeholder="Address">
                
             <div *ngIf="techservice.stoId < 0">
                 <button (click)="createTechservice(techservice, user)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
@@ -23,6 +23,7 @@
                     <div class="col">
                         <button (click)="deleteTechservice(techservice.id)" type="button" block="true" style="background-color:#C4001A; color: white;" mdbWavesEffect mdbBtn>Delete</button>
                     </div>
+                    <app-map (onLocationChosen)="onLocationChosen($event)"></app-map>
                 </div>
             </div>
         </mdb-card-text>

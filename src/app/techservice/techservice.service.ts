@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Techservice } from './techservice';
 import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
+import { Locations } from './locations';
 
 
 const httpOptions = {
@@ -19,8 +20,14 @@ export class TechserviceService {
   techserviceUrl = '/api/v1/users/{userId}/techservices';
   usersTechserviceUrl = "/api/v1/users/{userId}/techservice";
   crudTechserviceUrl = '/api/v1/techservices/{id}';
+  placeAutocompleteUrl = '/maps/api/place/autocomplete/json?input={place}&key=AIzaSyAojOwUL0HAte_4FqR1pIgXdRIMQ82-ev0;'
 
   constructor(private http: HttpClient) { }
+
+  getLocationAutocomlete(input: string) {
+    return this.http.get<Locations>(this.placeAutocompleteUrl.replace('{place}', input))
+    .pipe(catchError(this.errorHandler));
+  }
 
   createTechnicalService(techservice: Techservice, userId: number) {
     return this.http.post(this.techserviceUrl.replace('{userId}', userId.toString())

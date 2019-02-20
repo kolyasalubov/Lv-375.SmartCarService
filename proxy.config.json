@@ -1,8 +1,12 @@
 {
+    "/maps/api/place/*":{
+        "target": "https://maps.googleapis.com",
+        "secure": false,
+        "logLevel": "debug"   
+    },
     "/api/*":{
         "target": "http://localhost:9501",
         "secure": false,
         "logLevel": "debug"
-        
     }
 }
