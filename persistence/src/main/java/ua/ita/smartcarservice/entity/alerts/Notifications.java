@@ -1,7 +1,6 @@
 package ua.ita.smartcarservice.entity.alerts;
 
-import java.util.Date;
-
+import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.ColumnDefault;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter @NoArgsConstructor
+@Getter 
+@Setter 
+@NoArgsConstructor
 @Entity
 @Table (name = "notifications")
 public class Notifications {
@@ -28,8 +30,14 @@ public class Notifications {
 	private String message;
 	
 	@Column (name = "notification_time", columnDefinition = "DATETIME")
-	@Temporal (TemporalType.TIMESTAMP)
-	private Date notificationTime;
+	private Timestamp notificationTime;
+	
+	@Column (name = "type", nullable = false)
+	private String type;
+	
+	@Column (name = "is_visible")
+	@ColumnDefault("true")
+	private Boolean isVisible;
 	
 	@Column (name = "car_id")
 	private Long carId;
@@ -40,9 +48,12 @@ public class Notifications {
 	@Column (name = "skill_id")
 	private Long skillId;
 
-	public Notifications(String message, Date notificationTime, Long carId, Long userId, Long skillId) {
+	public Notifications(String message, Timestamp notificationTime, String type, Boolean isVisible,
+			Long carId, Long userId, Long skillId) {
 		this.message = message;
 		this.notificationTime = notificationTime;
+		this.type = type;
+		this.isVisible = isVisible;
 		this.carId = carId;
 		this.userId = userId;
 		this.skillId = skillId;

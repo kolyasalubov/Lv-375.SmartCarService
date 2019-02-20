@@ -18,6 +18,8 @@ import java.sql.Timestamp;
 @RequestMapping("/api")
 public class FaultCodeController {
 	
+	private final Boolean visibility = true;
+	
 	FaultCodeService faultCodeService;
 	CarService carService;
 	NotificationService notificationsService;
@@ -40,6 +42,8 @@ public class FaultCodeController {
 			NotificationsDto toSave = new NotificationsDto(
 					faultCode.getDescription(), 
 					new Timestamp(System.currentTimeMillis()), 
+					faultCode.getType(),
+					visibility,
 					car.getId(), 
 					car.getCarOwner().getId(), 
 					faultCode.getSkill().getSkillId()

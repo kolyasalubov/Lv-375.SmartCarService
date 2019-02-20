@@ -15,7 +15,8 @@ public interface NotificationsRepository extends JpaRepository<Notifications, Lo
 	@Query("SELECT n FROM Notifications n WHERE n.userId = :userId")
 	List<Notifications> getAllNotificationsForUser(@Param ("userId") Long userId);
 	
-	//delete notification by id 
-	
-	//get all for car 
+	@Query("SELECT n FROM Notifications n WHERE n.notificationTime IN "
+			+ "(SELECT max(notificationTime) from Notifications) AND "
+			+ "n.message LIKE '%:message%' ")
+	Notifications findLastNotificationByMessage(@Param ("message") String message);
 }

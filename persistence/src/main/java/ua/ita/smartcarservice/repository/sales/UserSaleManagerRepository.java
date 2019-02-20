@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.repository.Sales;
+package ua.ita.smartcarservice.repository.sales;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.ita.smartcarservice.entity.sales.SaleManagerEntity;

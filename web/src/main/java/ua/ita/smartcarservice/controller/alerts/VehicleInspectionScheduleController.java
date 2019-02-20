@@ -20,6 +20,8 @@ public class VehicleInspectionScheduleController {
 	private final String mileageInspection = ": You have ridden more than 10 km since "
 			+"your last overal inspection";
 	private final Long vehicleInspector = new Long(7);
+	private String type = "Warning";
+	private final Boolean visibility = true;
 	
 	VehicleInspectionService vehicleInspectionService;
 	NotificationService notificationService;
@@ -41,6 +43,8 @@ public class VehicleInspectionScheduleController {
 					v.getCar().getBrand() + " " + v.getCar().getModel() +
 					yearlyInspection,
 					new Timestamp(System.currentTimeMillis()),
+					type,
+					visibility,
 					v.getCar().getId(),
 					v.getCar().getUser().getId(),
 					vehicleInspector
@@ -54,6 +58,8 @@ public class VehicleInspectionScheduleController {
 					c.getBrand() + " " + c.getModel() +
 					mileageInspection,
 					new Timestamp(System.currentTimeMillis()),
+					type,
+					visibility,
 					c.getId(),
 					c.getUser().getId(),
 					vehicleInspector

@@ -45,9 +45,16 @@ public class NotificationsServiceImpl implements NotificationService{
 		notificationsRepository.saveAll(entities);
 	}
 	
+	@Override
+	public NotificationsDto findLastNotificationByMessage(String message) {
+		return entityToDto(notificationsRepository.findLastNotificationByMessage(message));
+	}
+	
 	private Notifications dtoToEntity(NotificationsDto dto) {
 		return new Notifications(dto.getMessage(), 
 								 dto.getNotificationTime(), 
+								 dto.getType(),
+								 dto.getIsVisible(),
 								 dto.getCarId(), 
 								 dto.getUserId(), 
 								 dto.getSkillId()) ;
@@ -57,8 +64,11 @@ public class NotificationsServiceImpl implements NotificationService{
 		return new NotificationsDto(entity.getId(),
 									entity.getMessage(),
 									entity.getNotificationTime(),
+									entity.getType(),
+									entity.getIsVisible(),
 									entity.getCarId(), 
 									entity.getUserId(), 
 									entity.getSkillId());
 	}
+
 }
