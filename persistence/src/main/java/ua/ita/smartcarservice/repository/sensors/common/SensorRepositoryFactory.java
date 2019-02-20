@@ -1,10 +1,11 @@
-package ua.ita.smartcarservice.repository.sensors;
+package ua.ita.smartcarservice.repository.sensors.common;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
 import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
+import ua.ita.smartcarservice.repository.sensors.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +35,18 @@ public class SensorRepositoryFactory {
     @Autowired
     private TirePressureRepository tirePressureRepository;
 
+    @Autowired
+    private BrakeFluidRepository brakeFluidRepository;
 
-    private Map<String, SensorRepository<? extends BaseSensorEntity>> repositoryFactory = new HashMap<>();
+    @Autowired
+    private CoolantRepository coolantRepository;
 
-    public SensorRepository<? extends BaseSensorEntity> getRepository(String type) {
+    @Autowired
+    private GlassWasherFluidRepository glassWasherFluidRepository;
+
+    private Map<String, BasicSensorRepository<? extends BaseSensorEntity>> repositoryFactory = new HashMap<>();
+
+    public BasicSensorRepository<? extends BaseSensorEntity> getRepository(String type) {
         if (repositoryFactory.size() == 0)
             repositoryInit();
         return repositoryFactory.get(type);
@@ -51,6 +60,9 @@ public class SensorRepositoryFactory {
         repositoryFactory.put(SensorTypes.OIL_PRESSURE.toString(), oilPressureRepository);
         repositoryFactory.put(SensorTypes.OIL_LEVEL.toString(), oilLevelRepository);
         repositoryFactory.put(SensorTypes.TIRE_PRESSURE.toString(), tirePressureRepository);
+        repositoryFactory.put(SensorTypes.BRAKE_FLUID.toString(), brakeFluidRepository);
+        repositoryFactory.put(SensorTypes.COOLANT.toString(), coolantRepository);
+        repositoryFactory.put(SensorTypes.GLASS_WASHER_FLUID.toString(), glassWasherFluidRepository);
     }
 
 }

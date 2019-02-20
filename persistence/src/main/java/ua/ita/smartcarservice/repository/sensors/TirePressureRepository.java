@@ -4,12 +4,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.ita.smartcarservice.entity.sensors.TirePressureEntity;
+import ua.ita.smartcarservice.repository.sensors.common.ChartSensorRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface TirePressureRepository extends SensorRepository<TirePressureEntity> {
+public interface TirePressureRepository extends ChartSensorRepository<TirePressureEntity> {
 
     /* READ */
 
