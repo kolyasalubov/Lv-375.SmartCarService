@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +19,8 @@ public class SensorEntityFactory {
     }
 
     private void entityInit() {
-        for (SensorEntities entity : SensorEntities.values()) {
-            entityFactory.put(entity.getSensorType(), entity.getSensorEntity());
-        }
+        Arrays.stream(SensorEntities.values())
+                .forEach( entity -> entityFactory.put(entity.getSensorType(), entity.getSensorEntity()));
     }
 
     public ISensorEntity getEntity(String type) {

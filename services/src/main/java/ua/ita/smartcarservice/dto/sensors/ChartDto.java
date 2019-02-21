@@ -16,7 +16,4 @@ public class ChartDto {
 
     private Map<String, List<Double>> data; // keys --> labels
 
-    public int dataSize() {
-        return data.size();
-    }
 }

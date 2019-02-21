@@ -46,8 +46,9 @@ public class SensorServiceImpl implements SensorService {
         entity.setCar(carRepository.findByVin(recordDto.getCarVin()));
         entity.setValues(entity, recordDto.getValues());
 
-        if (recordDto.getDate() != null)
-            entity.setDate(parseDateToLocal(recordDto.getDate()));
+        if (recordDto.getDate() != null) {
+            entity.setDate(DateParser.parseDateToLocal(recordDto.getDate()));
+        }
 
         return entity;
     }
@@ -77,59 +78,59 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public ChartDto getAllByDay(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getChartRepository(dateForChartDto).getAllByDay(params.getDate(), params.getCarId());
-
-        return getChartDtoFromObjArray(records);
+    public ChartDto findAllByDay(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getAllByDay(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getAvgByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getChartRepository(dateForChartDto).getAvgByMonth(params.getDate(), params.getCarId());
-
-        return getChartDtoFromObjArray(records);
+    public ChartDto findAvgByMonth(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getAvgByMonth(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMaxByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getChartRepository(dateForChartDto).getMaxByMonth(params.getDate(), params.getCarId());
-
-        return getChartDtoFromObjArray(records);
+    public ChartDto findMaxByMonth(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMaxByMonth(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMinByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getChartRepository(dateForChartDto).getMinByMonth(params.getDate(), params.getCarId());
-
-        return getChartDtoFromObjArray(records);
+    public ChartDto findMinByMonth(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMinByMonth(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getAvgByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getChartRepository(dateForChartDto).getAvgByYear(params.getDate(), params.getCarId());
-
-        return getChartDtoFromObjArray(records);
+    public ChartDto findAvgByYear(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getAvgByYear(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMaxByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getChartRepository(dateForChartDto).getMaxByYear(params.getDate(), params.getCarId());
-
-        return getChartDtoFromObjArray(records);
+    public ChartDto findMaxByYear(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMaxByYear(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMinByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getChartRepository(dateForChartDto).getMinByYear(params.getDate(), params.getCarId());
-
-        return getChartDtoFromObjArray(records);
+    public ChartDto findMinByYear(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMinByYear(params.getDate(), params.getCarId()));
     }
 
 }
