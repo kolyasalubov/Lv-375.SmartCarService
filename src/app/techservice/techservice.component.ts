@@ -5,7 +5,6 @@ import { TokenStorageService } from '../auth/token-storage.service';
 import { User } from '../users/user';
 import { UsersService } from '../users/users.service';
 import { MapComponent } from 'src/app/techservice/map/map.component'
-import { Locations } from './locations';
 
 @Component({
   selector: 'app-techservice',
@@ -19,7 +18,6 @@ export class TechserviceComponent implements OnInit {
   techservice: Techservice = this.techserviceStub;
   created: boolean;
 
-  locations: Locations;
   @ViewChild(MapComponent) map: MapComponent;
 
   error: ErrorEvent;
@@ -31,12 +29,6 @@ export class TechserviceComponent implements OnInit {
 
   ngOnInit() {
     this.getCurrentUser();
-  }
-
-  locationAutocomplete(event: any) {
-    this.techserviceService.getLocationAutocomlete(this.techservice.address)
-      .subscribe(data => this.locations = data);
-      console.log(this.locations.predictions);
   }
 
   onLocationChosen(address: any) {

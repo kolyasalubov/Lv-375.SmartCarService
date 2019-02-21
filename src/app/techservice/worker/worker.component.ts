@@ -15,7 +15,7 @@ import { Skill } from './skill/skill';
 export class WorkerComponent implements OnInit {
 
   error: ErrorEvent;
-  workers: Worker[];
+  workers: Worker[] = [];
 
   @Input() techserviceId: number;
   @ViewChild(SkillComponent) skill: SkillComponent; 
@@ -47,7 +47,7 @@ export class WorkerComponent implements OnInit {
         this.techserviceId, 
         this.skill.selectedSkill)
           .subscribe(() => { this.recieveWorkers() })
-    }, 2000);
+    }, 1000); //before was   2000 
     
     this.registerForm = this.registerFormStub; //not works
   }

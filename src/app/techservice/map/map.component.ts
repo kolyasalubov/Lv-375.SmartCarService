@@ -61,11 +61,12 @@ export class MapComponent implements OnInit {
 
   onChoseLocation(event) {
     this.locationChosen = true;
-    this.location.marker.lat = event.coords.lat;;
+    this.location.marker.lat = event.coords.lat;
     this.location.marker.lng = event.coords.lng;
     this.findAddressByCoordinates();
-
-    this.onLocationChosen.emit(this.location.address_level_1 + ', ' + this.location.address_level_2);
+    setInterval(()=> {
+      this.onLocationChosen.emit(this.location.address_level_1 + ', ' + this.location.address_level_2);
+    }, 500)
 
     console.log(event);
   }
