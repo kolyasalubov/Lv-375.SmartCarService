@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'line-chart',
   templateUrl: '../chart/chart.component.html',
 })
-export class LineChartComponent extends ChartComponent implements OnInit{
+export class LineChartComponent extends ChartComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     super(new ChartService(http));
@@ -18,23 +18,25 @@ export class LineChartComponent extends ChartComponent implements OnInit{
     this.changeSelection();
   }
 
-  public chartType: string = 'line'; 
+  public chartType: string = 'line';
 
   public chartColors: Array<any> = [
     {
-      backgroundColor: 'rgba(105, 0, 132, .2)',
-      borderColor: 'rgba(200, 99, 132, .7)',
+      backgroundColor: 'rgba(208,150,131, .4)',
+      borderColor: '#ED8C72',
+      borderWidth: 2,
+    },
+    {
+      backgroundColor: 'rgba(208,150,178, .2)',
+      borderColor: '#D09699',
       borderWidth: 2,
     },
     {
       backgroundColor: 'rgba(0, 137, 132, .2)',
-      borderColor: 'rgba(0, 10, 130, .7)',
+      borderColor: '#336B87',
       borderWidth: 2,
-    },     {
-      backgroundColor: 'rgba(153, 102, 255, 0.2)',
-      borderColor:'rgba(153, 102, 255, 1)',
-      borderWidth: 2,
-    },    {
+    }, 
+    {
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
       borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 2,

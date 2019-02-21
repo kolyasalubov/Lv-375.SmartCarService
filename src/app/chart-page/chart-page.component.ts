@@ -21,5 +21,5 @@ export class ChartPageComponent implements OnInit {
   private getFromRouterParams(param: string) {
     return this.route.snapshot.queryParamMap.get(param);
   }
-
+  
 }

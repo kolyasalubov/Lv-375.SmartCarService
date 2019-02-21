@@ -42,7 +42,7 @@ export class CarsComponent implements OnInit {
  }
 
     applyToSTO(id: number){
-    this.router.navigate(['/booking']);
+    this.router.navigate(['/booking', id]);
     }
 
     applyToTradeIn (id: number){

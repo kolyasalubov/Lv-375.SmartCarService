@@ -1,0 +1,28 @@
+<!-- <app-menu></app-menu> -->
+
+<div class="d-flex" style="margin-left: 200px; padding-top: 100px">
+  <div class="d-flex justify-content-start">
+    <div class="container">
+      <!-- <ul class="list-group"> -->
+        <!-- <li class="list-group-item d-flex justify-content-between" id='{{skill.id}}' *ngFor="let skill of skills"
+          (click)="addOrDelete(skill)">
+          {{skill.name}}
+          <span class="badge badge-primary badge-pill">{{skill.requiredTime}}</span>
+        </li> -->
+        <div class="jumbotron text-center hoverable p-4" id='{{skill.id}}' 
+            *ngFor="let skill of skills"
+            (click)="addOrDelete(skill)">
+            {{skill.name}}
+            <span class="badge badge-pill" style="background-color: #2D4262">{{skill.requiredTime}}</span>
+        </div>
+      <!-- </ul> -->
+
+  
+      <button  *ngIf="!show" mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="changeShow()" mdbWavesEffect>Get Worker</button>
+      <button *ngIf="show" mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="changeShow()" mdbWavesEffect>Get Worker</button>
+    </div>
+  </div>
+  <div *ngIf="!show">
+    <app-worker-list [workerList]=workerList [carId] = searchId ></app-worker-list>
+  </div>
+</div>

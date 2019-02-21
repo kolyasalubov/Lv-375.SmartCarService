@@ -14,6 +14,7 @@ import { ChartPageModule } from './chart-page/chart-page.module';
 import { RolesComponent } from './roles/roles.component';
 import { TechserviceComponent } from './techservice/techservice.component';
 import { WorkerComponent } from './techservice/worker/worker.component';
+import { BookingModule } from './booking/booking.module';
 import { SkillComponent } from './techservice/worker/skill/skill.component';
 import { MenuComponent } from './menu/menu.component';
 import { CarsComponent } from './cars/cars.component';
@@ -25,6 +26,10 @@ import { NotificationsApprovementComponent } from './notifications/notifications
 import { NotificationsListComponent } from './notifications/notifications-list/notifications-list.component';
 import { MapComponent } from './techservice/map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { LoginComponent } from './login/login.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -33,6 +38,7 @@ import { AgmCoreModule } from '@agm/core';
     TechmanagerProfileComponent,
     TechserviceComponent,
     WorkerComponent,
+    RolesComponent,
     SkillComponent,
     RolesComponent,
     MenuComponent,
@@ -54,11 +60,13 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAojOwUL0HAte_4FqR1pIgXdRIMQ82-ev0'
     }),
+    BookingModule,
     ChartPageModule,
     SecurityModule
   ],
   providers: [],
   schemas: [NO_ERRORS_SCHEMA],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [SecurityModule]
 })
 export class AppModule { }
