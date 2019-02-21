@@ -23,10 +23,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	
 	boolean existsByUsername(String username);
 
-	List<UserEntity> getByUserTechnicalServiceAndWorkersSkill(UserTechnicalService userTechnicalService,
-															  WorkersSkill workersSkill);
-
-
 	@Query("select distinct u from UserEntity as u left join WorkersSkill as w " +
 			"on u.id = w.workerId left join UserTechnicalService as ut " +
 			"on u.id = (select ut.userId from UserTechnicalService as ut " +
@@ -38,10 +34,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 	UserEntity getUserById(Long id);
 
-	//UserEntity findByUsername (String username);
-
 	List<UserEntity> findAll();
-
 
     @Query(value = "select * from user as u left join user_roles as ur on u.id = ur.user_id left join role as r on ur.role_id = r.id where r.name = name", nativeQuery = true)
 	List<UserEntity> getUserEntitiesByRoleName(@Param("name") String name);

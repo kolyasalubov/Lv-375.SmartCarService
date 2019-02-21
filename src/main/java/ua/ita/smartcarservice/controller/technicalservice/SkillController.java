@@ -20,27 +20,27 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("/api/skillBySto/{id}")
-    public ResponseEntity<List<SkillDto>> getSkillByStoId(@PathVariable Long id){
-        return new ResponseEntity <>(skillService.getSkillNameBySto(id), HttpStatus.OK);
+    @GetMapping("/api/v1/skillbysto/{id}")
+    public ResponseEntity<List<SkillDto>> getSkillByStoId(@PathVariable Long id) {
+        return new ResponseEntity<>(skillService.getSkillNameBySto(id), HttpStatus.OK);
     }
 
-    @GetMapping("/api/skillByCar/{id}")
-    public ResponseEntity<List<SkillDto>> getSkillByCarId(@PathVariable Long id){
-        return new ResponseEntity <>(skillService.getSkillNameByCarId(id), HttpStatus.OK);
+    @GetMapping("/api/v1/skillbycar/{id}")
+    public ResponseEntity<List<SkillDto>> getSkillByCarId(@PathVariable Long id) {
+        return new ResponseEntity<>(skillService.getSkillNameByCarId(id), HttpStatus.OK);
     }
 
     /*
      * Method for getting all the skills
      */
     @GetMapping("/api/v1/skills")
-    public ResponseEntity<List<SkillDto>> getAllSkill(){
+    public ResponseEntity<List<SkillDto>> getAllSkill() {
 
         ResponseEntity<List<SkillDto>> responseEntity;
 
-        try{
+        try {
             responseEntity = new ResponseEntity<>(skillService.getAllSkills(), HttpStatus.OK);
-        } catch (Exception e){
+        } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 

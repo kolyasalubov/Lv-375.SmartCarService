@@ -27,9 +27,7 @@ public class UserServiceImpl implements UserService{
 
 	public List<UserDto> findAll() {
 		List<UserDto> userDtos = new ArrayList<>();
-		for (UserEntity user : userRepository.findAll()) {
-			userDtos.add(getUserDto(user));
-		}
+		userRepository.findAll().forEach(userEntity -> userDtos.add(getUserDto(userEntity)));
 		return userDtos;
 	}
 
@@ -45,10 +43,6 @@ public class UserServiceImpl implements UserService{
 		return userDto;
 	}
 
-	public UserEntity findUser (String username) {
-		UserEntity user = userRepository.findByUsername(username).get();
-		return user;
-	}
 
 	public void deleteById(Long id) {
 		userRepository.deleteById(id);
@@ -66,10 +60,10 @@ public class UserServiceImpl implements UserService{
 	//for User => UserDto
 	public UserDto getUserDto(UserEntity user) {
 		UserDto userDto = new UserDto(user.getId(),
-				user.getEmail(),
-				user.getPassword(),
-				user.getFullName(),
 				user.getUsername(),
+				user.getPassword(),
+				user.getEmail(),
+				user.getFullName(),
 				user.getNumberPhone());
 		return userDto;
 	}

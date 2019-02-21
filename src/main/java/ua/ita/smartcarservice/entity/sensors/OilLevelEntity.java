@@ -1,11 +1,9 @@
-package ua.ita.smartcarservice.entity.sensors.data;
+package ua.ita.smartcarservice.entity.sensors;
 
 import lombok.Data;
-import ua.ita.smartcarservice.entity.Car;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 @Data
 @Entity

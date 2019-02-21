@@ -25,4 +25,7 @@ public interface SkillRepository extends JpaRepository<SkillEntity, Long> {
             "left join Car as c on ut.userId = c.user " +
             "where c.id = :id)")
     List<SkillEntity> getSkillNameByCarId(@Param("id") Long id);
+
+    @Query("select max(s.skillId) from SkillEntity as s")
+    Long findMaxId();
 }

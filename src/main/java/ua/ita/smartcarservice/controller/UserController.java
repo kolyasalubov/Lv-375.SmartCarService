@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    /* Get user by id */
     @GetMapping("/userbyid/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto userDto;
@@ -35,7 +35,7 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-
+    /* Get all users */
     @GetMapping("/users/all")
     public ResponseEntity<List<UserDto>> findAll() {
         List<UserDto> users = userService.findAll();
@@ -44,10 +44,9 @@ public class UserController {
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
 
-  }
+    }
 
-
-
+    /*Get user by username */
     @GetMapping("/userbyname/{username}")
     public ResponseEntity<UserDto> findByUsername(@PathVariable String username) {
         UserDto userDto;
@@ -57,9 +56,10 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+
     }
 
-
+    /* Delete user by id */
     @DeleteMapping("/user/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         try {
@@ -76,21 +76,21 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-   
-  }
+
+    }
 
 
     @PostMapping("/newuser")
-    public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity){
+    public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity) {
         userService.createUser(userEntity);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
 
     @PostMapping("/userchange/{userId}")
-    public ResponseEntity<?> updateUser(@PathVariable("userId")Long id, UserEntity userEntity){
+    public ResponseEntity<?> updateUser(@PathVariable("userId") Long id, UserEntity userEntity) {
         userService.updateUserById(id, userEntity);
-        return new ResponseEntity<Void> (HttpStatus.OK);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 

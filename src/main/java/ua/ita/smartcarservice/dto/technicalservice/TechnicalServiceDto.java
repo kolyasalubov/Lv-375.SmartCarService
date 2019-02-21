@@ -2,7 +2,9 @@ package ua.ita.smartcarservice.dto.technicalservice;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import ua.ita.smartcarservice.dto.sales.DealerDto;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.sales.DealerEntity;
 
 import java.util.Set;
 
@@ -15,7 +17,6 @@ public class TechnicalServiceDto {
 
     private String address;
 
-    //private Dealer dealer;
 
 
     private UserEntity technicalManager;

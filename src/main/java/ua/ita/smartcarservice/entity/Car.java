@@ -7,7 +7,7 @@ import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
-import ua.ita.smartcarservice.entity.sensors.data.MileageEntity;
+import ua.ita.smartcarservice.entity.sensors.MileageEntity;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -98,6 +98,16 @@ public class Car {
         this.user = user;
     }
 
+    //car created by dealer
+    public Car(String brand, String model, String graduation_year, String number, Double price, String vin, DealerEntity dealer) {
+        this.brand = brand;
+        this.model = model;
+        this.graduation_year = graduation_year;
+        this.number = number;
+        this.price = price;
+        this.vin = vin;
+        this.dealer = dealer;
+    }
 
     public Long getId() {
         return id;

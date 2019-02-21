@@ -11,8 +11,8 @@ public class BookingDto {
 
     String time;
 
-    String numberOfDay;
+    Integer numberOfDay;
 
-    String needTime;
+    Integer needTime;
 
 }

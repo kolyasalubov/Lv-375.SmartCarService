@@ -21,10 +21,10 @@ public class UserTechnicalService implements Serializable {
     private UserEntity userId;
 
     @ManyToOne
-    @JoinColumn(name = "technical_service_id" ,nullable = false)
+    @JoinColumn(name = "technical_service_id", nullable = false)
     private TechnicalServiceEntity technicalServiceId;
 
-    public UserTechnicalService(){
+    public UserTechnicalService() {
 
     }
 

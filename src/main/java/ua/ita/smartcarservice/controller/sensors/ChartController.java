@@ -3,21 +3,24 @@ package ua.ita.smartcarservice.controller.sensors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.IChartDto;
-import ua.ita.smartcarservice.repository.sensors.factory.SensorFactory;
 import ua.ita.smartcarservice.service.sensors.SensorService;
+import ua.ita.smartcarservice.service.sensors.SensorServiceFactory;
 
 @RestController
 @RequestMapping(value = "/api/chart")
 public class ChartController {
 
     @Autowired
-    private SensorFactory factory;
+    private SensorServiceFactory serviceFactory;
 
     private SensorService getService(DateForChartDto dateForChartDto){
-        return factory.getService(dateForChartDto.getSensorType());
+        return serviceFactory.getService(dateForChartDto.getSensorType());
     }
 
     @GetMapping("/day")

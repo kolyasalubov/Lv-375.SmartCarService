@@ -2,10 +2,12 @@ package ua.ita.smartcarservice.service.impl.technicalservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
+import ua.ita.smartcarservice.repository.Sales.DealerEntityRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
@@ -25,6 +27,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    DealerEntityRepository dealerEntityRepository;
 
     @Override
     public void createTechnicalService(String name, String address, Long userId) {
@@ -53,6 +58,12 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     }
 
     @Override
+    public void deleteTechnicalService(Long id) {
+        technicalServiceRepository.deleteById(id);
+        // userTechnicalServiceRepository.deleteByTechnicalServiceId(id);
+    }
+
+    @Override
     public TechnicalServiceDto getTechnicalServiceDtoById(Long id) {
         return convertToDto(getTechnicalServiceById(id));
     }
@@ -65,7 +76,6 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         dto.setAddress(technicalServiceEntity.getAddress());
 
         dto.setTechnicalManager(userTechnicalServiceRepository.getOne(technicalServiceEntity.getTechnicalServiceId()).getUserId());
-        //dto.setWorkerSet(technicalServiceEntity.getWorkers());
 
         return dto;
     }
@@ -113,5 +123,12 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     @Override
     public TechnicalServiceEntity getTechnicalServiceById(Long id) {
         return technicalServiceRepository.getOne(id);
+    }
+
+    @Override
+    public void createTechnicalServiceByDealer(DealerStoAddDto stoAddDto, String username) {
+
+        technicalServiceRepository.save(new TechnicalServiceEntity(stoAddDto.getNameSto(),stoAddDto.getAddressSto(),
+                                                                   dealerEntityRepository.findByUserEntity_Username(username)));
     }
 }

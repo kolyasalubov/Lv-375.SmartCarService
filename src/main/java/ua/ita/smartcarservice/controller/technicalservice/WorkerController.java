@@ -9,7 +9,9 @@ import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.ita.smartcarservice.dto.booking.WorkerWithTimeDto;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.service.booking.SkillDependencyService;
 import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.util.HashMap;
@@ -21,26 +23,25 @@ public class WorkerController {
     @Autowired
     WorkerService workerService;
 
-    @PostMapping("/api/workerBySkill")
-    public ResponseEntity<HashMap<String, List<WorkerDto>>> getAllBySkillAndSto(@RequestBody WorkerWithSkillDto
+    @Autowired
+    private SkillDependencyService skillDependencyService;
+
+    @PostMapping("/api/v1/workerbycar")
+    public ResponseEntity<WorkerWithTimeDto> getAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                                         workerWithSkillDto) {
         HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap<>();
-        for (String s : workerWithSkillDto.getName()) {
-            workersBySkillName.put(s, workerService.getByUserTechnicalServiceAndWorkersSkill(s, workerWithSkillDto.getSearchId()));
-        }
 
-        return new ResponseEntity<>(workersBySkillName, HttpStatus.OK);
-    }
+        workerWithSkillDto.getName()
+                .forEach(s -> workersBySkillName.put(s,
+                        workerService.getByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId())));
 
-    @PostMapping("/api/workerByCar")
-    public ResponseEntity<HashMap<String, List<WorkerDto>>> getAllByCarAndSto(@RequestBody WorkerWithSkillDto
-                                                                                        workerWithSkillDto) {
-        HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap<>();
-        for (String s : workerWithSkillDto.getName()) {
-            workersBySkillName.put(s, workerService.getByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()));
-        }
+        int requiredTime = skillDependencyService.findRequiredTime(workerWithSkillDto.getName());
 
-        return new ResponseEntity<>(workersBySkillName, HttpStatus.OK);
+        WorkerWithTimeDto workerWithTimeDto = new WorkerWithTimeDto();
+        workerWithTimeDto.setWorkerList(workersBySkillName);
+        workerWithTimeDto.setRequiredTime(requiredTime);
+
+        return new ResponseEntity<>(workerWithTimeDto, HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/workers")
