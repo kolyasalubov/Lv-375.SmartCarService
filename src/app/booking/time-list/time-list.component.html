@@ -10,9 +10,9 @@
         </mdb-card-title>
         <mdb-card-text>
           <div class="jumbotron text-center hoverable p-4" 
-            *ngFor="let value of item.value; let i = index" 
-              id="{{value.startSession}}"
-            (click)="chooseDate(value.startBooking); select(value.endBooking)">
+            *ngFor="let value of item.value" 
+              id="{{value.startBooking}}"
+            (click)="chooseDate(value.startBooking); select(value.startBooking)">
             {{getHourFromDate(value.startBooking)}} - {{getHourFromDate(value.endBooking)}}
           </div>
         </mdb-card-text>

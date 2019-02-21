@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { WorkerList } from './worker-list';
 import { Worker } from './worker';
+import { WorkersTime } from './workers-time';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -20,8 +21,8 @@ const httpOptions = {
 
     constructor(private http: HttpClient) {}
 
-    getWorkerByCar(workerList : WorkerList): Observable<Map<string, Array<Worker>>>{
-        return this.http.post<Map<string, Array<Worker>>>(this.workerByCarUrl, workerList, httpOptions)
+    getWorkerByCar(workerList : WorkerList): Observable<WorkersTime>{
+        return this.http.post<WorkersTime>(this.workerByCarUrl, workerList, httpOptions)
         .pipe(
             catchError(this.errorHandler)
         );

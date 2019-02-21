@@ -4,6 +4,7 @@ import { WorkerList } from './worker-list';
 import { Worker } from './worker';
 import { WorkerListReal } from './worker-list-real'
 import { TimeList } from '../time-list/time-list';
+import { WorkersTime } from './workers-time';
 @Component({
   selector: 'app-worker-list',
   templateUrl: './worker-list.component.html',
@@ -20,9 +21,7 @@ export class WorkerListComponent implements OnInit {
   @Input()
   workerList : WorkerListReal;
 
-  @Input()
-  requiredTime : number;
-
+  workersTime : WorkersTime;
   timeList : TimeList = new TimeList();
   workerForm : any = {};
   map : Map<string, Array<Worker>>;
@@ -32,14 +31,14 @@ export class WorkerListComponent implements OnInit {
 
   ngOnInit() {
     this.getWorkerList();
-    console.log(this.map);
   }
 
   getWorkerList(){
     this.workerListService.getWorkerByCar(this.workerList)
-    .subscribe((data) => this.map = data,
+    .subscribe((data) => this.workersTime = data,
     error => this.error = error);
   }
+
   ChooseWorker(worker : Worker, skillname : string) :void{
 
     this.showTime = false;
@@ -82,16 +81,11 @@ export class WorkerListComponent implements OnInit {
       }
   });
     this.timeList.workerId = workId;
-    this.timeList.needTime = this.requiredTime*60;
+    this.timeList.needTime = this.workersTime.requiredTime*60;
 
     this.showWorker = false;
     this.showTime = true;
     
   }
-
-
-
-
-  
 
 }

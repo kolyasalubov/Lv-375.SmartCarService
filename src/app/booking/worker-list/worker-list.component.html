@@ -1,9 +1,10 @@
 <div class="d-flex justify-content-start">
   <div class="container" *ngIf="showWorker">
+      <h3 class="time-value">Required Time: {{workersTime.requiredTime}} hours</h3>
     <div class= "d-flex flex-row flex-wrap">
-        <ng-container class="work-container" *ngFor="let item of map | keyvalue">
-            <mdb-card class="mb-3 align-self-start" style="width: 15rem; border: 1px solid #2D4262; padding: 5px; margin: 10px">
-              <mdb-card-header> {{item.key}} </mdb-card-header>
+        <ng-container class="work-container" *ngFor="let item of workersTime.workerList | keyvalue">
+            <mdb-card class="mb-3 align-self-start" style="width: 15rem; border: 1px solid #2D4262; padding: 3px; margin: 7px">
+              <mdb-card-header> <h6>{{item.key}}</h6> </mdb-card-header>
               <mdb-card-body>
                 <mdb-card-title>
                   <h5> Workers: </h5>
@@ -35,6 +36,6 @@
   </div>
 
   <div *ngIf="showTime">
-    <app-time-list [timeList]=timeList  [carId] = carId [requiredTime] = requiredTime ></app-time-list>
+    <app-time-list [timeList]=timeList  [carId] = carId [requiredTime] = workersTime.requiredTime ></app-time-list>
   </div>
 </div>
