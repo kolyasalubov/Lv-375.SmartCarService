@@ -7,84 +7,57 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
-import ua.ita.smartcarservice.dto.sensors.IChartDto;
-import ua.ita.smartcarservice.service.sensors.SensorService;
-import ua.ita.smartcarservice.service.sensors.SensorServiceFactory;
+import ua.ita.smartcarservice.service.SensorService;
+
+import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/chart")
+@RequestMapping(value = "/chart")
 public class ChartController {
 
     @Autowired
-    private SensorServiceFactory serviceFactory;
-
-    private SensorService getService(DateForChartDto dateForChartDto){
-        return serviceFactory.getService(dateForChartDto.getSensorType());
-    }
+    private SensorService sensorService;
 
     @GetMapping("/day")
-    public ResponseEntity<IChartDto> getAllByDay(@RequestParam(value = "sensorType") String sensorType,
-                                                 @RequestParam(value = "carId") Long carId,
-                                                 @RequestParam(value = "date") String date){
-        DateForChartDto dateForChartDto = new DateForChartDto(sensorType, carId, date);
-        return getResponse(getService(dateForChartDto).getAllByDay(dateForChartDto));
+    public ResponseEntity<ChartDto> findAllByDay(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findAllByDay(new DateForChartDto(parametersMap)));
     }
 
     @GetMapping("/month")
-    public ResponseEntity<IChartDto> getAllByMonth(@RequestParam(value = "sensorType") String sensorType,
-                                                   @RequestParam(value = "carId") Long carId,
-                                                   @RequestParam(value = "date") String date){
-        DateForChartDto dateForChartDto = new DateForChartDto(sensorType, carId, date);
-        return getResponse(getService(dateForChartDto).getAvgByMonth(dateForChartDto));
+    public ResponseEntity<ChartDto> findAllByMonth(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findAvgByMonth(new DateForChartDto(parametersMap)));
     }
 
     @GetMapping("/month/min")
-    public ResponseEntity<IChartDto> getMinByMonth(@RequestParam(value = "sensorType") String sensorType,
-                                                   @RequestParam(value = "carId") Long carId,
-                                                   @RequestParam(value = "date") String date){
-        DateForChartDto dateForChartDto = new DateForChartDto(sensorType, carId, date);
-        return getResponse(getService(dateForChartDto).getMinByMonth(dateForChartDto));
+    public ResponseEntity<ChartDto> findMinByMonth(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findMinByMonth(new DateForChartDto(parametersMap)));
     }
 
     @GetMapping("/month/max")
-    public ResponseEntity<IChartDto> getMaxByMonth(@RequestParam(value = "sensorType") String sensorType,
-                                                   @RequestParam(value = "carId") Long carId,
-                                                   @RequestParam(value = "date") String date){
-        DateForChartDto dateForChartDto = new DateForChartDto(sensorType, carId, date);
-        return getResponse(getService(dateForChartDto).getMaxByMonth(dateForChartDto));
+    public ResponseEntity<ChartDto> findMaxByMonth(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findMaxByMonth(new DateForChartDto(parametersMap)));
     }
 
     @GetMapping("/year")
-    public ResponseEntity<IChartDto> getAllByYear(@RequestParam(value = "sensorType") String sensorType,
-                                                  @RequestParam(value = "carId") Long carId,
-                                                  @RequestParam(value = "date") String date){
-        DateForChartDto dateForChartDto = new DateForChartDto(sensorType, carId, date);
-        return getResponse(getService(dateForChartDto).getAvgByYear(dateForChartDto));
+    public ResponseEntity<ChartDto> findAllByYear(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findAvgByYear(new DateForChartDto(parametersMap)));
     }
 
     @GetMapping("/year/min")
-    public ResponseEntity<IChartDto> getMinByYear(@RequestParam(value = "sensorType") String sensorType,
-                                                  @RequestParam(value = "carId") Long carId,
-                                                  @RequestParam(value = "date") String date){
-        DateForChartDto dateForChartDto = new DateForChartDto(sensorType, carId, date);
-        return getResponse(getService(dateForChartDto).getMinByYear(dateForChartDto));
+    public ResponseEntity<ChartDto> findMinByYear(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findMinByYear(new DateForChartDto(parametersMap)));
     }
 
     @GetMapping("/year/max")
-    public ResponseEntity<IChartDto> getMaxByYear(@RequestParam(value = "sensorType") String sensorType,
-                                                  @RequestParam(value = "carId") Long carId,
-                                                  @RequestParam(value = "date") String date){
-        DateForChartDto dateForChartDto = new DateForChartDto(sensorType, carId, date);
-        return getResponse(getService(dateForChartDto).getMaxByYear(dateForChartDto));
+    public ResponseEntity<ChartDto> findMaxByYear(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findMaxByYear(new DateForChartDto(parametersMap)));
     }
 
-    private ResponseEntity<IChartDto> getResponse(IChartDto chartDto){
-        if(chartDto.dataSize() == 0)
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        System.out.println(chartDto.toString());
-
-
-        return new ResponseEntity<>(chartDto, HttpStatus.OK);
+    private ResponseEntity<ChartDto> getResponse(ChartDto chartDto) {
+        return (chartDto.getData().size() == 0) ?
+                new ResponseEntity<>(HttpStatus.NO_CONTENT) :
+                new ResponseEntity<>(chartDto, HttpStatus.OK);
     }
 }

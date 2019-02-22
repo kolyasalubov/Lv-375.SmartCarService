@@ -2,21 +2,23 @@ package ua.ita.smartcarservice.service.impl.sensors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ita.smartcarservice.dto.sensors.ARecordDto;
 import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
 import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
 import ua.ita.smartcarservice.repository.CarRepository;
-import ua.ita.smartcarservice.repository.sensors.SensorRepository;
-import ua.ita.smartcarservice.repository.sensors.SensorRepositoryFactory;
-import ua.ita.smartcarservice.service.sensors.SensorService;
+import ua.ita.smartcarservice.repository.sensors.common.BasicSensorRepository;
+import ua.ita.smartcarservice.repository.sensors.common.ChartSensorRepository;
+import ua.ita.smartcarservice.repository.sensors.common.SensorRepositoryFactory;
+import ua.ita.smartcarservice.service.SensorService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Service(value="basic")
+@Service
 public class SensorServiceImpl implements SensorService {
 
     @Autowired
@@ -32,19 +34,21 @@ public class SensorServiceImpl implements SensorService {
     /* CREATE */
 
     @Override
-    public void addRecord(ARecordDto recordDto) {
-        SensorRepository rep = repositoryFactory.getRepository(recordDto.getSensorType());
-        rep.save(recordDtoToEntity((RecordDto)recordDto));
+    public void addRecord(RecordDto recordDto) {
+        BasicSensorRepository rep = repositoryFactory.getRepository(recordDto.getSensorType());
+        rep.save(recordDtoToEntity(recordDto));
     }
 
-    private ISensorEntity recordDtoToEntity(RecordDto recordDto){
+    private ISensorEntity recordDtoToEntity(RecordDto recordDto) {
         String repositoryType = recordDto.getSensorType();
 
         ISensorEntity entity = entityFactory.getEntity(repositoryType);
         entity.setCar(carRepository.findByVin(recordDto.getCarVin()));
-        entity.setValue(recordDto.getValue());
-        if(recordDto.getDate() != null)
-            entity.setDate(parseDateToLocal(recordDto.getDate()));
+        entity.setValues(entity, recordDto.getValues());
+
+        if (recordDto.getDate() != null) {
+            entity.setDate(DateParser.parseDateToLocal(recordDto.getDate()));
+        }
 
         return entity;
     }
@@ -52,89 +56,81 @@ public class SensorServiceImpl implements SensorService {
 
     /* READ */
 
-    private List<Double> getData(List<ISensorEntity> records){
-        List<Double> data = new ArrayList<>();
-        records.forEach( (record) -> data.add(record.getValue()) );
-        return data;
+    private ChartDto getChartDtoFromObjArray(List<Object[]> records) {
+        Map<String, List<Double>> dataMap = new HashMap<>();
+        records.forEach((record) -> {
+            String label = record[0].toString();
+            List<Double> data = new ArrayList<>();
+            for (int i = 1; i < record.length; i++) {
+                data.add((double) record[i]);
+            }
+            dataMap.put(label, (data));
+        });
+        return new ChartDto(dataMap);
     }
 
-    private List<Double> getDataFromObjArray(List<Object[]> records){
-        List<Double> data = new ArrayList<>();
-        records.forEach( (record) -> data.add( (double)record[1]) );
-        return data;
-    }
-
-    private SensorRepository getRepository(DateForChartDto dateForChartDto){
+    private BasicSensorRepository getRepository(DateForChartDto dateForChartDto) {
         return repositoryFactory.getRepository(dateForChartDto.getSensorType());
     }
 
-    @Override
-    public ChartDto getAllByDay(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<ISensorEntity> records = getRepository(dateForChartDto).getAllByDay(params.getDate(), params.getCarId());
-
-        List<Double> data = getData(records);
-        List<String> labels = new LabelsProvider().getHours(records);
-        return new ChartDto(data, labels);
+    private ChartSensorRepository getChartRepository(DateForChartDto dateForChartDto) {
+        return (ChartSensorRepository) getRepository(dateForChartDto);
     }
 
     @Override
-    public ChartDto getAvgByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getRepository(dateForChartDto).getAvgByMonth(params.getDate(), params.getCarId());
-
-        return chartDtoForMonths(records);
+    public ChartDto findAllByDay(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getAllByDay(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMaxByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getRepository(dateForChartDto).getMaxByMonth(params.getDate(), params.getCarId());
-
-        return chartDtoForMonths(records);
+    public ChartDto findAvgByMonth(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getAvgByMonth(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMinByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getRepository(dateForChartDto).getMinByMonth(params.getDate(), params.getCarId());
-
-        return chartDtoForMonths(records);
-    }
-
-    private ChartDto chartDtoForMonths(List<Object[]> records){
-        List<Double> data = getDataFromObjArray(records);
-        List<String> labels = new LabelsProvider().getDays(records);
-        return new ChartDto(data, labels);
+    public ChartDto findMaxByMonth(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMaxByMonth(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getAvgByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider params = getParams(dateForChartDto);
-        List<Object[]> records = getRepository(dateForChartDto).getAvgByYear(params.getDate(), params.getCarId());
-
-        return chartDtoForYears(records);
+    public ChartDto findMinByMonth(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMinByMonth(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMaxByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider  params = getParams(dateForChartDto);
-        List<Object[]> records = getRepository(dateForChartDto).getMaxByYear(params.getDate(), params.getCarId());
-
-        return chartDtoForYears(records);
+    public ChartDto findAvgByYear(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getAvgByYear(params.getDate(), params.getCarId()));
     }
 
     @Override
-    public ChartDto getMinByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider  params = getParams(dateForChartDto);
-        List<Object[]> records = getRepository(dateForChartDto).getMinByYear(params.getDate(), params.getCarId());
-
-        return chartDtoForYears(records);
+    public ChartDto findMaxByYear(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMaxByYear(params.getDate(), params.getCarId()));
     }
 
-    private ChartDto chartDtoForYears(List<Object[]> records){
-        List<Double> data = getDataFromObjArray(records);
-        List<String> labels = new LabelsProvider().getMonths(records);
-        return new ChartDto(data, labels);
+    @Override
+    public ChartDto findMinByYear(DateForChartDto dateForChartDto) {
+        ParamsProvider params = new ParamsProvider(dateForChartDto);
+        return getChartDtoFromObjArray(
+                getChartRepository(dateForChartDto)
+                        .getMinByYear(params.getDate(), params.getCarId()));
     }
+
 }
