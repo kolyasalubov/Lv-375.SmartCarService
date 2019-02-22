@@ -3,11 +3,11 @@ package ua.ita.smartcarservice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+//@Controller
 public class StartController {
 
-    @RequestMapping({"/ui/**"})
-    public String redirect() {
-        return "forward:/index.html";
-    }
+//    @RequestMapping({"/ui/**"})
+//    public String redirect() {
+//        return "forward:/index.html";
+//    }
 }

@@ -24,75 +24,75 @@ const routes: Routes = [
     // { path: '**', redirectTo: 'auth/login'},
 
     {
-        path: 'ui/techmanager/profile',
+        path: 'techmanager/profile',
         component: TechmanagerProfileComponent
     },
     {
-        path: 'ui/techservice',
+        path: 'techservice',
         component: TechserviceComponent
     },
     {
-        path: 'ui/skills',
+        path: 'skills',
         component: SkillComponent
     },
     {
-        path: 'ui/workers',
+        path: 'workers',
         component: WorkerComponent
     }, 
     {
-    path: 'ui/home',
+    path: 'home',
     component: MenuComponent
 },
 {
-    path: 'ui/user',
+    path: 'user',
     component: UserComponent
 },
 {
-    path: 'ui/tm',
+    path: 'tm',
     component: TmComponent
 },
 {
-    path: 'ui/admin',
+    path: 'admin',
     component: AdminComponent
 },
 {
-    path: 'ui/auth/login',
+    path: 'auth/login',
     component: LoginComponent
 },
 {
-    path: 'ui/signup',
+    path: 'signup',
     component: RegisterComponent
 },
 {
     path: '',
-    redirectTo: 'ui/home',
+    redirectTo: 'home',
     pathMatch: 'full'
 },
 {
-    path: 'ui/charts',
+    path: 'charts',
 component: ChartPageComponent},
 
 {
-    path: 'ui/ownercars/:id',
+    path: 'ownercars/:id',
     component: CarsComponent
 },
 {
-    path: 'ui/allusers',
+    path: 'allusers',
     component: UsersComponent
 },
 
 {
-    path: 'ui/info',
+    path: 'info',
     component: InfoComponent
 },
 
 {
-    path: 'ui/newcar',
+    path: 'newcar',
     component: CarProfileComponent
 },
 
 {
-    path: 'ui/userprofile',
+    path: 'userprofile',
     component: UserProfileComponent
 }
 ]

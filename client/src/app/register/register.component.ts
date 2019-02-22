@@ -61,6 +61,6 @@ export class RegisterComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.href='/ui/auth/login';
+    window.location.href='/auth/login';
   }
 }

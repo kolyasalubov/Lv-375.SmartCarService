@@ -9,20 +9,20 @@ import { TokenStorageService } from '../auth/token-storage.service';
 })
 export class HomeComponent implements OnInit {
 
-  info: any;
+  info: boolean = true;
  
   constructor(private token: TokenStorageService) { }
  
   ngOnInit() {
-    this.info = {
-      token: this.token.getToken(),
-      username: this.token.getUsername(),
-      authorities: this.token.getAuthorities()
-    };
+    // this.info = {
+    //   token: this.token.getToken(),
+    //   username: this.token.getUsername(),
+    //   authorities: this.token.getAuthorities()
+    // };
   }
  
   logout() {
-    this.token.signOut();
+    // this.token.signOut();
     window.location.reload();
   }
 

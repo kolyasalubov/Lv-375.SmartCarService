@@ -426,72 +426,72 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     // { path: '**', redirectTo: 'auth/login'},
     {
-        path: 'ui/techmanager/profile',
+        path: 'techmanager/profile',
         component: _techmanager_profile_techmanager_profile_component__WEBPACK_IMPORTED_MODULE_18__["TechmanagerProfileComponent"]
     },
     {
-        path: 'ui/techservice',
+        path: 'techservice',
         component: _techservice_techservice_component__WEBPACK_IMPORTED_MODULE_17__["TechserviceComponent"]
     },
     {
-        path: 'ui/skills',
+        path: 'skills',
         component: _techservice_worker_skill_skill_component__WEBPACK_IMPORTED_MODULE_15__["SkillComponent"]
     },
     {
-        path: 'ui/workers',
+        path: 'workers',
         component: _techservice_worker_worker_component__WEBPACK_IMPORTED_MODULE_16__["WorkerComponent"]
     },
     {
-        path: 'ui/home',
+        path: 'home',
         component: _menu_menu_component__WEBPACK_IMPORTED_MODULE_8__["MenuComponent"]
     },
     {
-        path: 'ui/user',
+        path: 'user',
         component: _user_user_component__WEBPACK_IMPORTED_MODULE_5__["UserComponent"]
     },
     {
-        path: 'ui/tm',
+        path: 'tm',
         component: _app_tm_tm_component__WEBPACK_IMPORTED_MODULE_6__["TmComponent"]
     },
     {
-        path: 'ui/admin',
+        path: 'admin',
         component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_7__["AdminComponent"]
     },
     {
-        path: 'ui/auth/login',
+        path: 'auth/login',
         component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"]
     },
     {
-        path: 'ui/signup',
+        path: 'signup',
         component: _register_register_component__WEBPACK_IMPORTED_MODULE_3__["RegisterComponent"]
     },
     {
         path: '',
-        redirectTo: 'ui/home',
+        redirectTo: 'home',
         pathMatch: 'full'
     },
     {
-        path: 'ui/charts',
+        path: 'charts',
         component: _chart_page_chart_page_component__WEBPACK_IMPORTED_MODULE_14__["ChartPageComponent"]
     },
     {
-        path: 'ui/ownercars/:id',
+        path: 'ownercars/:id',
         component: _cars_cars_component__WEBPACK_IMPORTED_MODULE_9__["CarsComponent"]
     },
     {
-        path: 'ui/allusers',
+        path: 'allusers',
         component: _users_users_component__WEBPACK_IMPORTED_MODULE_10__["UsersComponent"]
     },
     {
-        path: 'ui/info',
+        path: 'info',
         component: _info_info_component__WEBPACK_IMPORTED_MODULE_11__["InfoComponent"]
     },
     {
-        path: 'ui/newcar',
+        path: 'newcar',
         component: _car_profile_car_profile_component__WEBPACK_IMPORTED_MODULE_12__["CarProfileComponent"]
     },
     {
-        path: 'ui/userprofile',
+        path: 'userprofile',
         component: _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_13__["UserProfileComponent"]
     }
 ];
@@ -1929,7 +1929,7 @@ var Tires = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"info.token; else loggedOut\">\n  <h5 class=\"text-primary\">Your Information</h5>\n  <p>\n    <strong>Username:</strong> {{info.username}}<br/>\n    <strong>Roles:</strong> {{info.authorities}}<br />\n    <strong>Token:</strong> {{info.token}}.\n  </p>\n  <button class=\"btn btn-secondary\" (click)=\"logout()\">Logout</button>\n</div>\n \n<ng-template #loggedOut>\n\n</ng-template>"
+module.exports = "<div *ngIf=\"info.token; else loggedOut\">\n  <h5 class=\"text-primary\">Your Information</h5>\n  <p>\n    <!--<strong>Username:</strong> {{info.username}}<br/>-->\n    <!--<strong>Roles:</strong> {{info.authorities}}<br />-->\n    <!--<strong>Token:</strong> {{info.token}}.-->\n  </p>\n  <button class=\"btn btn-secondary\" (click)=\"logout()\">Logout</button>\n</div>\n \n<ng-template #loggedOut>\n\n</ng-template>\n"
 
 /***/ }),
 
@@ -1963,16 +1963,17 @@ __webpack_require__.r(__webpack_exports__);
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(token) {
         this.token = token;
+        this.info = true;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        this.info = {
-            token: this.token.getToken(),
-            username: this.token.getUsername(),
-            authorities: this.token.getAuthorities()
-        };
+        // this.info = {
+        //   token: this.token.getToken(),
+        //   username: this.token.getUsername(),
+        //   authorities: this.token.getAuthorities()
+        // };
     };
     HomeComponent.prototype.logout = function () {
-        this.token.signOut();
+        // this.token.signOut();
         window.location.reload();
     };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2099,10 +2100,6 @@ var LoginComponent = /** @class */ (function () {
         this.roles = [];
     }
     LoginComponent.prototype.ngOnInit = function () {
-        if (this.tokenStorage.getToken()) {
-            this.isLoggedIn = true;
-            this.roles = this.tokenStorage.getAuthorities();
-        }
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -2403,7 +2400,7 @@ var RegisterComponent = /** @class */ (function () {
         });
     };
     RegisterComponent.prototype.reloadPage = function () {
-        window.location.href = '/ui/auth/login';
+        window.location.href = '/auth/login';
     };
     RegisterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
