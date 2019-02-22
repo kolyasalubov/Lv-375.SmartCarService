@@ -19,8 +19,7 @@ import ua.ita.smartcarservice.service.impl.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter
-{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
@@ -31,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {
         return new JwtAuthTokenFilter();
-   }
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -57,8 +56,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers("/home").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/skillbysto/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/skillByCar/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/workerBySkill").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/workerByCar/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/addBooking").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/sessionById").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/bookingTime").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/skills").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/record/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/chart/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/faultCode/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/notifications/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/notifications/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/car/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/car/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/ucar/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/ownercars/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/carbyvin/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/cars/all/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/users/all/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/userbyid/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/userbyname/**").permitAll()
+                .antMatchers(HttpMethod.DELETE,"/user/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/newuser/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/workers/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/v1/users/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/userbyname/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/v1/techservices/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/v1/techservices/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

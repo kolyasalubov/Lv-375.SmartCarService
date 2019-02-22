@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +16,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class ChartDto {
 
-    private Map<String, List<Double>> data; // keys --> labels
+    private Map<String, List<Double>> data = new HashMap<>(); // keys --> labels
 
+    public ChartDto(Double value){
+        this.data.put("value", Arrays.asList(value));
+    }
 }

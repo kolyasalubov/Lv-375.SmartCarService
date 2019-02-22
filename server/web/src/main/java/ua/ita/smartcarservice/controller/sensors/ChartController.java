@@ -14,11 +14,16 @@ import ua.ita.smartcarservice.service.SensorService;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/chart")
+@RequestMapping(value = "/api/chart")
 public class ChartController {
 
     @Autowired
     private SensorService sensorService;
+
+    @GetMapping("/last")
+    public ResponseEntity<ChartDto> findLastValue(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findLastValue(new DateForChartDto(parametersMap)));
+    }
 
     @GetMapping("/day")
     public ResponseEntity<ChartDto> findAllByDay(@RequestParam Map<String,String> parametersMap) {

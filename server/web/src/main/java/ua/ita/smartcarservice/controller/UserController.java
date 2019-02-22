@@ -18,8 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
     /*
      *   Get user by id
      */

@@ -8,6 +8,8 @@ public interface SensorService {
 
     /* READ */
 
+    ChartDto findLastValue(DateForChartDto dateForChartDto);
+
     ChartDto findAllByDay(DateForChartDto dateForChartDto);
 
     ChartDto findAvgByMonth(DateForChartDto dateForChartDto);

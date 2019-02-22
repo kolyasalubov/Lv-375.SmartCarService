@@ -10,5 +10,4 @@ public class StartController {
     public String redirect() {
         return "forward:/index.html";
     }
-
 }

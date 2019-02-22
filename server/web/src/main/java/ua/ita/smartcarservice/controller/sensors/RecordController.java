@@ -9,7 +9,7 @@ import ua.ita.smartcarservice.dto.sensors.RecordDto;
 import ua.ita.smartcarservice.service.SensorService;
 
 @RestController
-@RequestMapping(value = "/record")
+@RequestMapping(value = "/api/record")
 public class RecordController {
 
     @Autowired

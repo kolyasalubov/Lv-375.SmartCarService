@@ -133,4 +133,11 @@ public class SensorServiceImpl implements SensorService {
                         .getMinByYear(params.getDate(), params.getCarId()));
     }
 
+
+    @Override
+    public ChartDto findLastValue(DateForChartDto dateForChartDto) {
+        return new ChartDto(repositoryFactory.getBatteryRepository()
+                .getLastValue(dateForChartDto.getCarId()));
+    }
+
 }
