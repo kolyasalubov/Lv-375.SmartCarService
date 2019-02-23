@@ -9,7 +9,8 @@ import ua.ita.smartcarservice.service.RoleService;
 
 import java.util.List;
 
-@RestController("/api/role")
+@RestController
+@RequestMapping("/api/role")
 public class RoleController {
 	
 	@Autowired

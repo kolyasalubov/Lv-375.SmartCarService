@@ -426,72 +426,72 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     // { path: '**', redirectTo: 'auth/login'},
     {
-        path: 'techmanager/profile',
+        path: 'ui/techmanager/profile',
         component: _techmanager_profile_techmanager_profile_component__WEBPACK_IMPORTED_MODULE_18__["TechmanagerProfileComponent"]
     },
     {
-        path: 'techservice',
+        path: 'ui/techservice',
         component: _techservice_techservice_component__WEBPACK_IMPORTED_MODULE_17__["TechserviceComponent"]
     },
     {
-        path: 'skills',
+        path: 'ui/skills',
         component: _techservice_worker_skill_skill_component__WEBPACK_IMPORTED_MODULE_15__["SkillComponent"]
     },
     {
-        path: 'workers',
+        path: 'ui/workers',
         component: _techservice_worker_worker_component__WEBPACK_IMPORTED_MODULE_16__["WorkerComponent"]
     },
     {
-        path: 'home',
+        path: 'ui/home',
         component: _menu_menu_component__WEBPACK_IMPORTED_MODULE_8__["MenuComponent"]
     },
     {
-        path: 'user',
+        path: 'ui/user',
         component: _user_user_component__WEBPACK_IMPORTED_MODULE_5__["UserComponent"]
     },
     {
-        path: 'tm',
+        path: 'ui/tm',
         component: _app_tm_tm_component__WEBPACK_IMPORTED_MODULE_6__["TmComponent"]
     },
     {
-        path: 'admin',
+        path: 'ui/admin',
         component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_7__["AdminComponent"]
     },
     {
-        path: 'auth/login',
+        path: 'ui/auth/login',
         component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"]
     },
     {
-        path: 'signup',
+        path: 'ui/signup',
         component: _register_register_component__WEBPACK_IMPORTED_MODULE_3__["RegisterComponent"]
     },
     {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'ui/home',
         pathMatch: 'full'
     },
     {
-        path: 'charts',
+        path: 'ui/charts',
         component: _chart_page_chart_page_component__WEBPACK_IMPORTED_MODULE_14__["ChartPageComponent"]
     },
     {
-        path: 'ownercars/:id',
+        path: 'ui/ownercars/:id',
         component: _cars_cars_component__WEBPACK_IMPORTED_MODULE_9__["CarsComponent"]
     },
     {
-        path: 'allusers',
+        path: 'ui/allusers',
         component: _users_users_component__WEBPACK_IMPORTED_MODULE_10__["UsersComponent"]
     },
     {
-        path: 'info',
+        path: 'ui/info',
         component: _info_info_component__WEBPACK_IMPORTED_MODULE_11__["InfoComponent"]
     },
     {
-        path: 'newcar',
+        path: 'ui/newcar',
         component: _car_profile_car_profile_component__WEBPACK_IMPORTED_MODULE_12__["CarProfileComponent"]
     },
     {
-        path: 'userprofile',
+        path: 'ui/userprofile',
         component: _user_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_13__["UserProfileComponent"]
     }
 ];
