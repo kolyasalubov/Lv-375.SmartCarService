@@ -24,6 +24,8 @@ import { CarProfileComponent } from './car-profile/car-profile.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { NotificationsApprovementComponent } from './notifications/notifications-approvement/notifications-approvement.component';
 import { NotificationsListComponent } from './notifications/notifications-list/notifications-list.component';
+import { MapComponent } from './techservice/map/map.component';
+import { AgmCoreModule } from '@agm/core';
 import { LoginComponent } from './login/login.component';
 
 
@@ -47,7 +49,7 @@ import { LoginComponent } from './login/login.component';
     UserProfileComponent,
     NotificationsApprovementComponent,
     NotificationsListComponent,
-
+    MapComponent 
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,9 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     FormsModule,
     MDBBootstrapModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAojOwUL0HAte_4FqR1pIgXdRIMQ82-ev0'
+    }),
     BookingModule,
     ChartPageModule,
     SecurityModule

@@ -23,10 +23,13 @@ import { TechserviceComponent } from './techservice/techservice.component';
 import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
 import { NotificationsListComponent } from './notifications/notifications-list/notifications-list.component';
 import { NotificationsApprovementComponent } from './notifications/notifications-approvement/notifications-approvement.component';
-
+import { MapComponent } from './techservice/map/map.component';
 const routes: Routes = [
     // { path: '**', redirectTo: 'auth/login'},
-
+    {
+       path: 'map',
+       component: MapComponent 
+    },
     {
         path: 'techmanager/profile',
         component: TechmanagerProfileComponent

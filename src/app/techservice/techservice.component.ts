@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChange } from '@angular/core';
 import { Techservice } from './techservice';
 import { TechserviceService } from './techservice.service';
-
 import { TokenStorageService } from '../auth/token-storage.service';
 import { User } from '../users/user';
 import { UsersService } from '../users/users.service';
+import { MapComponent } from 'src/app/techservice/map/map.component'
 
 @Component({
   selector: 'app-techservice',
@@ -17,7 +17,9 @@ export class TechserviceComponent implements OnInit {
   techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
   techservice: Techservice = this.techserviceStub;
   created: boolean;
-  
+
+  @ViewChild(MapComponent) map: MapComponent;
+
   error: ErrorEvent;
 
   user: User;
@@ -29,6 +31,11 @@ export class TechserviceComponent implements OnInit {
     this.getCurrentUser();
   }
 
+  onLocationChosen(address: any) {
+    if(address) {
+    this.techservice.address = address;
+    }
+  }
 
   getCurrentUser() {
     this.userService.getUserByUsername(this.tokenStorage.getUsername())

@@ -4,7 +4,6 @@ import { Techservice } from './techservice';
 import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 
-
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
