@@ -17,11 +17,26 @@ export class ProgressChartComponent implements OnInit {
   
   chartService: ChartService;
 
+  private percent: number;
+
   constructor(private http: HttpClient) {
     this.chartService = new ChartService(http);
   }
 
   ngOnInit() {
+    this.getChartDto();
+  }
+
+  private getChartDto(): void {
+    this.chartService.getChartData(this.sensorType, this.carId, '/last')
+      .subscribe(
+        dto => {
+          for (const [key, value] of Object.entries(dto.data)) {
+            this.percent = value[0];
+          }
+      },
+        error => console.error('Error: ', error)
+      );
   }
 
 }

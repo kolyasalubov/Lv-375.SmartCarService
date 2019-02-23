@@ -12,6 +12,7 @@ import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
 import { ProgressChartComponent } from './charts/progress-chart/progress-chart.component';
 import { ChartComponent } from './charts/chart/chart.component';
+import { LittleBtnComponent } from './little-btn/little-btn.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ChartComponent } from './charts/chart/chart.component';
     BarChartComponent,
     ProgressChartComponent,
     ChartComponent,
+    LittleBtnComponent,
   ],
   imports: [
     CommonModule,

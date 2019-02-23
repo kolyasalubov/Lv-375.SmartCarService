@@ -15,7 +15,7 @@ export class BarChartComponent extends ChartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.changeSelection();
+    this.initCharts();
     // this.chartColors = this.colors;
   }
 

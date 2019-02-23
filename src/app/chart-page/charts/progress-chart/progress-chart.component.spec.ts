@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProgressChartComponent } from './progress-chart.component';
 
-describe('DoughnutBarChartComponent', () => {
+describe('ProgressChartComponent', () => {
   let component: ProgressChartComponent;
   let fixture: ComponentFixture<ProgressChartComponent>;
 

@@ -1,11 +1,9 @@
 export class ChartDto {
 
-    data: number[];
-    labels: string[];
+    data: Map<string, number[]>;
 
-    constructor(data: number[] = null, labels: string[] = null){
+    constructor(data: Map<string, number[]> = null){
         this.data = data;
-        this.labels = labels;
     }
      
 }
