@@ -16,7 +16,7 @@ public interface SkillRepository extends JpaRepository<SkillEntity, Long> {
     @Query("select distinct w.skill from WorkersSkill as w " +
             "left join UserTechnicalService as ut on ut.userId = w.workerId " +
             "where ut.technicalServiceId.technicalServiceId = :stoId")
-    List<SkillEntity> getSkillNameBySto(@Param("stoId") Long stoId);
+    List<SkillEntity> findSkillNameBySto(@Param("stoId") Long stoId);
 
 
     @Query("select distinct w.skill from WorkersSkill as w " +
@@ -24,7 +24,7 @@ public interface SkillRepository extends JpaRepository<SkillEntity, Long> {
             "(select ut.userId from UserTechnicalService as ut " +
             "left join Car as c on ut.userId = c.user " +
             "where c.id = :id)")
-    List<SkillEntity> getSkillNameByCarId(@Param("id") Long id);
+    List<SkillEntity> findSkillNameByCarId(@Param("id") Long id);
 
     @Query("select max(s.skillId) from SkillEntity as s")
     Long findMaxId();

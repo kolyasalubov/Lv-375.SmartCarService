@@ -27,31 +27,31 @@ public class WorkerController {
     private SkillDependencyService skillDependencyService;
 
     @PostMapping("/api/v1/workerbycar")
-    public ResponseEntity<WorkerWithTimeDto> getAllByCarAndSto(@RequestBody WorkerWithSkillDto
-                                                                                        workerWithSkillDto) {
-        HashMap<String, List<WorkerDto>> workersBySkillName = new HashMap<>();
+    public ResponseEntity <WorkerWithTimeDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
+                                                                         workerWithSkillDto) {
+        HashMap <String, List <WorkerDto>> workersBySkillName = new HashMap <>();
+
+        int requiredTime = skillDependencyService.findRequiredTime(workerWithSkillDto.getName());
 
         workerWithSkillDto.getName()
                 .forEach(s -> workersBySkillName.put(s,
-                        workerService.getByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId())));
-
-        int requiredTime = skillDependencyService.findRequiredTime(workerWithSkillDto.getName());
+                        workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId())));
 
         WorkerWithTimeDto workerWithTimeDto = new WorkerWithTimeDto();
         workerWithTimeDto.setWorkerList(workersBySkillName);
         workerWithTimeDto.setRequiredTime(requiredTime);
 
-        return new ResponseEntity<>(workerWithTimeDto, HttpStatus.OK);
+        return new ResponseEntity <>(workerWithTimeDto, HttpStatus.OK);
     }
 
     @GetMapping("/api/v1/workers")
-    public ResponseEntity<List<UserEntity>> getAllWorkers() {
-        ResponseEntity<List<UserEntity>> responseEntity;
+    public ResponseEntity <List <UserEntity>> getAllWorkers() {
+        ResponseEntity <List <UserEntity>> responseEntity;
 
-        try{
-            responseEntity = new ResponseEntity<>(workerService.getAllWorkers(), HttpStatus.OK);
-        } catch(Exception e){
-            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            responseEntity = new ResponseEntity <>(workerService.getAllWorkers(), HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity <>(HttpStatus.NO_CONTENT);
         }
 
         return responseEntity;

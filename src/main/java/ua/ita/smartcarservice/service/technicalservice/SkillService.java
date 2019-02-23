@@ -9,8 +9,8 @@ import java.util.Map;
 public interface SkillService {
     List<SkillDto> getAllSkills();
     SkillDto getSkillDto(SkillEntity skill);
-    SkillEntity getSkillById(Long id);
-    List<SkillDto> getSkillNameBySto(Long id);
-    List<SkillDto> getSkillNameByCarId(Long carId);
-    Map<String, SkillEntity> getDistinctSkillByName();
+    SkillEntity findSkillById(Long id);
+    List<SkillDto> findSkillNameBySto(Long id);
+    List<SkillDto> findSkillNameByCarId(Long carId);
+    Map<String, SkillEntity> findDistinctSkillByName();
 }

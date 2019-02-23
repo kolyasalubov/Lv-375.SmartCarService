@@ -28,7 +28,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 			"on u.id = (select ut.userId from UserTechnicalService as ut " +
 			"left join Car as c on ut.userId = c.user " +
 			"where c.id = :id) where w.skill.name = :name")
-	List<UserEntity> getByCarIdAndWorkersSkill(@Param("name") String name, @Param("id") Long id);
+	List<UserEntity> findByCarIdAndWorkersSkill(@Param("name") String name, @Param("id") Long id);
 
 	List<UserEntity> getByUserTechnicalService(UserTechnicalService userTechnicalService);
 

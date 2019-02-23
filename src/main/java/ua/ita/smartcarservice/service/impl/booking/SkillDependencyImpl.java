@@ -97,7 +97,7 @@ public class SkillDependencyImpl implements SkillDependencyService {
 
 
     public Map<String, SkillEntity> getDistinctSkillByName(){
-        return skillService.getDistinctSkillByName();
+        return skillService.findDistinctSkillByName();
     }
 
     private Set<Long> getNeedNode(List<String> skillName){

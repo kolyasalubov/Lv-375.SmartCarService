@@ -34,7 +34,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Map<String, SkillEntity> getDistinctSkillByName(){
+    public Map<String, SkillEntity> findDistinctSkillByName(){
         Map<String, SkillEntity> requiredTimeByName = new HashMap <>();
         skillRepository.findAll().forEach(skillEntity -> requiredTimeByName.put(skillEntity.getName(), skillEntity));
         return requiredTimeByName;
@@ -56,18 +56,18 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public List<SkillDto> getSkillNameBySto(Long id){
+    public List<SkillDto> findSkillNameBySto(Long id){
         List<SkillDto> skillBySto = new ArrayList <>();
-        for(SkillEntity skill : skillRepository.getSkillNameBySto(id)){
+        for(SkillEntity skill : skillRepository.findSkillNameBySto(id)){
             skillBySto.add(getSkillDto(skill));
         }
         return skillBySto;
     }
 
     @Override
-    public List<SkillDto> getSkillNameByCarId(Long carId){
+    public List<SkillDto> findSkillNameByCarId(Long carId){
         List<SkillDto> skillBySto = new ArrayList <>();
-        for(SkillEntity skill : skillRepository.getSkillNameByCarId(carId)){
+        for(SkillEntity skill : skillRepository.findSkillNameByCarId(carId)){
             skillBySto.add(getSkillDto(skill));
         }
         return skillBySto;
@@ -78,7 +78,7 @@ public class SkillServiceImpl implements SkillService {
     Method returns Skill entity by id
      */
     @Override
-    public SkillEntity getSkillById(Long id) {
+    public SkillEntity findSkillById(Long id) {
         return skillRepository.findById(id).get();
     }
 }
