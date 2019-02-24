@@ -2,24 +2,25 @@ package ua.ita.smartcarservice.entity.booking;
 
 import lombok.Data;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
+import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "skills_dependency")
-public class SkillDependency {
+@Table(name = "work_dependency")
+public class WorkDependency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dependencyId;
 
     @ManyToOne
-    @JoinColumn(name = "main_skill", nullable = false)
-    SkillEntity mainSkill;
+    @JoinColumn(name = "main_work", nullable = false)
+    private WorkType mainWork;
 
     @ManyToOne
-    @JoinColumn(name = "dependent_skill", nullable = false)
-    SkillEntity dependentSkill;
+    @JoinColumn(name = "dependent_work", nullable = false)
+    private WorkType dependentWork;
 
 }

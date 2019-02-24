@@ -131,4 +131,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         technicalServiceRepository.save(new TechnicalServiceEntity(stoAddDto.getNameSto(),stoAddDto.getAddressSto(),
                                                                    dealerEntityRepository.findByUserEntity_Username(username)));
     }
+
+    @Override
+    public String findTechnicalServiceByCarId(Long id){
+        return userTechnicalServiceRepository.findTechnicalServiceByCarId(id);
+    }
 }

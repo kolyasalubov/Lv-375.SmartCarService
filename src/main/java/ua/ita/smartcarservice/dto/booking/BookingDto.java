@@ -11,7 +11,7 @@ public class BookingDto {
 
     String time;
 
-    Integer numberOfDay;
+    Long carId;
 
     Integer needTime;
 

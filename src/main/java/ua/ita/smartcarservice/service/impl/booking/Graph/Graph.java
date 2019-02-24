@@ -2,9 +2,10 @@ package ua.ita.smartcarservice.service.impl.booking.Graph;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.ita.smartcarservice.entity.booking.SkillDependency;
+import ua.ita.smartcarservice.entity.booking.WorkDependency;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
-import ua.ita.smartcarservice.service.booking.SkillDependencyService;
+import ua.ita.smartcarservice.entity.technicalservice.WorkType;
+import ua.ita.smartcarservice.service.booking.WorkDependencyService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class Graph{
 
     @Autowired
-    private SkillDependencyService skillDependencyService;
+    private WorkDependencyService workDependencyService;
 
     private long[] masks;
     private ArrayList[] graph;
@@ -32,12 +33,11 @@ public class Graph{
 
     private ArrayList[] createGraph(){
 
-        System.out.println("CREATE GRAPH");
-        int graphSize = skillDependencyService.findGraphSize();
+        int graphSize = workDependencyService.findGraphSize();
 
-        Map<String, SkillEntity> requiredTime = skillDependencyService.getDistinctSkillByName();
+        Map<String, WorkType> requiredTime = workDependencyService.getDistinctSkillByName();
 
-        List<SkillDependency> graphNode = skillDependencyService.findAll();
+        List<WorkDependency> graphNode = workDependencyService.findAll();
 
         graph = new ArrayList[graphSize + 1];
         for(int i = 0; i<graph.length;i++){
@@ -46,15 +46,15 @@ public class Graph{
         masks = new long[graphSize + 1];
 
         graphNode.forEach(node ->{
-            graph[(int)node.getMainSkill().getSkillId().longValue()]
-                    .add(new Edge(node.getDependentSkill().getSkillId(),
-                            requiredTime.get(node.getDependentSkill().getName()).getRequiredTime()));
+            graph[(int)node.getMainWork().getWorkId().longValue()]
+                    .add(new Edge(node.getDependentWork().getWorkId(),
+                            requiredTime.get(node.getDependentWork().getName()).getRequiredTime()));
 
-            graph[(int)node.getDependentSkill().getSkillId().longValue()]
-                    .add(new Edge(node.getMainSkill().getSkillId(),
-                            requiredTime.get(node.getMainSkill().getName()).getRequiredTime()));
+            graph[(int)node.getDependentWork().getWorkId().longValue()]
+                    .add(new Edge(node.getMainWork().getWorkId(),
+                            requiredTime.get(node.getMainWork().getName()).getRequiredTime()));
 
-            masks[(int)node.getMainSkill().getSkillId().longValue()]|=(int)node.getDependentSkill().getSkillId().longValue();
+            masks[(int)node.getMainWork().getWorkId().longValue()]|=(int)node.getDependentWork().getWorkId().longValue();
         });
 
         return graph;

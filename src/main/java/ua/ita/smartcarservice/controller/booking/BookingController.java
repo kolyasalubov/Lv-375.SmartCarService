@@ -4,22 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.ita.smartcarservice.dto.booking.BookingDto;
-import ua.ita.smartcarservice.dto.booking.NewBookingDto;
-import ua.ita.smartcarservice.dto.booking.SkillNameDto;
-import ua.ita.smartcarservice.dto.booking.WorkTimeDto;
+import ua.ita.smartcarservice.dto.booking.*;
 import ua.ita.smartcarservice.service.booking.BookingService;
-import ua.ita.smartcarservice.service.booking.SkillDependencyService;
+import ua.ita.smartcarservice.service.booking.WorkDependencyService;
+import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private TechnicalServiceService technicalService;
+
+    @Autowired
+    private WorkDependencyService workDependencyService;
 
     @PostMapping("/api/v1/sessionbyid")
     public ResponseEntity<List<WorkTimeDto>> findAllByWorker_WorkerId(@RequestParam(value = "workerId", required = false)
@@ -29,8 +31,10 @@ public class BookingController {
     }
 
     @PostMapping("/api/v1/bookingtime")
-    public ResponseEntity<Map<LocalDate, List <WorkTimeDto>>> findTimeToBooking(@RequestBody BookingDto bookingDto) {
-        return new ResponseEntity <>(bookingService.findTimeToBooking(bookingDto), HttpStatus.OK);
+    public ResponseEntity<BookingInfoDto> findTimeToBooking(@RequestBody BookingDto bookingDto) {
+        return new ResponseEntity <>(new BookingInfoDto(bookingService.findTimeToBooking(bookingDto),
+                technicalService.findTechnicalServiceByCarId(bookingDto.getCarId())),
+                HttpStatus.OK);
     }
 
     @PostMapping("/api/v1/newbooking")

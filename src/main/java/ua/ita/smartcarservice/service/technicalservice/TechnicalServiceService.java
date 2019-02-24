@@ -23,4 +23,6 @@ public interface TechnicalServiceService {
     TechnicalServiceDto updateTechnicalService(TechnicalServiceEntity technicalService);
     TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto);
 
+    String findTechnicalServiceByCarId(Long id);
+
 }

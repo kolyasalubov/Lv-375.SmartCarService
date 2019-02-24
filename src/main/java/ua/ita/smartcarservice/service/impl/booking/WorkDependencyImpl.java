@@ -1,41 +1,43 @@
 package ua.ita.smartcarservice.service.impl.booking;
 
+import ua.ita.smartcarservice.entity.technicalservice.WorkType;
+import ua.ita.smartcarservice.repository.technicalservice.WorkTypeRepository;
 import ua.ita.smartcarservice.service.impl.booking.Graph.Graph;
 import ua.ita.smartcarservice.service.impl.booking.Graph.Edge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ita.smartcarservice.entity.booking.SkillDependency;
+import ua.ita.smartcarservice.entity.booking.WorkDependency;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
-import ua.ita.smartcarservice.repository.booking.SkillDependencyRepository;
+import ua.ita.smartcarservice.repository.booking.WorkDependencyRepository;
 import ua.ita.smartcarservice.repository.technicalservice.SkillRepository;
-import ua.ita.smartcarservice.service.booking.SkillDependencyService;
-import ua.ita.smartcarservice.service.impl.technicalservice.SkillServiceImpl;
+import ua.ita.smartcarservice.service.booking.WorkDependencyService;
 import ua.ita.smartcarservice.service.technicalservice.SkillService;
+import ua.ita.smartcarservice.service.technicalservice.WorkTypeService;
 
 import java.util.*;
 
 @Service
-public class SkillDependencyImpl implements SkillDependencyService {
+public class WorkDependencyImpl implements WorkDependencyService {
 
     @Autowired
-    private SkillDependencyRepository skillDependencyRepository;
+    private WorkDependencyRepository workDependencyRepository;
 
     @Autowired
-    private SkillRepository skillRepository;
+    private WorkTypeRepository workTypeRepository;
 
     @Autowired
-    private SkillService skillService;
+    private WorkTypeService workTypeService;
 
     @Autowired
     private Graph graph;
 
-    public List<SkillDependency> findAll(){
-        return skillDependencyRepository.findAll();
+    public List<WorkDependency> findAll(){
+        return workDependencyRepository.findAll();
     }
 
     @Override
     public int findGraphSize(){
-        return (int)skillRepository.findMaxId().longValue();
+        return (int)workTypeRepository.findMaxId().longValue();
     }
 
 
@@ -86,26 +88,26 @@ public class SkillDependencyImpl implements SkillDependencyService {
 
 
     private PriorityQueue<Edge> getAllEdgeInSortedPosition(List<String> skillName){
-        Map<String, SkillEntity> skillByName = getDistinctSkillByName();
+        Map<String, WorkType> workByName = getDistinctSkillByName();
 
         PriorityQueue<Edge> allEdge = new PriorityQueue<>(new Edge(-1, -1));
 
-        skillName.forEach(s -> allEdge.add(new Edge(skillByName.get(s).getSkillId(), skillByName.get(s).getRequiredTime())));
+        skillName.forEach(s -> allEdge.add(new Edge(workByName.get(s).getWorkId(), workByName.get(s).getRequiredTime())));
 
         return allEdge;
     }
 
 
-    public Map<String, SkillEntity> getDistinctSkillByName(){
-        return skillService.findDistinctSkillByName();
+    public Map<String, WorkType> getDistinctSkillByName(){
+        return workTypeService.findDistinctWorkByName();
     }
 
     private Set<Long> getNeedNode(List<String> skillName){
-        Map<String, SkillEntity> skillByName = getDistinctSkillByName();
+        Map<String, WorkType> skillByName = getDistinctSkillByName();
 
         Set<Long> needNode = new HashSet <>();
 
-        skillName.forEach(s -> needNode.add(skillByName.get(s).getSkillId()));
+        skillName.forEach(s -> needNode.add(skillByName.get(s).getWorkId()));
 
         return needNode;
     }

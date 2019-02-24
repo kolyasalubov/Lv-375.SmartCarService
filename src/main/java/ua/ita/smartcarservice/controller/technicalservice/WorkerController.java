@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.ita.smartcarservice.dto.booking.WorkerWithTimeDto;
 import ua.ita.smartcarservice.entity.UserEntity;
-import ua.ita.smartcarservice.service.booking.SkillDependencyService;
+import ua.ita.smartcarservice.service.booking.WorkDependencyService;
 import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.util.HashMap;
@@ -24,16 +24,16 @@ public class WorkerController {
     WorkerService workerService;
 
     @Autowired
-    private SkillDependencyService skillDependencyService;
+    private WorkDependencyService workDependencyService;
 
     @PostMapping("/api/v1/workerbycar")
     public ResponseEntity <WorkerWithTimeDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                          workerWithSkillDto) {
         HashMap <String, List <WorkerDto>> workersBySkillName = new HashMap <>();
 
-        int requiredTime = skillDependencyService.findRequiredTime(workerWithSkillDto.getName());
+        int requiredTime = workDependencyService.findRequiredTime(workerWithSkillDto.getWorkName());
 
-        workerWithSkillDto.getName()
+        workerWithSkillDto.getSkillName()
                 .forEach(s -> workersBySkillName.put(s,
                         workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId())));
 

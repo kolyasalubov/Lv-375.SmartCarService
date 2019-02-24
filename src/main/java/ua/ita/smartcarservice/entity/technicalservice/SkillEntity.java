@@ -2,7 +2,6 @@ package ua.ita.smartcarservice.entity.technicalservice;
 
 import lombok.Data;
 import ua.ita.smartcarservice.entity.alerts.FaultCode;
-import ua.ita.smartcarservice.entity.booking.SkillDependency;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,9 +19,6 @@ public class SkillEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
-    private Long requiredTime;
-
     @OneToMany(mappedBy = "workerId")
     private List<WorkersSkill> workersSkill;
     
@@ -31,18 +27,14 @@ public class SkillEntity {
   		  mappedBy = "skill")
     private List<FaultCode> faultCode;
 
-    @OneToMany(mappedBy = "mainSkill")
-    List<SkillDependency> listOfMainSkill;
-
-    @OneToMany(mappedBy = "dependentSkill")
-    List<SkillDependency> listOfDependentSkill;
+    @OneToMany(mappedBy = "skill")
+    List<WorkType> workTypes;
 
     public SkillEntity() {
     }
 
-    public SkillEntity(String name, Long requiredTime) {
+    public SkillEntity(String name) {
         this.name = name;
-        this.requiredTime = requiredTime;
     }
 
     @Override

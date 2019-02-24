@@ -50,8 +50,6 @@ public class SkillServiceImpl implements SkillService {
         SkillDto skillDto = new SkillDto();
         skillDto.setId(skill.getSkillId());
         skillDto.setName(skill.getName());
-        //skillDto.setFaultCode(skill.getFaultCode());
-        skillDto.setRequiredTime(skill.getRequiredTime());
         return skillDto;
     }
 
