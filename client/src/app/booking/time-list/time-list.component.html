@@ -1,0 +1,33 @@
+<div class="full-page-container">
+  <div class="d-flex flex-row flex-wrap" style="margin: 10px; padding: 10px">
+    <ng-container class="time-container" *ngFor="let item of workTime | keyvalue">
+      <div *ngIf="!isEmptyDate(item.value)">
+        <mdb-card class="mb-3" style="max-width: 20rem; border: 1px solid #2D4262; padding: 5px; margin: 10px">
+          <mdb-card-header> {{item.key}}</mdb-card-header>
+          <mdb-card-body>
+            <mdb-card-title>
+              <h5> Available time: </h5>
+            </mdb-card-title>
+            <mdb-card-text>
+              <div class="jumbotron text-center hoverable p-4"
+                   *ngFor="let value of item.value"
+                   id="{{value.startBooking}}"
+                   (click)="chooseDate(value.startBooking); select(value.startBooking)">
+                {{getHourFromDate(value.startBooking)}} - {{getHourFromDate(value.endBooking)}}
+              </div>
+            </mdb-card-text>
+          </mdb-card-body>
+        </mdb-card>
+      </div>
+    </ng-container>
+  </div>
+  <div class="button-time">
+    <button mdbBtn type="button" class="justify-content-start" style="background-color: #336B87" (click)="postBooking()"
+            mdbWavesEffect>Apply
+    </button>
+    <button mdbBtn type="button" class="justify-content-end" style="background-color: #c5001a" (click)="goToHomePage()"
+            mdbWavesEffect>Cancel
+    </button>
+  </div>
+</div>
+
