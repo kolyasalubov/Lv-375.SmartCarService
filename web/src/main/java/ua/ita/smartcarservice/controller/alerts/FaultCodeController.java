@@ -19,23 +19,17 @@ import java.sql.Timestamp;
 @RequestMapping("/api")
 public class FaultCodeController {
 	
-	private final Boolean VISIBILITY = true;
-	
+	@Autowired
 	FaultCodeService faultCodeService;
-	CarService carService;
-	NotificationService notificationsService;
-	SensorService sensorService;
 	
 	@Autowired
-	public FaultCodeController(FaultCodeService faultCodeService,
-							   CarService carService,
-							   NotificationService notificationsService, 
-							   SensorService sensorService) {
-		this.faultCodeService = faultCodeService;
-		this.carService = carService;
-		this.notificationsService = notificationsService;
-		this.sensorService = sensorService;
-	}
+	CarService carService;
+	
+	@Autowired
+	NotificationService notificationsService;
+	
+	@Autowired
+	SensorService sensorService;
 	
 	/* Method for handling fault code received from car */
 	@PostMapping("/faultCode")
