@@ -1,0 +1,27 @@
+<br><br><br><br>
+<div class="container">
+  <form form="carProfile" (ngSubmit)="onSubmit()">
+    <p class="h3 mb-4">Car profile</p>
+    <label><b>Brand</b></label>
+    <input type="text" class="form-control" [(ngModel)]="carProfile.brand" name="brand" required>
+    <label><b>Model</b></label>
+    <input type="text" class="form-control" [(ngModel)]="carProfile.model" name="model" required>
+    <label><b>Graduation year</b></label>
+    <select type="text" class="form-control" [(ngModel)]="carProfile.graduationyear" (ngModelChange)="onChange($event)"
+            name="graduation_year">
+      <option *ngFor="let y of years" [ngValue]="y"> {{y}}</option>
+    </select>
+    <label><b>Number</b></label>
+    <input type="text" class="form-control" [(ngModel)]="carProfile.number" name="number" required>
+    <label><b>Vin</b></label>
+    <input type="text" class="form-control" [(ngModel)]="carProfile.vin" name="vin" required>
+    <div ng-app="myApp" ng-controller="myCtrl">
+    </div>
+    <br>
+    <div>
+      <button id="create" type="submit" class="btn my-2 my-sm-0">Create</button>
+      <a id="cancel" href="/ui/home" type="button" class="btn my-2 my-sm-0">Cancel</a>
+    </div>
+  </form>
+</div>
+

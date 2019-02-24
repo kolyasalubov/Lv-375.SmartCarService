@@ -1,0 +1,18 @@
+<br><br><br><br>
+<div class="container">
+  <form form="userProfile" (ngSubmit)="onSubmit()">
+    <p class="h3 mb-4">User profile</p>
+    <label><b>Full name </b></label>
+    <input type="text" class="form-control" [(ngModel)]="userProfile.fullName" name="fullname" required>
+    <label><b>Email</b></label>
+    <input type="email" class="form-control" [(ngModel)]="userProfile.email" name="email" readonly>
+    <label><b>Username</b></label>
+    <input type="text" class="form-control" [(ngModel)]="userProfile.username" name="username" readonly>
+    <label><b>Phone number</b></label>
+    <input type="text" class="form-control" [(ngModel)]="userProfile.numberPhone" name="numberPhone" required>
+    <br>
+    <div>
+      <a id="finish" href="/ui/home" type="button" class="btn my-2 my-sm-0">Finish review</a>
+    </div>
+  </form>
+</div>
