@@ -17,20 +17,7 @@ public class NotificationsServiceImpl implements NotificationService{
 	@Autowired
 	NotificationsRepository notificationsRepository;
 
-	@Override
-	public void deleteNotificationById(Long id) {
-		notificationsRepository.deleteById(id);
-	}
-
-	@Override
-	public List<NotificationsDto> getAllNotificationsForUser(Long userId) {
-		List<NotificationsDto> dtos = new ArrayList<>();
-		for (Notifications entity : notificationsRepository.getAllNotificationsForUser(userId)) {
-			dtos.add(entityToDto(entity));
-		}
-		return dtos;
-	}
-	
+	/* CREATE */
 	@Override
 	public void saveNotification(NotificationsDto notificationDto) {
 		notificationsRepository.save(dtoToEntity(notificationDto));
@@ -45,13 +32,42 @@ public class NotificationsServiceImpl implements NotificationService{
 		notificationsRepository.saveAll(entities);
 	}
 	
+	/* READ */
+	@Override
+	public NotificationsDto getNotification(Long id) {
+		return entityToDto(notificationsRepository.getOne(id));
+	}
+	
+	@Override
+	public List<NotificationsDto> getAllNotificationsForUser(Long userId) {
+		List<NotificationsDto> dtos = new ArrayList<>();
+		for (Notifications entity : notificationsRepository.getAllNotificationsForUser(userId)) {
+			dtos.add(entityToDto(entity));
+		}
+		return dtos;
+	}
+	
 	@Override
 	public NotificationsDto findLastNotificationByMessage(String message) {
 		return entityToDto(notificationsRepository.findLastNotificationByMessage(message));
 	}
 	
+	/* UPDATE */
+	@Override
+	public void updateNotification(NotificationsDto notificationDto) {
+		notificationsRepository.save(dtoToEntityWithId(notificationDto));	
+	}
+	
+	/* DELETE */
+	@Override
+	public void deleteNotificationById(Long id) {
+		notificationsRepository.deleteById(id);
+	}
+	
+	/* methods to convert DTO to entity and entity to DTO */
 	private Notifications dtoToEntity(NotificationsDto dto) {
-		return new Notifications(dto.getMessage(), 
+		return new Notifications(dto.getMessage(),
+								 dto.getSuggestion(),
 								 dto.getNotificationTime(), 
 								 dto.getType(),
 								 dto.getIsVisible(),
@@ -63,6 +79,7 @@ public class NotificationsServiceImpl implements NotificationService{
 	private NotificationsDto entityToDto (Notifications entity) {
 		return new NotificationsDto(entity.getId(),
 									entity.getMessage(),
+									entity.getSuggestion(),
 									entity.getNotificationTime(),
 									entity.getType(),
 									entity.getIsVisible(),
@@ -70,5 +87,16 @@ public class NotificationsServiceImpl implements NotificationService{
 									entity.getUserId(), 
 									entity.getSkillId());
 	}
-
+	
+	private Notifications dtoToEntityWithId(NotificationsDto dto) {
+		return new Notifications(dto.getId(),
+								 dto.getMessage(), 
+								 dto.getSuggestion(),
+								 dto.getNotificationTime(), 
+								 dto.getType(),
+								 dto.getIsVisible(),
+								 dto.getCarId(), 
+								 dto.getUserId(), 
+								 dto.getSkillId()) ;
+	}
 }

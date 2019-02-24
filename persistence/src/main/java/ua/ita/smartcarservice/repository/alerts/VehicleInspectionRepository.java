@@ -24,9 +24,11 @@ public interface VehicleInspectionRepository extends JpaRepository<VehicleInspec
 			+ "in (select max(dateOfInspection) from VehicleInspection)")
 	Date getDateOfLastVehicleInspection (@Param ("carId") long carId);
 	
-	//  select all where: lastInspectionDate away from todays date unless on 365 days and
-	//  car has not have an appointment on vehicle inspection
-	//  skill_id = 7 is vehicle inspectors id 
+	/* 
+	 * select all where: lastInspectionDate away from todays date unless on 365 days and
+	 * car has not have an appointment on vehicle inspection
+	 * skill_id = 7 is vehicle inspectors id 
+	 */
 	@Query (value = 
 			"select * from vehicle_inspection v\r\n" + 
 			"where v.date_of_inspection in\r\n" + 

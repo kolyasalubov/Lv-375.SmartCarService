@@ -12,7 +12,8 @@ import ua.ita.smartcarservice.entity.alerts.Notifications;
 @Repository
 public interface NotificationsRepository extends JpaRepository<Notifications, Long>{
 
-	@Query("SELECT n FROM Notifications n WHERE n.userId = :userId")
+	@Query("SELECT n FROM Notifications n WHERE n.userId = :userId AND "
+			+ "n.isVisible = true")
 	List<Notifications> getAllNotificationsForUser(@Param ("userId") Long userId);
 	
 	@Query("SELECT n FROM Notifications n WHERE n.notificationTime IN "

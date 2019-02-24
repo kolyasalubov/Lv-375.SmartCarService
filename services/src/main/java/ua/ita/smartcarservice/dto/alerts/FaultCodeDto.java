@@ -12,6 +12,7 @@ public class FaultCodeDto{
 	 private String faultCode;
 	 private String description;
 	 private String type;
+	 private String suggestion;
 	 private SkillEntity skill;
 	 
 	public FaultCodeDto(long id, String faultCode, String description, String type, SkillEntity skill) {
@@ -20,5 +21,22 @@ public class FaultCodeDto{
 		this.description = description;
 		this.type = type;
 		this.skill = skill;
+	}
+	
+	/* Constructor for warning lights that requires service help */
+	public FaultCodeDto(String faultCode, String description, String suggestion, String type, SkillEntity skill) {
+		this.faultCode = faultCode;
+		this.description = description;
+		this.suggestion = suggestion;
+		this.type = type;
+		this.skill = skill;
+	}
+
+	/* Constructor for warning lights that do not requires service help */
+	public FaultCodeDto(String faultCode, String description, String suggestion, String type) {
+		this.faultCode = faultCode;
+		this.description = description;
+		this.suggestion = suggestion;
+		this.type = type;
 	}
 }

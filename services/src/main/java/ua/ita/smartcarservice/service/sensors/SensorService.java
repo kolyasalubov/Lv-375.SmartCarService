@@ -5,6 +5,7 @@ import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
 import ua.ita.smartcarservice.service.impl.sensors.ParamsProvider;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -26,6 +27,7 @@ public interface SensorService {
 
     ChartDto getMinByYear(DateForChartDto dateForChartDto);
 
+    RecordDto findRecordBeforeDate (RecordDto recordDto);
 
     /* CREATE */
 

@@ -5,14 +5,20 @@ import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
+import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
 import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
+import ua.ita.smartcarservice.entity.sensors.ISingleValueEntity;
+import ua.ita.smartcarservice.entity.sensors.SensorEntity;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
 import ua.ita.smartcarservice.repository.CarRepository;
+import ua.ita.smartcarservice.repository.sensors.common.AlertSensorRepository;
 import ua.ita.smartcarservice.repository.sensors.common.BasicSensorRepository;
 import ua.ita.smartcarservice.repository.sensors.common.ChartSensorRepository;
 import ua.ita.smartcarservice.repository.sensors.common.SensorRepositoryFactory;
 import ua.ita.smartcarservice.service.sensors.SensorService;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +81,10 @@ public class SensorServiceImpl implements SensorService {
     private ChartSensorRepository getChartRepository(DateForChartDto dateForChartDto) {
         return (ChartSensorRepository)getRepository(dateForChartDto);
     }
+    
+    private AlertSensorRepository getAlertRepository(String sensorType) {
+        return (AlertSensorRepository)repositoryFactory.getRepository(sensorType);
+    }
 
     @Override
     public ChartDto getAllByDay(DateForChartDto dateForChartDto) {
@@ -132,4 +142,15 @@ public class SensorServiceImpl implements SensorService {
         return getChartDtoFromObjArray(records);
     }
 
+	@Override
+	public RecordDto findRecordBeforeDate(RecordDto recordDto) {
+		ISingleValueEntity sensor = (ISingleValueEntity) getAlertRepository(recordDto.getSensorType())
+								.findRecordBeforeDate(
+								parseDateToLocal(recordDto.getDate()), 
+								carRepository.findByVin(recordDto.getCarVin()).getId());
+		if(sensor != null) {
+			return new RecordDto(sensor.getDate().toString(), sensor.getValue());
+		}
+		return null;
+	} 
 }

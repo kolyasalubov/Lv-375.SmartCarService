@@ -16,5 +16,18 @@ public class RecordDto {
     private String date;
 
     private Map<String, Double> values;
+    
+    private Double value;
 
+	public RecordDto(String carVin, String date, Map<String, Double> values) {
+		this.carVin = carVin;
+		this.date = date;
+		this.values = values;
+	}
+
+	public RecordDto(String date, Double value) {
+		this.date = date;
+		this.value = value;
+	}
+	
 }

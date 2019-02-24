@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.alerts.VehicleInspectionDto;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
@@ -18,6 +19,7 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	@Autowired
 	private VehicleInspectionRepository vehicleInspectionRepository;
 	
+	/* CREATE */
 	@Override
 	public void saveVehicleInspection(VehicleInspectionDto vehicleInspectionDto) {
 		VehicleInspection entity = new VehicleInspection(
@@ -28,6 +30,7 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 		vehicleInspectionRepository.save(entity);
 	}
 
+	/* READ */
 	@Override
 	public List<VehicleInspectionDto> getCarsForYearlyInspection() {
 		List<VehicleInspectionDto> toReturn = new ArrayList();
@@ -45,13 +48,18 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	}
 
 	@Override
-	public List<Car> getCarsForVehicleInspectionByMileage() {
-		return vehicleInspectionRepository.getCarsForInspectionByMileage();
-	}
-
-	@Override
-	public VehicleInspection getLastVehicleInspection(long carId) {
-		return vehicleInspectionRepository.getLastVehicleInspection(carId);
+	public List<CarDto> getCarsForVehicleInspectionByMileage() {
+		List<Car> cars = vehicleInspectionRepository.getCarsForInspectionByMileage();
+		List<CarDto> toReturn = new ArrayList<>();
+		for (Car entity : cars) {
+			toReturn.add(new CarDto(entity.getBrand(), 
+									entity.getModel(), 
+									entity.getGraduation_year(), 
+									entity.getNumber(), 
+									entity.getVin(), 
+									entity.getUser()));
+		}
+		return toReturn;
 	}
 
 	@Override

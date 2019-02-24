@@ -11,6 +11,7 @@ import ua.ita.smartcarservice.dto.alerts.NotificationsDto;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.alerts.FaultCodeService;
 import ua.ita.smartcarservice.service.alerts.NotificationService;
+import ua.ita.smartcarservice.service.sensors.SensorService;
 
 import java.sql.Timestamp;
 
@@ -18,36 +19,32 @@ import java.sql.Timestamp;
 @RequestMapping("/api")
 public class FaultCodeController {
 	
-	private final Boolean visibility = true;
+	private final Boolean VISIBILITY = true;
 	
 	FaultCodeService faultCodeService;
 	CarService carService;
 	NotificationService notificationsService;
+	SensorService sensorService;
 	
 	@Autowired
 	public FaultCodeController(FaultCodeService faultCodeService,
 							   CarService carService,
-							   NotificationService notificationsService) {
+							   NotificationService notificationsService, 
+							   SensorService sensorService) {
 		this.faultCodeService = faultCodeService;
 		this.carService = carService;
 		this.notificationsService = notificationsService;
+		this.sensorService = sensorService;
 	}
-
+	
+	/* Method for handling fault code received from car */
 	@PostMapping("/faultCode")
 	public void handleFaultCode(@RequestParam(value="vinNumber") String vinNumber,
 							   	   @RequestParam(value="code") String code) {
 		try {
 			FaultCodeDto faultCode = faultCodeService.getFaultCode(code);
 			CarDto car = carService.findByVin(vinNumber);
-			NotificationsDto toSave = new NotificationsDto(
-					faultCode.getDescription(), 
-					new Timestamp(System.currentTimeMillis()), 
-					faultCode.getType(),
-					visibility,
-					car.getId(), 
-					car.getCarOwner().getId(), 
-					faultCode.getSkill().getSkillId()
-			);
+			NotificationsDto toSave = new NotificationsDto(faultCode, car);
 			notificationsService.saveNotification(toSave);
 		} catch (Exception e) {
 			System.out.println("FaultCode error: " + e.getMessage());

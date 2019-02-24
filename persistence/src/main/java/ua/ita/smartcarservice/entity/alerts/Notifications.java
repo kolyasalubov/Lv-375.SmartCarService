@@ -29,10 +29,13 @@ public class Notifications {
 	@Column (length = 1050, name = "message", nullable = false)
 	private String message;
 	
+	@Column (length = 1050, name = "suggestion")
+	private String suggestion;
+	
 	@Column (name = "notification_time", columnDefinition = "DATETIME")
 	private Timestamp notificationTime;
 	
-	@Column (name = "type", nullable = false)
+	@Column (length = 100, name = "type", nullable = false)
 	private String type;
 	
 	@Column (name = "is_visible")
@@ -48,9 +51,23 @@ public class Notifications {
 	@Column (name = "skill_id")
 	private Long skillId;
 
-	public Notifications(String message, Timestamp notificationTime, String type, Boolean isVisible,
+	public Notifications(String message, String suggestion, Timestamp notificationTime, String type, Boolean isVisible,
 			Long carId, Long userId, Long skillId) {
 		this.message = message;
+		this.suggestion = suggestion;
+		this.notificationTime = notificationTime;
+		this.type = type;
+		this.isVisible = isVisible;
+		this.carId = carId;
+		this.userId = userId;
+		this.skillId = skillId;
+	}
+
+	public Notifications(Long id, String message, String suggestion, Timestamp notificationTime, String type, Boolean isVisible,
+			Long carId, Long userId, Long skillId) {
+		this.id = id;
+		this.message = message;
+		this.suggestion = suggestion;
 		this.notificationTime = notificationTime;
 		this.type = type;
 		this.isVisible = isVisible;
