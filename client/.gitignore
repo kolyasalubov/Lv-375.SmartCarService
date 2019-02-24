@@ -5,9 +5,11 @@
 /dist
 /tmp
 /out-tsc
+/target
 
 # dependencies
 /node_modules
+/node
 
 # profiling files
 chrome-profiler-events.json
@@ -21,6 +23,7 @@ speed-measure-plugin.json
 *.launch
 .settings/
 *.sublime-workspace
+*.iml
 
 # IDE - VSCode
 .vscode/*
