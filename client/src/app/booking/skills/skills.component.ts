@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { WorkerList } from '../worker-list/worker-list-real';
 import { NumberValueAccessor } from '@angular/forms/src/directives';
 import { WorkType } from './work-type';
+
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',

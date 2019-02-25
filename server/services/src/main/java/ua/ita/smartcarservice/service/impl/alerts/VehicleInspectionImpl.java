@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.alerts.VehicleInspectionDto;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
+import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.alerts.VehicleInspectionRepository;
 import ua.ita.smartcarservice.service.alerts.VehicleInspectionService;
 @Service
@@ -27,6 +28,9 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 				vehicleInspectionDto.getCar());
 		vehicleInspectionRepository.save(entity);
 	}
+
+	@Autowired
+	private CarRepository carRepository;
 
 	@Override
 	public List<VehicleInspectionDto> getCarsForYearlyInspection() {
@@ -57,6 +61,13 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	@Override
 	public Date getDateOfLastVehicleInspection(long carId) {
 		return vehicleInspectionRepository.getDateOfLastVehicleInspection(carId);
+	}
+
+	@Override
+	public void createVehicleInspection(java.sql.Date dateOfInspection, Integer mileageOfCar, String vin){
+		Car car = carRepository.findByVin(vin);
+		VehicleInspection entity = new VehicleInspection(dateOfInspection, mileageOfCar, car);
+		vehicleInspectionRepository.save(entity);
 	}
 	
 }

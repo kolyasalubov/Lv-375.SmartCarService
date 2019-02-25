@@ -1,10 +1,6 @@
 package ua.ita.smartcarservice.service;
 
-
-import org.springframework.data.repository.query.Param;
 import ua.ita.smartcarservice.dto.CarDto;
-import ua.ita.smartcarservice.entity.Car;
-
 import java.util.List;
 
 public interface CarService {
@@ -15,10 +11,14 @@ public interface CarService {
 
     CarDto getCarById(Long id);
 
-    void create(Car car);
+    void create(String brand, String model,String graduation_year,String number,String vin, String username);
 
     List<CarDto> findAll ();
 
     void deleteById (Long id);
+
+    CarDto findByNumber (String number);
+
+
 
 }

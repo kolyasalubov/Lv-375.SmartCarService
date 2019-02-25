@@ -19,4 +19,6 @@ public interface VehicleInspectionService {
 	Date getDateOfLastVehicleInspection(long carId);
 	
 	List<Car> getCarsForVehicleInspectionByMileage();
+
+	void createVehicleInspection(java.sql.Date dateOfInspection, Integer mileageOfCar, String vin);
 }

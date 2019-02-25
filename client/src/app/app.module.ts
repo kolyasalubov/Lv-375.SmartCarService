@@ -27,6 +27,10 @@ import {NotificationsListComponent} from './notifications/notifications-list/not
 import {MapComponent} from './techservice/map/map.component';
 import {AgmCoreModule} from '@agm/core';
 
+import {LoginComponent} from './login/login.component';
+import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
+
+
 
 @NgModule({
   declarations: [
@@ -47,6 +51,7 @@ import {AgmCoreModule} from '@agm/core';
     NotificationsApprovementComponent,
     NotificationsListComponent,
     MapComponent,
+    CarTrackerComponent,
 
   ],
   imports: [
