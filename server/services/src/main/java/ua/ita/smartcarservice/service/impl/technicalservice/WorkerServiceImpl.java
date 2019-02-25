@@ -63,20 +63,10 @@ public class WorkerServiceImpl implements WorkerService {
         userRepository.deleteById(workerId);
     }
 
-
     @Override
-    public List<WorkerDto> getByUserTechnicalServiceAndWorkersSkill(String name, Long stoId) {
-        List<WorkerDto> workerDtos = new ArrayList<>();
-       /* for (UserEntity worker : userRepository.getByUserTechnicalServiceAndWorkersSkill(name, stoId)) {
-            workerDtos.add(getWorkerDto(worker));
-        }*/
-        return workerDtos;
-    }
-
-    @Override
-    public List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId) {
+    public List<WorkerDto> findByCarIdAndWorkersSkill(String name, Long carId) {
         List <WorkerDto> workerDtos = new ArrayList<>();
-        for(UserEntity worker : userRepository.getByCarIdAndWorkersSkill(name, carId)){
+        for(UserEntity worker : userRepository.findByCarIdAndWorkersSkill(name, carId)){
             workerDtos.add(getWorkerDto(worker));
         }
         return workerDtos;

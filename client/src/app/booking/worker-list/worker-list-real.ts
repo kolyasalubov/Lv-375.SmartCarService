@@ -1,6 +1,5 @@
-import {WorkerList} from './worker-list';
-
-export class WorkerListReal implements WorkerList {
-  name: Array<string>;
-  searchId: number;
+export class WorkerList {
+    skillName : Array<string>;
+    workName : Array<string>;
+    searchId : number;
 }

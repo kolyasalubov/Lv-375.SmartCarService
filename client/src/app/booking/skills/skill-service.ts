@@ -1,34 +1,32 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http'
-import {Skill} from './skill';
-import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
-import {HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { WorkType } from './work-type';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type':  'application/json'
   })
 };
 
 @Injectable({
-  providedIn: 'root'
-})
-export class SkillService {
-  skillByStoUrl = '/api/v1/skillbycar/';
+    providedIn: 'root'
+  })
+  export class SkillService {
+    skillByStoUrl = '/api/v1/worksbycar/';
 
-  constructor(private http: HttpClient) {
+    constructor(private http: HttpClient) {}
+
+    getAllSkillsToStoResp(searchId : number): Observable<Map<String, Array<WorkType>>> {
+        return this.http.get<Map<String, Array<WorkType>>>(this.skillByStoUrl + String(searchId))
+                        .pipe(
+                          catchError(this.errorHandler)
+                        );
   }
-
-  getAllSkillsToStoResp(searchId: number): Observable<Skill[]> {
-    return this.http.get<Skill[]>(this.skillByStoUrl + String(searchId))
-      .pipe(
-        catchError(this.errorHandler)
-      );
-  }
-
-  errorHandler(error: HttpErrorResponse) {
+  errorHandler(error: HttpErrorResponse)  {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message); // A client-side or network error occurred.
     } else {
@@ -44,3 +42,4 @@ export class SkillService {
   }
 }
 
+    
