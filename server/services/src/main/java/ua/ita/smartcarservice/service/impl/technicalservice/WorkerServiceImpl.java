@@ -3,6 +3,8 @@ package ua.ita.smartcarservice.service.impl.technicalservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
+import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
+import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
@@ -13,6 +15,7 @@ import ua.ita.smartcarservice.repository.technicalservice.SkillRepository;
 import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.repository.technicalservice.WorkersSkillRepository;
+import ua.ita.smartcarservice.service.technicalservice.SkillService;
 import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.util.ArrayList;
@@ -35,6 +38,14 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Autowired
     UserTechnicalServiceRepository userTechnicalServiceRepository;
+
+    @Autowired
+    SkillService skillService;
+
+    @Override
+    public UserEntity getWorkerById(Long id) {
+        return userRepository.getUserById(id);
+    }
 
     @Override
     public void saveWorker(UserEntity workerEntity, Long skillId, TechnicalServiceEntity technicalServiceEntity) {
@@ -60,7 +71,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public void deleteWorker(Long workerId) throws Exception {
-        userRepository.deleteById(workerId);
+        userRepository.deleteByIdWithRole(workerId);
     }
 
 
@@ -75,19 +86,51 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId) {
-        List <WorkerDto> workerDtos = new ArrayList<>();
-        for(UserEntity worker : userRepository.getByCarIdAndWorkersSkill(name, carId)){
+        List<WorkerDto> workerDtos = new ArrayList<>();
+        for (UserEntity worker : userRepository.getByCarIdAndWorkersSkill(name, carId)) {
             workerDtos.add(getWorkerDto(worker));
         }
         return workerDtos;
     }
 
     @Override
-    public List<UserEntity> getWorkersByTechnicalServiceId(TechnicalServiceEntity technicalServiceEntity) {
-        UserTechnicalService userTechnicalService = userTechnicalServiceRepository.getByTechnicalServiceId(technicalServiceEntity);
+    public List<WorkerSkillDto> addSkillToWorkersList(List<UserEntity> workersList) {
+        List<WorkerSkillDto> workerSkillDtoList = new ArrayList<>();
 
+        workersList.parallelStream().forEach(worker -> {
+            workerSkillDtoList.add(getWorkerSkillDto(
+                    worker,
+                    workersSkillRepository.getByWorkerId(worker).getSkill()/*getSkillByWorkerId(userRepository.getUserById(worker.getId()))*/));
+        });
 
-        return userRepository.getByUserTechnicalService(userTechnicalService);
+        return workerSkillDtoList;
+    }
+
+    @Override
+    public WorkerSkillDto getWorkerSkillDtoById(Long workerId) {
+        WorkerSkillDto workerSkillDto;
+        UserEntity workersEntity;
+
+        workersEntity = userRepository.getUserById(workerId);
+        workerSkillDto = getWorkerSkillDto(
+                    workersEntity,
+                    workersSkillRepository.getByWorkerId(workersEntity).getSkill());
+
+        return workerSkillDto;
+    }
+
+    private WorkerSkillDto getWorkerSkillDto(UserEntity workerEntity, SkillEntity skillEntity) {
+        WorkerSkillDto workerSkillDto = new WorkerSkillDto();
+
+        workerSkillDto.setId(workerEntity.getId());
+        workerSkillDto.setEmail(workerEntity.getEmail());
+        workerSkillDto.setFullName(workerEntity.getFullName());
+        workerSkillDto.setNumberPhone(workerEntity.getNumberPhone());
+        workerSkillDto.setUserName(workerEntity.getUsername());
+        workerSkillDto.setPassword(workerEntity.getPassword());
+        workerSkillDto.setSkill(skillService.getSkillDto(skillEntity));
+
+        return workerSkillDto;
     }
 
     private WorkerDto getWorkerDto(UserEntity worker) {
@@ -98,4 +141,13 @@ public class WorkerServiceImpl implements WorkerService {
 
         return workerDto;
     }
+
+    public void addSkillToWorker(String username, Long skillId) {
+        SkillEntity skillEntity = skillRepository.getOne(skillId);
+        UserEntity workerEntity = userRepository.getByUsername(username);
+
+        workersSkillRepository.save(new WorkersSkill(workerEntity, skillEntity));
+    }
+
+
 }

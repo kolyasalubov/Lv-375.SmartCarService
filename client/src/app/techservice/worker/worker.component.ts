@@ -1,11 +1,9 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {WorkerService} from './worker.service';
-import {TechserviceComponent} from '../techservice.component'
-import {AuthService} from 'src/app/auth/auth.service';
-import {SignUpInfo} from 'src/app/auth/signup-info'
-import {ROLES} from 'src/app/roles/mock-roles';
-import {SkillComponent} from 'src/app/techservice/worker/skill/skill.component'
-import {Skill} from './skill/skill';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { WorkerService } from './worker.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { SignUpInfo } from 'src/app/auth/signup-info';
+import { SkillComponent } from 'src/app/techservice/worker/skill/skill.component';
+import { Worker } from './worker';
 
 @Component({
   selector: 'app-worker',
@@ -18,17 +16,16 @@ export class WorkerComponent implements OnInit {
   workers: Worker[] = [];
 
   @Input() techserviceId: number;
-  @ViewChild(SkillComponent) skill: SkillComponent;
+  @ViewChild(SkillComponent) skill: SkillComponent; 
 
   registerFormStub: SignUpInfo = new SignUpInfo('', '', '', '', '', 'WORKER');
   registerForm: SignUpInfo = this.registerFormStub;
 
-  constructor(private workerService: WorkerService, private authService: AuthService) {
-  }
+  constructor(private workerService: WorkerService, private authService: AuthService) { }
 
   ngOnInit() {
     this.recieveWorkers()
-  }
+  } 
 
   deleteWorker(workerId: number) {
     this.workerService.deleteWorkerById(workerId).subscribe();
@@ -36,22 +33,28 @@ export class WorkerComponent implements OnInit {
 
   recieveWorkers() {
     this.workerService.getAllWorkers(this.techserviceId)
-      .subscribe(data => this.workers = data,
-        error => this.error = error);
+          .subscribe(data => {
+            this.workers = data;
+            this.workers.forEach(worker => {
+              this.workerService.getRatingByWorkerId(worker.id).subscribe(data => worker.rating = data ? data : 0);
+            })}
+          , error => this.error = error);
+          
   }
 
   registerWorker() {
     this.authService.signUp(this.registerForm).subscribe();
     setTimeout(() => {
       this.workerService.initialiseWorker(
-        this.registerForm.username,
-        this.techserviceId,
+        this.registerForm.username, 
+        this.techserviceId, 
         this.skill.selectedSkill)
-        .subscribe(() => {
-          this.recieveWorkers()
-        })
-    }, 1000); //before was   2000
-
-    this.registerForm = this.registerFormStub; //not works
+          .subscribe(() => { 
+            this.recieveWorkers(); 
+            this.registerForm = this.registerFormStub;
+          })
+    }, 1000); //before was   2000 
+    
+    //not works
   }
 }

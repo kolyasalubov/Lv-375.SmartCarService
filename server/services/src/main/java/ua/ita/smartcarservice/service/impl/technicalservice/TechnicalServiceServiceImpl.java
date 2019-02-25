@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.service.impl.technicalservice;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
@@ -11,6 +12,7 @@ import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceReposi
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,19 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Override
+    public void addWorkerToTechnicalService(String username, Long technicalServiceId) {
+        UserEntity workerEntity = userRepository.getByUsername(username);
+        TechnicalServiceEntity technicalServiceEntity = technicalServiceRepository.getOne(technicalServiceId);
+
+        userTechnicalServiceRepository.save(new UserTechnicalService(workerEntity, technicalServiceEntity));
+    }
+
+    @Override
+    public void deleteWorkerFromTEchnicalService(String username, Long technicalServiceId) {
+
+    }
 
     @Override
     public void createTechnicalService(String name, String address, Long userId) {
@@ -63,22 +78,31 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         return convertToDto(getTechnicalServiceById(id));
     }
 
+    @Override
+    public List<UserEntity> getUsersByRoleAndTechnicalSevice(String roleName, Long technicalServiceId) {
+        return userRepository.getUserEntitiesByRoleNameAndTechnicalService(roleName, technicalServiceId);
+    }
+
     public TechnicalServiceDto convertToDto(TechnicalServiceEntity technicalServiceEntity) {
         TechnicalServiceDto dto = new TechnicalServiceDto();
 
         dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
         dto.setName(technicalServiceEntity.getName());
         dto.setAddress(technicalServiceEntity.getAddress());
-
-        dto.setTechnicalManager(userTechnicalServiceRepository.getOne(technicalServiceEntity.getTechnicalServiceId()).getUserId());
+        //dto.setTechnicalManager(userTechnicalServiceRepository.getTechnicalServiceManagerByServiceId(technicalServiceEntity));
 
         return dto;
     }
 
     @Override
     public TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId) {
+        try {
+            TechnicalServiceEntity entity = technicalServiceRepository.getTechnicalServiceEntityByUser(userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return convertToDto(technicalServiceRepository.getTechnicalServiceEntitysByUser(userId));
+        return convertToDto(technicalServiceRepository.getTechnicalServiceEntityByUser(userId));
     }
 
     public TechnicalServiceEntity convertToEntity(TechnicalServiceDto technicalServiceDto) {

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Skill} from './skill';
-import {SkillService} from './skill.service';
-import {THROW_IF_NOT_FOUND} from '@angular/core/src/di/injector';
+import { Component, OnInit } from '@angular/core';
+import { Skill } from './skill';
+import { SkillService } from './skill.service';
+import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 
 @Component({
   selector: 'app-skill',
@@ -11,12 +11,11 @@ import {THROW_IF_NOT_FOUND} from '@angular/core/src/di/injector';
 export class SkillComponent implements OnInit {
 
   error: ErrorEvent;
-
+ 
   skills: Skill[];
   selectedSkill: Skill;
 
-  constructor(private skillService: SkillService) {
-  }
+  constructor(private skillService: SkillService) { }
 
   ngOnInit() {
     this.recieveSkills();
@@ -24,8 +23,8 @@ export class SkillComponent implements OnInit {
 
   recieveSkills() {
     this.skillService.getAllSkills()
-      .subscribe(data => this.skills = data,
-        error => this.error = error)
+    .subscribe(data => this.skills = data,
+              error => this.error = error)
   }
 
   selectSkill(skill: Skill) {
