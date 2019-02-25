@@ -19,9 +19,6 @@ public class SkillEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false)
-    private Long requiredTime;
-
     @OneToMany(mappedBy = "workerId")
     private List<WorkersSkill> workersSkill;
     
@@ -30,12 +27,14 @@ public class SkillEntity {
   		  mappedBy = "skill")
     private List<FaultCode> faultCode;
 
+    @OneToMany(mappedBy = "skill")
+    List<WorkType> workTypes;
+
     public SkillEntity() {
     }
 
     public SkillEntity(String name, Long requiredTime) {
         this.name = name;
-        this.requiredTime = requiredTime;
     }
 
     @Override

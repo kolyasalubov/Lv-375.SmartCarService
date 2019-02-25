@@ -17,15 +17,15 @@ public class WorkTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sessionId;
+    private Long bookingId;
 
     @Column(nullable = false, length = 20, columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime startSession;
+    private LocalDateTime startBooking;
 
     @Column(nullable = false, length = 20, columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endSession;
+    private LocalDateTime endBooking;
 
     @JsonBackReference
     @ManyToOne
