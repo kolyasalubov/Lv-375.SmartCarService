@@ -1,6 +1,5 @@
 import {NgModule, Component} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-
 import {RegisterComponent} from './register/register.component';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -14,7 +13,6 @@ import {UsersComponent} from './users/users.component';
 import {InfoComponent} from './info/info.component';
 import {CarProfileComponent} from './car-profile/car-profile.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
-
 import {ChartPageComponent} from './chart-page/chart-page.component';
 import {BookingComponent} from './booking/booking.component';
 import {SkillComponent} from './techservice/worker/skill/skill.component';
@@ -24,6 +22,7 @@ import {TechmanagerProfileComponent} from './techmanager-profile/techmanager-pro
 import {NotificationsListComponent} from './notifications/notifications-list/notifications-list.component';
 import {NotificationsApprovementComponent} from './notifications/notifications-approvement/notifications-approvement.component';
 import {MapComponent} from './techservice/map/map.component';
+import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
@@ -117,7 +116,11 @@ const routes: Routes = [
   {
     path: 'ui/notifications-approvement/:id',
     component: NotificationsApprovementComponent
-  }
+  },
+{
+    path: 'ui/location',
+    component: CarTrackerComponent
+}
 ]
 
 @NgModule({

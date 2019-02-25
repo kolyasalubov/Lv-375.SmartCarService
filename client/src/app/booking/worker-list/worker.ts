@@ -1,4 +1,4 @@
-export interface Worker {
-  "workerId": number,
-  "fullName": string
+export interface Worker{
+    "workerId" : number,
+    "fullName" : string
 }

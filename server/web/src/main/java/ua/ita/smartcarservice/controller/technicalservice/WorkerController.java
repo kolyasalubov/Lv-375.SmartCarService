@@ -28,7 +28,7 @@ public class WorkerController {
 
     @Autowired
     WorkersRatingsService workersRatingsService;
-
+/*
     @PostMapping("/api/workerBySkill")
     public ResponseEntity<HashMap<String, List<WorkerDto>>> getAllBySkillAndSto(@RequestBody WorkerWithSkillDto
                                                                                         workerWithSkillDto) {
@@ -39,7 +39,7 @@ public class WorkerController {
 
         return new ResponseEntity<>(workersBySkillName, HttpStatus.OK);
     }
-
+*/
     @PostMapping("/api/workerByCar")
     public ResponseEntity<HashMap<String, List<WorkerDto>>> getAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                                       workerWithSkillDto) {

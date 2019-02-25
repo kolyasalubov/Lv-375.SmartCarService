@@ -36,4 +36,9 @@ public interface UserTechnicalServiceRepository extends JpaRepository<UserTechni
     UserTechnicalService getById(Long id);
 
     void deleteByTechnicalServiceId(Long id);
+
+    @Query("select ut.technicalServiceId.name from UserTechnicalService as ut " +
+            "left join Car as c on ut.userId = c.user " +
+            "where c.id = :id")
+    String findTechnicalServiceByCarId(@Param("id") Long id);
 }

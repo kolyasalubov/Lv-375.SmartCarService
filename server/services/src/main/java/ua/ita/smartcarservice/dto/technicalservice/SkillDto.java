@@ -13,5 +13,6 @@ public class SkillDto {
 
     private Long requiredTime;
 
-    // private List<FaultCode> faultCode;
+   // private List<FaultCode> faultCode;
+
 }

@@ -1,49 +1,87 @@
-<div style="height: 100vh" class="d-flex justify-content-center align-items-center">
-  <form form="registerForm" (ngSubmit)=" onSubmit()" #f="ngForm" class="text-center border border-light p-4">
+<div style="height: 80%" class="d-flex justify-content-center align-items-center">
+  <form form="registerForm" (ngSubmit)="f.registerForm.valid && onSubmit()" #f="ngForm" class="border border-light p-4" [mustMatch]="['password', 'confirmPassword']" novalidate>
 
-    <p class="h3 mb-4">Welcome</p>
-    <input type="text" name="username" [(ngModel)]="registerForm.username" class="form-control mb-2"
-           placeholder="User Name">
-    <input type="password" name="password" [(ngModel)]="registerForm.password" class="form-control mb-2"
-           placeholder="Password">
-    <input type="email" name="email" [(ngModel)]="registerForm.email" class="form-control mb-2" placeholder="Email">
-    <input type="text" name="fullName" [(ngModel)]="registerForm.fullName" class="form-control mb-2"
-           placeholder="Full Name">
-    <input type="text" name="numberPhone" [(ngModel)]="registerForm.numberPhone" class="form-control mb-2"
-           placeholder="Number Phone">
-    <!-- DropDownMenu -->
-    <div class="dropdown" mdbDropdown>
-      <button *ngIf="unchecked; else checked" mdbDropdownToggle type="button" mdbBtn color="info"
-              class="dropdown-toggle waves-light my-2"
-              mdbWavesEffect>
-        Who are you?
-        <ng-template #checked>
-          {{registerForm.checkRole}}
-        </ng-template>
-      </button>
-
-      <div class="dropdown-menu">
+  <p class="h3 mb-4 text-center">Welcome to our
+    <br>
+    <kbd>Smart</kbd>carservice</p>
+  <div class="form-group">
+    <label for="username">Username</label>
+  <input type="text" name="username" [(ngModel)]="registerForm.username" class="form-control mb-2" #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.invalid }" required>
+  <div *ngIf="f.submitted && username.invalid" class="invalid-feedback">
+      <div *ngIf="username.errors.required">Username is required</div>
+  </div>
+</div>
+<div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" name="password" [(ngModel)]="registerForm.password" class="form-control mb-2" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required minlength="8" />
+    <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+        <div *ngIf="password.errors.required">Password is required</div>
+        <div *ngIf="password.errors.minlength">Password must be at least 8 characters</div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="confirmPassword">Confirm password</label>
+    <input type="password" name="confirmPassword" [(ngModel)]="registerForm.confirmPassword" class="form-control mb-2" #confirmPassword="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confirmPassword.invalid }" required/>
+    <div *ngIf="f.submitted && confirmPassword.invalid" class="invalid-feedback">
+        <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
+        <div *ngIf="confirmPassword.errors.mustMatch">Passwords must match</div>
+    </div>
+</div>
+  <div class="form-group">
+  <label for="email">Email</label>
+  <input type="email" name="email" [(ngModel)]="registerForm.email" class="form-control mb-2"#email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email />
+  <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+      <div *ngIf="email.errors.required">Email is required</div>
+      <div *ngIf="email.errors.email">Email must be a valid email address</div>
+  </div>
+</div>
+<div class="form-group">
+    <label for="fullName">Full name</label>
+    <input type="text" name="fullName" [(ngModel)]="registerForm.fullName" class="form-control mb-2" #fullName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && fullName.invalid }" required minlength="2" maxlength="30"/>
+  <div *ngIf="f.submitted && fullName.invalid" class="invalid-feedback">
+      <div *ngIf="fullName.errors.required">Full name is required</div>
+      <div *ngIf="fullName.errors.minlength">Full name must be at least 2 characters</div>
+      <div *ngIf="fullName.errors.maxlength">Full name can be max 30 characters</div>
+      </div>
+</div>
+<div class="form-group">
+<label for="numberPhone">Phone Number</label>
+<input type="text" name="numberPhone" [(ngModel)]="registerForm.numberPhone" class="form-control mb-2" #numberPhone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && numberPhone.invalid }" required pattern="^[(]{0,1}[0-9]{0,3}[)]{0,1}[-\s\.0-9]{0,11}$"/>
+<div *ngIf="numberPhone.invalid" class="invalid-feedback">
+    <div *ngIf="numberPhone.errors.required">Phone Number is required</div>
+    <div *ngIf="numberPhone.errors.pattern">Phone Number must be 063 123 45 67</div>
+</div>
+</div>
+  <!-- DropDownMenu -->
+  <div class="dropdown" mdbDropdown>
+    <button *ngIf="unchecked; else checked" id="whoButton" mdbDropdownToggle type="button" mdbBtn  class="dropdown-toggle btn-sm my-2">
+      Who are you?
+      <ng-template #checked>
+        {{registerForm.checkRole}}
+      </ng-template>
+    </button>
+  
+    <div class="dropdown-menu">
         <div *ngFor="let role of roleArray">
-          <div class="custom-control custom-radio dropdown-item">
-            <input type="radio" [(ngModel)]="registerForm.checkRole" name="checkRole" class="custom-control-input"
-                   [value]='role.name' id="role_{{role.name}}" name="defaultExampleRadios">
+        <div class="custom-control custom-radio dropdown-item">
+            <input type="radio" [(ngModel)]="registerForm.checkRole" name="checkRole" class="custom-control-input" [value]='role.name' id="role_{{role.name}}" name="defaultExampleRadios">
             <label class="custom-control-label" (click)="choseRole()" for="role_{{role.name}}">{{role.name}}</label>
           </div>
         </div>
-        <ng-template #checked>
-          <button mdbDropdownToggle type="button" mdbBtn color="info" class="dropdown-toggle waves-light my-2"
-                  mdbWavesEffect>
-            {{registerForm.checkRole}}
+        <ng-template #checked> 
+          <button id="whoButton" mdbDropdownToggle type="button" mdbBtn  class="dropdown-toggle btn-sm my-2">
+     
+          {{registerForm.checkRole}}
           </button>
+      
+          </ng-template>
 
-        </ng-template>
 
-
-      </div>
-    </div>
-    <div>
-      <button mdbBtn color="success" class="my-4" type="submit">Sign up</button>
-      <a href="/ui/auth/login" mdbBtn color="danger" type="button">Cancel</a>
-    </div>
-  </form>
 </div>
+  </div>
+  <div>
+  <button mdbBtn style="background-color: #336B87" class="my-4" type="submit">Sign up</button>
+  <a href="/ui/auth/login" mdbBtn style="background-color: #c5001a; color: white" type="button">Cancel</a>
+  </div>
+  </form>
+  </div>

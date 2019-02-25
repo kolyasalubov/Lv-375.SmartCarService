@@ -143,4 +143,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     public TechnicalServiceEntity getTechnicalServiceById(Long id) {
         return technicalServiceRepository.getOne(id);
     }
+
+    @Override
+    public String findTechnicalServiceByCarId(Long id){
+        return userTechnicalServiceRepository.findTechnicalServiceByCarId(id);
+    }
 }

@@ -104,3 +104,5 @@ hs_err_pid*
 
 # npm
 /node_modules/
+/node/
+/server/web/src/main/resources/static/

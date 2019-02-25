@@ -17,11 +17,7 @@ public interface WorkerService {
 
     void deleteWorker(Long workerId) throws Exception;
 
-    List<WorkerDto> getByUserTechnicalServiceAndWorkersSkill(String name, Long stoId);
-
     List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId);
-
-    List<UserEntity> getAllWorkers();
 
     void addSkillToWorker(String username, Long skillId);
 
@@ -30,4 +26,7 @@ public interface WorkerService {
     UserEntity getWorkerById(Long id);
 
     WorkerSkillDto getWorkerSkillDtoById(Long workerId);
+
+    List<UserEntity> getAllWorkers();
+
 }
