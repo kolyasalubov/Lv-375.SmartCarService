@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Skill} from './Skill';
+import {Skill} from './skill';
 import {SkillService} from './skill-service';
 import {ActivatedRoute} from '@angular/router';
 import {WorkerList} from '../worker-list/worker-list';

@@ -27,6 +27,7 @@ import {NotificationsListComponent} from './notifications/notifications-list/not
 import {MapComponent} from './techservice/map/map.component';
 import {AgmCoreModule} from '@agm/core';
 import {LoginComponent} from './login/login.component';
+import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import {LoginComponent} from './login/login.component';
     UserProfileComponent,
     NotificationsApprovementComponent,
     NotificationsListComponent,
-    MapComponent
+    MapComponent,
+    CarTrackerComponent 
   ],
   imports: [
     BrowserModule,

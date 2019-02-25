@@ -42,4 +42,10 @@ public class VehicleInspection {
 		this.mileageOfCar = mileageOfCar;
 		this.car = car;
 	}
+
+	public VehicleInspection(Date dateOfInspection, Integer mileageOfCar, Car car) {
+		this.dateOfInspection = dateOfInspection;
+		this.mileageOfCar = mileageOfCar;
+		this.car = car;
+	}
 }

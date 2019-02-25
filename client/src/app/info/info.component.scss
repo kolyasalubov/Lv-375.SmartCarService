@@ -1,7 +1,8 @@
-.container {
-  min-height: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
+.container{
+  margin: auto;
+  width: 400px;
+  border: 2px solid rgb(211, 212, 211);
+  padding: 10px;
+  text-align: left;
+  margin-right: 30%;
+  }
