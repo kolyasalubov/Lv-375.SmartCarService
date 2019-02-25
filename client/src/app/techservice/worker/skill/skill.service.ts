@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
-import {HttpHeaders, HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {Skill} from './skill';
-import {catchError} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { Skill } from './skill';
+import { catchError } from 'rxjs/operators';
+
 
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type':  'application/json'
   })
 };
 
@@ -18,16 +19,15 @@ export class SkillService {
 
   allSkillsURL = '/api/v1/skills';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   getAllSkills() {
     return this.http.get<Skill[]>(this.allSkillsURL)
-      .pipe(catchError(this.errorHandler));
+                      .pipe(catchError(this.errorHandler));
   }
 
-
-  errorHandler(error: HttpErrorResponse) {
+  
+  errorHandler(error: HttpErrorResponse)  {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message); // A client-side or network error occurred.
     } else {
