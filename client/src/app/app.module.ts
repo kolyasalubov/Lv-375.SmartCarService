@@ -26,7 +26,6 @@ import {NotificationsApprovementComponent} from './notifications/notifications-a
 import {NotificationsListComponent} from './notifications/notifications-list/notifications-list.component';
 import {MapComponent} from './techservice/map/map.component';
 import {AgmCoreModule} from '@agm/core';
-import {LoginComponent} from './login/login.component';
 
 
 @NgModule({
@@ -47,7 +46,8 @@ import {LoginComponent} from './login/login.component';
     UserProfileComponent,
     NotificationsApprovementComponent,
     NotificationsListComponent,
-    MapComponent
+    MapComponent,
+
   ],
   imports: [
     BrowserModule,
