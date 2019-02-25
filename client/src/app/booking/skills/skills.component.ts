@@ -1,20 +1,10 @@
-<<<<<<< HEAD
-import {Component, OnInit} from '@angular/core';
-import {Skill} from './skill';
-import {SkillService} from './skill-service';
-import {ActivatedRoute} from '@angular/router';
-import {WorkerList} from '../worker-list/worker-list';
-import {WorkerListReal} from '../worker-list/worker-list-real';
-import {NumberValueAccessor} from '@angular/forms/src/directives';
-
-=======
 import { Component, OnInit } from '@angular/core';
 import { SkillService } from './skill-service';
 import { ActivatedRoute } from '@angular/router';
 import { WorkerList } from '../worker-list/worker-list-real';
 import { NumberValueAccessor } from '@angular/forms/src/directives';
 import { WorkType } from './work-type';
->>>>>>> 8ff0b74c8733afff8e4b6c49c281e31f6b71ed96
+
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',

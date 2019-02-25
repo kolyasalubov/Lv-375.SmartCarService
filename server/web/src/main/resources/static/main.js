@@ -270,13 +270,12 @@ function webpackContext(req) {
 	return __webpack_require__(id);
 }
 function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) { // check for number or string
+	if(!__webpack_require__.o(map, req)) {
 		var e = new Error("Cannot find module '" + req + "'");
 		e.code = 'MODULE_NOT_FOUND';
 		throw e;
 	}
-	return id;
+	return map[req];
 }
 webpackContext.keys = function webpackContextKeys() {
 	return Object.keys(map);
@@ -1071,7 +1070,7 @@ var httpOptions = {
 var SkillService = /** @class */ (function () {
     function SkillService(http) {
         this.http = http;
-        this.skillByStoUrl = '/api/v1/skillbycar/';
+        this.skillByStoUrl = '/api/v1/worksbycar/';
     }
     SkillService.prototype.getAllSkillsToStoResp = function (searchId) {
         return this.http.get(this.skillByStoUrl + String(searchId))
@@ -1110,7 +1109,7 @@ var SkillService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-menu></app-menu> -->\n\n<div class=\"d-flex\" style=\"margin-left: 200px; padding-top: 100px\">\n  <div class=\"d-flex justify-content-start\">\n    <div class=\"container\">\n      <!-- <ul class=\"list-group\"> -->\n      <!-- <li class=\"list-group-item d-flex justify-content-between\" id='{{skill.id}}' *ngFor=\"let skill of skills\"\n        (click)=\"addOrDelete(skill)\">\n        {{skill.name}}\n        <span class=\"badge badge-primary badge-pill\">{{skill.requiredTime}}</span>\n      </li> -->\n      <div class=\"jumbotron text-center hoverable p-4\" id='{{skill.id}}'\n           *ngFor=\"let skill of skills\"\n           (click)=\"addOrDelete(skill)\">\n        {{skill.name}}\n        <span class=\"badge badge-pill\" style=\"background-color: #2D4262\">{{skill.requiredTime}}</span>\n      </div>\n      <!-- </ul> -->\n\n\n      <button *ngIf=\"!show\" mdbBtn type=\"button\" class=\"justify-content-start\" style=\"background-color: #336B87\"\n              (click)=\"changeShow()\" mdbWavesEffect>Get Worker\n      </button>\n      <button *ngIf=\"show\" mdbBtn type=\"button\" class=\"justify-content-start\" style=\"background-color: #336B87\"\n              (click)=\"changeShow()\" mdbWavesEffect>Get Worker\n      </button>\n    </div>\n  </div>\n  <div *ngIf=\"!show\">\n    <app-worker-list [workerList]=workerList [carId]=searchId></app-worker-list>\n  </div>\n</div>\n"
+module.exports = "<div class=\"d-flex flex-row\">\n<div class=\"d-flex flex-column\" style=\"margin-left: 200px; padding-top: 100px\">\n  <div class=\"d-flex flex-row\">\n  <div>\n    <div class=\"d-flex flex-row-reverse\" style=\"height:54px\">\n        <h4>Service</h4>\n        <i class=\"fa fa-wrench\" aria-hidden=\"true\"></i>\n    </div>\n    <ul *ngFor=\"let skill of workType  | keyvalue\" class=\"list-group\">\n      <li class=\"list-group-item\"\n       id=\"{{skill.key}}\" (click)=\"chooseSkill(skill.value); selectSkill(skill.key)\">\n        {{skill.key}}\n      </li>\n    </ul>\n  </div>\n  <div *ngIf =\"workEmpty()\">\n      <table mdbTable>\n          <thead>\n            <tr>\n              <th *ngFor=\"let head of headElements\" scope=\"col\">{{head}} </th>\n            </tr>\n          </thead>\n          <tbody>\n              <tr mdbTableCol *ngFor=\"let work of works\" id=\"{{work.name}}\" (click)=\"addOrDelete(work, work.skillName)\">\n                <td>{{work.name}}</td>\n                <td>{{work.requiredTime}}</td>\n                <td>{{work.cost}}</td>\n              </tr>\n            </tbody>\n          </table>\n  </div>\n</div>\n    <button  *ngIf=\"!show\" mdbBtn type=\"button\" class =\"justify-content-start\" style=\"background-color: #336B87\" (click)=\"changeShow()\" mdbWavesEffect>Get Worker</button>\n    <button *ngIf=\"show\" mdbBtn type=\"button\" class =\"justify-content-start\" style=\"background-color: #336B87\" (click)=\"changeShow()\" mdbWavesEffect>Get Worker</button>\n</div>\n<div *ngIf=\"!show\">\n  <app-worker-list [workerList]=workerList [carId] = searchId ></app-worker-list>\n</div>\n</div>"
 
 /***/ }),
 
@@ -1121,7 +1120,7 @@ module.exports = "<!-- <app-menu></app-menu> -->\n\n<div class=\"d-flex\" style=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".list-group-item {\n  margin: 0.5px; }\n  .list-group-item:hover {\n    cursor: pointer; }\n  .flex-container {\n  display: flex;\n  flex-wrap: wrap; }\n  .container {\n  width: 300px;\n  display: flex;\n  flex-direction: column;\n  margin: 20px; }\n  .selected {\n  background-color: #90AFC5;\n  border-color: #2D4161;\n  border-width: 2px;\n  color: white; }\n  .non-select {\n  border-color: #c4c2c2;\n  border-width: 2px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2l2YW5uYS9Eb2N1bWVudHMvRWNsaXBzZV9wcm9qZWN0cy9tYXN0ZXIgYnJhbmNoL0x2LTM3NS5KYXZhLlNtYXJ0Q2FyU2VydmljZS9jbGllbnQvc3JjL2FwcC9ib29raW5nL3NraWxscy9za2lsbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhLEVBQUE7RUFEZjtJQUdJLGVBQWUsRUFBQTtFQUluQjtFQUNFLGFBQWE7RUFDYixlQUFlLEVBQUE7RUFHakI7RUFDRSxZQUFZO0VBQ1osYUFBYTtFQUNiLHNCQUFzQjtFQUN0QixZQUFZLEVBQUE7RUFHZDtFQUNFLHlCQUF5QjtFQUN6QixxQkFBcUI7RUFDckIsaUJBQWlCO0VBQ2pCLFlBQVksRUFBQTtFQUdkO0VBQ0UscUJBQWdDO0VBQ2hDLGlCQUFpQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYm9va2luZy9za2lsbHMvc2tpbGxzLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmxpc3QtZ3JvdXAtaXRlbSB7XG4gIG1hcmdpbjogMC41cHg7XG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgfVxufVxuXG4uZmxleC1jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG59XG5cbi5jb250YWluZXIge1xuICB3aWR0aDogMzAwcHg7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIG1hcmdpbjogMjBweDtcbn1cblxuLnNlbGVjdGVkIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzkwQUZDNTtcbiAgYm9yZGVyLWNvbG9yOiAjMkQ0MTYxO1xuICBib3JkZXItd2lkdGg6IDJweDtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG4ubm9uLXNlbGVjdCB7XG4gIGJvcmRlci1jb2xvcjogcmdiKDE5NiwgMTk0LCAxOTQpO1xuICBib3JkZXItd2lkdGg6IDJweDtcbn1cbiJdfQ== */"
+module.exports = ".list-group-item {\n  margin: 0.5px; }\n  .list-group-item:hover {\n    cursor: pointer; }\n  .flex-container {\n  display: flex;\n  flex-wrap: wrap; }\n  .container {\n  width: 300px;\n  display: flex;\n  flex-direction: column;\n  margin: 20px; }\n  .selected {\n  background-color: #90AFC5;\n  border-color: #2D4161;\n  border-width: 2px;\n  color: white; }\n  .non-select {\n  border-color: #c4c2c2;\n  border-width: 2px; }\n  .selectSkill {\n  background-color: white;\n  border-right: none;\n  font-weight: bold; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2l2YW5uYS9Eb2N1bWVudHMvRWNsaXBzZV9wcm9qZWN0cy9tYXN0ZXIgYnJhbmNoL0x2LTM3NS5KYXZhLlNtYXJ0Q2FyU2VydmljZS9jbGllbnQvc3JjL2FwcC9ib29raW5nL3NraWxscy9za2lsbHMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFhLEVBQUE7RUFEakI7SUFHUSxlQUFlLEVBQUE7RUFJdkI7RUFDSSxhQUFhO0VBQ2IsZUFBZSxFQUFBO0VBR25CO0VBQ0ksWUFBWTtFQUNaLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsWUFBWSxFQUFBO0VBR2hCO0VBQ0kseUJBQXlCO0VBQ3pCLHFCQUFxQjtFQUNyQixpQkFBaUI7RUFDakIsWUFBWSxFQUFBO0VBR2hCO0VBQ0kscUJBQWdDO0VBQ2hDLGlCQUFpQixFQUFBO0VBRXJCO0VBQ0ksdUJBQXVCO0VBQ3ZCLGtCQUFrQjtFQUNsQixpQkFBaUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2Jvb2tpbmcvc2tpbGxzL3NraWxscy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5saXN0LWdyb3VwLWl0ZW17XG4gICAgbWFyZ2luOiAwLjVweDtcbiAgICAmOmhvdmVye1xuICAgICAgICBjdXJzb3I6IHBvaW50ZXI7XG4gICAgfVxufVxuXG4uZmxleC1jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG59XG5cbi5jb250YWluZXJ7XG4gICAgd2lkdGg6IDMwMHB4O1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICBtYXJnaW46IDIwcHg7XG59XG5cbi5zZWxlY3RlZHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjOTBBRkM1O1xuICAgIGJvcmRlci1jb2xvcjogIzJENDE2MTtcbiAgICBib3JkZXItd2lkdGg6IDJweDtcbiAgICBjb2xvcjogd2hpdGU7XG59XG5cbi5ub24tc2VsZWN0e1xuICAgIGJvcmRlci1jb2xvcjogcmdiKDE5NiwgMTk0LCAxOTQpO1xuICAgIGJvcmRlci13aWR0aDogMnB4O1xufVxuLnNlbGVjdFNraWxse1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIGJvcmRlci1yaWdodDogbm9uZTtcbiAgICBmb250LXdlaWdodDogYm9sZDtcbn1cbiJdfQ== */"
 
 /***/ }),
 
@@ -1149,10 +1148,12 @@ var StoSkillComponent = /** @class */ (function () {
     function StoSkillComponent(skillService, route) {
         this.skillService = skillService;
         this.route = route;
-        this.workerList = new _worker_list_worker_list_real__WEBPACK_IMPORTED_MODULE_4__["WorkerListReal"]();
-        this.myskill = new Map();
-        this.timeValue = 0;
+        this.workerList = new _worker_list_worker_list_real__WEBPACK_IMPORTED_MODULE_4__["WorkerList"]();
+        this.selectedWork = new Map();
+        this.totalPrice = 0;
         this.show = true;
+        this.headElements = ["Name", "Time", "Cost"];
+        this.selectedSkill = new Map();
     }
     StoSkillComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1160,46 +1161,80 @@ var StoSkillComponent = /** @class */ (function () {
             _this.searchId = params["id"];
         });
         this.skillService.getAllSkillsToStoResp(this.searchId)
-            .subscribe(function (data) { return _this.skills = data; }, function (error) { return _this.error = error; });
+            .subscribe(function (data) { return _this.workType = data; }, function (error) { return _this.error = error; });
     };
-    StoSkillComponent.prototype.addOrDelete = function (s) {
+    StoSkillComponent.prototype.addOrDelete = function (w, skillName) {
         this.show = true;
-        if (this.myskill.get(s.name) != undefined) {
-            if (this.myskill.get(s.name) == -1) {
-                this.timeValue += s.requiredTime;
-                this.myskill.set(s.name, 1);
-                this.setClass(s.id, 'selected');
+        console.log(this.selectedSkill);
+        if (this.selectedWork.get(w.name) != undefined) {
+            if (this.selectedWork.get(w.name) == -1) {
+                this.totalPrice += w.cost;
+                this.selectedWork.set(w.name, 1);
+                this.setClass(w.name, 'selected');
+                this.selectedSkill.set(skillName, this.selectedSkill.get(skillName) + 1);
             }
             else {
-                this.timeValue -= s.requiredTime;
-                this.myskill.set(s.name, -1);
-                this.setClass(s.id, 'non-select');
+                this.totalPrice -= w.cost;
+                this.selectedWork.set(w.name, -1);
+                this.setClass(w.name, 'non-select');
+                this.selectedSkill.set(skillName, this.selectedSkill.get(skillName) - 1);
             }
         }
         else {
-            this.myskill.set(s.name, 1);
-            this.timeValue += s.requiredTime;
-            this.setClass(s.id, 'selected');
+            this.selectedWork.set(w.name, 1);
+            this.totalPrice += w.cost;
+            this.setClass(w.name, 'selected');
+            if (this.selectedSkill.get(skillName) == undefined) {
+                this.selectedSkill.set(skillName, 1);
+            }
+            else {
+                this.selectedSkill.set(skillName, this.selectedSkill.get(skillName) + 1);
+            }
         }
     };
     StoSkillComponent.prototype.setClass = function (id, className) {
-        document.getElementById(String(id)).className = "jumbotron text-center hoverable p-4 " + className;
+        document.getElementById(id).className = className;
+    };
+    StoSkillComponent.prototype.setSkillClass = function (id, className) {
+        document.getElementById(id).className = "list-group-item " + className;
     };
     StoSkillComponent.prototype.changeShow = function () {
         this.workerList = this.GetData();
         this.show = false;
     };
     StoSkillComponent.prototype.GetData = function () {
-        var workerList = new _worker_list_worker_list_real__WEBPACK_IMPORTED_MODULE_4__["WorkerListReal"]();
+        var workerList = new _worker_list_worker_list_real__WEBPACK_IMPORTED_MODULE_4__["WorkerList"]();
+        var workName = new Array();
         var skillName = new Array();
-        this.myskill.forEach(function (value, key) {
+        this.selectedWork.forEach(function (value, key) {
             if (value === 1) {
+                workName.push(key);
+            }
+        });
+        this.selectedSkill.forEach(function (value, key) {
+            if (value >= 1) {
                 skillName.push(key);
             }
         });
-        workerList.name = skillName;
+        workerList.workName = workName;
+        workerList.skillName = skillName;
         workerList.searchId = this.searchId;
         return workerList;
+    };
+    StoSkillComponent.prototype.workEmpty = function () {
+        if (this.works == undefined) {
+            return false;
+        }
+        return true;
+    };
+    StoSkillComponent.prototype.chooseSkill = function (works) {
+        this.works = works;
+    };
+    StoSkillComponent.prototype.selectWork = function (workId) {
+        this.setClass(workId, "selected");
+    };
+    StoSkillComponent.prototype.selectSkill = function (skillId) {
+        this.setSkillClass(skillId, "selectSkill");
     };
     StoSkillComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1310,7 +1345,7 @@ var TimeListService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"full-page-container\">\n  <div class=\"d-flex flex-row flex-wrap\" style=\"margin: 10px; padding: 10px\">\n    <ng-container class=\"time-container\" *ngFor=\"let item of workTime | keyvalue\">\n      <div *ngIf=\"!isEmptyDate(item.value)\">\n        <mdb-card class=\"mb-3\" style=\"max-width: 20rem; border: 1px solid #2D4262; padding: 5px; margin: 10px\">\n          <mdb-card-header> {{item.key}}</mdb-card-header>\n          <mdb-card-body>\n            <mdb-card-title>\n              <h5> Available time: </h5>\n            </mdb-card-title>\n            <mdb-card-text>\n              <div class=\"jumbotron text-center hoverable p-4\"\n                   *ngFor=\"let value of item.value\"\n                   id=\"{{value.startBooking}}\"\n                   (click)=\"chooseDate(value.startBooking); select(value.startBooking)\">\n                {{getHourFromDate(value.startBooking)}} - {{getHourFromDate(value.endBooking)}}\n              </div>\n            </mdb-card-text>\n          </mdb-card-body>\n        </mdb-card>\n      </div>\n    </ng-container>\n  </div>\n  <div class=\"button-time\">\n    <button mdbBtn type=\"button\" class=\"justify-content-start\" style=\"background-color: #336B87\" (click)=\"postBooking()\"\n            mdbWavesEffect>Apply\n    </button>\n    <button mdbBtn type=\"button\" class=\"justify-content-end\" style=\"background-color: #c5001a\" (click)=\"goToHomePage()\"\n            mdbWavesEffect>Cancel\n    </button>\n  </div>\n</div>\n\n"
+module.exports = "<div class = \"full-page-container\">\n  <div>\n    <mdb-card style=\"max-width: 300px\">\n      <mdb-card-img src=\"assets/img/booking.jpg\" alt=\"Card image cap\"></mdb-card-img>\n      <mdb-card-body>\n        <mdb-card-title>\n          <h4>Booking Info:</h4>\n        </mdb-card-title>\n        <mdb-card-text>\n          <h5 class=\"info-text\">Service Name: {{bookingInfo.techServiceName}}</h5> \n          <h5 class=\"info-text\">Start: {{getDate(bookingInfo.startBooking)}}</h5>\n          <h5 class=\"info-text\">End: {{getDate(bookingInfo.endBooking)}}</h5>\n        </mdb-card-text>\n      </mdb-card-body>\n    </mdb-card>\n  </div>\n<div class=\"button-time\">\n<button  mdbBtn type=\"button\" class =\"justify-content-start\" style=\"background-color: #336B87\" (click)=\"postBooking()\" mdbWavesEffect>Apply</button>\n<button  mdbBtn type=\"button\" class =\"justify-content-end\" style=\"background-color: #c5001a\" (click)=\"goToHomePage()\" mdbWavesEffect>Cancel</button>\n</div>\n</div>\n\n"
 
 /***/ }),
 
@@ -1321,7 +1356,7 @@ module.exports = "<div class=\"full-page-container\">\n  <div class=\"d-flex fle
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".time-container {\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  padding: 20px;\n  border-style: solid;\n  border-width: 1px;\n  border-color: rgba(164, 167, 165, 0.733); }\n\n.full-page-container {\n  display: flex;\n  flex-direction: column;\n  align-self: flex-start;\n  margin: 20px; }\n\n.button-time {\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  padding: 20px; }\n\n.select {\n  background-color: #90AFC5;\n  color: white; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2l2YW5uYS9Eb2N1bWVudHMvRWNsaXBzZV9wcm9qZWN0cy9tYXN0ZXIgYnJhbmNoL0x2LTM3NS5KYXZhLlNtYXJ0Q2FyU2VydmljZS9jbGllbnQvc3JjL2FwcC9ib29raW5nL3RpbWUtbGlzdC90aW1lLWxpc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixlQUFlO0VBQ2YsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsd0NBQXdDLEVBQUE7O0FBRzFDO0VBQ0UsYUFBYTtFQUNiLHNCQUFzQjtFQUN0QixzQkFBc0I7RUFDdEIsWUFBWSxFQUFBOztBQUdkO0VBQ0UsWUFBWTtFQUNaLGFBQWE7RUFDYixtQkFBbUI7RUFDbkIsYUFBYSxFQUFBOztBQUdmO0VBQ0UseUJBQXlCO0VBQ3pCLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL2Jvb2tpbmcvdGltZS1saXN0L3RpbWUtbGlzdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aW1lLWNvbnRhaW5lciB7XG4gIG1hcmdpbjogMTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgZmxleC13cmFwOiB3cmFwO1xuICBwYWRkaW5nOiAyMHB4O1xuICBib3JkZXItc3R5bGU6IHNvbGlkO1xuICBib3JkZXItd2lkdGg6IDFweDtcbiAgYm9yZGVyLWNvbG9yOiByZ2JhKDE2NCwgMTY3LCAxNjUsIDAuNzMzKTtcbn1cblxuLmZ1bGwtcGFnZS1jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1zZWxmOiBmbGV4LXN0YXJ0O1xuICBtYXJnaW46IDIwcHg7XG59XG5cbi5idXR0b24tdGltZSB7XG4gIG1hcmdpbjogMTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgcGFkZGluZzogMjBweDtcbn1cblxuLnNlbGVjdCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICM5MEFGQzU7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cbiJdfQ== */"
+module.exports = ".time-container {\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  padding: 20px;\n  border-style: solid;\n  border-width: 1px;\n  border-color: rgba(164, 167, 165, 0.733); }\n\n.full-page-container {\n  display: flex;\n  flex-direction: column;\n  align-self: flex-start;\n  margin: 20px; }\n\n.button-time {\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  padding: 20px; }\n\n.select {\n  background-color: #90AFC5;\n  color: white; }\n\n.info-text {\n  color: #363237;\n  margin: 20px;\n  align-self: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2l2YW5uYS9Eb2N1bWVudHMvRWNsaXBzZV9wcm9qZWN0cy9tYXN0ZXIgYnJhbmNoL0x2LTM3NS5KYXZhLlNtYXJ0Q2FyU2VydmljZS9jbGllbnQvc3JjL2FwcC9ib29raW5nL3RpbWUtbGlzdC90aW1lLWxpc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixlQUFlO0VBQ2YsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsd0NBQXdDLEVBQUE7O0FBRTVDO0VBQ1EsYUFBYTtFQUNiLHNCQUFzQjtFQUN0QixzQkFBc0I7RUFDdEIsWUFBWSxFQUFBOztBQUVwQjtFQUNJLFlBQVk7RUFDWixhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLGFBQWEsRUFBQTs7QUFFakI7RUFDSSx5QkFBeUI7RUFDekIsWUFBWSxFQUFBOztBQUVoQjtFQUNJLGNBQWM7RUFDZCxZQUFZO0VBQ1osa0JBQWtCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9ib29raW5nL3RpbWUtbGlzdC90aW1lLWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudGltZS1jb250YWluZXJ7XG4gICAgbWFyZ2luOiAxMHB4O1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAgcGFkZGluZzogMjBweDtcbiAgICBib3JkZXItc3R5bGU6IHNvbGlkO1xuICAgIGJvcmRlci13aWR0aDogMXB4O1xuICAgIGJvcmRlci1jb2xvcjogcmdiYSgxNjQsIDE2NywgMTY1LCAwLjczMyk7XG59XG4uZnVsbC1wYWdlLWNvbnRhaW5lcntcbiAgICAgICAgZGlzcGxheTogZmxleDtcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgICAgICAgYWxpZ24tc2VsZjogZmxleC1zdGFydDtcbiAgICAgICAgbWFyZ2luOiAyMHB4O1xufVxuLmJ1dHRvbi10aW1le1xuICAgIG1hcmdpbjogMTBweDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gICAgcGFkZGluZzogMjBweDtcbn1cbi5zZWxlY3R7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzkwQUZDNTtcbiAgICBjb2xvcjogd2hpdGU7XG59XG4uaW5mby10ZXh0e1xuICAgIGNvbG9yOiAjMzYzMjM3O1xuICAgIG1hcmdpbjogMjBweDtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59Il19 */"
 
 /***/ }),
 
@@ -1351,21 +1386,22 @@ var TimeListComponent = /** @class */ (function () {
     function TimeListComponent(timeListServices, router) {
         this.timeListServices = timeListServices;
         this.router = router;
-        this.workTime = new Map();
+        this.months = { '01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr', '05': 'May', '06': 'June', '07': 'July',
+            '08': 'Aug', '09': 'Sept', '10': 'Oct', '11': 'Nov', '12': 'Dec' };
     }
     TimeListComponent.prototype.ngOnInit = function () {
-        this.getTimeList();
+        this.getBookingInfo();
     };
-    TimeListComponent.prototype.getTimeList = function () {
+    TimeListComponent.prototype.getBookingInfo = function () {
         var _this = this;
         this.timeListServices.getBookingTime(this.timeList)
-            .subscribe(function (data) { return _this.workTime = data; }, function (error) { return _this.error = error; });
+            .subscribe(function (data) { return _this.bookingInfo = data; }, function (error) { return _this.error = error; });
     };
     TimeListComponent.prototype.buttonClick = function () {
-        this.getTimeList();
+        this.getBookingInfo();
     };
-    TimeListComponent.prototype.getHourFromDate = function (date) {
-        return date.slice(11, 16);
+    TimeListComponent.prototype.getDate = function (date) {
+        return date.slice(8, 10) + " " + this.months[date.slice(5, 7)] + " " + date.slice(11, 16);
     };
     TimeListComponent.prototype.isEmptyDate = function (date) {
         return date.length == 0;
@@ -1396,7 +1432,7 @@ var TimeListComponent = /** @class */ (function () {
         }
     };
     TimeListComponent.prototype.goToHomePage = function () {
-        this.router.navigate(['/ui/home']);
+        this.router.navigate(['ui/home']);
     };
     TimeListComponent.prototype.select = function (startSession) {
         if (this.lastId != undefined) {
@@ -1461,16 +1497,16 @@ var TimeList = /** @class */ (function () {
 /*!*********************************************************!*\
   !*** ./src/app/booking/worker-list/worker-list-real.ts ***!
   \*********************************************************/
-/*! exports provided: WorkerListReal */
+/*! exports provided: WorkerList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WorkerListReal", function() { return WorkerListReal; });
-var WorkerListReal = /** @class */ (function () {
-    function WorkerListReal() {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WorkerList", function() { return WorkerList; });
+var WorkerList = /** @class */ (function () {
+    function WorkerList() {
     }
-    return WorkerListReal;
+    return WorkerList;
 }());
 
 
@@ -1545,7 +1581,7 @@ var WorkerListService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"d-flex justify-content-start\">\n  <div class=\"container\" *ngIf=\"showWorker\">\n    <h3 class=\"time-value\">Required Time: {{workersTime.requiredTime}} hours</h3>\n    <div class=\"d-flex flex-row flex-wrap\">\n      <ng-container class=\"work-container\" *ngFor=\"let item of workersTime.workerList | keyvalue\">\n        <mdb-card class=\"mb-3 align-self-start\"\n                  style=\"width: 15rem; border: 1px solid #2D4262; padding: 3px; margin: 7px\">\n          <mdb-card-header><h6>{{item.key}}</h6></mdb-card-header>\n          <mdb-card-body>\n            <mdb-card-title>\n              <h5> Workers: </h5>\n            </mdb-card-title>\n            <mdb-card-text>\n              <div class=\"jumbotron text-center hoverable p-4\"\n                   *ngFor=\"let value of item.value\"\n                   id='worker{{value.workerId}}'\n                   (click)=\"ChooseWorker(value, item.key)\">\n                {{value.fullName}}\n              </div>\n            </mdb-card-text>\n          </mdb-card-body>\n        </mdb-card>\n      </ng-container>\n    </div>\n    <div>\n      <div class=\"md-form free-time date\">\n        <input mdbInput type=\"text\" name=\"time\" [(ngModel)]=\"workerForm.time\" class=\"form-control mb-4\"\n               placeholder=\"yyyy-mm-dd\">\n      </div>\n      <div class=\"md-form free-time date\">\n        <input mdbInput type=\"text\" name=\"day\" [(ngModel)]=\"workerForm.day\" class=\"form-control mb-4\" placeholder=\"Day\">\n      </div>\n    </div>\n    <button *ngIf=\"showTime\" mdbBtn type=\"button\" class=\"justify-content-start\" style=\"background-color: #336B87\"\n            (click)=\"getFreeTime()\" mdbWavesEffect>Get Free Time\n    </button>\n    <button *ngIf=\"!showTime\" mdbBtn type=\"button\" class=\"justify-content-start\" style=\"background-color: #336B87\"\n            (click)=\"getFreeTime()\" mdbWavesEffect>Get Free\n      Time\n    </button>\n  </div>\n\n  <div *ngIf=\"showTime\">\n    <app-time-list [timeList]=timeList [carId]=carId [requiredTime]=workersTime.requiredTime></app-time-list>\n  </div>\n</div>\n"
+module.exports = "<div class=\"d-flex justify-content-start\">\n  <div class=\"container\" *ngIf=\"showWorker\">\n      <h3 class=\"time-value\">Required Time: {{workersTime.requiredTime}} hours</h3>\n    <div class= \"d-flex flex-row flex-wrap\">\n        <ng-container class=\"work-container\" *ngFor=\"let item of workersTime.workerList | keyvalue\">\n            <mdb-card class=\"mb-3 align-self-start\" style=\"width: 15rem; border: 1px solid #2D4262; padding: 3px; margin: 7px\">\n              <mdb-card-header> <h6>{{item.key}}</h6> </mdb-card-header>\n              <mdb-card-body>\n                <mdb-card-title>\n                  <h5> Workers: </h5>\n                </mdb-card-title>\n                <mdb-card-text>\n                  <div class=\"jumbotron text-center hoverable p-4\" \n                    *ngFor=\"let value of item.value\" \n                    id='worker{{value.workerId}}'\n                      (click)=\"ChooseWorker(value, item.key)\">\n                      {{value.fullName}}\n                  </div>\n                </mdb-card-text>\n              </mdb-card-body>\n            </mdb-card>\n        </ng-container>\n  </div>\n    <div>\n      <div class=\"md-form free-time date\">\n        <input mdbInput type=\"text\" name=\"time\" [(ngModel)]=\"workerForm.time\" class=\"form-control mb-4\"\n          placeholder=\"yyyy-mm-dd\">\n      </div>\n      <div class=\"md-form free-time date\">\n        <input mdbInput type=\"text\" name=\"day\" [(ngModel)]=\"workerForm.day\" class=\"form-control mb-4\" placeholder=\"Day\">\n      </div>\n    </div>\n    <button *ngIf=\"showTime\" mdbBtn type=\"button\" class =\"justify-content-start\" style=\"background-color: #336B87\" (click)=\"getFreeTime()\" mdbWavesEffect>Get Free Time</button>\n    <button *ngIf=\"!showTime\" mdbBtn type=\"button\" class =\"justify-content-start\" style=\"background-color: #336B87\" (click)=\"getFreeTime()\" mdbWavesEffect>Get Free\n      Time</button>\n  </div>\n\n  <div *ngIf=\"showTime\">\n    <app-time-list [timeList]=timeList  [carId] = carId [requiredTime] = workersTime.requiredTime ></app-time-list>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1556,7 +1592,7 @@ module.exports = "<div class=\"d-flex justify-content-start\">\n  <div class=\"c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  display: flex;\n  flex-direction: column;\n  align-self: flex-start;\n  margin: 20px; }\n\n.select {\n  background-color: #90AFC5;\n  color: white; }\n\n.non-select {\n  border-color: #c4c2c2;\n  border-width: 2px; }\n\n.free-time {\n  display: flex;\n  flex-flow: column; }\n\n.date {\n  width: 300px; }\n\n.flex-in-row {\n  flex-direction: row;\n  flex-wrap: wrap; }\n\n.work-container {\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  padding: 20px;\n  border-style: solid;\n  border-width: 1px;\n  border-color: rgba(164, 167, 165, 0.733); }\n\n.time-value {\n  color: #363237;\n  margin: 20px;\n  align-self: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2l2YW5uYS9Eb2N1bWVudHMvRWNsaXBzZV9wcm9qZWN0cy9tYXN0ZXIgYnJhbmNoL0x2LTM3NS5KYXZhLlNtYXJ0Q2FyU2VydmljZS9jbGllbnQvc3JjL2FwcC9ib29raW5nL3dvcmtlci1saXN0L3dvcmtlci1saXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0UsYUFBYTtFQUNiLHNCQUFzQjtFQUN0QixzQkFBc0I7RUFDdEIsWUFBWSxFQUFBOztBQUdkO0VBQ0UseUJBQXlCO0VBQ3pCLFlBQVksRUFBQTs7QUFHZDtFQUNFLHFCQUFnQztFQUNoQyxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSxhQUFhO0VBQ2IsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsWUFBWSxFQUFBOztBQUdkO0VBQ0UsbUJBQW1CO0VBQ25CLGVBQWUsRUFBQTs7QUFHakI7RUFDRSxZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixlQUFlO0VBQ2YsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsd0NBQXdDLEVBQUE7O0FBRzFDO0VBQ0UsY0FBYztFQUNkLFlBQVk7RUFDWixrQkFBa0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2Jvb2tpbmcvd29ya2VyLWxpc3Qvd29ya2VyLWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbi5jb250YWluZXIge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1zZWxmOiBmbGV4LXN0YXJ0O1xuICBtYXJnaW46IDIwcHg7XG59XG5cbi5zZWxlY3Qge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjOTBBRkM1O1xuICBjb2xvcjogd2hpdGU7XG59XG5cbi5ub24tc2VsZWN0IHtcbiAgYm9yZGVyLWNvbG9yOiByZ2IoMTk2LCAxOTQsIDE5NCk7XG4gIGJvcmRlci13aWR0aDogMnB4O1xufVxuXG4uZnJlZS10aW1lIHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1mbG93OiBjb2x1bW47XG59XG5cbi5kYXRlIHtcbiAgd2lkdGg6IDMwMHB4O1xufVxuXG4uZmxleC1pbi1yb3cge1xuICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICBmbGV4LXdyYXA6IHdyYXA7XG59XG5cbi53b3JrLWNvbnRhaW5lciB7XG4gIG1hcmdpbjogMTBweDtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgZmxleC13cmFwOiB3cmFwO1xuICBwYWRkaW5nOiAyMHB4O1xuICBib3JkZXItc3R5bGU6IHNvbGlkO1xuICBib3JkZXItd2lkdGg6IDFweDtcbiAgYm9yZGVyLWNvbG9yOiByZ2JhKDE2NCwgMTY3LCAxNjUsIDAuNzMzKTtcbn1cblxuLnRpbWUtdmFsdWUge1xuICBjb2xvcjogIzM2MzIzNztcbiAgbWFyZ2luOiAyMHB4O1xuICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59XG4iXX0= */"
+module.exports = ".container {\n  display: flex;\n  flex-direction: column;\n  align-self: flex-start;\n  margin: 20px; }\n\n.select {\n  background-color: #90AFC5;\n  color: white; }\n\n.non-select {\n  border-color: #c4c2c2;\n  border-width: 2px; }\n\n.free-time {\n  display: flex;\n  flex-flow: column; }\n\n.date {\n  width: 300px; }\n\n.flex-in-row {\n  flex-direction: row;\n  flex-wrap: wrap; }\n\n.work-container {\n  margin: 10px;\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n  padding: 20px;\n  border-style: solid;\n  border-width: 1px;\n  border-color: rgba(164, 167, 165, 0.733); }\n\n.time-value {\n  color: #363237;\n  margin: 20px;\n  align-self: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL2l2YW5uYS9Eb2N1bWVudHMvRWNsaXBzZV9wcm9qZWN0cy9tYXN0ZXIgYnJhbmNoL0x2LTM3NS5KYXZhLlNtYXJ0Q2FyU2VydmljZS9jbGllbnQvc3JjL2FwcC9ib29raW5nL3dvcmtlci1saXN0L3dvcmtlci1saXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNBO0VBQ0ksYUFBYTtFQUNiLHNCQUFzQjtFQUN0QixzQkFBc0I7RUFDdEIsWUFBWSxFQUFBOztBQUdoQjtFQUNJLHlCQUF5QjtFQUN6QixZQUFZLEVBQUE7O0FBR2hCO0VBQ0kscUJBQWdDO0VBQ2hDLGlCQUFpQixFQUFBOztBQUVyQjtFQUNJLGFBQWE7RUFDYixpQkFBaUIsRUFBQTs7QUFFckI7RUFDSSxZQUFZLEVBQUE7O0FBRWhCO0VBQ0ksbUJBQW1CO0VBQ25CLGVBQWUsRUFBQTs7QUFFbkI7RUFDSSxZQUFZO0VBQ1osYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixlQUFlO0VBQ2YsYUFBYTtFQUNiLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsd0NBQXdDLEVBQUE7O0FBRTVDO0VBQ0ksY0FBYztFQUNkLFlBQVk7RUFDWixrQkFBa0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2Jvb2tpbmcvd29ya2VyLWxpc3Qvd29ya2VyLWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJcbi5jb250YWluZXJ7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICAgIGFsaWduLXNlbGY6IGZsZXgtc3RhcnQ7XG4gICAgbWFyZ2luOiAyMHB4O1xufVxuXG4uc2VsZWN0e1xuICAgIGJhY2tncm91bmQtY29sb3I6ICM5MEFGQzU7XG4gICAgY29sb3I6IHdoaXRlO1xufVxuXG4ubm9uLXNlbGVjdHtcbiAgICBib3JkZXItY29sb3I6IHJnYigxOTYsIDE5NCwgMTk0KTtcbiAgICBib3JkZXItd2lkdGg6IDJweDtcbn1cbi5mcmVlLXRpbWV7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWZsb3c6IGNvbHVtbjtcbn1cbi5kYXRle1xuICAgIHdpZHRoOiAzMDBweDtcbn1cbi5mbGV4LWluLXJvd3tcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbn1cbi53b3JrLWNvbnRhaW5lcntcbiAgICBtYXJnaW46IDEwcHg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICAgIGZsZXgtd3JhcDogd3JhcDtcbiAgICBwYWRkaW5nOiAyMHB4O1xuICAgIGJvcmRlci1zdHlsZTogc29saWQ7XG4gICAgYm9yZGVyLXdpZHRoOiAxcHg7XG4gICAgYm9yZGVyLWNvbG9yOiByZ2JhKDE2NCwgMTY3LCAxNjUsIDAuNzMzKTtcbn1cbi50aW1lLXZhbHVle1xuICAgIGNvbG9yOiAjMzYzMjM3O1xuICAgIG1hcmdpbjogMjBweDtcbiAgICBhbGlnbi1zZWxmOiBjZW50ZXI7XG59Il19 */"
 
 /***/ }),
 
@@ -1625,7 +1661,7 @@ var WorkerListComponent = /** @class */ (function () {
     };
     WorkerListComponent.prototype.getFreeTime = function () {
         this.timeList.time = this.workerForm.time;
-        this.timeList.numberOfDay = (String)((Number)(this.workerForm.day) - 1);
+        this.timeList.carId = this.carId;
         var workId = new Array();
         this.lastIndexMap.forEach(function (value, key) {
             if (value != -1) {
@@ -1633,7 +1669,7 @@ var WorkerListComponent = /** @class */ (function () {
             }
         });
         this.timeList.workerId = workId;
-        this.timeList.needTime = this.workersTime.requiredTime * 60;
+        this.timeList.needTime = this.workersTime.requiredTime;
         this.showWorker = false;
         this.showTime = true;
     };
@@ -1643,7 +1679,7 @@ var WorkerListComponent = /** @class */ (function () {
     ], WorkerListComponent.prototype, "carId", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _worker_list_real__WEBPACK_IMPORTED_MODULE_3__["WorkerListReal"])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _worker_list_real__WEBPACK_IMPORTED_MODULE_3__["WorkerList"])
     ], WorkerListComponent.prototype, "workerList", void 0);
     WorkerListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1726,11 +1762,11 @@ var CarProfileComponent = /** @class */ (function () {
                 _this.showInspection = true;
             }
             else if (_this.errorCode === 400) {
-                if (confirm("Car with such registration or vin number present in our system. Please check your data.")) {
+                if (confirm("Car with such registration or vin number is present in our system. Please check your data.")) {
                 }
             }
             else {
-                if (confirm("Car with such registration or vin number present in our system. Please check your data.")) {
+                if (confirm("Car with such registration or vin number is present in our system. Please check your data.")) {
                 }
             }
         }, 1000);
