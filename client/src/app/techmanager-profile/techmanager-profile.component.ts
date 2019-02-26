@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {TechmanagerProfileService} from './techmanager-profile.service';
-import {TechmanagerProfile} from './techmanager-profile';
+import { Component, OnInit } from '@angular/core';
+import { TechmanagerProfileService } from './techmanager-profile.service';
+import { TechmanagerProfile } from './techmanager-profile';
 
 @Component({
   selector: 'app-techmanager-profile',
@@ -12,19 +12,17 @@ export class TechmanagerProfileComponent implements OnInit {
 
   profile: TechmanagerProfile;
   error: ErrorEvent;
+  //response: Response; 
+  constructor(private profileService: TechmanagerProfileService) { }
 
-  //response: Response;
-  constructor(private profileService: TechmanagerProfileService) {
-  }
-
-  ngOnInit() {
+  ngOnInit() { 
     this.initProfile();
   }
 
   initProfile() {
     this.profileService.getProfileResp()
-      .subscribe(data => this.profile = data,
-        error => this.error = error);
+    .subscribe(data => this.profile = data,
+              error => this.error = error);
   }
 
   updateProfile() {

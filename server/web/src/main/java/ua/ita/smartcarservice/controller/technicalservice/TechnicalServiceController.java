@@ -1,16 +1,22 @@
 package ua.ita.smartcarservice.controller.technicalservice;
 
+import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
+import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
+import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.service.UserService;
+import ua.ita.smartcarservice.service.feedback.ServicesFeedbackService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 /**
@@ -18,6 +24,9 @@ import java.util.List;
  */
 @RestController
 public class TechnicalServiceController {
+
+    @Autowired
+    ServicesFeedbackService servicesFeedbackService;
 
     @Autowired
     TechnicalServiceService technicalServiceService;
@@ -28,6 +37,7 @@ public class TechnicalServiceController {
     @Autowired
     WorkerService workerService;
 
+    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
     /*
     Method for getting all the technical services
@@ -38,8 +48,10 @@ public class TechnicalServiceController {
 
         try {
             responseEntity = new ResponseEntity<>(technicalServiceService.getAllTechnicalServicesDto(), HttpStatus.OK);
+            logger.info("Successfully get all the technical services.");
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting all the technical services. Details: " + e.getMessage());
         }
 
         return responseEntity;
@@ -55,7 +67,12 @@ public class TechnicalServiceController {
             @RequestParam(value = "name") String name,
             @RequestParam(value = "address") String address) {
 
-        technicalServiceService.createTechnicalService(name, address, id);
+        try {
+            technicalServiceService.createTechnicalService(name, address, id);
+            logger.info("Successfully created a technical service.");
+        } catch (Exception e) {
+            logger.error("Error while creating a technical service. Details: " + e.getMessage());
+        }
     }
 
     /*
@@ -68,10 +85,37 @@ public class TechnicalServiceController {
         try {
             responseEntity = new ResponseEntity<>(
                     technicalServiceService.getTechnicalServiceDtoById(id), HttpStatus.OK);
+            logger.info("Successfully get a technical service by id: " + id);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting a technical service by id: " + id + " Details: " + e.getMessage());
         }
 
+        return responseEntity;
+    }
+
+    /**
+     * Method fot creation a connection between Worker and TechnicalService
+     * also it adds a Skill to Current Worker
+     */
+    @PostMapping("/api/v1/techservices/{id}/workers/{username}/skills/{skillId}")
+    ResponseEntity addWorkerToTechnicalService(@PathVariable Long id, @PathVariable String username, @PathVariable Long skillId) {
+        ResponseEntity responseEntity;
+
+        try {
+            /*  Adding Worker to Technical Service    */
+            technicalServiceService.addWorkerToTechnicalService(username, id);
+
+            /* Adding Skill to Worker */
+            workerService.addSkillToWorker(username, skillId);
+
+            responseEntity = new ResponseEntity(HttpStatus.OK);
+            logger.info("Successfully get a technical service`s workers by id: " + id);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while connection a technical service and worker. id: " + id +
+                    " Worker`s username^ " + username + " Details: " + e.getMessage());
+        }
 
         return responseEntity;
     }
@@ -81,16 +125,24 @@ public class TechnicalServiceController {
     it gets parameters from the URL
      */
     @GetMapping("/api/v1/techservices/{id}/workers")
-    ResponseEntity<List<UserEntity>> getTechnicalServiceWorkers(@PathVariable Long id) {
-        ResponseEntity<List<UserEntity>> responseEntity;
+    //ResponseEntity<List<UserEntity>> getTechnicalServiceWorkers(@PathVariable Long id) {
+    ResponseEntity<List<WorkerSkillDto>> getTechnicalServiceWorkers(@PathVariable Long id) {
+
+        ResponseEntity<List<WorkerSkillDto>> responseEntity;
 
         try {
-            responseEntity = new ResponseEntity<List<UserEntity>>(
-                    workerService.getWorkersByTechnicalServiceId(
-                            technicalServiceService.getTechnicalServiceById(id)),
+            List<UserEntity> workersList =
+                    technicalServiceService.getUsersByRoleAndTechnicalSevice("ROLE_WORKER", id);
+            List<WorkerSkillDto> workersWithSkillList =
+                    workerService.addSkillToWorkersList(workersList);
+
+            responseEntity = new ResponseEntity<List<WorkerSkillDto>>(
+                    workersWithSkillList,
                     HttpStatus.OK);
+            logger.info("Successfully get a technical service`s workers by id: " + id);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting a technical service`s workers by id: " + id + " Details: " + e.getMessage());
         }
 
         return responseEntity;
@@ -104,27 +156,38 @@ public class TechnicalServiceController {
     void updateTechnicalService(@PathVariable Long id,
                                 @RequestParam(value = "name", required = false) String name,
                                 @RequestParam(value = "address", required = false) String address) {
+        try {
+            TechnicalServiceEntity technicalServiceEntity = technicalServiceService.getTechnicalServiceById(id);
 
-        TechnicalServiceEntity technicalServiceEntity = technicalServiceService.getTechnicalServiceById(id);
+            if (name != null) {
+                technicalServiceEntity.setName(name);
+            }
 
-        if (name != null) {
-            technicalServiceEntity.setName(name);
+            if (address != null) {
+                technicalServiceEntity.setAddress(address);
+            }
+
+            technicalServiceService.updateTechnicalService(technicalServiceEntity);
+
+            logger.info("Successfully updated a technical service by id: " + id);
+        } catch (Exception e) {
+            logger.error("Error while updating a technical service by id: " + id + " Details: " + e.getMessage());
         }
-
-        if (address != null) {
-            technicalServiceEntity.setAddress(address);
-        }
-
-        technicalServiceService.updateTechnicalService(technicalServiceEntity);
     }
 
     /*
    Method for deleting Worker by id from DB and current TechnicalManager`s worker list
-    */
+
     @DeleteMapping("/api/v1/workers/{workerId}")
     void deleteWorker(@PathVariable Long workerId) throws Exception {
-        userService.deleteById(workerId);
+        try {
+            logger.info("Successfully deleted a worker by id: " + workerId);
+            userService.deleteById(workerId);
+        } catch (Exception e) {
+            logger.error("Error while deleting a worker by id: " + workerId + " Details: " + e.getMessage());
+        }
     }
+    */
 
     /*
     Method for getting Technical Service bu User ID
@@ -136,8 +199,10 @@ public class TechnicalServiceController {
 
         try {
             responseEntity = new ResponseEntity<TechnicalServiceDto>(technicalServiceService.getTechnicalServiceDtoByUser(userId), HttpStatus.OK);
+            logger.info("Successfully get a Technical Service by User`s id: " + userId);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<TechnicalServiceDto>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting a Technical Service by User`s id: " + userId + " Details: " + e.getMessage());
         }
 
         return responseEntity;
@@ -148,16 +213,16 @@ public class TechnicalServiceController {
      */
     @DeleteMapping("/api/v1/techservices/{techServiceId}")
     void deleteTechnicalService(@PathVariable Long techServiceId) throws Exception {
-        technicalServiceService.deleteTechnicalService(techServiceId);
+        try {
+            technicalServiceService.deleteTechnicalService(techServiceId);
+            logger.info("Successfully deleted a Technical Service by id: " + techServiceId);
+        } catch (Exception e) {
+            logger.error("Error while deleting a Technical Service by id: " + techServiceId + " Details: " + e.getMessage());
+        }
     }
 
-    /*
-    Method for adding Worker to Technical Service, both by ID
-     */
-    @PostMapping("/api/v1/techservices/{id}/workers/{workerId}")
-    @ResponseBody
-    void addWorkerToService(@PathVariable Long id, @PathVariable Long workerId) {
-        //TODO
+    @GetMapping("/api/v1/techservices/{techServiceId}/rating")
+    Double getServicesRating(@PathVariable Long techServiceId) {
+        return servicesFeedbackService.getServicesRating(techServiceId);
     }
-
 }

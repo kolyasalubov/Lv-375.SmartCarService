@@ -24,6 +24,7 @@ public interface SensorService {
 
     ChartDto findMinByYear(DateForChartDto dateForChartDto);
 
+    RecordDto findRecordBeforeDate (RecordDto recordDto);
 
     /* CREATE */
 

@@ -14,14 +14,24 @@ public class NotificationsController {
 
 	@Autowired
 	private NotificationService notificationsService;
-	
+
+	/*  Method for getting all notifications for user */
 	@GetMapping(path ={"/{id}"})
 	public List<NotificationsDto> getNotifications(@PathVariable("id") Long id){
 		return notificationsService.getAllNotificationsForUser(id);
 	}
-	
+
+	/* Method for deleting notification */
 	@DeleteMapping(path ={"/{id}"})
-	 public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Long id) {
 		notificationsService.deleteNotificationById(id);
-	 }		
+	}
+
+	/* Method for changing visibility of Notification from true to false */
+	@PostMapping(path ={"/{id}"})
+	public void updateNotification (@PathVariable("id") Long id) {
+		NotificationsDto dto = notificationsService.getNotification(id);
+		dto.setIsVisible(false);
+		notificationsService.updateNotification(dto);
+	}
 }
