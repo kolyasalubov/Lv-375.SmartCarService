@@ -1,10 +1,13 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import ua.ita.smartcarservice.entity.feedback.ServicesFeedback;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -28,10 +31,11 @@ public class TechnicalServiceEntity {
     @OneToMany(mappedBy = "technicalServiceId", orphanRemoval = true)
     private List<UserTechnicalService> userTechnicalServices;
 
-
     @ManyToOne
     @JoinColumn(name = "dealerEntity")
     private DealerEntity dealerEntity;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "serviceId")
+    Set<ServicesFeedback> servicesFeedback;
 }

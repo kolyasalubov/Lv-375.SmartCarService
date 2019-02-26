@@ -1,9 +1,15 @@
 export interface Notifications {
-  id: number;
-  message: String;
-  notificationTime: Date;
-  carId: number;
-  userId: number;
-  skillId: number;
-  isSelected: boolean;
+    id: number;
+    message: string;
+    suggestion: string;
+    notificationTime: Date;
+    type: string;
+    carId: number;
+    userId: number;
+    skillId: number;
+    isSelected: boolean;
+
+    showCheckbox: boolean;
+    showDropdown: boolean;
+    showButton: boolean;
 }

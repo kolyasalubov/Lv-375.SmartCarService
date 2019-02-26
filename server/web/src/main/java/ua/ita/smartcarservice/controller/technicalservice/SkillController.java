@@ -4,9 +4,7 @@ package ua.ita.smartcarservice.controller.technicalservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
 import ua.ita.smartcarservice.service.technicalservice.SkillService;
 
@@ -22,14 +20,14 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
-    @GetMapping("/api/skillBySto/{id}")
-    public ResponseEntity<List<SkillDto>> getSkillByStoId(@PathVariable Long id) {
-        return new ResponseEntity<>(skillService.getSkillNameBySto(id), HttpStatus.OK);
+    @GetMapping("/api/v1/skillbysto/{id}")
+    public ResponseEntity<List<SkillDto>> findSkillByStoId(@PathVariable Long id) {
+        return new ResponseEntity<>(skillService.findSkillNameBySto(id), HttpStatus.OK);
     }
 
-    @GetMapping("/api/skillByCar/{id}")
-    public ResponseEntity<List<SkillDto>> getSkillByCarId(@PathVariable Long id) {
-        return new ResponseEntity<>(skillService.getSkillNameByCarId(id), HttpStatus.OK);
+    @GetMapping("/api/v1/skillbycar/{id}")
+    public ResponseEntity<List<SkillDto>> findSkillByCarId(@PathVariable Long id) {
+        return new ResponseEntity<>(skillService.findSkillNameByCarId(id), HttpStatus.OK);
     }
 
     /*

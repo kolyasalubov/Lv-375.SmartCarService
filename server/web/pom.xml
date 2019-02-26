@@ -81,7 +81,6 @@
 
 
             <plugin>
-
                 <artifactId>maven-resources-plugin</artifactId>
 
                 <executions>
@@ -92,7 +91,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${build.directory}/classes/static/</outputDirectory>
+                            <outputDirectory>${project.build.directory}/classes/static/</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>../../client/dist/car-service-client</directory>

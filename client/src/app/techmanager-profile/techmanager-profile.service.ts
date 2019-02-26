@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http'
-import {TechmanagerProfile} from './techmanager-profile';
-import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
-import {HttpHeaders} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { TechmanagerProfile } from './techmanager-profile';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { HttpHeaders } from '@angular/common/http';
 
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'application/json'
+    'Content-Type':  'application/json'
   })
 };
 
@@ -19,25 +19,24 @@ export class TechmanagerProfileService {
 
   profileInfoUrl = '/api/v1/techmanagers/3';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
   putProfileUpdate(profile: TechmanagerProfile) {
     return this.http.put(this.profileInfoUrl + '/?fullname=' + profile.fullName
-      + '&', profile)
-      .pipe(
-        catchError(this.errorHandler)
-      );
+                                            + '&', profile)
+                    .pipe(
+                      catchError(this.errorHandler)
+                    );
   }
 
   getProfileResp(): Observable<TechmanagerProfile> {
     return this.http.get<TechmanagerProfile>(this.profileInfoUrl)
-      .pipe(
-        catchError(this.errorHandler)
-      );
+                    .pipe(
+                      catchError(this.errorHandler)
+                    );
   }
 
-  errorHandler(error: HttpErrorResponse) {
+  errorHandler(error: HttpErrorResponse)  {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message); // A client-side or network error occurred.
     } else {
@@ -51,5 +50,5 @@ export class TechmanagerProfileService {
     return throwError(
       'Something bad happened; please try again later.');
   }
-
+  
 }

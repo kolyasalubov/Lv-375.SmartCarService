@@ -13,13 +13,15 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<WorkTime, Long> {
 
     @Query("select w from WorkTime as w where w.worker.id = :workerId " +
-            "and w.startSession >= :starttime and w.startSession <= :endtime")
+            "and w.startBooking >= :starttime and w.startBooking <= :endtime")
     List<WorkTime> findTimeWhenWork(@Param("workerId") Long workerId,
-                                   @Param("starttime") LocalDateTime time,
-                                   @Param("endtime") LocalDateTime endt);
+                                    @Param("starttime") LocalDateTime time,
+                                    @Param("endtime") LocalDateTime endt);
 
-    @Query("select count(w) from WorkTime as w where :starttime < w.endSession and :endtime > w.startSession")
-    int selectNumberOfSessionWithDate(@Param("starttime") LocalDateTime starttime, @Param("endtime") LocalDateTime endtime);
+    @Query("select count(w) from WorkTime as w where :starttime < w.endBooking and :endtime > w.startBooking")
+    int selectNumberOfBookingWithDate(@Param("starttime") LocalDateTime starttime, @Param("endtime") LocalDateTime endtime);
 
     List<WorkTime> findAllByWorkerId(Long id);
+
+    List<WorkTime> findAllByCarId (Long id);
 }

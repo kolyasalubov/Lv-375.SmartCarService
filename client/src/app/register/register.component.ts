@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-
-import {AuthService} from '../auth/auth.service';
-import {SignUpInfo} from '../auth/signup-info';
-import {ROLES} from '../roles/mock-roles';
+import { Component, OnInit } from '@angular/core';
+ 
+import { AuthService } from '../auth/auth.service';
+import { SignUpInfo } from '../auth/signup-info';
+import { ROLES } from '../roles/mock-roles';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,7 @@ import {ROLES} from '../roles/mock-roles';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
+  
   roleArray = ROLES;
   registerForm: any = {};
   signupInfo: SignUpInfo;
@@ -18,24 +18,21 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
   unchecked = true;
-
-  constructor(private authService: AuthService) {
-  }
+ 
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-
-
   }
 
-  choseRole() {
-    if (this.registerForm.checkRole != null) {
+  choseRole(){
+    if(this.registerForm.checkRole != null){
       this.unchecked = false;
     }
   }
 
   onSubmit() {
     console.log(this.registerForm);
-
+ 
     this.signupInfo = new SignUpInfo(
       this.registerForm.username,
       this.registerForm.password,
@@ -60,6 +57,6 @@ export class RegisterComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.href = '/ui/auth/login';
+    window.location.href='ui/auth/login';
   }
 }

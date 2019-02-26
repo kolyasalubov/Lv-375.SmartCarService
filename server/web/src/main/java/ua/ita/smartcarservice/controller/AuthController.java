@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import ua.ita.smartcarservice.security.ResponseMessage;
 import ua.ita.smartcarservice.security.TokenProvider;
 
 import javax.validation.Valid;
+import java.lang.invoke.MethodHandles;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +32,8 @@ import java.util.Set;
 @RestController
 @RequestMapping("api/auth")
 public class AuthController {
+    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -45,7 +49,7 @@ public class AuthController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -53,6 +57,7 @@ public class AuthController {
 
         UserDetails userDetail = (UserDetails) authentication.getPrincipal();
 
+        System.out.println("User DEtail " + userDetail);
 
         return ResponseEntity.ok(new JwtResponse(jwt, userDetail.getUsername(), userDetail.getAuthorities()));
 
@@ -69,56 +74,18 @@ public class AuthController {
         }
 
         UserEntity userEntity = new UserEntity(registerRequest.getUsername(), passwordEncoder.encode(registerRequest.getPassword()),
-                registerRequest.getEmail(), registerRequest.getFullName(), registerRequest.getNumberPhone());
+            registerRequest.getEmail(), registerRequest.getFullName(), registerRequest.getNumberPhone());
 
-        Set<String> strRoles = registerRequest.getRole();
+
         Set<RoleEntity> roles = new HashSet<RoleEntity>();
-        System.out.println(strRoles);
-        strRoles.forEach(role -> {
-            switch (role) {
-                case "ADMIN":
-                    RoleEntity adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: Admin Role not find."));
-                    roles.add(adminRole);
-
-                    break;
-                case "SALES_MANAGER":
-                    RoleEntity saleManagerRole = roleRepository.findByName(RoleName.ROLE_SALES_MANAGER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: SaleManager Role not find."));
-                    roles.add(saleManagerRole);
-
-                    break;
-                case "TECHNICAL_MANAGER":
-                    RoleEntity technicalManagerRole = roleRepository.findByName(RoleName.ROLE_TECHNICAL_MANAGER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: TechnicalManager Role not find."));
-                    roles.add(technicalManagerRole);
-
-                    break;
-                case "DIELER":
-                    RoleEntity dielerRole = roleRepository.findByName(RoleName.ROLE_DIELER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: DIELER Role not find."));
-                    roles.add(dielerRole);
-
-                    break;
-                case "WORKER":
-                    RoleEntity workerRole = roleRepository.findByName(RoleName.ROLE_WORKER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: WORKER Role not find."));
-                    roles.add(workerRole);
-
-                    break;
-
-                default:
-                    RoleEntity carOwnerROle = roleRepository.findByName(RoleName.ROLE_CAR_OWNER)
-                            .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                    roles.add(carOwnerROle);
-
-                    break;
-
-            }
+        Set<String> strRole = registerRequest.getRole();
+        strRole.forEach(role -> {
+            RoleEntity roleEntity = roleRepository.findByName(role);
+            roles.add(roleEntity);
         });
 
+
         userEntity.setRoles(roles);
-        System.out.println(userEntity);
         userRepository.save(userEntity);
 
         return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);

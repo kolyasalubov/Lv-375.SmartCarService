@@ -1,5 +1,5 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import {MapsAPILoader, AgmMap} from '@agm/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { MapsAPILoader, AgmMap } from '@agm/core';
 
 declare var google: any;
 
@@ -31,7 +31,7 @@ interface Location {
 export class MapComponent implements OnInit {
   geocoder: any;
 
-  @Output() onLocationChosen = new EventEmitter<string>();
+  @Output()  onLocationChosen = new EventEmitter<string>();
 
   locationChosen: boolean = false;
 
@@ -64,7 +64,7 @@ export class MapComponent implements OnInit {
     this.location.marker.lat = event.coords.lat;
     this.location.marker.lng = event.coords.lng;
     this.findAddressByCoordinates();
-    setInterval(() => {
+    setInterval(()=> {
       this.onLocationChosen.emit(this.location.address_level_1 + ', ' + this.location.address_level_2);
     }, 500)
 
@@ -83,15 +83,11 @@ export class MapComponent implements OnInit {
   }
 
   decomposeAddressComponents(addressArray) {
-    if (addressArray.length == 0) {
-      return false;
-    }
+    if (addressArray.length == 0) { return false; }
     let address = addressArray[0].address_components;
 
     for (let element of address) {
-      if (element.length == 0 && !element['types']) {
-        continue;
-      }
+      if (element.length == 0 && !element['types']) { continue; }
 
       if (element['types'].indexOf('street_number') > -1) {
         this.location.address_level_1 = element['long_name'];

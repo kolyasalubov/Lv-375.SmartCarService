@@ -50,7 +50,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
         } catch (Exception e) {
 
-            System.out.println("Can NOT set user authentication: " + e);
+          //  logger.info("Can NOT set user authentication: " + e);
 
         }
 

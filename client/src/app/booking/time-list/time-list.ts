@@ -1,6 +1,6 @@
-export class TimeList {
-  workerId: number[];
-  time: string;
-  numberOfDay: string;
-  needTime: number;
+export class TimeList{
+     workerId : number[];
+     time : string;
+     carId : number;
+     needTime : number;
 }

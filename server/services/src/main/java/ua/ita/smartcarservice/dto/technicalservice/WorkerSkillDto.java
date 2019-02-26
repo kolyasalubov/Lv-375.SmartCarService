@@ -6,6 +6,11 @@ import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 
 @Data
 public class WorkerSkillDto {
-    private UserEntity workerEntity;
-    private SkillEntity skillEntity;
+    private Long id;
+    private String userName;
+    private String fullName;
+    private String password;
+    private String email;
+    private String numberPhone;
+    private SkillDto skill;
 }

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class WorkTimeDto {
-    private LocalDateTime startSession;
+    private LocalDateTime startBooking;
 
-    private LocalDateTime endSession;
+    private LocalDateTime endBooking;
 }

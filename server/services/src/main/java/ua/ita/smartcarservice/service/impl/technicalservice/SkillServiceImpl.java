@@ -8,7 +8,9 @@ import ua.ita.smartcarservice.repository.technicalservice.SkillRepository;
 import ua.ita.smartcarservice.service.technicalservice.SkillService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of Skill service
@@ -17,7 +19,7 @@ import java.util.List;
 public class SkillServiceImpl implements SkillService {
 
     @Autowired
-    private SkillRepository repository;
+    private SkillRepository skillRepository;
 
     /*
     Method for getting all the Skills from DB
@@ -25,10 +27,17 @@ public class SkillServiceImpl implements SkillService {
     @Override
     public List<SkillDto> getAllSkills() {
         List<SkillDto> allSkill = new ArrayList<>();
-        for (SkillEntity skill : repository.findAll()) {
+        for (SkillEntity skill : skillRepository.findAll()) {
             allSkill.add(getSkillDto(skill));
         }
         return allSkill;
+    }
+
+    @Override
+    public Map<String, SkillEntity> findDistinctSkillByName(){
+        Map<String, SkillEntity> requiredTimeByName = new HashMap<>();
+        skillRepository.findAll().forEach(skillEntity -> requiredTimeByName.put(skillEntity.getName(), skillEntity));
+        return requiredTimeByName;
     }
 
     /*
@@ -39,26 +48,24 @@ public class SkillServiceImpl implements SkillService {
         SkillDto skillDto = new SkillDto();
         skillDto.setId(skill.getSkillId());
         skillDto.setName(skill.getName());
-        //skillDto.setFaultCode(skill.getFaultCode());
-        skillDto.setRequiredTime(skill.getRequiredTime());
         return skillDto;
     }
 
     @Override
-    public List<SkillDto> getSkillNameBySto(Long id){
+    public List<SkillDto> findSkillNameBySto(Long id){
         List<SkillDto> skillBySto = new ArrayList <>();
-        for(SkillEntity skill : repository.getSkillNameBySto(id)){
-            skillBySto.add(getSkillDto(skill));
-        }
+
+        skillRepository.findSkillNameBySto(id).forEach(skillEntity -> skillBySto.add(getSkillDto(skillEntity)));
+
         return skillBySto;
     }
 
     @Override
-    public List<SkillDto> getSkillNameByCarId(Long carId){
+    public List<SkillDto> findSkillNameByCarId(Long carId){
         List<SkillDto> skillBySto = new ArrayList <>();
-        for(SkillEntity skill : repository.getSkillNameByCarId(carId)){
-            skillBySto.add(getSkillDto(skill));
-        }
+
+        skillRepository.findSkillNameByCarId(carId).forEach(skillEntity -> skillBySto.add(getSkillDto(skillEntity)));
+
         return skillBySto;
     }
 
@@ -68,6 +75,6 @@ public class SkillServiceImpl implements SkillService {
      */
     @Override
     public SkillEntity getSkillById(Long id) {
-        return repository.findById(id).get();
+        return skillRepository.findById(id).get();
     }
 }

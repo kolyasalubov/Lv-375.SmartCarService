@@ -13,7 +13,7 @@ import {HomeComponent} from '../home/home.component';
 import {AdminComponent} from '../admin/admin.component';
 import {TmComponent} from '../tm/tm.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
-
+import { MustMatchDirective } from '../register/customValidator/must-match.directive';
 import {httpInterceptorProviders} from '../auth/auth-interceptor';
 import {from} from 'rxjs';
 
@@ -24,7 +24,8 @@ import {from} from 'rxjs';
     RegisterComponent,
     HomeComponent,
     AdminComponent,
-    TmComponent
+    TmComponent,
+    MustMatchDirective
   ],
   imports: [
     CommonModule,

@@ -7,9 +7,9 @@ import java.util.List;
 @Data
 public class NewBookingDto {
 
-    String starttime;
+    String start;
 
-    String endtime;
+    Long requiredTime;
 
     List<String> workerId;
 

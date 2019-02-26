@@ -17,4 +17,11 @@ public class RecordDto {
 
     private Map<String, Double> values;
 
+    private Double value;
+
+    public RecordDto(String date, Double value) {
+        this.date = date;
+        this.value = value;
+    }
+
 }

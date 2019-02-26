@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.service.technicalservice;
 
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
+import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
@@ -16,11 +17,16 @@ public interface WorkerService {
 
     void deleteWorker(Long workerId) throws Exception;
 
-    List<WorkerDto> getByUserTechnicalServiceAndWorkersSkill(String name, Long stoId);
-
     List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId);
 
-    List<UserEntity> getWorkersByTechnicalServiceId(TechnicalServiceEntity technicalServiceEntity);
+    void addSkillToWorker(String username, Long skillId);
 
-    public List<UserEntity> getAllWorkers();
+    List<WorkerSkillDto> addSkillToWorkersList(List<UserEntity> workersList);
+
+    UserEntity getWorkerById(Long id);
+
+    WorkerSkillDto getWorkerSkillDtoById(Long workerId);
+
+    List<UserEntity> getAllWorkers();
+
 }
