@@ -1,5 +1,5 @@
 <div style="height: 80%" class="d-flex justify-content-center align-items-center">
-  <form form="registerForm" (ngSubmit)="f.registerForm.valid && onSubmit()" #f="ngForm" class="border border-light p-4" [mustMatch]="['password', 'confirmPassword']" novalidate>
+  <form form="registerForm" (ngSubmit)="onSubmit() && f.registerForm.valid" #f="ngForm" class="border border-light p-4" [mustMatch]="['password', 'confirmPassword']" novalidate>
 
   <p class="h3 mb-4 text-center">Welcome to our
     <br>

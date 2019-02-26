@@ -10,21 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 
  * This is used to handle Error exception when having unauthorized requests.
- *
  */
 
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
-	@Override
-	public void commence(HttpServletRequest request, HttpServletResponse response,
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
-		
-		System.out.println("Unauthorized error: " + authException.getMessage());
+
+      // logger.info("Unauthorized error: " + authException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error -> Unauthorized");
-		
-	}
+
+    }
 
 }
