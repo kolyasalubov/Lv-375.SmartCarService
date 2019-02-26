@@ -23,35 +23,35 @@ export class LoginComponent implements OnInit {
 
   }
  
- // onSubmit() {
-  //  console.log(this.loginForm);
+  onSubmit() {
+    console.log(this.loginForm);
  
-   // this.loginInfo = new AuthLoginInfo(
-     // this.loginForm.username,
-      //this.loginForm.password);
+    this.loginInfo = new AuthLoginInfo(
+    this.loginForm.username,
+    this.loginForm.password);
+
+    this.authService.attemptAuth(this.loginInfo).subscribe(
+      data => {
+        console.log(data.accessToken);
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUsername(data.username);
+        this.tokenStorage.saveAuthorities(data.authorities);
  
-//    this.authService.attemptAuth(this.loginInfo).subscribe(
-  //    data => {
-    //    console.log(data.token);
-      //  this.tokenStorage.saveToken(data.token);
-        //this.tokenStorage.saveUsername(data.username);
-        //this.tokenStorage.saveAuthorities(data.authorities);
- 
-       // this.isLoginFailed = false;
-        //this.isLoggedIn = true;
-        //this.roles = this.tokenStorage.getAuthorities();
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getAuthorities();
         //this.reloadPage();
-      //},
-      //error => {
-       // console.log(error);
-        //this.errorMessage = error.error.message;
-        //this.isLoginFailed = true;
-      //}
-    //);
-  //}
+      },
+      error => {
+        console.log(error);
+        this.errorMessage = error.error.message;
+        this.isLoginFailed = true;
+    }
+  ); 
+}
  
   reloadPage() {
-    //window.location.href='/home';
+    window.location.href='ui/home';
   }
 
 }

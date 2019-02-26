@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackInputDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
 import ua.ita.smartcarservice.entity.UserEntity;
@@ -176,20 +177,6 @@ public class TechnicalServiceController {
     }
 
     /*
-   Method for deleting Worker by id from DB and current TechnicalManager`s worker list
-
-    @DeleteMapping("/api/v1/workers/{workerId}")
-    void deleteWorker(@PathVariable Long workerId) throws Exception {
-        try {
-            logger.info("Successfully deleted a worker by id: " + workerId);
-            userService.deleteById(workerId);
-        } catch (Exception e) {
-            logger.error("Error while deleting a worker by id: " + workerId + " Details: " + e.getMessage());
-        }
-    }
-    */
-
-    /*
     Method for getting Technical Service bu User ID
      */
     @GetMapping("/api/v1/users/{userId}/techservice")
@@ -224,5 +211,15 @@ public class TechnicalServiceController {
     @GetMapping("/api/v1/techservices/{techServiceId}/rating")
     Double getServicesRating(@PathVariable Long techServiceId) {
         return servicesFeedbackService.getServicesRating(techServiceId);
+    }
+
+    @PostMapping("/api/techservices/{techServiceId}/feedback")
+    void addFeedbackAboutTechnicalService(
+            @PathVariable Long techServiceId,
+            @RequestBody ServicesFeedbackInputDto servicesFeedbackInputDto) {
+
+        servicesFeedbackService.addFeedbackToService(servicesFeedbackInputDto);
+        System.out.println(servicesFeedbackInputDto);
+        logger.info(servicesFeedbackInputDto);
     }
 }

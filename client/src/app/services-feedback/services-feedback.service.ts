@@ -20,8 +20,8 @@ export class ServicesFeedbackService {
   constructor(private http: HttpClient) { }
 
   sendFeedback(feedback: ServicesFeedbackForm) {
-    this.http.post(
-      this.sendFeedbackByServiceId.replace('serviceId', feedback.serviceId.toString()), 
+    return this.http.post(
+      this.sendFeedbackByServiceId.replace('{serviceId}', feedback.serviceId.toString()), 
       feedback, 
       httpOptions).pipe(catchError(this.errorHandler));
   }

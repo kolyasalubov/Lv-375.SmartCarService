@@ -48,7 +48,6 @@ export class TechserviceComponent implements OnInit {
     .subscribe(() => {
                       this.getTechservice(user);
                     });
-    
   }
 
   getTechservice(user: User) {

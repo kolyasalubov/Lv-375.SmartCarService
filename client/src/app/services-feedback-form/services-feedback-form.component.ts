@@ -8,15 +8,16 @@ import { TechserviceService } from '../techservice/techservice.service';
 import { ServicesFeedbackService } from '../services-feedback/services-feedback.service';
 
 @Component({
-  selector: 'app-services-feedback-form',
+  selector: 'services-feedback-form',
   templateUrl: './services-feedback-form.component.html',
   styleUrls: ['./services-feedback-form.component.scss']
 })
 export class ServicesFeedbackFormComponent implements OnInit {
 
   feedbackForm: ServicesFeedbackForm = new ServicesFeedbackForm();
-  techservice: Techservice;
-  @Input() workers: Worker[]; 
+  techservice: Techservice = new Techservice();
+  //@Input() workers: Worker[]; 
+  /*@Input()*/ workers: number[] = [10, 11, 12]; 
 
   constructor(private tokenStorage: TokenStorageService,
     private techserviceService: TechserviceService,
@@ -29,8 +30,8 @@ export class ServicesFeedbackFormComponent implements OnInit {
     this.feedbackForm.userName = this.tokenStorage.getUsername();
   }
 
-  getTechnicalServiceFromWorker(worker: Worker) {
-    this.techserviceService.getTechnicalServiceByCurrentUser(worker.id)
+  getTechnicalServiceFromWorker(workerId: number) {
+    this.techserviceService.getTechnicalServiceByCurrentUser(workerId)
       .subscribe(data => {
         this.techservice = data;
         this.feedbackForm.serviceId = this.techservice.stoId;
@@ -38,6 +39,7 @@ export class ServicesFeedbackFormComponent implements OnInit {
   }
 
   sendFeedback() {
-    this.servicesFeedbackService.sendFeedback(this.feedbackForm);
+    console.log(this.feedbackForm);
+    this.servicesFeedbackService.sendFeedback(this.feedbackForm).subscribe();
   }
 }

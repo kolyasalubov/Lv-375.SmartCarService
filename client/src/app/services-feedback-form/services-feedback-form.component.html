@@ -1,4 +1,4 @@
-<mdb-card>
+<mdb-card style="width: 400px; position: relative; left: 240px; top: 80px">
   <!--<div class="view rgba-white-slight waves-light" mdbWavesEffect>
     // Card img
     <mdb-card-img src="assets/img/auto-mechanic.jpg" alt="Card image cap"></mdb-card-img>
@@ -17,7 +17,7 @@
     <!--Text-->
     <mdb-card-text>
         <div class="md-form">
-          <textarea class="md-textarea form-control " rows="3" id="input_text" type="text" length="120" mdbCharCounter mdbInput></textarea>
+          <textarea [(ngModel)]="feedbackForm.text" class="md-textarea form-control " rows="3" id="input_text" type="text" length="120" mdbCharCounter mdbInput></textarea>
           <label for="input_text">Type your opinion about our service</label>
         </div>
     </mdb-card-text>
@@ -26,4 +26,8 @@
   </mdb-card-body>
 </mdb-card>
 
-<workers-feedback *ngFor="let worker of workers" [workerId]="worker.id"></workers-feedback>
+
+
+<div *ngFor="let worker of workers" style="position: relative; top: -200px; left:200;">
+  <app-workers-feedback [workerId]="worker"></app-workers-feedback>
+</div>
