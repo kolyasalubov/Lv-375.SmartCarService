@@ -29,6 +29,7 @@ import {AgmCoreModule} from '@agm/core';
 
 import {LoginComponent} from './login/login.component';
 import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
+import { CarDetailsComponent } from './cars/car-details/car-details.component';
 
 
 
@@ -52,6 +53,7 @@ import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
     NotificationsListComponent,
     MapComponent,
     CarTrackerComponent,
+    CarDetailsComponent
 
   ],
   imports: [

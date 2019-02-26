@@ -1,0 +1,134 @@
+  <br><br><br>
+<div class="container-fluid" >
+  <button type="button" class="close" (click)="closeProfile()" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  <div class="card-block">
+      <div class="card">
+          <div class="card-body">
+
+              <i class="fa fa-check-square-o fa-4x" aria-hidden="true"></i>
+                <div class="desc" style="display: inline-block">
+             <h2> 28 590</h2>
+              <h5> Mileage passed</h5>
+            </div>
+      </div>
+      </div>
+      
+      <div class="card">
+          <div class="card-body">
+              <i class="fa fa-tachometer fa-4x" aria-hidden="true"></i>
+               <div class="desc" style="display: inline-block;">
+                  <h2> 132 mi/h</h2>
+                <h5> Max speed</h5>
+              </div>
+      </div>
+      </div>
+      
+      <div class="card">
+          <div class="card-body">
+              <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
+              <div class="desc" style="display: inline-block">
+                <h2> 1</h2>
+                 <h5> Services received</h5>
+              </div>
+      </div>
+      </div>
+      </div>
+
+      <!-----------------------Car card---------------------->
+<div id="carMain">
+<div class="card">
+  <div class="card-body">
+  <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right;">
+  <h3> {{carBrand}} {{carModel}} </h3>
+  <div class="points" >
+  <li>Graduation year : {{carGY}} </li>
+  <li>Number : {{carNumber}} </li>
+  <li>Vin : {{carVin}} </li>
+  <li *ngIf="!carPrice == null">Price : {{carPrice}} </li>
+  <li *ngIf="!carEnd_guarantee == null">End of guarantee : {{carEnd_guarantee}} </li>
+  <hr style="border:2px solid #f1f1f1">  
+</div>
+  <div id="options">
+      <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(carId)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true"></i></button>
+      <button class="btn btn-outline my-2 my-sm-0" (click) = "history()" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
+      <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(carId)" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+      <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(carId, carVin)" title="Show all charts"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
+      <button id="delete" class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(carId)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+    
+  </div>
+  </div> 
+</div>
+
+<!--------------------Charts--------------------->
+<div class="charts">
+<div style="width: 530px" class='ml-5 mb-5 mr-5'>
+  <h3 class="pl-3"> {{ sensorType | uppercase }} </h3>
+  <h3 class="pl-3">TIRE PRESSURE </h3>
+  <!-- <div class="m-3 p-3 border border-unique rounded mb-0"> -->
+    <div class="m-3 mb-0 p-3 jumbotron">
+      <div class='d-flex justify-content-between'>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <little-btn text="Day" sensor={{sensorType}} (click)='changePeriod("/day")'></little-btn>
+          <little-btn text="Month" sensor={{sensorType}} (click)='changePeriod("/month")'></little-btn>
+          <little-btn text="Year" sensor={{sensorType}} (click)='changePeriod("/year")'></little-btn>
+        </div>
+  
+        <div *ngIf='period !== "/day"' class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <little-btn text="Avg" sensor={{sensorType}} (click)='changeSelection()'></little-btn>
+          <little-btn text="Min" sensor={{sensorType}} (click)='changeSelection("/min")'></little-btn>
+          <little-btn text="Max" sensor={{sensorType}} (click)='changeSelection("/max")'></little-btn>
+        </div>
+      </div>
+  
+      <div class="mt-3">
+        <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
+                [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+  
+      <div class="mt-2 d-flex flex-row align-items-center justify-content-between">
+        <button style="background-color: #336B87; padding: 5px 10px" mdbBtn type="button" size="sm" class="waves-light"
+                mdbWavesEffect (click)='changeDate(false)'>
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </button>
+        <button style="background-color: #336B87; padding: 5px 10px" mdbBtn type="button" size="sm" class="waves-light"
+                mdbWavesEffect (click)='changeDate(true)'>
+          <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+<!----------------Service history table-------------------->
+<div id="serviceHistory" >
+<button class="btn btn-outline my-2 my-sm-0" (click) = "showServiceHistory = !showServiceHistory" >Show service history <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+     <div *ngIf = "showServiceHistory">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"><strong>№</strong></th>
+              <th scope="col"><strong>Date</strong></th>
+              <th scope="col"><strong>Time</strong></th>
+              <th scope="col"><strong>What's done</strong></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>2019-02-02</td>
+              <td>14:00 - 15:30</td>
+              <td>vechicle inspection</td>
+            </tr>
+          </tbody>
+        </table>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+
+  

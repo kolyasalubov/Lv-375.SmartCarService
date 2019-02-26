@@ -84,10 +84,18 @@ export class CarsComponent implements OnInit {
     }
 
     openProfile(car: Car){
-      this.car = car;
-    //  this.carsService.getCarById(id).subscribe(data => this.car = data);
-      this.showCards = false;
-      this.showProfile = true;
+      this.router.navigate(['ui/carprofile'], 
+      {queryParams: {
+        carId: car.id,
+        carBrand: car.brand, 
+        carModel: car.model,
+        carGY: car.graduation_year,
+        carNumber: car.number,
+        carVin: car.vin,
+        carPrice:car.price,
+        carEnd_guarantee: car.end_guarantee
+      }}
+    );
     }
 
     getCarById (id: number){

@@ -1,7 +1,7 @@
 <br><br><br>
 <div *ngIf="showCarProfile" class="container">
   <form form="carProfile" (ngSubmit)="onSubmit()" #f="ngForm">
-    <p class="h3 mb-4">Car profile</p>
+    <p class="h3 mb-4">Car details</p>
 
     <div class="form-group">
       <label for="brand">Brand</label>
@@ -53,7 +53,7 @@
     <br>
     <div>
       <button id="create" type="submit" class="btn my-2 my-sm-0" [disabled]="!f.form.valid">Create</button>
-      <a id="cancel" href="/home" type="button" class="btn my-2 my-sm-0">Cancel</a>
+      <a id="cancel" href="ui/home" type="button" class="btn my-2 my-sm-0">Cancel</a>
     </div>
   </form>
 </div>
@@ -85,7 +85,7 @@
     <br><br>
     <div>
       <button id="create" type="submit" class="btn my-2 my-sm-0" [disabled]="!v.form.valid">Confirm</button>
-      <a id="cancel" href="/home" type="button" class="btn my-2 my-sm-0">Skip</a>
+      <a id="cancel" href="ui/home" type="button" class="btn my-2 my-sm-0">Skip</a>
     </div>
   </form>
 </div>
