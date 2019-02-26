@@ -29,7 +29,12 @@ public class TradeInServiceImpl implements TradeInService {
     @Override
     public void createTradeIn(CreateTraidInDto traidInDto) {
 
-//        tradeInRepository.save(new TradeIn(traidInDto.getVinNewCar(),traidInDto.getVinUsedCar(),userRepository.findByUsername()));
+      tradeInRepository.save(new TradeIn(traidInDto.getVinNewCar(),
+                                         traidInDto.getVinUsedCar(),
+                                         userRepository.findByUsername(traidInDto.getUsername()).get().getId(),
+                                         dealerRepository.findByDealerEdr(traidInDto.getDealerEdr()).getDealerId(),
+                                        "active",
+                                         dealerRepository.findByDealerEdr(traidInDto.getDealerEdr())));
 
     }
 }

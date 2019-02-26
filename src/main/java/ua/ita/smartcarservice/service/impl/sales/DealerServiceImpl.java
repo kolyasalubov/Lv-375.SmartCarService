@@ -34,6 +34,11 @@ public class DealerServiceImpl implements DealerService {
     }
 
     @Override
+    public void createDealer(DealerEntity dealerEntity) {
+        dealerRepository.save(dealerEntity);
+    }
+
+    @Override
     public DealerEntity getDealerEntityByUserName(String username) {
         return dealerRepository.findByUserEntity_Username(username);
     }

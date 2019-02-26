@@ -6,6 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
+import java.util.List;
+
 @Repository
 public interface TechnicalServiceRepository extends JpaRepository<TechnicalServiceEntity, Long> {
     TechnicalServiceEntity getByTechnicalServiceId(Long id);
@@ -16,4 +18,5 @@ public interface TechnicalServiceRepository extends JpaRepository<TechnicalServi
     TechnicalServiceEntity getTechnicalServiceEntitysByUser(@Param("id") Long id);
 
     //void deleteByTechnicalServiceId(L)
+    List<TechnicalServiceEntity>findAllByDealer_UserEntity_Username(String username);
 }

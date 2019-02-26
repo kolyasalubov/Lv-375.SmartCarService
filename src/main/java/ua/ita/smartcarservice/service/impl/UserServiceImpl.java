@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public void createUser(UserEntity userEntity) {
+
+
 			userRepository.save(userEntity);
 	}
 
@@ -68,4 +70,8 @@ public class UserServiceImpl implements UserService{
 		return userDto;
 	}
 
+	@Override
+	public UserEntity findByUserName(String username) {
+		return userRepository.findByUsername(username).get();
+	}
 }

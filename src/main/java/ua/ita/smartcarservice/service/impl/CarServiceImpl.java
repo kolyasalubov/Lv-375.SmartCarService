@@ -42,7 +42,18 @@ public class CarServiceImpl implements CarService {
 
         carRepository.save(car);
     }
+    public void createByDealer(String brand, String model, String graduation_year, String number,Double price, String vin, String username) {
 
+        Car car=new Car();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setGraduation_year(graduation_year);
+        car.setNumber(number);
+        car.setPrice(price);
+        car.setVin(vin);
+        car.setDealer(dealerRepository.findByUserEntity_Username(username));
+        carRepository.save(car);
+    }
     public List<CarDto> findAll() {
         List<CarDto> carDtos = new ArrayList<>();
 
@@ -56,6 +67,15 @@ public class CarServiceImpl implements CarService {
         List<CarDto> carDtos = new ArrayList<>();
 
         for (Car car : carRepository.findByUserId(id)) {
+            carDtos.add(getCarDto(car));
+        }
+        return carDtos;
+    }
+
+    @Override
+    public List<CarDto> findbyUserLogin(String login) {
+        List<CarDto> carDtos = new ArrayList<>();
+        for (Car car : carRepository.findAllByDealer(dealerRepository.findByUserEntity_Username(login))) {
             carDtos.add(getCarDto(car));
         }
         return carDtos;
@@ -83,6 +103,15 @@ public class CarServiceImpl implements CarService {
         return carDto;
     }
 
+    @Override
+    public List<CarDto> findByDealerEdr(String edr) {
+        List<CarDto>carDtos=new ArrayList<>();
+
+        for (Car car:carRepository.findAll()){
+            carDtos.add(getCarDto(car));
+        }
+        return carDtos;
+    }
 
     //for Car => CarDto
     public CarDto getCarDto(Car car) {
@@ -113,17 +142,21 @@ public class CarServiceImpl implements CarService {
         return car;
     }
 
-    public void createByDealer(DealerCarDto dealerCarDto,String usernmae) {
-        Car car=new Car(dealerCarDto.getBrand(),
-                        dealerCarDto.getModel(),
-                        dealerCarDto.getGraduation_year(),
-                        dealerCarDto.getNumber(),
-                        dealerCarDto.getPrice(),
-                        dealerCarDto.getVin(),
-                        dealerRepository.findByUserEntity_Username(usernmae));
-        carRepository.save(car);
+
+    @Override
+    public List<CarDto> findAllDealersCars() {
+        List<CarDto>carDtos=new ArrayList<>();
+
+        List<Car>carList=carRepository.findAll();
+
+        for(Car car:carList){
+
+            if(car.getUser()==null ){
+                carDtos.add(getCarDto(car));
+            }
+
+        }
+
+        return carDtos;
     }
-
-
-
 }

@@ -52,12 +52,14 @@ public class CarController {
     /* Get car by id*/
     @GetMapping("/car/{id}")
     public ResponseEntity<CarDto> getCarById(@PathVariable Long id) {
+        System.out.println(id);
         CarDto car;
         try {
             car = carService.getCarById(id);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        System.out.println(car);
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
@@ -81,6 +83,8 @@ public class CarController {
         }
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
+
+
 
     /*  Get car by vin */
     @GetMapping("/carbyvin/{vin}")

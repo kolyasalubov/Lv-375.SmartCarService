@@ -18,7 +18,6 @@ public class TechnicalServiceDto {
     private String address;
 
 
-
     private UserEntity technicalManager;
 
     @JsonIgnore//Works

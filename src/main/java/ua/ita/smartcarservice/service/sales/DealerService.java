@@ -17,7 +17,7 @@ void createDealer(DealerEntity dealerEntity, String username);
 
 DealerEntity getDealerEntityByUserName(String Username);
 
-
+    void createDealer(DealerEntity dealerEntity);
 
 List<DealerEntity> getAllDealers();
 

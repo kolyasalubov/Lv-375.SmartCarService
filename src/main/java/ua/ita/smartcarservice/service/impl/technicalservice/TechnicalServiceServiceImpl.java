@@ -132,6 +132,28 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
                                                                    dealerEntityRepository.findByUserEntity_Username(username)));
     }
 
+
+    public TechnicalServiceDto convertToDtoByDelaer(TechnicalServiceEntity technicalServiceEntity) {
+        TechnicalServiceDto dto = new TechnicalServiceDto();
+
+        dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
+        dto.setName(technicalServiceEntity.getName());
+        dto.setAddress(technicalServiceEntity.getAddress());
+
+        return dto;
+    }
+
+    @Override
+    public List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username) {
+        List<TechnicalServiceEntity> technicalServiceList = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
+        List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
+for(TechnicalServiceEntity technicalService:technicalServiceList){
+
+    technicalServiceDtoList.add(convertToDtoByDelaer(technicalService));
+}
+        return technicalServiceDtoList;
+    }
+
     @Override
     public String findTechnicalServiceByCarId(Long id){
         return userTechnicalServiceRepository.findTechnicalServiceByCarId(id);
