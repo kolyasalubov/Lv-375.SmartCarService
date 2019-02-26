@@ -1,7 +1,6 @@
 package ua.ita.smartcarservice.entity.alerts;
 
 import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,14 +17,14 @@ import ua.ita.smartcarservice.entity.Car;
 @Entity
 @Table(name = "vehicle_inspection")
 public class VehicleInspection {
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	@Column(name = "date_of_inspection")
 	private Date dateOfInspection;
-	
+
 	@Column(name = "mileage_of_car")
 	private Integer mileageOfCar;
 
@@ -35,7 +34,7 @@ public class VehicleInspection {
 
 	public VehicleInspection() {
 	}
-	
+
 	public VehicleInspection(long id, Date dateOfInspection, Integer mileageOfCar, Car car) {
 		this.id = id;
 		this.dateOfInspection = dateOfInspection;
@@ -43,9 +42,7 @@ public class VehicleInspection {
 		this.car = car;
 	}
 
-	public VehicleInspection(Date dateOfInspection, Integer mileageOfCar, Car car) {
-		this.dateOfInspection = dateOfInspection;
-		this.mileageOfCar = mileageOfCar;
-		this.car = car;
-	}
+    public void setCar(Car car) {
+        this.car = car;
+    }
 }

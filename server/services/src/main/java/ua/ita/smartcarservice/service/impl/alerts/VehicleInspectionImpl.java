@@ -7,31 +7,31 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.alerts.VehicleInspectionDto;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
-import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.alerts.VehicleInspectionRepository;
 import ua.ita.smartcarservice.service.alerts.VehicleInspectionService;
+
 @Service
 public class VehicleInspectionImpl implements VehicleInspectionService{
 
 	@Autowired
 	private VehicleInspectionRepository vehicleInspectionRepository;
-	
+
+	/* CREATE */
 	@Override
 	public void saveVehicleInspection(VehicleInspectionDto vehicleInspectionDto) {
 		VehicleInspection entity = new VehicleInspection(
 				vehicleInspectionDto.getId(),
 				vehicleInspectionDto.getDateOfInspection(),
-				vehicleInspectionDto.getMileageOfCar(), 
+				vehicleInspectionDto.getMileageOfCar(),
 				vehicleInspectionDto.getCar());
 		vehicleInspectionRepository.save(entity);
 	}
 
-	@Autowired
-	private CarRepository carRepository;
-
+	/* READ */
 	@Override
 	public List<VehicleInspectionDto> getCarsForYearlyInspection() {
 		List<VehicleInspectionDto> toReturn = new ArrayList();
@@ -49,25 +49,22 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	}
 
 	@Override
-	public List<Car> getCarsForVehicleInspectionByMileage() {
-		return vehicleInspectionRepository.getCarsForInspectionByMileage();
-	}
-
-	@Override
-	public VehicleInspection getLastVehicleInspection(long carId) {
-		return vehicleInspectionRepository.getLastVehicleInspection(carId);
+	public List<CarDto> getCarsForVehicleInspectionByMileage() {
+		List<Car> cars = vehicleInspectionRepository.getCarsForInspectionByMileage();
+		List<CarDto> toReturn = new ArrayList<>();
+		for (Car entity : cars) {
+			toReturn.add(new CarDto(entity.getBrand(),
+					entity.getModel(),
+					entity.getGraduation_year(),
+					entity.getNumber(),
+					entity.getVin(),
+					entity.getUser()));
+		}
+		return toReturn;
 	}
 
 	@Override
 	public Date getDateOfLastVehicleInspection(long carId) {
 		return vehicleInspectionRepository.getDateOfLastVehicleInspection(carId);
 	}
-
-	@Override
-	public void createVehicleInspection(java.sql.Date dateOfInspection, Integer mileageOfCar, String vin){
-		Car car = carRepository.findByVin(vin);
-		VehicleInspection entity = new VehicleInspection(dateOfInspection, mileageOfCar, car);
-		vehicleInspectionRepository.save(entity);
-	}
-	
 }

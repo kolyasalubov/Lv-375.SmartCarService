@@ -12,38 +12,27 @@ import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.alerts.FaultCodeService;
 import ua.ita.smartcarservice.service.alerts.NotificationService;
 
-import java.sql.Timestamp;
-
 @RestController
 @RequestMapping("/api")
 public class FaultCodeController {
-	
-	FaultCodeService faultCodeService;
-	CarService carService;
-	NotificationService notificationsService;
-	
-	@Autowired
-	public FaultCodeController(FaultCodeService faultCodeService,
-							   CarService carService,
-							   NotificationService notificationsService) {
-		this.faultCodeService = faultCodeService;
-		this.carService = carService;
-		this.notificationsService = notificationsService;
-	}
 
+	@Autowired
+	private FaultCodeService faultCodeService;
+
+	@Autowired
+	private CarService carService;
+
+	@Autowired
+	private NotificationService notificationsService;
+
+	/* Method for handling fault code received from car */
 	@PostMapping("/faultCode")
 	public void handleFaultCode(@RequestParam(value="vinNumber") String vinNumber,
-							   	   @RequestParam(value="code") String code) {
+								@RequestParam(value="code") String code) {
 		try {
 			FaultCodeDto faultCode = faultCodeService.getFaultCode(code);
 			CarDto car = carService.findByVin(vinNumber);
-			NotificationsDto toSave = new NotificationsDto(
-					faultCode.getDescription(), 
-					new Timestamp(System.currentTimeMillis()), 
-					car.getId(), 
-					car.getCarOwner().getId(), 
-					faultCode.getSkill().getSkillId()
-			);
+			NotificationsDto toSave = new NotificationsDto(faultCode, car);
 			notificationsService.saveNotification(toSave);
 		} catch (Exception e) {
 			System.out.println("FaultCode error: " + e.getMessage());

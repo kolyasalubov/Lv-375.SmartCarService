@@ -12,22 +12,19 @@ public class FaultCodeImpl implements FaultCodeService {
 
 	@Autowired
 	private FaultCodeRepository faultCodeRepository;
-	
-//	@Override
-//	public String getFaultCodeDescription(String faultCode) {
-//		return faultCodeRepository.getFaultCodeDescription(faultCode);
-//	}
 
+	/* READ */
 	@Override
 	public FaultCodeDto getFaultCode(String code) {
 		return entityToDto(faultCodeRepository.getFaultCode(code));
 	}
-	
+
+	/* convert entity to DTO */
 	private FaultCodeDto entityToDto(FaultCode entity) {
-		return new FaultCodeDto(entity.getId(), 
-							   entity.getFaultCode(), 
-							   entity.getDescription(), 
-							   entity.getType(),
-							   entity.getSkill());
+		return new FaultCodeDto(entity.getFaultCode(),
+				entity.getDescription(),
+				entity.getSuggestion(),
+				entity.getType(),
+				entity.getSkill());
 	}
 }
