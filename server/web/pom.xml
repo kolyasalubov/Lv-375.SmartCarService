@@ -9,12 +9,42 @@
         <artifactId>server</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
+<<<<<<< HEAD
 
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>web</name>
 
+    <packaging>war</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+=======
+
+    <artifactId>web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>web</name>
+>>>>>>> 387bbb90cc164225e7ff2e5777bc4857986d5358
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+<<<<<<< HEAD
+        <dependency>
+            <groupId>ua.ita.smartcarservice</groupId>
+            <artifactId>services</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+=======
     <packaging>war</packaging>
 
     <dependencies>
@@ -34,6 +64,7 @@
             <artifactId>services</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+>>>>>>> 387bbb90cc164225e7ff2e5777bc4857986d5358
         <dependency>
             <groupId>ua.ita.smartcarservice</groupId>
             <artifactId>client</artifactId>
@@ -43,11 +74,9 @@
     </dependencies>
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <archive>
@@ -79,10 +108,15 @@
                 </configuration>
             </plugin>
 
+<<<<<<< HEAD
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+=======
 
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
 
+>>>>>>> 387bbb90cc164225e7ff2e5777bc4857986d5358
                 <executions>
                     <execution>
                         <id>copy-resources</id>
@@ -101,8 +135,11 @@
                     </execution>
                 </executions>
             </plugin>
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 387bbb90cc164225e7ff2e5777bc4857986d5358
         </plugins>
     </build>
 </project>
