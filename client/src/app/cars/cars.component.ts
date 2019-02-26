@@ -22,6 +22,7 @@ export class CarsComponent implements OnInit {
   car: Car;
   showCards: boolean = false;
   showProfile: boolean = false;
+  userId: Number;
   
   @Input()
   id: number;
@@ -30,22 +31,37 @@ export class CarsComponent implements OnInit {
   constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
   
   ngOnInit(){
+/*
+    this.username = this.tokenStorage.getUsername();
+    this.userService.getUserByUsername(this.username)
+    .subscribe(data => this.user = data);
+*/
    this.route.params.subscribe(params => {
     this.id = params["id"];
 });
 
-  this.carsService.getOwnerCarsById(this.id)
-  .subscribe(data => this.cars = data);
+/*if(this.user.id != this.id){
+  if(confirm("Such request is not allowed")) {
+  } else {
+    this.carsService.getOwnerCarsById(this.id)
+    .subscribe(data => this.cars = data);
+  }
+}   */
+this.carsService.getOwnerCarsById(this.id)
+.subscribe(data => this.cars = data);
+
+   setTimeout(() => { 
+     if(this.cars == null){
+      if(confirm("You don't have registered car")) {
+      }
+     } else if(this.cars.length > 1){
+     this.showCards = true;
+     } else{
+       this.showProfile = true;
+     }; }, 1000);
+     console.log(this.cars.length);
   
-   
- setTimeout(() => { 
-    if(this.cars.length > 1){
-   this.showCards = true;
-   } else{
-     this.showProfile = true;
-   }; }, 1000);
-   console.log(this.cars.length);
- }
+}
    
     deleteCarById(id: number){
       if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
@@ -84,10 +100,18 @@ export class CarsComponent implements OnInit {
     }
 
     openProfile(car: Car){
-      this.car = car;
-    //  this.carsService.getCarById(id).subscribe(data => this.car = data);
-      this.showCards = false;
-      this.showProfile = true;
+      this.router.navigate(['ui/carprofile'], 
+      {queryParams: {
+        carId: car.id,
+        carBrand: car.brand, 
+        carModel: car.model,
+        carGY: car.graduation_year,
+        carNumber: car.number,
+        carVin: car.vin,
+        carPrice:car.price,
+        carEnd_guarantee: car.end_guarantee
+      }}
+    );
     }
 
     getCarById (id: number){

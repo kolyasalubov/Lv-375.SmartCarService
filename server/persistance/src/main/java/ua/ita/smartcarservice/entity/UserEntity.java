@@ -39,7 +39,7 @@ public class UserEntity {
 	private Set<RoleEntity> roles = new HashSet<RoleEntity>();
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "userId")
+	@OneToOne(mappedBy = "userId",  cascade = CascadeType.ALL)
 	private UserTechnicalService userTechnicalService;
 
 	@JsonIgnore

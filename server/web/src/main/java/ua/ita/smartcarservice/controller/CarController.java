@@ -15,6 +15,7 @@ import ua.ita.smartcarservice.service.CarService;
 
 
 @CrossOrigin(origins = "*")
+@RequestMapping("/api")
 @RestController
 public class CarController {
 
