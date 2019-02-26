@@ -49,7 +49,7 @@ hs_err_pid*
 /.idea/
 *.iml
 /WebContent/
-/resources/static/
+/server/web/src/main/resources/static/
 
 # Multi Modules Project
 /**/.externalToolBuilders/
@@ -69,6 +69,7 @@ hs_err_pid*
 /**/.idea/
 /**/*.iml
 /**/WebContent/
+/**/static/
 
 # Ignore binary
 /.allure/
@@ -104,3 +105,5 @@ hs_err_pid*
 
 # npm
 /node_modules/
+/node/
+
