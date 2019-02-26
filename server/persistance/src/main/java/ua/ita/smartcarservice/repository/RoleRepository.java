@@ -13,9 +13,9 @@ import ua.ita.smartcarservice.entity.RoleName;
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
 	
-	Optional<RoleEntity> findByName(RoleName roleName);
+	//Optional<RoleEntity> findByName(RoleName roleName);
 	
-	Optional<RoleEntity> findByName(String roleName);
+	RoleEntity findByName(String roleName);
 	
 	
 

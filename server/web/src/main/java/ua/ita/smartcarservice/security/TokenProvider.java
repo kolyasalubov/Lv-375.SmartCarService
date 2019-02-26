@@ -30,9 +30,12 @@ public class TokenProvider {
 
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
 
-        return Jwts.builder().setSubject((userPrinciple.getUsername())).setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + expirationTime))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts.builder()
+            .setSubject((userPrinciple.getUsername()))
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + 864000000))
+            .signWith(SignatureAlgorithm.HS512, "Secret")
+            .compact();
 
     }
 
