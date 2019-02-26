@@ -49,7 +49,6 @@ hs_err_pid*
 /.idea/
 *.iml
 /WebContent/
-/server/web/src/main/resources/static/
 
 # Multi Modules Project
 /**/.externalToolBuilders/
@@ -105,4 +104,4 @@ hs_err_pid*
 
 # npm
 /node_modules/
-/node/
+/**/node/
