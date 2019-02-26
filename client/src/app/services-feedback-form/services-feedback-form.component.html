@@ -1,3 +1,29 @@
-<p>
-  services-feedback-form works!
-</p>
+<mdb-card>
+  <!--<div class="view rgba-white-slight waves-light" mdbWavesEffect>
+    // Card img
+    <mdb-card-img src="assets/img/auto-mechanic.jpg" alt="Card image cap"></mdb-card-img>
+    <a>
+      <div class="mask"></div>
+    </a>
+  </div>-->
+
+  <!--Card content-->
+  <mdb-card-body>
+    <!--Title-->
+    <mdb-card-title>
+      <h4>Feedback about {{techservice.name}}</h4>
+    </mdb-card-title>
+
+    <!--Text-->
+    <mdb-card-text>
+        <div class="md-form">
+          <textarea class="md-textarea form-control " rows="3" id="input_text" type="text" length="120" mdbCharCounter mdbInput></textarea>
+          <label for="input_text">Type your opinion about our service</label>
+        </div>
+    </mdb-card-text>
+
+    <button (click)="sendFeedback()" type="button" block="true" style="background-color:#336B87; color: white;" mdbWavesEffec mdbBtn>Send Feedback</button>
+  </mdb-card-body>
+</mdb-card>
+
+<workers-feedback *ngFor="let worker of workers" [workerId]="worker.id"></workers-feedback>

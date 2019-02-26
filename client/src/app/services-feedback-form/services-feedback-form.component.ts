@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ServicesFeedbackForm } from './services-feedback-form';
+import { Techservice } from '../techservice/techservice';
+import { UsersService } from '../users/users.service';
+import { TokenStorageService } from '../auth/token-storage.service';
+import { Worker } from '../techservice/worker/worker';
+import { TechserviceService } from '../techservice/techservice.service';
+import { ServicesFeedbackService } from '../services-feedback/services-feedback.service';
 
 @Component({
   selector: 'app-services-feedback-form',
@@ -7,9 +14,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesFeedbackFormComponent implements OnInit {
 
-  constructor() { }
+  feedbackForm: ServicesFeedbackForm = new ServicesFeedbackForm();
+  techservice: Techservice;
+  @Input() workers: Worker[]; 
 
-  ngOnInit() {
+  constructor(private tokenStorage: TokenStorageService,
+    private techserviceService: TechserviceService,
+    private servicesFeedbackService: ServicesFeedbackService) { 
+
   }
 
+  ngOnInit() {
+    this.getTechnicalServiceFromWorker(this.workers[0]);
+    this.feedbackForm.userName = this.tokenStorage.getUsername();
+  }
+
+  getTechnicalServiceFromWorker(worker: Worker) {
+    this.techserviceService.getTechnicalServiceByCurrentUser(worker.id)
+      .subscribe(data => {
+        this.techservice = data;
+        this.feedbackForm.serviceId = this.techservice.stoId;
+      });
+  }
+
+  sendFeedback() {
+    this.servicesFeedbackService.sendFeedback(this.feedbackForm);
+  }
 }

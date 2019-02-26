@@ -3,7 +3,7 @@ import { WorkerService } from '../techservice/worker/worker.service';
 import { Worker } from '../techservice/worker/worker';
 
 @Component({
-  selector: 'app-workers-feedback',
+  selector: 'workers-feedback',
   templateUrl: './workers-feedback.component.html',
   styleUrls: ['./workers-feedback.component.scss']
 })
