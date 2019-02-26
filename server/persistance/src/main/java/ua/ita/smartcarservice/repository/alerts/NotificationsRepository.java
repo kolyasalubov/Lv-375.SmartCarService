@@ -12,10 +12,12 @@ import ua.ita.smartcarservice.entity.alerts.Notifications;
 @Repository
 public interface NotificationsRepository extends JpaRepository<Notifications, Long>{
 
-	@Query("SELECT n FROM Notifications n WHERE n.userId = :userId")
+	@Query("SELECT n FROM Notifications n WHERE n.userId = :userId AND "
+			+ "n.isVisible = true")
 	List<Notifications> getAllNotificationsForUser(@Param ("userId") Long userId);
-	
-	//delete notification by id 
-	
-	//get all for car 
+
+	@Query("SELECT n FROM Notifications n WHERE n.notificationTime IN "
+			+ "(SELECT max(notificationTime) from Notifications) AND "
+			+ "n.message LIKE '%:message%' ")
+	Notifications findLastNotificationByMessage(@Param ("message") String message);
 }

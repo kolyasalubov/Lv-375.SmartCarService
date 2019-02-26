@@ -26,13 +26,16 @@ public class FaultCode {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	
-	@Column (length = 10, name = "fault_code", nullable = false, unique = true)
+	@Column (length = 25, name = "fault_code", nullable = false, unique = true)
 	private String faultCode;
 	
 	@Column (length = 250, name = "description", nullable = false)
 	private String description;
-	
-	@Column (length = 15, name = "type", nullable = false)
+
+	@Column (length = 1050, name = "suggestion")
+	private String suggestion;
+
+	@Column (length = 100, name = "type", nullable = false)
 	private String type;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -45,5 +48,14 @@ public class FaultCode {
 		this.type = type;
 		this.skill = skill;
 	}
+
+	/* Constructor for warning lights that do not requires service help */
+	public FaultCode(String faultCode, String description, String suggestion, String type) {
+		this.faultCode = faultCode;
+		this.description = description;
+		this.suggestion = suggestion;
+		this.type = type;
+	}
+
 
 }
