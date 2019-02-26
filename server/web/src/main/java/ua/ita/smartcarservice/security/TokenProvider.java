@@ -41,15 +41,15 @@ public class TokenProvider {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
-            logger.info("Invalid JWT signature: " + e);
+         //   logger.info("Invalid JWT signature: " + e);
         } catch (MalformedJwtException e) {
-            logger.info("Invalid JWT token: " + e);
+           // logger.info("Invalid JWT token: " + e);
         } catch (ExpiredJwtException e) {
-            logger.info("Expired JWT token: " + e);
+          //  logger.info("Expired JWT token: " + e);
         } catch (UnsupportedJwtException e) {
-            logger.info("Unsupported JWT token: " + e);
+          //  logger.info("Unsupported JWT token: " + e);
         } catch (IllegalArgumentException e) {
-            logger.info("JWT claims string is empty: " + e);
+          //  logger.info("JWT claims string is empty: " + e);
         }
 
         return false;
