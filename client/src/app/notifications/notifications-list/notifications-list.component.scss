@@ -4,6 +4,27 @@
     padding-right: 0px;
 }
 
+.notifications-container{
+    max-height: 75vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-right: 6px;
+}
+
+.notifications-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notifications-container::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: inset 0 0 45px rgb(45, 66, 98);
+}
+
+.notifications-container::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 15px rgba(45, 66, 98, 0.3);
+}
+
 .notification-header{
     padding: 12px;
     padding-right: 0%;
@@ -13,7 +34,6 @@
 
 .notification{
     margin: auto;
-    margin-top: 15px;
     margin-bottom: 15px;
     width: 100%;
     justify-content: center;
