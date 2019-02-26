@@ -18,7 +18,7 @@ export class UsersService {
   }
 
   getAll(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:9501/users/all');
+    return this.http.get<User[]>('http://localhost:9501/users');
   }
 
   deleteUserById(id: number) {

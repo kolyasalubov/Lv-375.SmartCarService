@@ -8,8 +8,8 @@
   <label for="brand">Brand</label>
   <input type="text" class="form-control" id="brand" required [(ngModel)]="carProfile.brand" name="brand"  #brand="ngModel">
   <div [hidden]="brand.valid || brand.pristine"
-  class="alert alert-danger">
-  Brand is required
+  class="alert">
+  * Brand is required
   </div>
   </div>
 
@@ -17,8 +17,8 @@
   <label for="model">Model</label>
   <input type="text" class="form-control" id="model" required [(ngModel)]="carProfile.model" name="model" #model="ngModel">
   <div [hidden]="model.valid || model.pristine"
-  class="alert alert-danger">
-  Model is required
+  class="alert">
+  * Model is required
   </div>  
   </div>
 
@@ -28,8 +28,8 @@
       <option *ngFor="let y of years" [ngValue]="y" > {{y}} </option>
   </select>
   <div [hidden]="graduation_year.valid || graduation_year.pristine"
-  class="alert alert-danger">
-  Graduation year is required
+  class="alert">
+  * Graduation year is required
   </div>
   </div>
 
@@ -37,8 +37,8 @@
   <label for="number">Number</label>
   <input type="text" class="form-control" id="number" required [(ngModel)]="carProfile.number" name="number" #number="ngModel">
   <div [hidden]="number.valid || number.pristine"
-  class="alert alert-danger">
-  Number is required
+  class="alert">
+  * Number is required
   </div>
   </div>
 
@@ -46,8 +46,8 @@
   <label for="vin">Vin</label>
   <input type="text" class="form-control" id="vin" required [(ngModel)]="carProfile.vin" name="vin" #vin="ngModel">
   <div [hidden]="vin.valid || vin.pristine"
-  class="alert alert-danger">
-  Vin is required
+  class="alert">
+  * Vin is required
   </div>  
   </div>
 
@@ -69,8 +69,8 @@
     <label for="dateOfInspection"> Date ("yyyy-mm-dd")</label>
     <input type="text" class="form-control" id ="dateOfInspection" required [(ngModel)]="carVechicleInspection.dateOfInspection" name="dateOfInspection" #dateOfInspection="ngModel">
     <div [hidden]="dateOfInspection.valid || dateOfInspection.pristine"
-    class="alert alert-danger">
-    Date of inspection is required
+    class="alert">
+   * Date of inspection is required
     </div>
     </div>
     
@@ -78,8 +78,8 @@
     <label for="mileageOfCar"> Miles spent</label>
     <input type="number" class="form-control" id="mileageOfCar" required [(ngModel)]="carVechicleInspection.mileageOfCar" name="mileageOfCar" #mileageOfCar="ngModel">
     <div [hidden]="mileageOfCar.valid || mileageOfCar.pristine"
-    class="alert alert-danger">
-    Mileage is required
+    class="alert">
+   * Mileage is required
     </div>
     </div>
 
