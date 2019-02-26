@@ -27,6 +27,8 @@ export class WorkerListComponent implements OnInit {
   map : Map<string, Array<Worker>>;
   lastIndexMap : Map<string, number> = new Map();
   error: ErrorEvent;
+
+  date : string;
   constructor(private workerListService : WorkerListService) {}
 
   ngOnInit() {
@@ -86,6 +88,20 @@ export class WorkerListComponent implements OnInit {
     this.showWorker = false;
     this.showTime = true;
     
+  }
+
+  getRequiredTime(requiredTime : number):string{
+    let hours = 0;
+    while(requiredTime >= 60){
+      hours++;
+      requiredTime-=60;
+    }
+    if(hours!=0){
+      return (String)(hours) + " hour" + " " + (String)(requiredTime) + " minutes";
+    }
+    else{
+      return (String)(requiredTime) + "minutes"
+    }
   }
 
 }

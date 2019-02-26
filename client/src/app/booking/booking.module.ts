@@ -6,7 +6,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { WorkerListComponent } from './worker-list/worker-list.component';
 import { TimeListComponent } from './time-list/time-list.component';
 import { FormsModule } from '@angular/forms';
-
 @NgModule({
   declarations: [
     BookingComponent,

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class WorkerWithTimeDto {
+public class WorkerBySkillNameDto {
 
     Map<String, List<WorkerDto>> workerList;
 

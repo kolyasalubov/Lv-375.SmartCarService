@@ -75,15 +75,9 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-
-    public List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId) {
-        List<WorkerDto> workerDtos = new ArrayList<>();
-
-        for (UserEntity worker : userRepository.findByCarIdAndWorkersSkill(name, carId)) {
-
-   /* public List<WorkerDto> findByCarIdAndWorkersSkill(String name, Long carId) {
+    public List<WorkerDto> findByCarIdAndWorkersSkill(String name, Long carId) {
         List <WorkerDto> workerDtos = new ArrayList<>();
-        for(UserEntity worker : userRepository.findByCarIdAndWorkersSkill(name, carId)){*/
+        for(UserEntity worker : userRepository.findByCarIdAndWorkersSkill(name, carId)){
             workerDtos.add(getWorkerDto(worker));
         }
         return workerDtos;
