@@ -18,18 +18,18 @@ export class UsersService {
   }
 
   getAll(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:9501/users');
+    return this.http.get<User[]>('api/users');
   }
 
   deleteUserById(id: number) {
-    return this.http.delete('http://localhost:9501/user/' + id);
+    return this.http.delete('api/user/' + id);
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>('http://localhost:9501/userbyid/' + id);
+    return this.http.get<User>('api/userbyid/' + id);
   }
 
   getUserByUsername(username: String): Observable<User> {
-    return this.http.get<User>('http://localhost:9501/userbyname/' + username);
+    return this.http.get<User>('api/userbyname/' + username);
   }
 }
