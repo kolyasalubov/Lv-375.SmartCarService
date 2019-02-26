@@ -7,7 +7,6 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {NgCircleProgressModule} from 'ng-circle-progress';
 
 import {ChartPageComponent} from './chart-page.component';
-import {FakeDataBtnComponent} from './fake-data-btn/fake-data-btn.component';
 import {LineChartComponent} from './charts/line-chart/line-chart.component';
 import {BarChartComponent} from './charts/bar-chart/bar-chart.component';
 import {ProgressChartComponent} from './charts/progress-chart/progress-chart.component';
@@ -17,7 +16,6 @@ import {LittleBtnComponent} from './little-btn/little-btn.component';
 @NgModule({
   declarations: [
     ChartPageComponent,
-    FakeDataBtnComponent,
     LineChartComponent,
     BarChartComponent,
     ProgressChartComponent,
