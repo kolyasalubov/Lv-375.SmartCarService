@@ -17,6 +17,6 @@ public interface RoleService {
 		
 		void updateRoleById(Long id, RoleEntity roleEntity);
 		
-		Optional<RoleEntity> findByName(String roleName);
+		RoleEntity findRoleByName(String name);
 	
 }

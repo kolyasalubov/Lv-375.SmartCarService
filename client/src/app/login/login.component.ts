@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm);
  
     this.loginInfo = new AuthLoginInfo(
-    this.loginForm.username,
-    this.loginForm.password);
-
-    this.authService.attemptAuth(this.loginInfo).subscribe(
+      this.loginForm.username,
+      this.loginForm.password);
+ 
+this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
         console.log(data.accessToken);
         this.tokenStorage.saveToken(data.accessToken);
@@ -40,18 +40,18 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
-        //this.reloadPage();
+        this.reloadPage();
       },
       error => {
         console.log(error);
         this.errorMessage = error.error.message;
         this.isLoginFailed = true;
-    }
-  ); 
-}
+      }
+    );
+  }
  
   reloadPage() {
-    window.location.href='ui/home';
+    window.location.href='/ui/home';
   }
 
 }
