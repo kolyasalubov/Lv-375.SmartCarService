@@ -42,6 +42,12 @@ public class VehicleInspection {
 		this.car = car;
 	}
 
+	public VehicleInspection(Date dateOfInspection, Integer mileageOfCar, Car car) {
+		this.dateOfInspection = dateOfInspection;
+		this.mileageOfCar = mileageOfCar;
+		this.car = car;
+	}
+
     public void setCar(Car car) {
         this.car = car;
     }

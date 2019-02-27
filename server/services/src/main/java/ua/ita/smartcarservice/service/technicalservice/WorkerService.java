@@ -17,7 +17,7 @@ public interface WorkerService {
 
     void deleteWorker(Long workerId) throws Exception;
 
-    List<WorkerDto> getByCarIdAndWorkersSkill(String name, Long carId);
+    List<WorkerDto> findByCarIdAndWorkersSkill(String name, Long carId);
 
     void addSkillToWorker(String username, Long skillId);
 

@@ -40,7 +40,7 @@
 <!-------------------3 blocks------------------>
 <div *ngIf="showProfile">
     <br><br><br>
-<div class="container-fluid" >
+<div *ngFor="let car of cars" class="container-fluid" >
     <button type="button" class="close" (click)="closeProfile()" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
