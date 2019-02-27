@@ -18,32 +18,32 @@ export class CarsService {
   constructor(private http:HttpClient) { }
 
   getOwnerCarsById(id: Number): Observable<Car[]> {
-    return this.http.get<Car[]>('http://localhost:9501/owner/' + id + '/cars')
+    return this.http.get<Car[]>('api/owner/' + id + '/cars')
     .pipe(
       catchError(this.handleError)
     );
   }
 
   deleteCarById(id: number){
-    return this.http.delete('http://localhost:9501/car/' + id)
+    return this.http.delete('api/car/' + id)
   }
 
   getCarById(id: number): Observable<Car> {
-    return this.http.get<Car>('http://localhost:9501/car/' + id)
+    return this.http.get<Car>('api/car/' + id)
     .pipe(
       catchError(this.handleError)
     );
   }
 
   getCarByNumber(number: String): Observable<Car> {
-    return this.http.get<Car>('http://localhost:9501/car/' + number + '/number')
+    return this.http.get<Car>('api/car/' + number + '/number')
     .pipe(
       catchError(this.handleError)
     );
   }
 
   getCarByVin(vin: String): Observable<Car> {
-    return this.http.get<Car>('http://localhost:9501/car/' + vin + '/vin')
+    return this.http.get<Car>('api/car/' + vin + '/vin')
     .pipe(
       catchError(this.handleError)
     );

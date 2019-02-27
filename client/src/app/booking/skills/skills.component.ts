@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { WorkerList } from '../worker-list/worker-list-real';
 import { NumberValueAccessor } from '@angular/forms/src/directives';
 import { WorkType } from './work-type';
-
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
@@ -23,6 +22,7 @@ export class StoSkillComponent implements OnInit {
   works : Array<WorkType>;
   headElements : Array<string> = ["Name", "Time", "Cost"];
   selectedSkill : Map<string, number> = new Map();
+  lastSkillName : string;
 
   constructor(private skillService: SkillService, private route: ActivatedRoute) {}
   ngOnInit() {
@@ -38,7 +38,6 @@ export class StoSkillComponent implements OnInit {
 
   addOrDelete(w : WorkType, skillName : string){
     this.show = true;
-    console.log(this.selectedSkill);
 
     if(this.selectedWork.get(w.name) != undefined){
       if(this.selectedWork.get(w.name) == -1){
@@ -82,6 +81,8 @@ export class StoSkillComponent implements OnInit {
   }
 
   GetData() : WorkerList {
+    this.works = undefined;
+
    let workerList : WorkerList = new WorkerList();
    let workName : string[] = new Array<string>();
    let skillName : string[] = new Array<string>();
@@ -99,6 +100,8 @@ this.selectedSkill.forEach((value: number, key: string) => {
     workerList.skillName = skillName;
     workerList.searchId = this.searchId;
 
+    this.selectedWork = new Map();
+    this.selectedSkill = new Map();
     return workerList;
   }
 
@@ -118,8 +121,18 @@ this.selectedSkill.forEach((value: number, key: string) => {
   }
 
   selectSkill(skillId : string){
+    this.show = true;
+
+    if(this.lastSkillName == undefined){
     this.setSkillClass(skillId, "selectSkill");
+    this.lastSkillName = skillId;
   }
+  else{
+    this.setSkillClass(skillId, "selectSkill");
+    this.setSkillClass(this.lastSkillName, "non-selectSkill");
+    this.lastSkillName = skillId;
+  }
+}
 
 
 }

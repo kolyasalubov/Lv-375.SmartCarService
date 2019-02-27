@@ -15,6 +15,9 @@ export class LineChartComponent extends ChartComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
     this.initCharts();
   }
 

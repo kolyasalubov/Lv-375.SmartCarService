@@ -23,9 +23,18 @@ import {NotificationsListComponent} from './notifications/notifications-list/not
 import {NotificationsApprovementComponent} from './notifications/notifications-approvement/notifications-approvement.component';
 import {MapComponent} from './techservice/map/map.component';
 import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
+import { CarDetailsComponent } from './cars/car-details/car-details.component';
+import { ServicesFeedbackFormComponent } from './services-feedback-form/services-feedback-form.component'; 
+import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.component';
+
 
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
+  
+  {
+    path: 'ui/feedback',
+    component: ServicesFeedbackFormComponent
+  },
   {
     path: 'ui/map',
     component: MapComponent
@@ -120,6 +129,11 @@ const routes: Routes = [
 {
     path: 'ui/location',
     component: CarTrackerComponent
+},
+
+{
+    path: 'ui/carprofile',
+    component: CarDetailsComponent
 }
 ]
 

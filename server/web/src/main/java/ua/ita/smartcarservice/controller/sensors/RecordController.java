@@ -9,6 +9,7 @@ import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.alerts.FaultCodeDto;
 import ua.ita.smartcarservice.dto.alerts.NotificationsDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
+import ua.ita.smartcarservice.entity.alerts.FaultCode;
 import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.SensorService;
@@ -43,11 +44,9 @@ public class RecordController {
         Double currentValue = (Double)recordDto.getValues().values().toArray()[0];
         if(analyzeSensorData(sensorType, currentValue)) {
             RecordDto previousRecord = sensorService.findRecordBeforeDate(recordDto);
-            if(previousRecord == null || !analyzeSensorData(sensorType, previousRecord.getValue())) {
-                FaultCodeDto code = faultCodeService.getFaultCode(sensorType);
-                CarDto car = carService.findByVin(recordDto.getCarVin());
-                notificationService.saveNotification(new NotificationsDto(code, car));
-            }
+            FaultCodeDto code = faultCodeService.getFaultCode(sensorType);
+            CarDto car = carService.findByVin(recordDto.getCarVin());
+            notificationService.saveNotification(new NotificationsDto(code, car));
         }
     }
 
@@ -55,8 +54,11 @@ public class RecordController {
     private boolean analyzeSensorData(String type, Double value) {
         if(type.equals(SensorTypes.FUEL.toString()) && value < 10) {
             return true;
+        } else if(type.equals(SensorTypes.GLASS_WASHER_FLUID.toString()) && value < 0.5){
+            return true;
+        } else if(type.equals(SensorTypes.COOLANT.toString()) && value < 1) {
+            return true;
         }
         return false;
     }
 }
-

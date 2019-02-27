@@ -11,6 +11,7 @@ import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.booking.BookingRepository;
+//import ua.ita.smartcarservice.repository.impl.WorkTimeRepositoryImpl;
 import ua.ita.smartcarservice.service.booking.BookingService;
 
 import java.time.LocalDate;
@@ -38,6 +39,9 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private CarRepository carRepository;
+
+//    @Autowired
+//    private WorkTimeRepositoryImpl workTimeRepository;
 
     @Override
     public List <WorkTimeDto> findAllByWorkerId(Long workerId) {
@@ -77,65 +81,34 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<LocalDateTime> findTimeToBooking(BookingDto bookingDto) {
-        List <Long> workerId = new ArrayList <>();
-        LocalDate time = LocalDate.parse(bookingDto.getTime());
-
-        bookingDto.getWorkerId().forEach(s -> workerId.add(Long.valueOf(s)));
-
-        List <WorkTimeDto> timeToWork = findTimeWhenWork(workerId, time, NUMBER_OF_DAY);
-
-        return findFreeTime(findAllTimePoints(timeToWork, time), bookingDto.getNeedTime());
+//        List <Long> workerId = new ArrayList <>();
+//        LocalDate time = LocalDate.parse(bookingDto.getTime());
+//
+//        bookingDto.getWorkerId().forEach(s -> workerId.add(Long.valueOf(s)));
+//
+//        List <WorkTimeDto> timeToWork = findTimeWhenWork(workerId, time, NUMBER_OF_DAY);
+//
+//        return findFreeTime(findAllTimePoints(timeToWork, time), bookingDto.getNeedTime());
+        return null;
 
     }
 
 
     private List <WorkTimeDto> findTimeWhenWork(List <Long> workerId, LocalDate time, int numberOfDay) {
-        List <WorkTimeDto> findTimeWhenWork = new ArrayList <>();
-        LocalDate end = time.plusDays(numberOfDay);
-        LocalDateTime starttime = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 10, 0);
-        LocalDateTime endtime = LocalDateTime.of(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 18, 0);
-
-        workerId.forEach(id -> {
-            bookingRepository.findTimeWhenWork(id, starttime, endtime)
-                    .forEach(workTime -> findTimeWhenWork.add(getWorkTimeDto(workTime)));
-        });
-
-
-        return findTimeWhenWork;
-    }
-
-//    private Map <LocalDate, List <WorkTimeDto>> getFreeTimeForEveryDay(List <WorkTimeDto> timeToWork, LocalDate time, int numberOfDay, int timeToNeed) {
-//        Map <LocalDate, List <WorkTimeDto>> freeTime = new HashMap <>();
-//        Map <LocalDate, List <WorkTimeDto>> bookingSchedule = new HashMap <>();
+//        List <WorkTimeDto> findTimeWhenWork = new ArrayList <>();
+//        LocalDate end = time.plusDays(numberOfDay);
+//        LocalDateTime starttime = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 10, 0);
+//        LocalDateTime endtime = LocalDateTime.of(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 18, 0);
 //
-//        for (int i = 0; i <= numberOfDay; i++) {
-//            freeTime.put(time.plusDays(i), new ArrayList <>());
-//        }
+//        workTimeRepository.getAllBookingById(workerId, starttime, endtime)
+//                .forEach(workTime -> findTimeWhenWork.add(getWorkTimeDto(workTime)));
 //
-//        if (!timeToWork.isEmpty()) {
-//            timeToWork.forEach(workTimeDto -> {
-//                List <WorkTimeDto> newList = freeTime.get(getKey(workTimeDto.getStartBooking()));
-//                newList.add(workTimeDto);
-//                freeTime.put(getKey(workTimeDto.getStartBooking()), newList);
-//            });
-//        }
-//
-//        freeTime.keySet().forEach(localDate -> bookingSchedule.put(localDate, findFreeTime(findAllTimePoints(freeTime.get(localDate), localDate), timeToNeed)));
-//
-//        return bookingSchedule;
-//
-//    }
-
-    private LocalDate getKey(LocalDateTime time) {
-        return LocalDate.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth());
+//      return findTimeWhenWork;
+        return null;
     }
 
     private List <TimePoint> findAllTimePoints(List <WorkTimeDto> timeToWork, LocalDate time) {
         List <TimePoint> timePoints = new ArrayList <>();
-
-//        WorkTime workDay = new WorkTime();
-//        workDay.setStartBooking(LocalDateTime.of(time.getYear(), time.getMonth(), time.getDayOfMonth(), 10, 0));
-//        workDay.setEndBooking(LocalDateTime.of(time.getYear(), time.getMonth(), time.getDayOfMonth(), 18, 0));
 
         for (int i = 0; i < NUMBER_OF_DAY; i++) {
             timePoints.add(new TimePoint(LocalDateTime.of(time.getYear(), time.getMonth(), time.getDayOfMonth(), 10, 0).plusDays(i), true));
@@ -159,35 +132,6 @@ public class BookingServiceImpl implements BookingService {
         int workNow = -1;
         int remainderOfTime = 0;
 
-        /*for (int i = 1; i < timePoints.size() - 1; i++) {
-            if (timePoints.get(i).isPosition()) {
-                if (workNow == 0 && getDeltaTimeInMinut(start.getTime(), timePoints.get(i).getTime()) >= timeToNeedInMinute) {
-                    WorkTimeDto workTimeDto = new WorkTimeDto();
-                    workTimeDto.setStartBooking(start.getTime());
-                    workTimeDto.setEndBooking(timePoints.get(i).getTime());
-                    freeTime.add(workTimeDto);
-                }
-                workNow++;
-
-            } else {
-                start = timePoints.get(i);
-                workNow--;
-            }
-        }
-        if (freeTime.isEmpty() && timePoints.size() == 2
-                && getDeltaTimeInMinut(timePoints.get(timePoints.size() - 2).getTime(), timePoints.get(timePoints.size() - 1).getTime()) >= timeToNeedInMinute) {
-            WorkTimeDto workTimeDto = new WorkTimeDto();
-            workTimeDto.setStartBooking(start.getTime());
-            workTimeDto.setEndBooking(timePoints.get(timePoints.size() - 1).getTime());
-            freeTime.add(workTimeDto);
-        } else {
-            WorkTimeDto workTimeDto = new WorkTimeDto();
-            if (getDeltaTimeInMinut(timePoints.get(timePoints.size() - 2).getTime(), timePoints.get(timePoints.size() - 1).getTime()) >= timeToNeedInMinute) {
-                workTimeDto.setStartBooking(timePoints.get(timePoints.size() - 2).getTime());
-                workTimeDto.setEndBooking(timePoints.get(timePoints.size() - 1).getTime());
-                freeTime.add(workTimeDto);
-            }
-        }*/
         for (int i = 0; i < timePoints.size(); i++) {
             if (timePoints.get(i).isPosition()) {
                 if (timePoints.get(i).getTime().getHour() == DAY_START) {
@@ -252,24 +196,12 @@ public class BookingServiceImpl implements BookingService {
         return (second.getHour() - first.getHour()) * 60 + (second.getMinute() - first.getMinute());
     }
 
-    private WorkTime getEntity(WorkTimeDto workTimeDto) {
-        WorkTime workTime = new WorkTime();
-        workTime.setStartBooking(workTimeDto.getStartBooking());
-        workTime.setEndBooking(workTimeDto.getEndBooking());
-        return workTime;
-    }
-
     private WorkTime getEntity(NewBookingDto newBookingDto) {
 
         WorkTime newBooking = new WorkTime();
         newBooking.setStartBooking(parseFromFront(newBookingDto.getStart()));
         newBooking.setEndBooking(parseFromFront(newBookingDto.getStart()).plusHours(newBookingDto.getRequiredTime()));
         return newBooking;
-    }
-
-    private LocalDateTime parseDate(String s) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return LocalDateTime.parse(s, formatter);
     }
 
     private LocalDateTime parseFromFront(String s) {

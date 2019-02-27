@@ -22,16 +22,16 @@ public class RoleEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Enumerated(EnumType.STRING)
+
 	@NaturalId
 	@Column(length = 30, nullable = false, unique = true)
-	private RoleName name;
+	private String name;
 	
 	public RoleEntity() {
 		
 	}
 
-	public RoleEntity(RoleName name) {
+	public RoleEntity(String name) {
 		this.name = name;
 	}
 
@@ -43,11 +43,11 @@ public class RoleEntity {
 		this.id = id;
 	}
 
-	public RoleName getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(RoleName name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
