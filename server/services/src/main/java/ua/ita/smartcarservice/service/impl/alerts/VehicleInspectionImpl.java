@@ -11,6 +11,7 @@ import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.alerts.VehicleInspectionDto;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
+import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.alerts.VehicleInspectionRepository;
 import ua.ita.smartcarservice.service.alerts.VehicleInspectionService;
 
@@ -19,6 +20,9 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 
 	@Autowired
 	private VehicleInspectionRepository vehicleInspectionRepository;
+
+	@Autowired
+	private CarRepository carRepository;
 
 	/* CREATE */
 	@Override
@@ -66,5 +70,12 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	@Override
 	public Date getDateOfLastVehicleInspection(long carId) {
 		return vehicleInspectionRepository.getDateOfLastVehicleInspection(carId);
+	}
+
+	@Override
+	public void createVehicleInspection(java.sql.Date dateOfInspection, Integer mileageOfCar, String vin){
+		Car car = carRepository.findByVin(vin);
+		VehicleInspection entity = new VehicleInspection(dateOfInspection, mileageOfCar, car);
+		vehicleInspectionRepository.save(entity);
 	}
 }

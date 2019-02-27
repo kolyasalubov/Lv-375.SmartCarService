@@ -52,8 +52,4 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 			"and us.technical_service_id = :technical_service_id", nativeQuery = true)
 	List<UserEntity> getUserEntitiesByRoleNameAndTechnicalService(@Param("name") String name,
 																  @Param("technical_service_id") Long technical_service_id);
-
-	@Query(value = "delete from user_roles where user_id = :worker_id;" +
-			"delete from user where id = :worker_id", nativeQuery = true)
-	void deleteByIdWithRole(@Param("worker_id") Long worker_id);
 }

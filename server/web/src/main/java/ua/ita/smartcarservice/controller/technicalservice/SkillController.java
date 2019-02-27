@@ -19,17 +19,6 @@ public class SkillController {
 
     @Autowired
     private SkillService skillService;
-
-    @GetMapping("/api/v1/skillbysto/{id}")
-    public ResponseEntity<List<SkillDto>> findSkillByStoId(@PathVariable Long id) {
-        return new ResponseEntity<>(skillService.findSkillNameBySto(id), HttpStatus.OK);
-    }
-
-    @GetMapping("/api/v1/skillbycar/{id}")
-    public ResponseEntity<List<SkillDto>> findSkillByCarId(@PathVariable Long id) {
-        return new ResponseEntity<>(skillService.findSkillNameByCarId(id), HttpStatus.OK);
-    }
-
     /*
      * Method for getting all the skills
      */

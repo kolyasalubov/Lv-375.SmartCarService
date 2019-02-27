@@ -21,7 +21,7 @@ export class CarProfileService {
  constructor(private http: HttpClient) { }
 
   createCar(carProfile: OwnerCar, username: String): Observable<HttpResponse<OwnerCar>>{
-   return this.http.put<OwnerCar>('http://localhost:9501/car/?brand='+ carProfile.brand +'&model='+ carProfile.model +'&graduationyear=' + carProfile.graduationyear + '&number=' + carProfile.number + '&vin=' + carProfile.vin + '&username=' + username, carProfile, { observe: 'response' })
+   return this.http.put<OwnerCar>('api/car/?brand='+ carProfile.brand +'&model='+ carProfile.model +'&graduationyear=' + carProfile.graduationyear + '&number=' + carProfile.number + '&vin=' + carProfile.vin + '&username=' + username, carProfile, { observe: 'response' })
   .pipe(
     catchError(this.handleError)
   );
@@ -29,7 +29,7 @@ export class CarProfileService {
 
  createInspection(carVechicleInspection: VechicleInspection, carVin: String): Observable<VechicleInspection>{
   console.log(carVechicleInspection.dateOfInspection, carVechicleInspection.mileageOfCar, carVin);
-   return this.http.post <VechicleInspection>('http://localhost:9501/inspection?dateOfInspection=' + carVechicleInspection.dateOfInspection + '&mileageOfCar=' + carVechicleInspection.mileageOfCar + '&vin=' + carVin, carVechicleInspection, httpOptions)
+   return this.http.post <VechicleInspection>('api/inspection?dateOfInspection=' + carVechicleInspection.dateOfInspection + '&mileageOfCar=' + carVechicleInspection.mileageOfCar + '&vin=' + carVin, carVechicleInspection, httpOptions)
    .pipe(
     catchError(this.handleError)
   );
