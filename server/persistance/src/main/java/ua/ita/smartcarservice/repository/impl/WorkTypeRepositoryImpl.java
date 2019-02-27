@@ -10,23 +10,23 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-@Component("wort_type_repository")
-public class WorkTypeRepositoryImpl {
-
-    public List <WorkType> getAllWorkTypeBySkillName(List <String> name) {
-
-        Map namedParameters = Collections.singletonMap("skillName", name);
-
-        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(new SpringJdbcConfig().mysqlDataSource());
-
-        StringBuffer query = new StringBuffer();
-
-        query.append("select * from work_type as w left join skills as s " +
-                "on w.skill_id = s.skill_id where s.name in (:skillName);");
-
-
-
-        return namedParameterJdbcTemplate.query(query.toString(), namedParameters, new WorkTypeMapped());
-
-    }
-}
+//@Component("wort_type_repository")
+//public class WorkTypeRepositoryImpl {
+//
+//    public List <WorkType> getAllWorkTypeBySkillName(List <String> name) {
+//
+//        Map namedParameters = Collections.singletonMap("skillName", name);
+//
+//        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(new SpringJdbcConfig().mysqlDataSource());
+//
+//        StringBuffer query = new StringBuffer();
+//
+//        query.append("select * from work_type as w left join skills as s " +
+//                "on w.skill_id = s.skill_id where s.name in (:skillName);");
+//
+//
+//
+//        return namedParameterJdbcTemplate.query(query.toString(), namedParameters, new WorkTypeMapped());
+//
+//    }
+//}

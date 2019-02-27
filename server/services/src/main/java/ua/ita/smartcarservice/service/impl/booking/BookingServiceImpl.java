@@ -11,7 +11,7 @@ import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.booking.BookingRepository;
-import ua.ita.smartcarservice.repository.impl.WorkTimeRepositoryImpl;
+//import ua.ita.smartcarservice.repository.impl.WorkTimeRepositoryImpl;
 import ua.ita.smartcarservice.service.booking.BookingService;
 
 import java.time.LocalDate;
@@ -40,8 +40,8 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private CarRepository carRepository;
 
-    @Autowired
-    private WorkTimeRepositoryImpl workTimeRepository;
+//    @Autowired
+//    private WorkTimeRepositoryImpl workTimeRepository;
 
     @Override
     public List <WorkTimeDto> findAllByWorkerId(Long workerId) {
@@ -81,28 +81,30 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<LocalDateTime> findTimeToBooking(BookingDto bookingDto) {
-        List <Long> workerId = new ArrayList <>();
-        LocalDate time = LocalDate.parse(bookingDto.getTime());
-
-        bookingDto.getWorkerId().forEach(s -> workerId.add(Long.valueOf(s)));
-
-        List <WorkTimeDto> timeToWork = findTimeWhenWork(workerId, time, NUMBER_OF_DAY);
-
-        return findFreeTime(findAllTimePoints(timeToWork, time), bookingDto.getNeedTime());
+//        List <Long> workerId = new ArrayList <>();
+//        LocalDate time = LocalDate.parse(bookingDto.getTime());
+//
+//        bookingDto.getWorkerId().forEach(s -> workerId.add(Long.valueOf(s)));
+//
+//        List <WorkTimeDto> timeToWork = findTimeWhenWork(workerId, time, NUMBER_OF_DAY);
+//
+//        return findFreeTime(findAllTimePoints(timeToWork, time), bookingDto.getNeedTime());
+        return null;
 
     }
 
 
     private List <WorkTimeDto> findTimeWhenWork(List <Long> workerId, LocalDate time, int numberOfDay) {
-        List <WorkTimeDto> findTimeWhenWork = new ArrayList <>();
-        LocalDate end = time.plusDays(numberOfDay);
-        LocalDateTime starttime = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 10, 0);
-        LocalDateTime endtime = LocalDateTime.of(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 18, 0);
-
-        workTimeRepository.getAllBookingById(workerId, starttime, endtime)
-                .forEach(workTime -> findTimeWhenWork.add(getWorkTimeDto(workTime)));
-
-        return findTimeWhenWork;
+//        List <WorkTimeDto> findTimeWhenWork = new ArrayList <>();
+//        LocalDate end = time.plusDays(numberOfDay);
+//        LocalDateTime starttime = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 10, 0);
+//        LocalDateTime endtime = LocalDateTime.of(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 18, 0);
+//
+//        workTimeRepository.getAllBookingById(workerId, starttime, endtime)
+//                .forEach(workTime -> findTimeWhenWork.add(getWorkTimeDto(workTime)));
+//
+//      return findTimeWhenWork;
+        return null;
     }
 
     private List <TimePoint> findAllTimePoints(List <WorkTimeDto> timeToWork, LocalDate time) {
