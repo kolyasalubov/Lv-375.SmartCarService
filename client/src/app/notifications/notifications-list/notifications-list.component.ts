@@ -47,7 +47,7 @@ export class NotificationsListComponent implements OnInit {
       }
     )
     if(isSelected) {
-      this.router.navigate(['/notifications-approvement', this.id]);
+      this.router.navigate(['/ui/notifications-approvement', this.id]);
     } else {
       alert("Select notifications^^");
     }
