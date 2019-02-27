@@ -16,18 +16,20 @@
 
     <!--Text-->
     <mdb-card-text>
-        <div class="md-form">
-          <textarea [(ngModel)]="feedbackForm.text" class="md-textarea form-control " rows="3" id="input_text" type="text" length="120" mdbCharCounter mdbInput></textarea>
-          <label for="input_text">Type your opinion about our service</label>
-        </div>
+      <div class="md-form">
+        <textarea [(ngModel)]="feedbackForm.text" class="md-textarea form-control " rows="3" id="input_text" type="text"
+                  length="120" mdbCharCounter mdbInput></textarea>
+        <label for="input_text">Type your opinion about our service</label>
+      </div>
     </mdb-card-text>
 
-    <button (click)="sendFeedback()" type="button" block="true" style="background-color:#336B87; color: white;" mdbWavesEffec mdbBtn>Send Feedback</button>
+    <button (click)="sendFeedback()" type="button" block="true" style="background-color:#336B87; color: white;"
+            mdbWavesEffec mdbBtn>Send Feedback
+    </button>
   </mdb-card-body>
 </mdb-card>
 
 
-
-<div *ngFor="let worker of workers" style="position: relative; top: -200px; left:300;">
+<div *ngFor="let worker of workers" style="position: relative; top: 200px; left: 400px;">
   <app-workers-feedback [workerId]="worker"></app-workers-feedback>
 </div>

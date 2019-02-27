@@ -11,6 +11,7 @@ import ua.ita.smartcarservice.service.UserService;
 
 
 @CrossOrigin(origins = "*")
+@RequestMapping("/api")
 @RestController
 public class UserController {
 
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     /* Get all users */
-    @GetMapping("/users/all")
+    @GetMapping("/users")
     public ResponseEntity<List<UserDto>> findAll() {
         List<UserDto> users = userService.findAll();
         if (users.isEmpty()) {

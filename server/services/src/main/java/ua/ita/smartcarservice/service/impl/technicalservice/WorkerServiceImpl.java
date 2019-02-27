@@ -71,7 +71,10 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public void deleteWorker(Long workerId) throws Exception {
-        userRepository.deleteByIdWithRole(workerId);
+        UserEntity workerEntity;
+
+        workerEntity = userRepository.getUserById(workerId);
+        userRepository.delete(workerEntity);
     }
 
     @Override

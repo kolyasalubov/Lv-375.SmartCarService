@@ -15,6 +15,9 @@ export class BarChartComponent extends ChartComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
     this.initCharts();
     // this.chartColors = this.colors;
   }

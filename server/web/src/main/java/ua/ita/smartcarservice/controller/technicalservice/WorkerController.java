@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.controller.technicalservice;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import ua.ita.smartcarservice.service.booking.WorkDependencyService;
 import ua.ita.smartcarservice.service.feedback.WorkersRatingsService;
 import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,6 +35,8 @@ public class WorkerController {
 
     @Autowired
     private WorkDependencyService workDependencyService;
+
+    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
     @PostMapping("/api/workerbycar")
     public ResponseEntity <WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
@@ -70,10 +74,13 @@ public class WorkerController {
         ResponseEntity responseEntity;
 
         try {
+            logger.info("Trying to delete worker by id: " + id);
             this.workerService.deleteWorker(id);
+            logger.info("Successfully deleted worker by id: " + id);
             responseEntity = new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             responseEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            logger.error("Can not delete worker by id: " + id + " Ex:" + e.getMessage());
         }
 
         return responseEntity;
