@@ -35,3 +35,11 @@ VALUES
 ("glass washer fluid", "You are running out of glass washer fluid. 0.5l left. ", "Information"),
 ("coolant", "You are running out of coolant. But it is not critical yet. 0.5l left. ", "Information")
 ;
+INSERT INTO fault_code(fault_code, description, suggestion, type)
+VALUES
+("WL001", "You're not wearing your seatbelt",
+"This doesn't require a checkup from a professional but it's quite possibly the most important aspect of driving. Seat belt use is one of the most effective ways to save lives and reduce injuries in crashes, yet millions do not buckle up on every trip. Safety first and put on your belt, buddy.",
+"Seatbelt indicator"),
+("WL002", "Your car's coolant is overheating",
+"Quickly pull over and let your car cool down or the heat can destroy your car's engine.",
+"Engine temperature warning light");
