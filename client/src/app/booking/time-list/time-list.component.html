@@ -1,0 +1,22 @@
+<div class = "full-page-container">
+  <div>
+    <mdb-card style="max-width: 300px">
+      <mdb-card-img src="assets/img/booking.jpg" alt="Card image cap"></mdb-card-img>
+      <mdb-card-body>
+        <mdb-card-title>
+          <h4>Booking Info:</h4>
+        </mdb-card-title>
+        <mdb-card-text>
+          <h5 class="info-text">Service Name: {{bookingInfo.techServiceName}}</h5> 
+          <h5 class="info-text">Start: {{getDate(bookingInfo.startBooking)}}</h5>
+          <h5 class="info-text">End: {{getDate(bookingInfo.endBooking)}}</h5>
+        </mdb-card-text>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+<div class="button-time">
+<button  mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="postBooking()" mdbWavesEffect>Apply</button>
+<button  mdbBtn type="button" class ="justify-content-end" style="background-color: #c5001a" (click)="goToHomePage()" mdbWavesEffect>Cancel</button>
+</div>
+</div>
+

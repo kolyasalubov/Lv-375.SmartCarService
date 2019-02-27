@@ -1,0 +1,170 @@
+<!--------------------Car's cards------------------------>
+<div *ngIf="showCards">
+    <br><br><br><br><br><br><br><br><br><br><br><br>
+<div *ngFor="let car of cars" class="flip-card">
+  
+<div class="flip-card-inner">
+ <div class="flip-card-front">
+<img src="assets/img/car.png" width="380px" height="230px" style="text-align: center;">
+
+<div id="description">
+<h3> {{car.brand}} {{car.model}} </h3>
+<li>Graduation year : {{car.graduation_year}} </li>
+<li>Number : {{car.number}} </li>
+<li>Vin : {{car.vin}} </li>
+<li *ngIf="!car.price == null">Price : {{car.price}} </li>
+<li *ngIf="!car.end_guarantee == null">End of guarantee : {{car.end_guarantee}} </li>
+</div>
+</div>
+
+<div class="flip-card-back">
+  <img id="car" src="assets/img/car.png" width="380px" height="230px" style="text-align: center;">
+  <hr style="border:2px solid #f1f1f1; width: 360px">
+  <div id="buttons">
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true" ></i><div class="buttonText"> Apply for STO</div> </button>
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "history(user.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i><div class="buttonText"> Service history </div> </button>
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show charts"><i class="fa fa-line-chart" aria-hidden="true"></i><div class="buttonText"> Show charts </div></button>
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn()" title="Apply for TradeIn"> <i class="fa fa-refresh" aria-hidden="true"></i><div class="buttonText"> Trade In </div></button>
+          <button class="btn btn-outline my-2 my-sm-0" (click) = "openProfile(car)" title="Open profile"><i class="fa fa-window-maximize" aria-hidden="true"></i><div class="buttonText"> Open profile</div> </button>
+          <button class="btn btn-outline my-2 my-sm-0" id="delete" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i><div class="buttonText"> Delete car</div> </button>
+ </div>        
+ </div>
+</div>
+</div>
+</div>
+
+
+
+<!-------------------------Car profile----------------------------->
+
+<!-------------------3 blocks------------------>
+<div *ngIf="showProfile">
+    <br><br><br>
+<div *ngFor="let car of cars" class="container-fluid" >
+    <button type="button" class="close" (click)="closeProfile()" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    <div class="card-block">
+        <div class="card">
+            <div class="card-body">
+  
+                <i class="fa fa-check-square-o fa-4x" aria-hidden="true"></i>
+                  <div class="desc" style="display: inline-block">
+               <h2> 10 000</h2>
+                <h5> Mileage passed</h5>
+              </div>
+        </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-tachometer fa-4x" aria-hidden="true"></i>
+                 <div class="desc" style="display: inline-block;">
+                    <h2> 120 mi/h</h2>
+                  <h5> Max speed</h5>
+                </div>
+        </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
+                <div class="desc" style="display: inline-block">
+                  <h2> 2</h2>
+                   <h5> Services received</h5>
+                </div>
+        </div>
+        </div>
+        </div>
+
+        <!-----------------------Car card---------------------->
+<div id="carMain">
+<div class="card">
+    <div class="card-body">
+    <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right;">
+    <h3> {{car.brand}} {{car.model}} </h3>
+    <div class="points" >
+    <li>Graduation year : {{car.graduation_year}} </li>
+    <li>Number : {{car.number}} </li>
+    <li>Vin : {{car.vin}} </li>
+    <li *ngIf="!car.price == null">Price : {{car.price}} </li>
+    <li *ngIf="!car.end_guarantee == null">End of guarantee : {{car.end_guarantee}} </li>
+    <hr style="border:2px solid #f1f1f1">  
+  </div>
+    <div id="options">
+        <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true"></i></button>
+        <button class="btn btn-outline my-2 my-sm-0" (click) = "history(user.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
+        <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn()" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show all charts"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
+        <button id="delete" class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+      
+    </div>
+    </div> 
+</div>
+
+
+<!--------------------Charts--------------------->
+<div class="charts">
+<div style="width: 530px" class='ml-5 mb-5 mr-5'>
+    <h3 class="pl-3"> {{ sensorType | uppercase }} </h3>
+    <h3 class="pl-3">TIRE PRESSURE </h3>
+    <!-- <div class="m-3 p-3 border border-unique rounded mb-0"> -->
+        <div class="m-3 mb-0 p-3 jumbotron">
+      <div class='d-flex justify-content-between'>
+        <div class="btn-group btn-group-sm"  role="group" aria-label="Basic example">
+          <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changePeriod("/day")'
+            mdbWavesEffect>Day</button>
+          <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changePeriod("/month")'
+            mdbWavesEffect>Month</button>
+          <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changePeriod("/year")'
+            mdbWavesEffect>Year</button>
+        </div>
+  
+        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+          <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changeSelection()'
+            mdbWavesEffect>Avg</button>
+          <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changeSelection("/min")'
+            mdbWavesEffect>Min</button>
+          <button style="background-color: #336B87" mdbBtn type="button" size="sm" class="waves-light" (click)='changeSelection("/max")'
+            mdbWavesEffect>Max</button>
+        </div>
+      </div>
+  
+      <div class="mt-3">
+        <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
+          [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+<!----------------Service history table-------------------->
+<div id="serviceHistory" >
+<button class="btn btn-outline my-2 my-sm-0" (click) = "showServiceHistory = !showServiceHistory" >Show service history <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+       <div *ngIf = "showServiceHistory">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"><strong>№</strong></th>
+                <th scope="col"><strong>Date</strong></th>
+                <th scope="col"><strong>Time</strong></th>
+                <th scope="col"><strong>What's done</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>2019-02-02</td>
+                <td>14:00 - 15:30</td>
+                <td>vechicle inspection</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+    
+

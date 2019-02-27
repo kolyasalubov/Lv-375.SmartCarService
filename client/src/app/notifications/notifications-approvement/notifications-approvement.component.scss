@@ -1,0 +1,30 @@
+.notification-header {
+  padding: 12px;
+  display: flex;
+  justify-content: flex-end;
+  background: linear-gradient(40deg, #06849D, #034653)
+}
+
+.delete-button {
+  background-color: #F42334;
+  border-radius: 15px;
+}
+
+.custom-checkbox {
+  justify-content: center;
+  display: flex;
+}
+
+.message-column {
+  width: 45%;
+}
+
+thead th {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+tbody td {
+  font-size: 15px;
+  vertical-align: middle;
+}
