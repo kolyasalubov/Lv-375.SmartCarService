@@ -30,6 +30,7 @@ import {LoginComponent} from './login/login.component';
 import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
 import { ServicesFeedbackFormComponent} from './services-feedback-form/services-feedback-form.component';
 import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.component';
+import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.co
     MapComponent,
     CarTrackerComponent,
     ServicesFeedbackFormComponent,
+    ServicesFeedbackComponent,
     WorkersFeedbackComponent
   ],
   imports: [
