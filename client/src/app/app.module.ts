@@ -39,6 +39,7 @@ import { DealercarsComponent } from './dealer/dealercars/dealercars.component';
 import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
+import { PreviewComponent } from './preview/preview.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { TradeInComponent } from './trade-in/trade-in.component';
     DealercarsComponent,
     DealerstosComponent,
     TradesinComponent,
-    TradeInComponent
+    TradeInComponent,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,

@@ -33,14 +33,21 @@ import {DealercarsComponent} from './dealer/dealercars/dealercars.component';
 import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
+import { PreviewComponent } from './preview/preview.component';
+
 
 
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
   {
+    path: 'ui/preview',
+    component: PreviewComponent
+  },
+  {
     path: 'ui/tradeIn/:vin',
     component: TradeInComponent
-  },{
+  },
+  {
     path: 'ui/dealersTradeIn',
     component:TradesinComponent
   },
