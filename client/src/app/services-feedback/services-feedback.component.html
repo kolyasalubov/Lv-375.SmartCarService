@@ -1,16 +1,16 @@
-<mdb-card *ngFor="let feedback of allFeedback" style="width: 400px; position: relative; left: 210px; top: 80px; z-index: 0;">
+<mdb-card *ngFor="let feedback of allFeedback" style="width: 400px; position: relative; left: 210px; top: 80px; z-index: 0; margin: 10px;">
     <!--Card content-->
     <mdb-card-body>
       <!--Title-->
-      <mdb-card-title>
-        <h4>Author: {{feedback.fullName}}</h4>
-        <h4>About: {{feedback.serviceName}}</h4>
-      </mdb-card-title>
+      <mdb-card-text style="vertical-align: bottom;">
+        <p>Author: {{feedback.fullName}}</p>
+        <p>About: {{feedback.serviceName}}</p>  
+        <p>{{feedback.time}}</p>
+      </mdb-card-text>
   
       <!--Text-->
-      <mdb-card-text>
-        <p>{{feedback.text}}</p>
-        <h1>{{feedback.time}}</h1>
-      </mdb-card-text>
+      <mdb-card-title>
+          <h5>{{feedback.text}}</h5>
+      </mdb-card-title>
     </mdb-card-body>
   </mdb-card>

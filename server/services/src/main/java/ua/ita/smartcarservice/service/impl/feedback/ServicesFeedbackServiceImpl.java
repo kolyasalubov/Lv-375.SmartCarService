@@ -67,7 +67,7 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
         TechnicalServiceEntity technicalServiceEntity;
 
         technicalServiceEntity = technicalServiceRepository.getOne(serviceId);
-        servicesFeedbackEntityList = servicesFeedbackRepository.getByServiceId(technicalServiceEntity);
+        servicesFeedbackEntityList = servicesFeedbackRepository.getByServiceIdOrderByTimeAsc(technicalServiceEntity);
 
         servicesFeedbackEntityList.parallelStream().forEach(eachEntity -> {
             servicesFeedbackOutputDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));

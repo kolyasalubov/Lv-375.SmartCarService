@@ -12,7 +12,7 @@ import java.util.List;
 public interface ServicesFeedbackRepository extends JpaRepository<ServicesFeedback, Long> {
     List<ServicesFeedback> getByUserId(UserEntity userEntity);
 
-    List<ServicesFeedback> getByServiceId(TechnicalServiceEntity technicalServiceEntity);
+    List<ServicesFeedback> getByServiceIdOrderByTimeAsc(TechnicalServiceEntity technicalServiceEntity);
 
     @Query("select avg(wr.rate) from WorkersRatings as wr " +
             "left join UserTechnicalService as uts " +

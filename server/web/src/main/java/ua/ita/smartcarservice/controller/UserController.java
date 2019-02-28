@@ -74,7 +74,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/api/users/{userName}/feedback")
+    @GetMapping("/users/{userName}/feedback")
     ResponseEntity<List<ServicesFeedbackOutputDto>> getAllUsersFeedback(@PathVariable String userName) {
         ResponseEntity<List<ServicesFeedbackOutputDto>> responseEntity;
 

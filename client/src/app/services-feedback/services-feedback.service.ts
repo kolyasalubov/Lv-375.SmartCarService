@@ -36,7 +36,7 @@ export class ServicesFeedbackService {
 
   getFeedbackByUserName(userName: string): Observable<ServicesFeedback[]> {
     return this.http.get<ServicesFeedback[]>(
-      this.feedbackByServiceId.replace('{userName}', userName))
+      this.feedbackByUserName.replace('{userName}', userName))
         .pipe(catchError(this.errorHandler));
   }
 
