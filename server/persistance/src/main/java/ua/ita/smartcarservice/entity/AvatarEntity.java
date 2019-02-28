@@ -14,7 +14,7 @@ public class AvatarEntity {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "avatar")
+    @JoinColumn(name = "userId")
     private UserEntity userId;
     @Column
     private String fileUrl;

@@ -12,15 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.ita.smartcarservice.dto.AvatarDto;
 import ua.ita.smartcarservice.dto.files.UploadFileResponse;
+import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.AvatarService;
+import ua.ita.smartcarservice.service.HashService;
+import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.service.files.FileStorageService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class FileController {
@@ -33,16 +33,25 @@ public class FileController {
     @Autowired
     private AvatarService avatarService;
 
+    @Autowired
+    private HashService hashService;
+
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, Long id) {
-        String fileName = fileStorageService.storeFile(file);
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @RequestParam Long id) {
+        String username = userService.getUserById(id).getUsername();
+        String fileName = fileStorageService.storeFile(file, id, username);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
+        String originalFileName = file.getOriginalFilename();
+        String fileNameHash = hashService.makeHash(id, username, originalFileName);
         avatarService.addAvatarToUser(new AvatarDto(id,
                 fileDownloadUri,
-                fileStorageService.getFileStorageLocation().toAbsolutePath().toString()));
+                (fileStorageService.getFileStorageLocation().toAbsolutePath().toString() + "\\" + fileNameHash + file.getContentType())));
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
@@ -70,7 +79,7 @@ public class FileController {
         String contentType = request.getServletContext().getMimeType(file.getAbsolutePath());
 
         // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
+        if (contentType == null) {
             contentType = "application/octet-stream";
         }
 

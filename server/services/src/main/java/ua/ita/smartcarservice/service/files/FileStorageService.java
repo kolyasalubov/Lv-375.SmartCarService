@@ -9,5 +9,6 @@ public interface FileStorageService {
     public String storeFile(MultipartFile file);
     public Resource loadFileAsResource(String fileName);
     public Path getFileStorageLocation();
+    public String storeFile(MultipartFile file, Long id, String username);
 
 }

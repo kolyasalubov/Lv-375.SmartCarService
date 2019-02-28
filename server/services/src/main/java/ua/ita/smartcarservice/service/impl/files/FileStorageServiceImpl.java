@@ -1,11 +1,13 @@
 package ua.ita.smartcarservice.service.impl.files;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ua.ita.smartcarservice.service.HashService;
 import ua.ita.smartcarservice.service.config.FileStorageConfig;
 import ua.ita.smartcarservice.service.files.FileStorageService;
 import ua.ita.smartcarservice.service.impl.files.exceptions.FileStorageException;
@@ -21,9 +23,13 @@ import java.nio.file.StandardCopyOption;
 
 
 @Service
-public class FileStorageServiceImpl implements FileStorageService {
+public class
+FileStorageServiceImpl implements FileStorageService {
 
     private final Path fileStorageLocation;
+
+    @Autowired
+    private HashService hashService;
 
     @Autowired
     public FileStorageServiceImpl(FileStorageConfig fileStorageConfig) {
@@ -70,5 +76,24 @@ public class FileStorageServiceImpl implements FileStorageService {
     public Path getFileStorageLocation() {
         return fileStorageLocation;
     }
+
+    @Override
+    public String storeFile(MultipartFile file, Long id, String username) {
+        String fileHash = hashService.makeHash(id, username, file.getOriginalFilename());
+
+//        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName = StringUtils.cleanPath(fileHash+ "." + FilenameUtils.getExtension(file.getOriginalFilename()));
+
+        try {
+            // Copy file to the target location (Replacing existing file with the same name)
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            return fileName;
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+        }
+    };
+
 }
 
