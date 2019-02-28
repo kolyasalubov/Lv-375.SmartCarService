@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.service.impl.booking.Graph;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ua.ita.smartcarservice.dto.booking.WorkInfoDto;
 import ua.ita.smartcarservice.entity.booking.WorkDependency;
 import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 import ua.ita.smartcarservice.service.booking.WorkDependencyService;

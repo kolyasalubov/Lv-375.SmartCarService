@@ -20,5 +20,5 @@ public interface TechnicalServiceRepository extends JpaRepository<TechnicalServi
 
     List<TechnicalServiceEntity> findAllByDealer_UserEntity_Username(String username);
 
-    //void deleteByTechnicalServiceId(L)
+//    void deleteByTechnicalServiceId(L)
 }

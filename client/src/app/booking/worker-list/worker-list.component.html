@@ -35,6 +35,7 @@
   </div>
 
   <div *ngIf="showTime">
-    <app-time-list [timeList]=timeList  [carId] = carId [requiredTime] = workersTime.requiredTime ></app-time-list>
+    <app-time-list [timeList]=timeList  [carId] = carId
+     [workInfo] = workersTime.workInfo ></app-time-list>
   </div>
 </div>

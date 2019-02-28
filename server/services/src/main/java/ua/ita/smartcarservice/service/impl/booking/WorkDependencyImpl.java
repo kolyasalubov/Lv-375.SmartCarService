@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.service.impl.booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.ita.smartcarservice.dto.booking.WorkInfoDto;
 import ua.ita.smartcarservice.entity.booking.WorkDependency;
 import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 import ua.ita.smartcarservice.repository.booking.WorkDependencyRepository;
@@ -28,18 +29,19 @@ public class WorkDependencyImpl implements WorkDependencyService {
     @Autowired
     private Graph graph;
 
-    public List<WorkDependency> findAll(){
+    public List <WorkDependency> findAll() {
         return workDependencyRepository.findAll();
     }
 
     @Override
-    public int findGraphSize(){
-        return (int)workTypeRepository.findMaxId().longValue();
+    public int findGraphSize() {
+        return (int) workTypeRepository.findMaxId().longValue();
     }
 
 
+    public WorkInfo findWorkInfo(List <String> skillName) {
 
-    public int findRequiredTime(List<String> skillName) {
+        WorkInfo workInfo = new WorkInfo();
 
         ArrayList[] graph = this.graph.getGraph();
 
@@ -60,10 +62,11 @@ public class WorkDependencyImpl implements WorkDependencyService {
                 continue;
             }
             was[(int) mainEdge.getIndex()] = true;
+            workInfo.setWorkInfo(new WorkInfoDto(mainEdge.getIndex(), requiredTime, (int)(requiredTime + mainEdge.getRequiredTime())));
             requiredTime += mainEdge.getRequiredTime();
             mask |= (1 << (mainEdge.getIndex()));
             for (int i = graph[(int) mainEdge.getIndex()].size() - 1; i >= 0; i--) {
-                Edge dependentEdge = (Edge)graph[(int) mainEdge.getIndex()].get(i);
+                Edge dependentEdge = (Edge) graph[(int) mainEdge.getIndex()].get(i);
                 if (was[(int) dependentEdge.getIndex()] || !needNode.contains(dependentEdge.getIndex())) {
                     continue;
                 }
@@ -76,18 +79,22 @@ public class WorkDependencyImpl implements WorkDependencyService {
                 }
                 if (canAddToRes) {
                     was[(int) dependentEdge.getIndex()] = true;
+                    workInfo.setWorkInfo(new WorkInfoDto(dependentEdge.getIndex(),
+                            (int) (requiredTime - mainEdge.getRequiredTime()),
+                            (int) (requiredTime - mainEdge.getRequiredTime() + dependentEdge.getRequiredTime())));
                     mask |= (1 << dependentEdge.getIndex());
                 }
             }
         }
-        return requiredTime;
+        workInfo.setRequiredTime(requiredTime);
+        return workInfo;
     }
 
 
-    private PriorityQueue<Edge> getAllEdgeInSortedPosition(List<String> skillName){
-        Map<String, WorkType> workByName = getDistinctSkillByName();
+    private PriorityQueue <Edge> getAllEdgeInSortedPosition(List <String> skillName) {
+        Map <String, WorkType> workByName = getDistinctSkillByName();
 
-        PriorityQueue<Edge> allEdge = new PriorityQueue<>(new Edge(-1, -1));
+        PriorityQueue <Edge> allEdge = new PriorityQueue <>(new Edge(-1, -1));
 
         skillName.forEach(s -> allEdge.add(new Edge(workByName.get(s).getWorkId(), workByName.get(s).getRequiredTime())));
 
@@ -95,14 +102,14 @@ public class WorkDependencyImpl implements WorkDependencyService {
     }
 
 
-    public Map<String, WorkType> getDistinctSkillByName(){
+    public Map <String, WorkType> getDistinctSkillByName() {
         return workTypeService.findDistinctWorkByName();
     }
 
-    private Set<Long> getNeedNode(List<String> skillName){
-        Map<String, WorkType> skillByName = getDistinctSkillByName();
+    private Set <Long> getNeedNode(List <String> skillName) {
+        Map <String, WorkType> skillByName = getDistinctSkillByName();
 
-        Set<Long> needNode = new HashSet <>();
+        Set <Long> needNode = new HashSet <>();
 
         skillName.forEach(s -> needNode.add(skillByName.get(s).getWorkId()));
 

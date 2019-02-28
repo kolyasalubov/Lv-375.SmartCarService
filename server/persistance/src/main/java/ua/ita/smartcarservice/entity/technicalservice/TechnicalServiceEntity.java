@@ -31,12 +31,12 @@ public class TechnicalServiceEntity {
 
     @Column(length = 100, nullable = false, unique = true)
     private String address;
-/*
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "dealer_id", nullable = true)
     private DealerEntity dealer;
-*/
+
     @OneToMany(mappedBy = "technicalServiceId", orphanRemoval = true)
     private List<UserTechnicalService> userTechnicalServices;
 
