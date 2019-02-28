@@ -6,6 +6,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ua.ita.smartcarservice.service.files.FileStorageService;
 import ua.ita.smartcarservice.service.impl.files.exceptions.FileStorageException;
 import ua.ita.smartcarservice.service.impl.files.exceptions.MyFileNotFoundException;
 
@@ -18,12 +19,12 @@ import java.nio.file.StandardCopyOption;
 
 
 @Service
-public class FileStorageService {
+public class FileStorageServiceImpl implements FileStorageService {
 
     private final Path fileStorageLocation;
 
     @Autowired
-    public FileStorageService(FileStorageConfig fileStorageConfig) {
+    public FileStorageServiceImpl(FileStorageConfig fileStorageConfig) {
         this.fileStorageLocation = Paths.get(fileStorageConfig.getUploadDir())
                 .toAbsolutePath().normalize();
 
