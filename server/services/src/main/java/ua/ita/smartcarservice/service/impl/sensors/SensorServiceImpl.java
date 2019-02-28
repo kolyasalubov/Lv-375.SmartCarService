@@ -81,8 +81,8 @@ public class SensorServiceImpl implements SensorService {
         return (ChartSensorRepository) getRepository(dateForChartDto);
     }
 
-    private AlertSensorRepository getAlertRepository(String sensorType) {
-        return (AlertSensorRepository)repositoryFactory.getRepository(sensorType);
+    private AlertSensorRepository getAlertRepository(String sensorType){
+        return (AlertSensorRepository) repositoryFactory.getRepository(sensorType);
     }
 
     @Override
@@ -159,6 +159,5 @@ public class SensorServiceImpl implements SensorService {
         }
         return null;
     }
-
 
 }

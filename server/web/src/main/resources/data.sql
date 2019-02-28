@@ -42,4 +42,7 @@ VALUES
 "Seatbelt indicator"),
 ("WL002", "Your car's coolant is overheating",
 "Quickly pull over and let your car cool down or the heat can destroy your car's engine.",
-"Engine temperature warning light");
+"Engine temperature warning light"),
+("WL003", "It's likely that you left your handbrake on. But if the light is still lit when you are driving, it could mean your car is low on brake fluid or something more severe.",
+"If the red brake light blinks, or comes on and off intermittently, and there is no change in the feel of the brake pedal, then have the vehicle properly diagnosed by a qualified repair shop as soon as possible.",
+"Brake warning light");

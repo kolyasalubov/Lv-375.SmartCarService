@@ -56,14 +56,13 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	public List<CarDto> getCarsForVehicleInspectionByMileage() {
 		List<Car> cars = vehicleInspectionRepository.getCarsForInspectionByMileage();
 		List<CarDto> toReturn = new ArrayList<>();
-		for (Car entity : cars) {
+		cars.forEach(entity ->
 			toReturn.add(new CarDto(entity.getBrand(),
 					entity.getModel(),
 					entity.getGraduation_year(),
 					entity.getNumber(),
 					entity.getVin(),
-					entity.getUser()));
-		}
+					entity.getUser())));
 		return toReturn;
 	}
 
