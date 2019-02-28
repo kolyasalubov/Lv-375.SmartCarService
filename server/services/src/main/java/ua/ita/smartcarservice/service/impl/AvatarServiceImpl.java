@@ -23,13 +23,15 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     public AvatarEntity dtoToEntity(AvatarDto avatarDto) {
-        return new AvatarEntity(avatarDto.getUserId(), avatarDto.getFileUrl(), avatarDto.getFilePath());
+        return new AvatarEntity(
+                userService.findById(avatarDto.getUserId()),
+                avatarDto.getFileUrl(),
+                avatarDto.getFilePath());
     }
 
     public AvatarDto entityToDto(AvatarEntity avatarEntity) {
         return new AvatarDto(
-                avatarEntity.getUserId(),
-                userService.getUserById(avatarEntity.getId()).getUsername(),
+                avatarEntity.getUserId().getId(),
                 avatarEntity.getFileUrl(),
                 avatarEntity.getFilePath());
     }

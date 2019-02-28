@@ -34,14 +34,13 @@ public class FileController {
     private AvatarService avatarService;
 
     @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, Long id, String username) {
+    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, Long id) {
         String fileName = fileStorageService.storeFile(file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
         avatarService.addAvatarToUser(new AvatarDto(id,
-                username,
                 fileDownloadUri,
                 fileStorageService.getFileStorageLocation().toAbsolutePath().toString()));
         return new UploadFileResponse(fileName, fileDownloadUri,

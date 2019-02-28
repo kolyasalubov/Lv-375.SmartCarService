@@ -24,5 +24,7 @@ public interface UserService {
 
     UserEntity findByUserName(String username);
 
+    UserEntity findById(Long id);
+
 
 }
