@@ -39,6 +39,10 @@ public class TradeIn {
 //    @JsonIgnore
 //    private DealerEntity dealerEntity;
 
+@ManyToOne
+@JoinColumn(name = "dealer_id", nullable = true)
+private DealerEntity dealer;
+
 
     public TradeIn(String vinNewCar, String vinUsedCar, Long idUser, Long idDealer, String isactive) {
         this.vinNewCar = vinNewCar;
