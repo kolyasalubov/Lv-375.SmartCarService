@@ -23,7 +23,7 @@
 
     <div class="form-group">
       <label for="graduation_year">Year of production</label>
-      <select type="text" class="form-control" id="graduation_year" required [(ngModel)]="carProfile.graduationyear" (ngModelChange)="onChange($event)" name="graduation_year" #graduation_year="ngModel">
+      <select type="text" class="form-control" id="graduation_year" required [(ngModel)]="carProfile.graduation_year" (ngModelChange)="onChange($event)" name="graduation_year" #graduation_year="ngModel">
         <option *ngFor="let y of years" [ngValue]="y" > {{y}} </option>
       </select>
       <div [hidden]="graduation_year.valid || graduation_year.pristine"

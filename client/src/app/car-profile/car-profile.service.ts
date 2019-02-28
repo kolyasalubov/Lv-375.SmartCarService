@@ -21,11 +21,18 @@ export class CarProfileService {
  constructor(private http: HttpClient) { }
 
   createCar(carProfile: OwnerCar, username: String): Observable<HttpResponse<OwnerCar>>{
-   return this.http.put<OwnerCar>('api/car/?brand='+ carProfile.brand +'&model='+ carProfile.model +'&graduationyear=' + carProfile.graduationyear + '&number=' + carProfile.number + '&vin=' + carProfile.vin + '&username=' + username, carProfile, { observe: 'response' })
+   return this.http.post<OwnerCar>('api/car/?brand='+ carProfile.brand +'&model='+ carProfile.model +'&graduationyear=' + carProfile.graduation_year + '&number=' + carProfile.number + '&vin=' + carProfile.vin + '&username=' + username, carProfile, { observe: 'response' })
   .pipe(
     catchError(this.handleError)
   );
   }
+
+  addCar(carProfile: OwnerCar, username: String): Observable<HttpResponse<OwnerCar>>{
+    return this.http.post<OwnerCar>('api/newcar/?username=' + username , carProfile, { observe: 'response' })
+   .pipe(
+     catchError(this.handleError)
+   );
+   }
 
  createInspection(carVechicleInspection: VechicleInspection, carVin: String): Observable<VechicleInspection>{
   console.log(carVechicleInspection.dateOfInspection, carVechicleInspection.mileageOfCar, carVin);
