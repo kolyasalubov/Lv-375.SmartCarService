@@ -51,6 +51,7 @@ public class UserEntity {
 	@OneToMany(mappedBy = "worker")
 	Set<WorkTime> workTimes;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
 	AvatarEntity avatar;
 /*

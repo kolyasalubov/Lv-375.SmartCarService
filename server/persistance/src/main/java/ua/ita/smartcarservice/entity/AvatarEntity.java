@@ -12,12 +12,21 @@ public class AvatarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JoinColumn
-    @OneToOne()
+
+    @OneToOne
+    @JoinColumn(name = "avatar")
     private Long userId;
-    @JoinColumn
+    @Column
     private String fileUrl;
-    @JoinColumn
+    @Column
     private String filePath;
 
+    public AvatarEntity() {
+    }
+
+    public AvatarEntity(Long userId, String fileUrl, String filePath) {
+        this.userId = userId;
+        this.fileUrl = fileUrl;
+        this.filePath = filePath;
+    }
 }
