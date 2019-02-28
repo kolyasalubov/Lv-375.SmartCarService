@@ -18,7 +18,7 @@ public interface TechnicalServiceRepository extends JpaRepository<TechnicalServi
             "left join user as u on us.user_id = u.id where u.id = :id", nativeQuery = true)
     TechnicalServiceEntity getTechnicalServiceEntityByUser(@Param("id") Long id);
 
-    //List<TechnicalServiceEntity> findAllByDealer_UserEntity_Username(String username);
+    List<TechnicalServiceEntity> findAllByDealer_UserEntity_Username(String username);
 
     //void deleteByTechnicalServiceId(L)
 }

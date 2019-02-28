@@ -50,5 +50,14 @@ private DealerEntity dealer;
         this.isactive = isactive;
 
     }
+
+    public TradeIn(String vinNewCar, String vinUsedCar, Long idUser, Long idDealer, String isactive, DealerEntity dealer) {
+        this.vinNewCar = vinNewCar;
+        this.vinUsedCar = vinUsedCar;
+        this.idUser = idUser;
+        this.idDealer = idDealer;
+        this.isactive = isactive;
+        this.dealer = dealer;
+    }
 }
 
