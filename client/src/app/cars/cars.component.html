@@ -2,7 +2,7 @@
 <div *ngIf="showCards">
     <br><br><br><br><br><br><br><br><br><br><br><br>
 <div *ngFor="let car of cars" class="flip-card">
-  
+
 <div class="flip-card-inner">
  <div class="flip-card-front">
 <img src="assets/img/car.png" width="380px" height="230px" style="text-align: center;">
@@ -24,11 +24,12 @@
            <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true" ></i><div class="buttonText"> Apply for STO</div> </button>
            <button class="btn btn-outline my-2 my-sm-0" (click) = "history(user.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i><div class="buttonText"> Service history </div> </button>
            <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show charts"><i class="fa fa-line-chart" aria-hidden="true"></i><div class="buttonText"> Show charts </div></button>
-           <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn()" title="Apply for TradeIn"> <i class="fa fa-refresh" aria-hidden="true"></i><div class="buttonText"> Trade In </div></button>
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(car.vin)" title="Apply for TradeeIn"> <i class="fa fa-refresh" aria-hidden="true"></i><div class="buttonText"> Trade In </div></button>
           <button class="btn btn-outline my-2 my-sm-0" (click) = "openProfile(car)" title="Open profile"><i class="fa fa-window-maximize" aria-hidden="true"></i><div class="buttonText"> Open profile</div> </button>
           <button class="btn btn-outline my-2 my-sm-0" id="delete" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i><div class="buttonText"> Delete car</div> </button>
- </div>        
  </div>
+ </div>
+
 </div>
 </div>
 </div>
@@ -47,7 +48,7 @@
     <div class="card-block">
         <div class="card">
             <div class="card-body">
-  
+
                 <i class="fa fa-check-square-o fa-4x" aria-hidden="true"></i>
                   <div class="desc" style="display: inline-block">
                <h2> 10 000</h2>
@@ -55,7 +56,7 @@
               </div>
         </div>
         </div>
-        
+
         <div class="card">
             <div class="card-body">
                 <i class="fa fa-tachometer fa-4x" aria-hidden="true"></i>
@@ -65,7 +66,7 @@
                 </div>
         </div>
         </div>
-        
+
         <div class="card">
             <div class="card-body">
                 <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
@@ -89,23 +90,26 @@
     <li>Vin : {{car.vin}} </li>
     <li *ngIf="!car.price == null">Price : {{car.price}} </li>
     <li *ngIf="!car.end_guarantee == null">End of guarantee : {{car.end_guarantee}} </li>
-    <hr style="border:2px solid #f1f1f1">  
+    <hr style="border:2px solid #f1f1f1">
   </div>
     <div id="options">
         <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true"></i></button>
         <button class="btn btn-outline my-2 my-sm-0" (click) = "history(user.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
-        <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn()" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(car.vin)" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
         <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show all charts"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
         <button id="delete" class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-      
+
     </div>
-    </div> 
+    </div>
 </div>
 
 
 <!--------------------Charts--------------------->
 
-<line-chart sensorType='speed' [carId]=car.id></line-chart>
+<div class="charts">
+    <div class="chart">
+    <line-chart sensorType='tire pressure' [carId]=car.id></line-chart>
+    </div>
 
 
 <!----------------Service history table-------------------->
@@ -134,7 +138,8 @@
   </div>
 </div>
 </div>
-<!-- </div> -->
 </div>
-    
+
+</div>
+
 

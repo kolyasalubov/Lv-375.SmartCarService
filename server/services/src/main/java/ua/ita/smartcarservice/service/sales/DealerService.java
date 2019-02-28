@@ -1,34 +1,37 @@
 package ua.ita.smartcarservice.service.sales;
 
+import ua.ita.smartcarservice.dto.sales.DealerCarDto;
+import ua.ita.smartcarservice.dto.sales.DealerDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.sales.*;
+
+import java.util.List;
 
 /**
  * Created by 1 on 10.02.2019.
  */
-
 public interface DealerService {
 
-    void createDealerEntity(String name,String address,String edr,Long Id);
+    void createDealer(DealerEntity dealerEntity, String username);
 
-    DealerEntity getBySaleManager(UserSaleManager userSaleManager);
-    DealerEntity getByUserDealer(UserDealer userDealer);
-    DealerEntity getByUserDealerId(Long UserDealerId);
+    DealerEntity getDealerEntityByUserName(String Username);
 
-    DealerEntity getByTechnicalServiceEntityId(Long id);
-//    DealerEntity getByUserTechnicalService(Long id);
+    void createDealer(DealerEntity dealerEntity);
 
-    DealerEntity getBySaleManagerEntity(SaleManagerEntity saleManagerEntity);
-    DealerEntity getByUserSaleManager(UserSaleManager userSaleManager);
+    List<DealerEntity> getAllDealers();
 
-    DealerEntity getByTradeIn(TradeIn tradeIn);
+    DealerDto getDealerDtoByUserName(String username);
 
-    void editDealerEntity(DealerEntity dealerEntity);
-    void editUserDealer(UserDealer userDealer);
+    DealerEntity dealerDtoToEntity(DealerDto dealerDto);
+
+    void editDealerEntityByEntity(DealerEntity dealerEntity);
+
+    void editDealerByDealerDto(DealerDto dealerDto);
+
+    List<DealerDto> getAllDealerDto();
 
 
-
-
+    List<DealerCarDto> getAllCarDtoByUserNameDealer(String username);
 
 
 }

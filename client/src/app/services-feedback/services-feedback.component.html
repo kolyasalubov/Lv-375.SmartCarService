@@ -1,3 +1,18 @@
-<p>
-  services-feedback works!
-</p>
+<h3 *ngIf="allFeedback.length == 0" style="position: relative; top: -100px; left: 120px;">Your technical service has no feedback yet</h3>
+
+<mdb-card *ngFor="let feedback of allFeedback" style="width: 400px; position: relative; left: 210px; top: 80px; z-index: 0; margin: 10px;">
+    <!--Card content-->
+    <mdb-card-body>
+      <!--Title-->
+      <mdb-card-text style="vertical-align: bottom;">
+        <p>Author: {{feedback.fullName}}</p>
+        <p>About: {{feedback.serviceName}}</p>  
+        <p>{{feedback.time}}</p>
+      </mdb-card-text>
+  
+      <!--Text-->
+      <mdb-card-title>
+          <h5>{{feedback.text}}</h5>
+      </mdb-card-title>
+    </mdb-card-body>
+  </mdb-card>

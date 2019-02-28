@@ -13,6 +13,5 @@ public interface ChartSensorRepository<T extends BaseSensorEntity> {
                              @Param("sensorType") String sensorType,
                              @Param("selection") String selection);
 
-
 }
 

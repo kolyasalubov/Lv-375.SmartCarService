@@ -26,10 +26,10 @@ export class UsersService {
   }
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>('api/userbyid/' + id);
+    return this.http.get<User>('api/user/' + id);
   }
 
   getUserByUsername(username: String): Observable<User> {
-    return this.http.get<User>('api/userbyname/' + username);
+    return this.http.get<User>('api/user/' + username + '/username');
   }
 }

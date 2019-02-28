@@ -7,45 +7,56 @@ import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by 1 on 10.02.2019.
- */
+
 @Data
 @Entity
 @Table(name = "dealer")
-
 public class DealerEntity {
+
 
     public DealerEntity() {
     }
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userEntity;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dealerId;
 
     @Column(length = 100, nullable = false, unique = false)
-    private String name;
+    private String dealerName;
 
     @Column(length = 100, nullable = false, unique = false)
-    private String address;
+    private String dealerAddress;
 
     @Column(length = 100, nullable = false, unique = true)
-    private String edr;
+    private String dealerEdr;
 
-    @OneToMany(mappedBy = "dealerEntity")
-    private List<UserDealer>userDealers;
-
-
-         @OneToMany(mappedBy = "dealerEntity")
-    private List<SaleManagerEntity>saleManagerEntities;
+    @Column(length = 100, nullable = false, unique = true)
+    private String dealerEmail;
 
 
-    @OneToMany(mappedBy = "dealerEntity")
-    private List<TradeIn>tradeIns;
+    public DealerEntity(UserEntity userEntity, String dealerName, String dealerAddress, String dealerEdr, String dealerEmail) {
+        this.userEntity = userEntity;
+        this.dealerName = dealerName;
+        this.dealerAddress = dealerAddress;
+        this.dealerEdr = dealerEdr;
+        this.dealerEmail = dealerEmail;
+    }
 
-    @OneToMany(mappedBy = "dealerEntity")
-     private List<TechnicalServiceEntity>technicalServiceEntities;
 
+//    @OneToMany(mappedBy = "dealerEntity")
+//    private List<TechnicalServiceEntity>technicalServiceEntities;
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
 
     public Long getDealerId() {
         return dealerId;
@@ -55,59 +66,36 @@ public class DealerEntity {
         this.dealerId = dealerId;
     }
 
-    public String getAddress() {
-        return address;
+    public String getDealerName() {
+        return dealerName;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setDealerName(String dealerName) {
+        this.dealerName = dealerName;
     }
 
-    public String getEdr() {
-        return edr;
+    public String getDealerAddress() {
+        return dealerAddress;
     }
 
-    public void setEdr(String edr) {
-        this.edr = edr;
+    public void setDealerAddress(String dealerAddress) {
+        this.dealerAddress = dealerAddress;
     }
 
-    public List<UserDealer> getUserDealers() {
-        return userDealers;
+    public String getDealerEdr() {
+        return dealerEdr;
     }
 
-    public void setUserDealers(List<UserDealer> userDealers) {
-        this.userDealers = userDealers;
+    public void setDealerEdr(String dealerEdr) {
+        this.dealerEdr = dealerEdr;
     }
 
-    public List<SaleManagerEntity> getSaleManagerEntities() {
-        return saleManagerEntities;
+    public String getDealerEmail() {
+        return dealerEmail;
     }
 
-    public void setSaleManagerEntities(List<SaleManagerEntity> saleManagerEntities) {
-        this.saleManagerEntities = saleManagerEntities;
+    public void setDealerEmail(String dealerEmail) {
+        this.dealerEmail = dealerEmail;
     }
 
-    public List<TradeIn> getTradeIns() {
-        return tradeIns;
-    }
-
-    public void setTradeIns(List<TradeIn> tradeIns) {
-        this.tradeIns = tradeIns;
-    }
-
-    public List<TechnicalServiceEntity> getTechnicalServiceEntities() {
-        return technicalServiceEntities;
-    }
-
-    public void setTechnicalServiceEntities(List<TechnicalServiceEntity> technicalServiceEntities) {
-        this.technicalServiceEntities = technicalServiceEntities;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

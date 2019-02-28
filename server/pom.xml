@@ -82,7 +82,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- LOGGER -->
+      <!-- LOGGER -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

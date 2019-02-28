@@ -34,10 +34,11 @@ export class CarProfileComponent implements OnInit {
   }
 
   onSubmit(){
-    this.carService.createCar(this.carProfile, this.username)
+
+    this.carService.addCar(this.carProfile, this.username)
     .subscribe(error => this.errorCode = error.status,
     error => this.error = error);
-      
+
     setTimeout(() => {
       if(this.errorCode === 201){
       this.showCarProfile = false;

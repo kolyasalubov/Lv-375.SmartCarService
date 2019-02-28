@@ -23,13 +23,13 @@ export class CarsComponent implements OnInit {
   showCards: boolean = false;
   showProfile: boolean = false;
   userId: Number;
-  
+
   @Input()
   id: number;
 
 
   constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
-  
+
   ngOnInit(){
 /*
     this.username = this.tokenStorage.getUsername();
@@ -50,7 +50,7 @@ export class CarsComponent implements OnInit {
 this.carsService.getOwnerCarsById(this.id)
 .subscribe(data => this.cars = data);
 
-   setTimeout(() => { 
+   setTimeout(() => {
      if(this.cars == null){
       if(confirm("You don't have registered car")) {
       }
@@ -59,10 +59,9 @@ this.carsService.getOwnerCarsById(this.id)
      } else{
        this.showProfile = true;
      }; }, 1000);
-     console.log(this.cars.length);
-  
+
 }
-   
+
     deleteCarById(id: number){
       if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
     this.carsService.deleteCarById(id).subscribe();
@@ -74,14 +73,16 @@ this.carsService.getOwnerCarsById(this.id)
     this.router.navigate(['/ui/booking', id]);
     }
 
-    applyToTradeIn (id: number){
+  applyToTradeIn(vin: String){
+    console.log(vin);
+    this.router.navigate(['ui/tradeIn',vin]);
+  }
 
-    }
 
     goToCharts(car: Car){
-      this.router.navigate(['/ui/charts'], 
+      this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: car.id, 
+          carId: car.id,
           carVin: car.vin
         }}
       );
@@ -100,10 +101,10 @@ this.carsService.getOwnerCarsById(this.id)
     }
 
     openProfile(car: Car){
-      this.router.navigate(['ui/carprofile'], 
+      this.router.navigate(['ui/carprofile'],
       {queryParams: {
         carId: car.id,
-        carBrand: car.brand, 
+        carBrand: car.brand,
         carModel: car.model,
         carGY: car.graduation_year,
         carNumber: car.number,

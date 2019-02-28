@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.repository.Sales;
+package ua.ita.smartcarservice.repository.sales;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
@@ -8,12 +8,12 @@ import ua.ita.smartcarservice.entity.sales.UserSaleManager;
 import java.util.List;
 
 /**
- * Created by 1 on 10.02.2019.
+ * Created by 1 on 27.02.2019.
  */
 public interface SaleManagerEntityRepository extends JpaRepository<SaleManagerEntity,Long> {
 
     SaleManagerEntity getByUserSaleManagers(UserSaleManager userSaleManager);
 
-List<SaleManagerEntity> getAllByDealerEntity(DealerEntity dealerEntity);
+    List<SaleManagerEntity> getAllByDealerEntity(DealerEntity dealerEntity);
 
 }

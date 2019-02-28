@@ -67,6 +67,15 @@ export class StoSkillComponent implements OnInit {
     
   }
 
+  setWorkStyle(w : WorkType): string{
+    if(this.selectedWork.get(w.name) == undefined || this.selectedWork.get(w.name) == -1){
+      return "non-select";
+    }
+    else{
+      return "selected";
+    }
+  }
+
   private setClass(id: string, className: string): void{
     document.getElementById(id).className = className;
   }

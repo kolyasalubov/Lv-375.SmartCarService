@@ -1,0 +1,20 @@
+<br><br><br><br>
+  <div class="container">
+  <form form="carProfile" >
+  <p class="h3 mb-4">Create sto</p>
+ 
+  <label><b>Sto name </b></label>
+  <input type="text" class="form-control" [(ngModel)]="sto.name" name="edr" >
+  
+  <label><b>Sto address</b></label>
+  <input type="text" class="form-control" [(ngModel)]="sto.address" name="email" >
+  
+  <!-- <div ng-app="myApp" ng-controller="myCtrl">   
+  </div> -->
+  <br>
+  <div>
+      <button  id="create" type="submit" (click)="createSto()" class="btn my-2 my-sm-0">create</button>
+      <a id="cancel" href="/home" type="button" class="btn my-2 my-sm-0">Cancel</a>
+  </div>
+  </form>
+  </div>

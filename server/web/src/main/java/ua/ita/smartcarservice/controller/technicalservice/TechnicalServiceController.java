@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackInputDto;
+import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackOutputDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
 import ua.ita.smartcarservice.entity.UserEntity;
@@ -221,5 +222,21 @@ public class TechnicalServiceController {
         servicesFeedbackService.addFeedbackToService(servicesFeedbackInputDto);
         System.out.println(servicesFeedbackInputDto);
         logger.info(servicesFeedbackInputDto);
+    }
+
+    @GetMapping("/api/techservices/{techServiceId}/feedback")
+    ResponseEntity<List<ServicesFeedbackOutputDto>> getAllFeedbackAboutService(@PathVariable Long techServiceId) {
+        ResponseEntity<List<ServicesFeedbackOutputDto>> responseEntity;
+
+        try {
+            responseEntity = new ResponseEntity<>(
+                    servicesFeedbackService.getServicesFeedback(techServiceId), HttpStatus.OK);
+            logger.info("Successfully got feedback about Technical Service by id: " + techServiceId);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            logger.warn("Can not get feedback about Technical Service by id: " + techServiceId + " Details: " + e.getMessage());
+        }
+
+        return responseEntity;
     }
 }

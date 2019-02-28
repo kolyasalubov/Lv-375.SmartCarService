@@ -73,5 +73,14 @@ public class UserServiceImpl implements UserService{
 				user.getNumberPhone());
 		return userDto;
 	}
+	@Override
+	public UserEntity findByUserName(String username) {
+		return userRepository.findByUsername(username).get();
+	}
+
+	@Override
+	public UserEntity findById(Long id) {
+		return userRepository.getUserById(id);
+	}
 
 }

@@ -27,7 +27,7 @@
             </tr>
           </thead>
           <tbody>
-              <tr mdbTableCol *ngFor="let work of works" id="{{work.name}}" (click)="addOrDelete(work, work.skillName)" >
+              <tr mdbTableCol *ngFor="let work of works" class={{setWorkStyle(work)}} id="{{work.name}}" (click)="addOrDelete(work, work.skillName)" >
                 <td><a>{{work.name}}</a></td>
                 <td>{{work.requiredTime}}</td>
                 <td>{{work.cost}}</td>
