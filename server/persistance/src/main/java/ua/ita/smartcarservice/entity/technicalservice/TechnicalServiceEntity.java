@@ -17,11 +17,13 @@ public class TechnicalServiceEntity {
 
     public TechnicalServiceEntity() {
     }
+
     public TechnicalServiceEntity(String name, String address, DealerEntity dealerEntity) {
         this.name = name;
         this.address = address;
-        this.dealerEntity = dealerEntity;
+        this.dealer = dealerEntity;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long technicalServiceId;
@@ -32,28 +34,35 @@ public class TechnicalServiceEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String address;
 
-//    @JsonBackReference
-//    @ManyToOne
-//    @JoinColumn(name = "dealer_id", nullable = true)
-//    private DealerEntity dealer;
+        @ManyToOne
+        @JoinColumn(name = "dealer_id", nullable = true)
+        private DealerEntity dealer;
+
 
     @OneToMany(mappedBy = "technicalServiceId", orphanRemoval = true)
     private List<UserTechnicalService> userTechnicalServices;
 
-    @ManyToOne
-    @JoinColumn(name = "dealerEntity")
-    private DealerEntity dealerEntity;
+//    @ManyToOne
+//    @JoinColumn(name = "dealerEntity")
+//    private DealerEntity dealerEntity;
+
+//    @ManyToOne
+//    @JoinColumn(name = "dealer", nullable = true)
+//    private DealerEntity dealer;
+
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "serviceId")
     Set<ServicesFeedback> servicesFeedback;
-/*
-    public DealerEntity getDealer() {
-        return dealer;
-    }
+//}
+//
+//    public DealerEntity getDealer() {
+//        return dealer;
+//    }
+//
+//    public void setDealer(DealerEntity dealer) {
+//        this.dealer = dealer;
+//    }
 
-    public void setDealer(DealerEntity dealer) {
-        this.dealer = dealer;
-    }
-*/
 }
