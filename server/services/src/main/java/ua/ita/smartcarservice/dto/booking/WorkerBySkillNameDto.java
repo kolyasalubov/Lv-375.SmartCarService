@@ -10,6 +10,8 @@ public class WorkerBySkillNameDto {
 
     Map<String, List<WorkerDto>> workerList;
 
+    List<WorkInfoDto> workInfo;
+
     int requiredTime;
 
 }

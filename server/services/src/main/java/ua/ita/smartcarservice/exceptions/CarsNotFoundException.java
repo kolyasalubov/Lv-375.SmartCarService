@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.controller.exceptions;
+package ua.ita.smartcarservice.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

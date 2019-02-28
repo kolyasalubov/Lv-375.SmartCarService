@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import ua.ita.smartcarservice.service.impl.files.FileStorageConfig;
+import ua.ita.smartcarservice.service.config.FileStorageConfig;
 
 @SpringBootApplication(exclude = { ErrorMvcAutoConfiguration.class } )
 @EnableScheduling

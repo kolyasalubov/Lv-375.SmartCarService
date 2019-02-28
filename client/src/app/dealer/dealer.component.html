@@ -6,21 +6,21 @@
 
   <label><b>Dealer name</b></label>
   <input type="text" class="form-control"  [(ngModel)]="mydealer.dealerName" name="name" >
-  
+
   <label><b>Dealer Address</b></label>
   <input type="text" class="form-control" [(ngModel)]="mydealer.dealerAddress" name="address" >
 
   <label><b>Dealer Edr</b></label>
   <input type="text" class="form-control" [(ngModel)]="mydealer.dealerEdr" name="edr" >
-  
+
   <label><b>Dealer Email</b></label>
   <input type="text" class="form-control" [(ngModel)]="mydealer.dealerEmail" name="email" >
-  <div ng-app="myApp" ng-controller="myCtrl">   
+  <div ng-app="myApp" ng-controller="myCtrl">
   </div>
   <br>
   <div>
-      <button  id="create" type="submit" (click)="createDealer()" class="btn my-2 my-sm-0">create</button>
-      <button    id="update" type="submit"  (click)="showInconsole()" class="btn my-2 my-sm-0">update</button>
+      <button  id="create"    type="submit" (click)="createDealer()" class="btn my-2 my-sm-0">create</button>
+      <button    id="update"   type="submit"  (click)="showInconsole()" class="btn my-2 my-sm-0">update</button>
       <a id="cancel" href="/home" type="button" class="btn my-2 my-sm-0">Cancel</a>
   </div>
   </form>

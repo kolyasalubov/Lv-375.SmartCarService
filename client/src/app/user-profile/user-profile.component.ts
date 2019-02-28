@@ -19,12 +19,14 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.username = this.tokenStorage.getUsername();
+this.username = this.tokenStorage.getUsername();
 
-    this.userService.getUserByUsername(this.username)
-      .subscribe(data => this.userProfile = data);
+this.userService.getUserByUsername(this.username)
+.subscribe (data => this.userProfile = data);
+  }
 
-    console.log(this.userProfile);
+  closeProfile(){
+    window.location.href='ui/home'
   }
 
 

@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.entity.sales;
 
 import lombok.Data;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -45,12 +46,6 @@ public class DealerEntity {
         this.dealerEmail = dealerEmail;
     }
 
-    //    @OneToMany(mappedBy = "dealerEntity")
-//    private List<SaleManagerEntity>saleManagerEntities;
-//
-//
-//    @OneToMany(mappedBy = "dealerEntity")
-//    private List<TradeIn> tradeIns;
 
 //    @OneToMany(mappedBy = "dealerEntity")
 //    private List<TechnicalServiceEntity>technicalServiceEntities;
