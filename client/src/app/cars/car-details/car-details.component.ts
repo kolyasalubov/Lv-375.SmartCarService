@@ -18,13 +18,13 @@ export class CarDetailsComponent implements OnInit {
   carVin: String;
   carPrice: String;
   carEnd_guarantee: String;
- 
-  
+
+
   constructor(private route: ActivatedRoute, private router: Router, private carsService: CarsService,) { }
 
   ngOnInit() {
-    
-  setTimeout(() => 
+
+  setTimeout(() =>
     {this.carId = Number(this.getFromRouterParams('carId'));
     this.carBrand = this.getFromRouterParams('carBrand');
     this.carModel = this.getFromRouterParams('carModel');
@@ -35,8 +35,8 @@ export class CarDetailsComponent implements OnInit {
     this.carEnd_guarantee = this.getFromRouterParams('carEnd_guarantee');
   }, 1000);
 
-    setTimeout(() => 
-    { console.log(this.carId, this.carBrand, this.carModel, this.carGY, this.carNumber, this.carVin) 
+    setTimeout(() =>
+    { console.log(this.carId, this.carBrand, this.carModel, this.carGY, this.carNumber, this.carVin)
     }, 1000);
 
     }
@@ -57,14 +57,17 @@ export class CarDetailsComponent implements OnInit {
   this.router.navigate(['ui/booking', id]);
   }
 
-  applyToTradeIn (id: number){
 
+  applyToTradeIn(vin: String){
+    console.log(vin);
+    this.router.navigate(['ui/tradeIn',vin]);
   }
 
+
   goToCharts(carId: Number, carVin: String){
-    this.router.navigate(['ui/charts'], 
+    this.router.navigate(['ui/charts'],
       {queryParams: {
-        carId: carId, 
+        carId: carId,
         carVin: carVin
       }}
     );

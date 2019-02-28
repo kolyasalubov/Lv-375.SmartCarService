@@ -22,5 +22,9 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car>findAllByDealer(DealerEntity dealerEntity);
 
+    List<Car> findAllByDealerDealerEdr(String edr);
+
+    List<Car>findByUser_Username(String username);
+
 }
 

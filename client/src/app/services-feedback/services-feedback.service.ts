@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { ServicesFeedbackForm } from '../services-feedback-form/services-feedback-form';
 import { catchError } from 'rxjs/operators';
+import { ServicesFeedback } from './services-feedback';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,17 +16,30 @@ const httpOptions = {
 })
 export class ServicesFeedbackService {
 
-  sendFeedbackByServiceId: string = '/api/techservices/{serviceId}/feedback';
+  feedbackByServiceId: string = '/api/techservices/{serviceId}/feedback';
+  feedbackByUserName: string = '/api/users/{userName}/feedback';
 
   constructor(private http: HttpClient) { }
-
+ 
   sendFeedback(feedback: ServicesFeedbackForm) {
     return this.http.post(
-      this.sendFeedbackByServiceId.replace('{serviceId}', feedback.serviceId.toString()), 
+      this.feedbackByServiceId.replace('{serviceId}', feedback.serviceId.toString()), 
       feedback, 
       httpOptions).pipe(catchError(this.errorHandler));
   }
   
+  getFeedbackByServiceId(serviceId: number): Observable<ServicesFeedback[]> {
+    return this.http.get<ServicesFeedback[]>(
+      this.feedbackByServiceId.replace('{serviceId}', serviceId.toString()))
+        .pipe(catchError(this.errorHandler));
+  }
+
+  getFeedbackByUserName(userName: string): Observable<ServicesFeedback[]> {
+    return this.http.get<ServicesFeedback[]>(
+      this.feedbackByServiceId.replace('{userName}', userName))
+        .pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: HttpErrorResponse)  {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message); // A client-side or network error occurred.

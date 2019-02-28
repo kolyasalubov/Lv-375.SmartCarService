@@ -1,6 +1,8 @@
 package ua.ita.smartcarservice.dto.feedback;
 
-public class ServicesFeedbackDto {
+import java.io.Serializable;
+
+public class ServicesFeedbackOutputDto {
     Long id;
 
     String text;
@@ -11,7 +13,7 @@ public class ServicesFeedbackDto {
 
     String serviceName;
 
-    public ServicesFeedbackDto(Long id, String text, String time, String fullName, String serviceName) {
+    public ServicesFeedbackOutputDto(Long id, String text, String time, String fullName, String serviceName) {
         this.id = id;
         this.text = text;
         this.time = time;

@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.service.technicalservice;
 
 import org.apache.catalina.User;
+import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
@@ -35,5 +36,9 @@ public interface TechnicalServiceService {
 
     TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto);
 
+    List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username);
+
     String findTechnicalServiceByCarId(Long id);
+    void createTechnicalServiceByDealer(DealerStoAddDto stoAddDto, String username);
+
 }

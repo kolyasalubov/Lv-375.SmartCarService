@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
+import java.util.List;
+
 @Repository
 public interface TechnicalServiceRepository extends JpaRepository<TechnicalServiceEntity, Long> {
     TechnicalServiceEntity getByTechnicalServiceId(Long id);
@@ -16,6 +18,7 @@ public interface TechnicalServiceRepository extends JpaRepository<TechnicalServi
             "left join user as u on us.user_id = u.id where u.id = :id", nativeQuery = true)
     TechnicalServiceEntity getTechnicalServiceEntityByUser(@Param("id") Long id);
 
+    //List<TechnicalServiceEntity> findAllByDealer_UserEntity_Username(String username);
 
     //void deleteByTechnicalServiceId(L)
 }

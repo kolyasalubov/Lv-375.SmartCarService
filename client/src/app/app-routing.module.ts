@@ -24,13 +24,48 @@ import {NotificationsApprovementComponent} from './notifications/notifications-a
 import {MapComponent} from './techservice/map/map.component';
 import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
 import { CarDetailsComponent } from './cars/car-details/car-details.component';
-import { ServicesFeedbackFormComponent } from './services-feedback-form/services-feedback-form.component'; 
+import { ServicesFeedbackFormComponent } from './services-feedback-form/services-feedback-form.component';
 import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.component';
+import {DealerComponent} from './dealer/dealer.component';
+import{DealcarComponent} from './dealer/dealcar/dealcar.component';
+import{DealerstoaddComponent} from './dealer/dealerstoadd/dealerstoadd.component';
+import {DealercarsComponent} from './dealer/dealercars/dealercars.component';
+import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
+import { TradesinComponent } from './dealer/tradesin/tradesin.component';
+import { TradeInComponent } from './trade-in/trade-in.component';
 
 
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
-  
+  {
+    path: 'ui/tradeIn/:vin',
+    component: TradeInComponent
+  },{
+    path: 'ui/dealersTradeIn',
+    component:TradesinComponent
+  },
+  {
+    path: 'ui/dealersSto',
+    component:DealerstosComponent
+  },
+
+  {
+    path: 'ui/dealercars',
+    component:DealercarsComponent
+  },
+  {
+    path: 'ui/dealer',
+    component:DealerComponent
+  },
+  {
+    path: 'ui/dealerstoadd',
+    component:DealerstoaddComponent
+  },
+
+  {
+    path: 'ui/addDealerCar',
+    component:DealcarComponent
+  },
   {
     path: 'ui/feedback',
     component: ServicesFeedbackFormComponent

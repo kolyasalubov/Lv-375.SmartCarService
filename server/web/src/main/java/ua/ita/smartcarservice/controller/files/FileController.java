@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.ita.smartcarservice.dto.files.UploadFileResponse;
-import ua.ita.smartcarservice.service.impl.files.FileStorageService;
+import ua.ita.smartcarservice.service.files.FileStorageService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
