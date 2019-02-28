@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.service.sales;
 
 import ua.ita.smartcarservice.dto.sales.CreateTraidInDto;
+import ua.ita.smartcarservice.dto.sales.TradeInDto;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sales.TradeIn;
 import ua.ita.smartcarservice.entity.sales.UserSaleManager;
@@ -25,4 +26,9 @@ public interface TradeInService {
 void createTradeIn(CreateTraidInDto traidInDto);
 
 void create(String vinNewCar,String vinUsedCar);
+
+List<TradeIn>tradesIn(DealerEntity dealerEntity);
+
+List<TradeInDto>tradeinDtos(DealerEntity dealerEntity);
+
 }
