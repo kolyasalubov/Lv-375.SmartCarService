@@ -24,7 +24,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    ServicesFeedbackService servicesFeedbackService;
+    private ServicesFeedbackService servicesFeedbackService;
 
     private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
