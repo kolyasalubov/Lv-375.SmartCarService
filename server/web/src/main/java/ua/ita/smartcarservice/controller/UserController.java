@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     /* Get user by id */
-    @GetMapping("/userbyid/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto userDto = userService.getUserById(id);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
@@ -37,7 +37,7 @@ public class UserController {
     }
 
     /*Get user by username */
-    @GetMapping("/userbyname/{username}")
+    @GetMapping("/user/{username}/username")
     public ResponseEntity<UserDto> findByUsername(@PathVariable String username) {
         UserDto userDto = userService.findByUsername(username);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
@@ -51,15 +51,15 @@ public class UserController {
     }
 
 
-    @PostMapping("/newuser")
+    @PostMapping("/user")
     public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity) {
         userService.createUser(userEntity);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
 
-    @PostMapping("/userchange/{userId}")
-    public ResponseEntity<?> updateUser(@PathVariable("userId") Long id, UserEntity userEntity) {
+    @PutMapping("/user/{id}")
+    public ResponseEntity<?> updateUser(@PathVariable("id") Long id, UserEntity userEntity) {
         userService.updateUserById(id, userEntity);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }

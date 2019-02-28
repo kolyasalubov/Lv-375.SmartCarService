@@ -1,23 +1,19 @@
-package ua.ita.smartcarservice.repository.Sales;
+package ua.ita.smartcarservice.repository.sales;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
-import ua.ita.smartcarservice.entity.sales.SaleManagerEntity;
-import ua.ita.smartcarservice.entity.sales.TradeIn;
-import ua.ita.smartcarservice.entity.sales.UserDealer;
-import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 /**
- * Created by 1 on 10.02.2019.
+ * Created by 1 on 27.02.2019.
  */
 public interface DealerEntityRepository extends JpaRepository<DealerEntity,Long> {
 
-//    getBySaleManager(UserSaleManager userSaleManager) {
-    DealerEntity getBySaleManagerEntities(SaleManagerEntity saleManagerEntity);
+    DealerEntity findByUserEntity_Username(String username);
 
-    DealerEntity getByUserDealers(UserDealer userDealer);
+    DealerEntity findByDealerEdr(String edr);
 
-    DealerEntity getByTechnicalServiceEntities(TechnicalServiceEntity technicalServiceEntity);
+//    List<Car> findAllCarByDealer(DealerEntity dealerEntity);
 
-DealerEntity getByTradeIns(TradeIn tradeIn);
+
+
 }

@@ -14,7 +14,7 @@
             </div>
       </div>
       </div>
-      
+
       <div class="card">
           <div class="card-body">
               <i class="fa fa-tachometer fa-4x" aria-hidden="true"></i>
@@ -24,7 +24,7 @@
               </div>
       </div>
       </div>
-      
+
       <div class="card">
           <div class="card-body">
               <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
@@ -48,24 +48,25 @@
   <li>Vin : {{carVin}} </li>
   <li *ngIf="!carPrice == null">Price : {{carPrice}} </li>
   <li *ngIf="!carEnd_guarantee == null">End of guarantee : {{carEnd_guarantee}} </li>
-  <hr style="border:2px solid #f1f1f1">  
+  <hr style="border:2px solid #f1f1f1">
 </div>
   <div id="options">
       <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(carId)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true"></i></button>
       <button class="btn btn-outline my-2 my-sm-0" (click) = "history()" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
-      <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(carId)" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+      <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(carVin)" title="Apply for TradeInn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
       <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(carId, carVin)" title="Show all charts"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
       <button id="delete" class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(carId)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-    
+
   </div>
-  </div> 
+  </div>
 </div>
 
 <!--------------------Charts--------------------->
 <div class="charts">
   <div class="chart">
   <line-chart sensorType='tire pressure' [carId]=carId></line-chart>
-</div>
+  </div>
+
 
 <!----------------Service history table-------------------->
 <div id="serviceHistory" >
@@ -97,4 +98,7 @@
 
 
 
+<<<<<<< HEAD
   
+=======
+>>>>>>> bf9d58ea8b8a5f8f5fe1594d7c58f4bc3f11af1d

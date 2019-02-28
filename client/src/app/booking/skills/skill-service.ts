@@ -16,12 +16,12 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class SkillService {
-    skillByStoUrl = '/api/v1/worksbycar/';
+    workByCarId = '/api/worksbycar/';
 
     constructor(private http: HttpClient) {}
 
     getAllSkillsToStoResp(searchId : number): Observable<Map<String, Array<WorkType>>> {
-        return this.http.get<Map<String, Array<WorkType>>>(this.skillByStoUrl + String(searchId))
+        return this.http.get<Map<String, Array<WorkType>>>(this.workByCarId + String(searchId))
                         .pipe(
                           catchError(this.errorHandler)
                         );
@@ -42,4 +42,3 @@ const httpOptions = {
   }
 }
 
-    

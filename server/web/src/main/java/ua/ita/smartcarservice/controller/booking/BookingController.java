@@ -20,21 +20,21 @@ public class BookingController {
     private TechnicalServiceService technicalService;
 
 
-    @PostMapping("/api/v1/sessionbyid")
+    @PostMapping("/api/sessionbyid")
     public ResponseEntity<List<WorkTimeDto>> findAllByWorkerId(@RequestParam(value = "workerId", required = false)
                                                                               String workerId) {
         return new ResponseEntity <>(bookingService.findAllByWorkerId(Long.valueOf(workerId)), HttpStatus.OK);
 
     }
 
-    @PostMapping("/api/v1/bookingtime")
+    @PostMapping("/api/bookingtime")
     public ResponseEntity<BookingInfoDto> findTimeToBooking(@RequestBody BookingDto bookingDto) {
         return new ResponseEntity <>(new BookingInfoDto(bookingService.findTimeToBooking(bookingDto),
                 technicalService.findTechnicalServiceByCarId(bookingDto.getCarId())),
                 HttpStatus.OK);
     }
 
-    @PostMapping("/api/v1/newbooking")
+    @PostMapping("/api/newbooking")
     public ResponseEntity<HttpStatus> addSession(@RequestBody NewBookingDto newBookingDto) {
         return bookingService.addBooking(newBookingDto)
                 ? new ResponseEntity <>(HttpStatus.OK)

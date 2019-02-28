@@ -6,7 +6,7 @@ import ua.ita.smartcarservice.entity.UserEntity;
 import javax.persistence.*;
 
 /**
- * Created by 1 on 10.02.2019.
+ * Created by 1 on 27.02.2019.
  */
 @Data
 @Entity
@@ -28,10 +28,11 @@ public class UserSaleManager {
 
     @ManyToOne
     @JoinColumn(name = "salemanager_id",nullable = false)
-     private SaleManagerEntity saleManagerEntity;
+    private SaleManagerEntity saleManagerEntity;
 
     public UserSaleManager(UserEntity userId, SaleManagerEntity saleManagerEntity) {
         this.userId = userId;
         this.saleManagerEntity = saleManagerEntity;
     }
 }
+

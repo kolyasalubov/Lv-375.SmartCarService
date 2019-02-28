@@ -60,7 +60,7 @@
         {{registerForm.checkRole}}
       </ng-template>
     </button>
-  
+
     <div class="dropdown-menu">
         <div *ngFor="let role of roleArray">
         <div class="custom-control custom-radio dropdown-item">
@@ -68,12 +68,12 @@
             <label class="custom-control-label" (click)="choseRole()" for="role_{{role.name}}">{{role.name}}</label>
           </div>
         </div>
-        <ng-template #checked> 
+        <ng-template #checked>
           <button id="whoButton" mdbDropdownToggle type="button" mdbBtn  class="dropdown-toggle btn-sm my-2">
-     
+
           {{registerForm.checkRole}}
           </button>
-      
+
           </ng-template>
 
 

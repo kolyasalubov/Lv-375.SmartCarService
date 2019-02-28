@@ -1,5 +1,4 @@
 .list-group-item{
-    margin: 0.5px;
     &:hover{
         cursor: pointer;
     }
@@ -32,4 +31,7 @@
     background-color: white;
     border-right: none;
     font-weight: bold;
+}
+.non-selectSkill{
+    background-color: rgb(238, 236, 236);
 }
