@@ -51,8 +51,8 @@ public class DealerEntity {
 //    private List<SaleManagerEntity>saleManagerEntities;
 //
 //
-    @OneToMany(mappedBy = "dealerEntity")
-    private List<TradeIn> tradeIns;
+//    @OneToMany(mappedBy = "dealerEntity")
+//    private List<TradeIn> tradeIns;
 
 //    @OneToMany(mappedBy = "dealerEntity")
 //    private List<TechnicalServiceEntity>technicalServiceEntities;
