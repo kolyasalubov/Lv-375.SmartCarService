@@ -23,12 +23,10 @@ public class TradeInServiceImpl implements TradeInService {
 
     @Autowired
     private DealerEntityRepository dealerRepository;
-@Autowired
-private CarRepository carRepository;
-
+    @Autowired
+    private CarRepository carRepository;
     @Autowired
     private TradeInRepository tradeInRepository;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -41,7 +39,6 @@ private CarRepository carRepository;
                 dealerRepository.findByDealerEdr(traidInDto.getDealerEdr()).getDealerId(),
                 "active"
                ));
-
     }
 
     @Override
@@ -58,10 +55,12 @@ private CarRepository carRepository;
 
     @Override
     public List<TradeInDto> tradeinDtos(DealerEntity dealerEntity) {
-        List<TradeInDto>tradeInDtos=new ArrayList<>();
-        List<TradeIn>tradeIns=tradesIn(dealerEntity);
-        for (TradeIn tradeIn:tradeIns){
-tradeInDtos.add(new TradeInDto());
+        List<TradeInDto> tradeInDtos = new ArrayList<>();
+
+        List<TradeIn> tradeIns = tradesIn(dealerEntity);
+        for (TradeIn tradeIn:tradeIns) {
+
+            tradeInDtos.add(new TradeInDto());
         }
 
         return tradeInDtos;

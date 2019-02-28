@@ -13,8 +13,8 @@ export class DealerComponent implements OnInit {
   username: String;
 
 // mydealer:Dealer;
-// mydealertmp:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
-mydealer: Dealer;
+mydealertmp:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
+mydealer=this.mydealertmp;
 show: boolean;
 
 

@@ -201,7 +201,7 @@ public class BookingServiceImpl implements BookingService {
     private LocalDateTime findTimeToShedule(LocalDateTime time, int requiredTime){
 
         LocalDateTime end = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 18,0);
-        LocalDateTime start = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth() + 1, 10,0);
+        LocalDateTime start = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 10,0).plusDays(1);
 
         if(getDeltaTimeInMinut(time, end)>=requiredTime){
             return time.plusMinutes(requiredTime);

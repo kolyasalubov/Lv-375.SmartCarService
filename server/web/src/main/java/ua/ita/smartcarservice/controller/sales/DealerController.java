@@ -44,7 +44,7 @@ public class DealerController {
     TradeInService tradeInService;
 
     @GetMapping(path = "api/dealer/getAll")
-    public ResponseEntity<List<DealerDto>> getAllDealers(){
+    public ResponseEntity<List<DealerDto>> getAllDealers() {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllDealerDto());
     }
@@ -74,12 +74,8 @@ public class DealerController {
                                           @RequestParam(value = "dealerAddress") String dealerAddress,
                                           @RequestParam(value = "dealerEdr") String dealerEdr,
                                           @RequestParam(value = "dealerEmail") String dealerEmail,
-                                          @RequestParam(value = "username") String username
+                                          @RequestParam(value = "username") String username) {
 
-    ) {
-        System.out.println(dealerName);
-        System.out.println(dealerAddress);
-        System.out.println(username);
         DealerEntity dealerEntity = new DealerEntity(userService.findByUserName(username), dealerName, dealerAddress, dealerEdr, dealerEmail);
         dealerService.createDealer(dealerEntity);
         return new ResponseEntity<Void>(HttpStatus.OK);
@@ -94,17 +90,6 @@ public class DealerController {
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllDealerDto());
 
     }
-
-
-//    @PostMapping(path = "api/dealer/createcar/{username}")
-//    public ResponseEntity<?>createDealerCar(@PathVariable String username, CarDto carDto){
-//        System.out.println("createDealerCar");
-//        System.out.println(username);
-//        System.out.println(carDto);
-////        carService.createByDealer(dealerCarDto,username);
-//        return new ResponseEntity<Void> (HttpStatus.OK);
-//
-//    }
 
 
     @GetMapping(path = "api/dealer/{username}/getAllCar")
@@ -128,32 +113,14 @@ public class DealerController {
                                           @RequestParam(value = "price") Double price,
                                           @RequestParam(value = "vin") String vin,
                                           @RequestParam(value = "username") String username) {
-
-        System.out.println(brand);
-        System.out.println(model);
-        System.out.println(graduation_year);
-        System.out.println(number);
-        System.out.println(price);
-        System.out.println(vin);
-        System.out.println(username);
-
         carService.createByDealer(brand, model, graduation_year, number,price, vin, username);
-//     carService.create(brand, model, graduation_year, number, vin, username);
         return new ResponseEntity(HttpStatus.CREATED);
-
-
     }
-
 
     @PutMapping("api/dealer/createtechservices")
     public ResponseEntity createTechnicalService(@RequestParam(value="username") String username,
                                                  @RequestParam(value = "name") String name,
                                                  @RequestParam(value = "address") String address) {
-
-        System.out.println(username);
-        System.out.println(name);
-        System.out.println(address);
-
 
         technicalServiceService.createTechnicalServiceByDealer(new DealerStoAddDto(name,address),username);
         return new ResponseEntity(HttpStatus.CREATED);
@@ -184,8 +151,9 @@ public class DealerController {
 
     @GetMapping("api/dealer/allstos/{username}")
     public ResponseEntity<List<TechnicalServiceDto>> findAllStoByDealer(@PathVariable String username){
-        System.out.println(username);
+
         List<TechnicalServiceDto>technicalServiceDtos=technicalServiceService.getAllTechnicalServicesDtoByDealer(username);
+
         if (technicalServiceDtos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -197,7 +165,6 @@ public class DealerController {
     public  ResponseEntity<List<CarDto>> getAllDealersCars(){
         List<CarDto>cars=carService.findAllDealersCars();
 
-
         if (cars.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -208,13 +175,7 @@ public class DealerController {
     public ResponseEntity createTradeIn(@RequestParam(value="vinNewCar") String vinNewCar,
                                                  @RequestParam(value = "vinBCar") String vinBCar
                                                  ) {
-
-        System.out.println(vinNewCar);
-        System.out.println(vinBCar);
-
         tradeInService.create(vinNewCar,vinBCar);
-
-
         return new ResponseEntity(HttpStatus.CREATED);
 
     }

@@ -46,15 +46,9 @@ public class DealerEntity {
         this.dealerEmail = dealerEmail;
     }
 
-    //    @OneToMany(mappedBy = "dealerEntity")
-//    private List<SaleManagerEntity>saleManagerEntities;
-//
-//
-//    @OneToMany(mappedBy = "dealerEntity")
-//    private List<TradeIn> tradeIns;
 
-    @OneToMany(mappedBy = "dealerEntity")
-    private List<TechnicalServiceEntity>technicalServiceEntities;
+//    @OneToMany(mappedBy = "dealerEntity")
+//    private List<TechnicalServiceEntity>technicalServiceEntities;
 
     public UserEntity getUserEntity() {
         return userEntity;
