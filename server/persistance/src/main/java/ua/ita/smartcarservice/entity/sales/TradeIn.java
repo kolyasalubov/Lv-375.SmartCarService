@@ -5,9 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-/**
- * Created by 1 on 27.02.2019.
- */
+
 @Data
 @Entity
 @Table(name = "TradeIn")

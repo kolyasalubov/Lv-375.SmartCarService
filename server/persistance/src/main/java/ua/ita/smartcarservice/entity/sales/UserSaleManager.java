@@ -5,9 +5,7 @@ import ua.ita.smartcarservice.entity.UserEntity;
 
 import javax.persistence.*;
 
-/**
- * Created by 1 on 27.02.2019.
- */
+
 @Data
 @Entity
 @Table(name = "users_salemanager")
