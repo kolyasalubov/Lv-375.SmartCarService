@@ -66,5 +66,9 @@ public class FileStorageServiceImpl implements FileStorageService {
             throw new FileNotFoundException("File not found " + fileName, ex);
         }
     }
+
+    public Path getFileStorageLocation() {
+        return fileStorageLocation;
+    }
 }
 

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ua.ita.smartcarservice.dto.AvatarDto;
 import ua.ita.smartcarservice.dto.files.UploadFileResponse;
 import ua.ita.smartcarservice.service.AvatarService;
 import ua.ita.smartcarservice.service.files.FileStorageService;
@@ -39,17 +40,21 @@ public class FileController {
                 .path("/downloadFile/")
                 .path(fileName)
                 .toUriString();
+        avatarService.addAvatarToUser(new AvatarDto(id,
+                username,
+                fileDownloadUri,
+                fileStorageService.getFileStorageLocation().toAbsolutePath().toString()));
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
 
-    @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-    }
+//    @PostMapping("/uploadMultipleFiles")
+//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//        return Arrays.asList(files)
+//                .stream()
+//                .map(file -> uploadFile(file))
+//                .collect(Collectors.toList());
+//    }
 
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {

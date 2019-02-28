@@ -24,7 +24,7 @@ public class AvatarEntity {
     public AvatarEntity() {
     }
 
-    public AvatarEntity(Long userId, String fileUrl, String filePath) {
+    public AvatarEntity(UserEntity userId, String fileUrl, String filePath) {
         this.userId = userId;
         this.fileUrl = fileUrl;
         this.filePath = filePath;

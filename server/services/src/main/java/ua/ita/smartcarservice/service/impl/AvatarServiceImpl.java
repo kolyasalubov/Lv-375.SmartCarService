@@ -6,12 +6,16 @@ import ua.ita.smartcarservice.dto.AvatarDto;
 import ua.ita.smartcarservice.entity.AvatarEntity;
 import ua.ita.smartcarservice.repository.AvatarRepository;
 import ua.ita.smartcarservice.service.AvatarService;
+import ua.ita.smartcarservice.service.UserService;
 
 @Service
 public class AvatarServiceImpl implements AvatarService {
 
     @Autowired
     AvatarRepository avatarRepository;
+
+    @Autowired
+    UserService userService;
 
     @Override
     public void addAvatarToUser(AvatarDto avatarDto) {
@@ -23,7 +27,11 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     public AvatarDto entityToDto(AvatarEntity avatarEntity) {
-        return new AvatarDto(avatarEntity.getUserId(),avatarEntity.getFileUrl(),avatarEntity.getFilePath());
+        return new AvatarDto(
+                avatarEntity.getUserId(),
+                userService.getUserById(avatarEntity.getId()).getUsername(),
+                avatarEntity.getFileUrl(),
+                avatarEntity.getFilePath());
     }
 
     @Override
