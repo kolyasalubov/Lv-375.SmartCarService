@@ -6,12 +6,14 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ua.ita.smartcarservice.service.config.FileStorageConfig;
 import ua.ita.smartcarservice.service.files.FileStorageService;
 import ua.ita.smartcarservice.service.impl.files.exceptions.FileStorageException;
-import ua.ita.smartcarservice.service.impl.files.exceptions.MyFileNotFoundException;
+import ua.ita.smartcarservice.service.impl.files.exceptions.FileNotFoundException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,11 +42,6 @@ public class FileStorageServiceImpl implements FileStorageService {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            // Check if the file's name contains invalid characters
-            if(fileName.contains("..")) {
-                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-
             // Copy file to the target location (Replacing existing file with the same name)
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
@@ -56,16 +53,17 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     public Resource loadFileAsResource(String fileName) {
+
+        URI uri = this.fileStorageLocation.resolve(fileName).normalize().toUri();
         try {
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
+            Resource resource = new UrlResource(uri);
             if(resource.exists()) {
                 return resource;
             } else {
-                throw new MyFileNotFoundException("File not found " + fileName);
+                throw new FileNotFoundException("File not found " + fileName);
             }
         } catch (MalformedURLException ex) {
-            throw new MyFileNotFoundException("File not found " + fileName, ex);
+            throw new FileNotFoundException("File not found " + fileName, ex);
         }
     }
 }

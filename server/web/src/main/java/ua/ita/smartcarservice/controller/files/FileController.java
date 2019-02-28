@@ -14,6 +14,7 @@ import ua.ita.smartcarservice.dto.files.UploadFileResponse;
 import ua.ita.smartcarservice.service.files.FileStorageService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -54,12 +55,13 @@ public class FileController {
         Resource resource = fileStorageService.loadFileAsResource(fileName);
 
         // Try to determine file's content type
-        String contentType = null;
+        File file = null;
         try {
-            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+            file = resource.getFile();
         } catch (IOException ex) {
-            logger.info("Could not determine file type.");
+            logger.error("Could not determine file type.");
         }
+        String contentType = request.getServletContext().getMimeType(file.getAbsolutePath());
 
         // Fallback to the default content type if type could not be determined
         if(contentType == null) {
