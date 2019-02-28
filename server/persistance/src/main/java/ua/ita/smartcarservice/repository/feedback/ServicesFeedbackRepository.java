@@ -10,7 +10,7 @@ import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import java.util.List;
 
 public interface ServicesFeedbackRepository extends JpaRepository<ServicesFeedback, Long> {
-    List<ServicesFeedback> getByUserId(UserEntity userEntity);
+    List<ServicesFeedback> getByUserIdOrderByTimeAsc(UserEntity userEntity);
 
     List<ServicesFeedback> getByServiceIdOrderByTimeAsc(TechnicalServiceEntity technicalServiceEntity);
 
