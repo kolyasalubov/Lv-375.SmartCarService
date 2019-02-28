@@ -37,7 +37,7 @@ public class AvatarServiceImpl implements AvatarService {
     }
 
     @Override
-    public void getAvatarDtoByUserId(Long userId) {
-        avatarRepository.getByUserId(userId);
+    public AvatarDto getAvatarDtoByUserId(Long userId) {
+        return entityToDto(avatarRepository.getByUserId(userId));
     }
 }

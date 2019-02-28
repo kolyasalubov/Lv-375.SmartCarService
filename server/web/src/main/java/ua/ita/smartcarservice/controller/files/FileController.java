@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ua.ita.smartcarservice.dto.AvatarDto;
 import ua.ita.smartcarservice.dto.files.UploadFileResponse;
-import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.AvatarService;
 import ua.ita.smartcarservice.service.HashService;
 import ua.ita.smartcarservice.service.UserService;
