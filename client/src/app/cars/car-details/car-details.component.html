@@ -14,7 +14,7 @@
             </div>
       </div>
       </div>
-      
+
       <div class="card">
           <div class="card-body">
               <i class="fa fa-tachometer fa-4x" aria-hidden="true"></i>
@@ -24,7 +24,7 @@
               </div>
       </div>
       </div>
-      
+
       <div class="card">
           <div class="card-body">
               <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
@@ -48,17 +48,17 @@
   <li>Vin : {{carVin}} </li>
   <li *ngIf="!carPrice == null">Price : {{carPrice}} </li>
   <li *ngIf="!carEnd_guarantee == null">End of guarantee : {{carEnd_guarantee}} </li>
-  <hr style="border:2px solid #f1f1f1">  
+  <hr style="border:2px solid #f1f1f1">
 </div>
   <div id="options">
       <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(carId)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true"></i></button>
       <button class="btn btn-outline my-2 my-sm-0" (click) = "history()" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
-      <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(carId)" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+      <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(carVin)" title="Apply for TradeInn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
       <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(carId, carVin)" title="Show all charts"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
       <button id="delete" class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(carId)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-    
+
   </div>
-  </div> 
+  </div>
 </div>
 
 <!--------------------Charts--------------------->
@@ -74,21 +74,21 @@
           <little-btn text="Month" sensor={{sensorType}} (click)='changePeriod("/month")'></little-btn>
           <little-btn text="Year" sensor={{sensorType}} (click)='changePeriod("/year")'></little-btn>
         </div>
-  
+
         <div *ngIf='period !== "/day"' class="btn-group btn-group-sm" role="group" aria-label="Basic example">
           <little-btn text="Avg" sensor={{sensorType}} (click)='changeSelection()'></little-btn>
           <little-btn text="Min" sensor={{sensorType}} (click)='changeSelection("/min")'></little-btn>
           <little-btn text="Max" sensor={{sensorType}} (click)='changeSelection("/max")'></little-btn>
         </div>
       </div>
-  
+
       <div class="mt-3">
         <canvas mdbChart [chartType]="chartType" [datasets]="chartDatasets" [labels]="chartLabels" [colors]="chartColors"
                 [options]="chartOptions" [legend]="true" (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)">
         </canvas>
       </div>
-  
+
       <div class="mt-2 d-flex flex-row align-items-center justify-content-between">
         <button style="background-color: #336B87; padding: 5px 10px" mdbBtn type="button" size="sm" class="waves-light"
                 mdbWavesEffect (click)='changeDate(false)'>
@@ -131,4 +131,4 @@
 </div>
 
 
-  
+
