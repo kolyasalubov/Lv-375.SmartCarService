@@ -22,8 +22,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log("this.router.url" + this.router.url);
-
     this.notificationsOpen = false;
     this.username = this.tokenStorage.getUsername();
 
