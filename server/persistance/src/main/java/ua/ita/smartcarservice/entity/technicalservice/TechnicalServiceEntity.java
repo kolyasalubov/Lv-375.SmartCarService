@@ -20,7 +20,7 @@ public class TechnicalServiceEntity {
     public TechnicalServiceEntity(String name, String address, DealerEntity dealerEntity) {
         this.name = name;
         this.address = address;
-        this.dealer = dealerEntity;
+        this.dealerEntity = dealerEntity;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,12 +31,12 @@ public class TechnicalServiceEntity {
 
     @Column(length = 100, nullable = false, unique = true)
     private String address;
-
+/*
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "dealer_id", nullable = true)
     private DealerEntity dealer;
-
+*/
     @OneToMany(mappedBy = "technicalServiceId", orphanRemoval = true)
     private List<UserTechnicalService> userTechnicalServices;
 
@@ -47,6 +47,7 @@ public class TechnicalServiceEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "serviceId")
     Set<ServicesFeedback> servicesFeedback;
+/*
     public DealerEntity getDealer() {
         return dealer;
     }
@@ -54,5 +55,5 @@ public class TechnicalServiceEntity {
     public void setDealer(DealerEntity dealer) {
         this.dealer = dealer;
     }
-
+*/
 }

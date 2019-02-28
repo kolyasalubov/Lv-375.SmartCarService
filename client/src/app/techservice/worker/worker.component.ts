@@ -18,7 +18,7 @@ export class WorkerComponent implements OnInit {
   @Input() techserviceId: number;
   @ViewChild(SkillComponent) skill: SkillComponent; 
 
-  registerFormStub: SignUpInfo = new SignUpInfo('', '', '', '', '', 'WORKER');
+  registerFormStub: SignUpInfo = new SignUpInfo('', '', '', '', '', 'ROLE_WORKER');
   registerForm: SignUpInfo = this.registerFormStub;
 
   constructor(private workerService: WorkerService, private authService: AuthService) { }
@@ -28,7 +28,10 @@ export class WorkerComponent implements OnInit {
   } 
 
   deleteWorker(workerId: number) {
-    this.workerService.deleteWorkerById(workerId).subscribe();
+    this.workerService.deleteWorkerById(workerId).subscribe(
+      data => this.recieveWorkers()
+    );
+
   }
 
   recieveWorkers() {
@@ -43,8 +46,7 @@ export class WorkerComponent implements OnInit {
   }
 
   registerWorker() {
-    this.authService.signUp(this.registerForm).subscribe();
-    setTimeout(() => {
+    this.authService.signUp(this.registerForm).subscribe(()=>{
       this.workerService.initialiseWorker(
         this.registerForm.username, 
         this.techserviceId, 
@@ -52,9 +54,7 @@ export class WorkerComponent implements OnInit {
           .subscribe(() => { 
             this.recieveWorkers(); 
             this.registerForm = this.registerFormStub;
-          })
-    }, 1000); //before was   2000 
-    
-    //not works
+          });
+    });
   }
 }

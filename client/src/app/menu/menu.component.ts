@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   private roles: String[];
   private authority: String;
   private username: String;
-  user: User;
+  user: User = new User(null, null, null, null, null, null);
   private notificationsOpen: boolean;
 
   constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private router: Router) { }
