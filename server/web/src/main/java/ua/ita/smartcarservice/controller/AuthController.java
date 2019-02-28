@@ -21,6 +21,7 @@ import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.security.JwtResponse;
 import ua.ita.smartcarservice.security.ResponseMessage;
 import ua.ita.smartcarservice.security.TokenProvider;
+import ua.ita.smartcarservice.service.mail.MailService;
 
 import javax.validation.Valid;
 import java.lang.invoke.MethodHandles;
@@ -44,6 +45,9 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private TokenProvider tokenProvider;
+    @Autowired
+    private MailService mailService;
+
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
@@ -72,7 +76,7 @@ public class AuthController {
             return new ResponseEntity<>(new ResponseMessage("Fail: Username is already exists!"), HttpStatus.BAD_REQUEST);
 
         }
-
+        mailService.sendEmailRegistration(registerRequest.getUsername(),registerRequest.getPassword(),registerRequest.getEmail(),registerRequest.getFullName());
         UserEntity userEntity = new UserEntity(registerRequest.getUsername(), passwordEncoder.encode(registerRequest.getPassword()),
             registerRequest.getEmail(), registerRequest.getFullName(), registerRequest.getNumberPhone());
 

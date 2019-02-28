@@ -17,13 +17,13 @@ export class MenuComponent implements OnInit {
   private username: String;
   user: User = new User(null, null, null, null, null, null);
   private notificationsOpen: boolean;
-  
+
   constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.notificationsOpen = false;
     this.username = this.tokenStorage.getUsername();
-   
+
     this.userService.getUserByUsername(this.username)
     .subscribe(data => this.user = data);
 
@@ -49,7 +49,7 @@ export class MenuComponent implements OnInit {
           this.authority = 'worker';
           return false;
         }
-        
+
       });
           } else {
             window.location.href = "/ui/auth/login";
@@ -69,5 +69,17 @@ export class MenuComponent implements OnInit {
     this.tokenStorage.signOut();
     window.location.href='/ui/auth/login';
     }
+  goToDealerinfo(){
 
+    this.router.navigate(['/ui/dealer']);
+
+  }
+  goToDealerCars(){
+    this.router.navigate(['/ui/dealercars']);
+  }
+  addCarToDealer(){
+
+    this.router.navigate(['/ui/addDealerCar']);
+
+  }
 }

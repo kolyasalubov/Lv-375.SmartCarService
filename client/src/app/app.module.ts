@@ -28,9 +28,17 @@ import {MapComponent} from './techservice/map/map.component';
 import {AgmCoreModule} from '@agm/core';
 import {LoginComponent} from './login/login.component';
 import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
+import { CarDetailsComponent } from './cars/car-details/car-details.component';
 import { ServicesFeedbackFormComponent} from './services-feedback-form/services-feedback-form.component';
 import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
+import { DealerComponent } from './dealer/dealer.component';
+import { DealcarComponent } from './dealer/dealcar/dealcar.component';
+import { DealerstoaddComponent } from './dealer/dealerstoadd/dealerstoadd.component';
+import { DealercarsComponent } from './dealer/dealercars/dealercars.component';
+import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
+import { TradesinComponent } from './dealer/tradesin/tradesin.component';
+import { TradeInComponent } from './trade-in/trade-in.component';
 
 @NgModule({
   declarations: [
@@ -52,9 +60,16 @@ import { ServicesFeedbackComponent } from './services-feedback/services-feedback
     NotificationsListComponent,
     MapComponent,
     CarTrackerComponent,
+    CarDetailsComponent,
     ServicesFeedbackFormComponent,
     ServicesFeedbackComponent,
-    WorkersFeedbackComponent
+    DealerComponent,
+    DealcarComponent,
+    DealerstoaddComponent,
+    DealercarsComponent,
+    DealerstosComponent,
+    TradesinComponent,
+    TradeInComponent
   ],
   imports: [
     BrowserModule,

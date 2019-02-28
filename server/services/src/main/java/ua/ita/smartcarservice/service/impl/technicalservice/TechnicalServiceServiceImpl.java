@@ -3,11 +3,13 @@ package ua.ita.smartcarservice.service.impl.technicalservice;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.repository.UserRepository;
+import ua.ita.smartcarservice.repository.sales.DealerEntityRepository;
 import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
@@ -27,6 +29,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    DealerEntityRepository dealerEntityRepository;
 
     @Override
     public void addWorkerToTechnicalService(String username, Long technicalServiceId) {
@@ -148,4 +153,31 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     public String findTechnicalServiceByCarId(Long id){
         return userTechnicalServiceRepository.findTechnicalServiceByCarId(id);
     }
+
+    public TechnicalServiceDto convertToDtoByDelaer(TechnicalServiceEntity technicalServiceEntity) {
+        TechnicalServiceDto dto = new TechnicalServiceDto();
+
+        dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
+        dto.setName(technicalServiceEntity.getName());
+        dto.setAddress(technicalServiceEntity.getAddress());
+
+        return dto;
+    }
+    @Override
+    public List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username) {
+        List<TechnicalServiceEntity> technicalServiceList = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
+        List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
+        for(TechnicalServiceEntity technicalService:technicalServiceList){
+
+            technicalServiceDtoList.add(convertToDtoByDelaer(technicalService));
+        }
+        return technicalServiceDtoList;
+    }
+
+    @Override
+    public void createTechnicalServiceByDealer(DealerStoAddDto stoAddDto, String username) {
+        technicalServiceRepository.save(new TechnicalServiceEntity(stoAddDto.getNameSto(),stoAddDto.getAddressSto(),
+                dealerEntityRepository.findByUserEntity_Username(username)));
+    }
+
 }

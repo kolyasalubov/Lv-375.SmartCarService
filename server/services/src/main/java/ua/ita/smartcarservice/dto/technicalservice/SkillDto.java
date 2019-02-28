@@ -11,8 +11,6 @@ public class SkillDto {
 
     private String name;
 
-    private Long requiredTime;
-
    // private List<FaultCode> faultCode;
 
 }
