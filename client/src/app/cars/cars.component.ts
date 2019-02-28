@@ -59,7 +59,6 @@ this.carsService.getOwnerCarsById(this.id)
      } else{
        this.showProfile = true;
      }; }, 1000);
-     console.log(this.cars.length);
   
 }
    

@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public interface BookingRepository extends JpaRepository<WorkTime, Long> {
+public interface BookingRepository extends JpaRepository<WorkTime, Long> {cd
 
     @Query("select w from WorkTime as w where w.worker.id in (:workerId) " +
             "and w.startBooking >= :starttime and w.startBooking <= :endtime")
