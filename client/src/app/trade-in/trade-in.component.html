@@ -11,7 +11,7 @@
     </div>
   </div>
 </div>
-
+<br><br>
 <div *ngFor="let dealercar of allCars" style="margin-left: 220px;">
   <div class="card">
     <div class="card-body">
@@ -22,7 +22,7 @@
         <li> Number : {{dealercar.number}}</li>
         <li >Price : {{dealercar.price}} </li>
         <!--<li *ngIf="!dealercar.end_guarantee == null">End of guarantee : {{dealercar.end_guarantee}} </li>-->
-        <button class="btn btn-outline my-2 my-sm-0" (click)="sendTradeIn(dealercar.vin,mycar.vin)"  style="background-color: #c5001a"> <i class="btn my-2 my-sm-0" aria-hidden="true">Go...</i></button>
+        <button class="btn btn-outline my-2 my-sm-0" (click)="sendTradeIn(dealercar.vin,mycar.vin)"  style="background-color: #c5001a"> <i class="btn my-2 my-sm-0" aria-hidden="true">TradeIn</i></button>
 
       </div>
     </div>

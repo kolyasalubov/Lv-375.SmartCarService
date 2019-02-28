@@ -27,14 +27,14 @@ public class BookingController {
 
     }
 
-    @PostMapping("/api/bookingtime")
+    @PostMapping("/api/time")
     public ResponseEntity<BookingInfoDto> findTimeToBooking(@RequestBody BookingDto bookingDto) {
         return new ResponseEntity <>(new BookingInfoDto(bookingService.findTimeToBooking(bookingDto),
                 technicalService.findTechnicalServiceByCarId(bookingDto.getCarId())),
                 HttpStatus.OK);
     }
 
-    @PostMapping("/api/newbooking")
+    @PostMapping("/api/new")
     public ResponseEntity<HttpStatus> addSession(@RequestBody NewBookingDto newBookingDto) {
         return bookingService.addBooking(newBookingDto)
                 ? new ResponseEntity <>(HttpStatus.OK)

@@ -1,6 +1,8 @@
 package ua.ita.smartcarservice.service;
 
 import ua.ita.smartcarservice.dto.CarDto;
+import ua.ita.smartcarservice.dto.NewCarDTO;
+
 import java.util.List;
 
 public interface CarService {
@@ -8,7 +10,6 @@ public interface CarService {
     List<CarDto> findByUserId(Long id);
 
     List<CarDto> findbyUserLogin(String login);
-
 
     CarDto findByVin(String vin);
 
@@ -27,5 +28,7 @@ public interface CarService {
     List<CarDto> findByDealerEdr(String edr);
 
     List<CarDto>findAllDealersCars();
+
+    void addCar (NewCarDTO newCarDTO, String username);
 
 }

@@ -7,10 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import ua.ita.smartcarservice.controller.exceptions.CarRegisteredAlreadyExсeption;
+import ua.ita.smartcarservice.dto.NewCarDTO;
+import ua.ita.smartcarservice.exceptions.CarRegisteredAlreadyExсeption;
 import ua.ita.smartcarservice.dto.CarDto;
-import ua.ita.smartcarservice.controller.exceptions.CarNotFoundException;
-import ua.ita.smartcarservice.controller.exceptions.CarsNotFoundException;
+import ua.ita.smartcarservice.exceptions.CarNotFoundException;
+import ua.ita.smartcarservice.exceptions.CarsNotFoundException;
 import ua.ita.smartcarservice.service.CarService;
 
 
@@ -81,7 +82,16 @@ public class CarController {
     }
 
     /* Create car */
-    @PutMapping("/car")
+    @PostMapping("/newcar")
+    public ResponseEntity addCar(@RequestParam(value = "username") String username,
+                                 @RequestBody NewCarDTO newCarDTO) {
+
+        carService.addCar(newCarDTO, username);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    /* Create car */
+    @PostMapping("/car")
     public ResponseEntity createCar(@RequestParam(value = "brand") String brand,
                                     @RequestParam(value = "model") String model,
                                     @RequestParam(value = "graduationyear") String graduation_year,
@@ -96,4 +106,5 @@ public class CarController {
             throw new CarRegisteredAlreadyExсeption();
         }
     }
+
 }

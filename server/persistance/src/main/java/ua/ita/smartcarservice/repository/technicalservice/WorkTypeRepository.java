@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -16,5 +17,8 @@ public interface WorkTypeRepository extends JpaRepository<WorkType, Long> {
 
     @Query("select w from WorkType as w where w.skill.name = :name")
     List<WorkType> findAllWorkBySkill(@Param("name") String name);
+
+    @Query("select w from WorkType as w where w.workId in (:worksId)")
+    List<WorkType> findAllById(@Param("worksId") Collection<Long> worksId);
 
 }

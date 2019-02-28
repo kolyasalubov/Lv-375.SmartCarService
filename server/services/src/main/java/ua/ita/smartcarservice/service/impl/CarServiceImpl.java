@@ -3,8 +3,10 @@ package ua.ita.smartcarservice.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.CarDto;
+import ua.ita.smartcarservice.dto.NewCarDTO;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.exceptions.CarRegisteredAlreadyExсeption;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.sales.DealerEntityRepository;
@@ -24,6 +26,24 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private DealerEntityRepository dealerRepository;
+
+    public void addCar(NewCarDTO newCarDTO, String username) {
+        UserEntity carOwner = this.userRepository.findByUsername(username).get();
+
+        if (carRepository.findByNumber(newCarDTO.getNumber()) == null && carRepository.findByVin(newCarDTO.getVin()) == null) {
+            Car car = new Car();
+            car.setBrand(newCarDTO.getBrand());
+            car.setModel(newCarDTO.getModel());
+            car.setGraduation_year(newCarDTO.getGraduation_year());
+            car.setNumber(newCarDTO.getNumber());
+            car.setVin(newCarDTO.getVin());
+            car.setUser(carOwner);
+
+            carRepository.save(car);
+        } else {
+            throw new CarRegisteredAlreadyExсeption();
+        }
+    }
 
     //for used car
     public void create(String brand, String model, String graduation_year, String number, String vin, String username) {

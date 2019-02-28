@@ -14,7 +14,7 @@ export class DealerComponent implements OnInit {
 
 // mydealer:Dealer;
 mydealertmp:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
-mydealer: Dealer=this.mydealertmp;
+mydealer=this.mydealertmp;
 show: boolean;
 
 
