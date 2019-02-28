@@ -7,14 +7,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.scheduling.annotation.EnableScheduling;
 import ua.ita.smartcarservice.service.impl.files.FileStorageConfig;
 
-@SpringBootApplication(exclude = { ErrorMvcAutoConfiguration.class } )
+@SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableScheduling
 @EnableConfigurationProperties({
-		FileStorageConfig.class
+        FileStorageConfig.class
 })
 public class App {
-	public static void main(String[] args) {
-
-		SpringApplication.run(App.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(App.class, args);
+    }
 }

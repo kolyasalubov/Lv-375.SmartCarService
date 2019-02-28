@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     if (!isLogged
       && window.location.href !== "http://localhost:9501/ui/auth/login"
       && window.location.href !== "http://localhost:9501/ui/signup") {
-      console.log(window.location);
+      // console.log(window.location);
       window.location.href = "/ui/auth/login";
     }
     return isLogged;
