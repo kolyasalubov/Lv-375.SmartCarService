@@ -23,7 +23,7 @@ public interface ChartSensorRepository<T extends BaseSensorEntity> extends Basic
             "FROM #{#entityName} t " +
             "WHERE t.car.id = :carId AND MONTH(t.date) = MONTH(:date) AND YEAR(t.date) = YEAR(:date)" +
             "GROUP BY DAY(t.date)" +
-            "ORDER BY t.date")
+            "ORDER BY DAY(t.date)")
     List<T> getAvgByMonth(@Param("date") LocalDateTime date,
                           @Param("carId") long carId);
 

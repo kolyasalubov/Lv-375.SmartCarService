@@ -11,7 +11,6 @@ import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.booking.BookingRepository;
-import ua.ita.smartcarservice.repository.impl.WorkTimeRepositoryImpl;
 import ua.ita.smartcarservice.service.booking.BookingService;
 
 import java.time.LocalDate;
@@ -39,9 +38,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private CarRepository carRepository;
-
-    @Autowired
-    private WorkTimeRepositoryImpl workTimeRepository;
 
     @Override
     public List <WorkTimeDto> findAllByWorkerId(Long workerId) {
@@ -99,10 +95,10 @@ public class BookingServiceImpl implements BookingService {
         LocalDateTime starttime = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 10, 0);
         LocalDateTime endtime = LocalDateTime.of(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 18, 0);
 
-        workTimeRepository.getAllBookingById(workerId, starttime, endtime)
+        bookingRepository.findTimeWhenWork(workerId, starttime, endtime)
                 .forEach(workTime -> findTimeWhenWork.add(getWorkTimeDto(workTime)));
 
-        return findTimeWhenWork;
+      return findTimeWhenWork;
     }
 
     private List <TimePoint> findAllTimePoints(List <WorkTimeDto> timeToWork, LocalDate time) {
