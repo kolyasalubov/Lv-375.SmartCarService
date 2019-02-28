@@ -40,7 +40,12 @@ import {LittleBtnComponent} from './little-btn/little-btn.component';
     }),
   ],
   bootstrap: [ChartPageComponent],
-  exports: [ChartPageComponent]
+  exports: [
+    ChartPageComponent,
+    LineChartComponent,
+    BarChartComponent,
+    ProgressChartComponent
+  ]
 })
 export class ChartPageModule {
 }
