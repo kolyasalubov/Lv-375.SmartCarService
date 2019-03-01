@@ -11,7 +11,8 @@
       <a class="notification" (click)="goToNotifications()" style="border-bottom: 2px solid white;">
          <span *ngIf="!notificationsOpen"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
          <span *ngIf="notificationsOpen"><i class="fa fa-envelope-open-o" aria-hidden="true"></i></span>
-      <!-- <span *ngIf="!notificationsOpen" class="badge">3</span> --> 
+         <span *ngIf="!notificationsOpen" class="badge">{{notifications.length}}</span>
+
       </a>
   </ul>
   </div>
