@@ -20,44 +20,14 @@ public class ChartController {
     @Autowired
     private SensorService sensorService;
 
-    @GetMapping("/last")
-    public ResponseEntity<ChartDto> findLastValue(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findLastValue(new DateForChartDto(parametersMap)));
+    @GetMapping
+    public ResponseEntity<ChartDto> findDataByPeriod(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findDataByPeriod(new DateForChartDto(parametersMap)));
     }
 
-    @GetMapping("/day")
-    public ResponseEntity<ChartDto> findAllByDay(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findAllByDay(new DateForChartDto(parametersMap)));
-    }
-
-    @GetMapping("/month")
-    public ResponseEntity<ChartDto> findAllByMonth(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findAvgByMonth(new DateForChartDto(parametersMap)));
-    }
-
-    @GetMapping("/month/min")
-    public ResponseEntity<ChartDto> findMinByMonth(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findMinByMonth(new DateForChartDto(parametersMap)));
-    }
-
-    @GetMapping("/month/max")
-    public ResponseEntity<ChartDto> findMaxByMonth(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findMaxByMonth(new DateForChartDto(parametersMap)));
-    }
-
-    @GetMapping("/year")
-    public ResponseEntity<ChartDto> findAllByYear(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findAvgByYear(new DateForChartDto(parametersMap)));
-    }
-
-    @GetMapping("/year/min")
-    public ResponseEntity<ChartDto> findMinByYear(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findMinByYear(new DateForChartDto(parametersMap)));
-    }
-
-    @GetMapping("/year/max")
-    public ResponseEntity<ChartDto> findMaxByYear(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findMaxByYear(new DateForChartDto(parametersMap)));
+    @GetMapping(value = "/last")
+    public ResponseEntity<ChartDto> findCurrentLevel(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findCurrentLevel(new DateForChartDto(parametersMap)));
     }
 
     private ResponseEntity<ChartDto> getResponse(ChartDto chartDto) {

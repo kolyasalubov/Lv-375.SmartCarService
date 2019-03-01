@@ -19,8 +19,8 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class TimeListService{
-    bookingTime : string = "/api/bookingtime";
-    newBooking : string = "/api/newbooking";
+    bookingTime : string = "/api/time";
+    newBooking : string = "/api/new";
 
     constructor(private http: HttpClient) {}
 

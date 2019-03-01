@@ -53,8 +53,8 @@ export class WorkerComponent implements OnInit {
         this.skill.selectedSkill)
           .subscribe(() => { 
             this.recieveWorkers(); 
-            this.registerForm = this.registerFormStub;
-          });
+            this.registerForm = new SignUpInfo('', '', '', '', '', 'ROLE_WORKER');
+           });
     });
   }
 }

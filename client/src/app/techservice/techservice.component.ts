@@ -53,9 +53,7 @@ export class TechserviceComponent implements OnInit {
   getTechservice(user: User) {
     this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
     .subscribe(data => {if (data!=null) {
-                          console.log(data);
                           this.techservice = data;
-                          console.log(this.techservice);
                           }
                         });
   }
@@ -69,8 +67,6 @@ export class TechserviceComponent implements OnInit {
     this.techserviceService.deleteTechservice(this.techservice.stoId)
     .subscribe(()=>{
       this.techservice = new Techservice();
-    });
-    
+    }); 
   }
-
 }

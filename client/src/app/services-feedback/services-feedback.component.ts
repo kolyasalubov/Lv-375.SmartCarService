@@ -13,6 +13,8 @@ export class ServicesFeedbackComponent implements OnInit {
   @Input() serviceId: number = null;
   @Input() userName: string = null;
 
+  workers: number[] = [30]; //hardcode
+
   constructor(private servicesFeedbackService: ServicesFeedbackService) { }
 
   ngOnInit() {

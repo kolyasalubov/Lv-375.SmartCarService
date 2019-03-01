@@ -6,6 +6,7 @@ import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
 import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
+import ua.ita.smartcarservice.entity.sensors.ISingleValueEntity;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.common.AlertSensorRepository;
@@ -13,14 +14,14 @@ import ua.ita.smartcarservice.repository.sensors.common.BasicSensorRepository;
 import ua.ita.smartcarservice.repository.sensors.common.ChartSensorRepository;
 import ua.ita.smartcarservice.repository.sensors.common.SensorRepositoryFactory;
 import ua.ita.smartcarservice.service.SensorService;
-import ua.ita.smartcarservice.entity.sensors.ISingleValueEntity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static ua.ita.smartcarservice.service.impl.sensors.DateParser.parseDateToLocal;
 
 @Service
 public class SensorServiceImpl implements SensorService {
@@ -60,16 +61,25 @@ public class SensorServiceImpl implements SensorService {
 
     /* READ */
 
+    @Override
+    public ChartDto findDataByPeriod(DateForChartDto dto) {
+        return getChartDtoFromObjArray(getChartRepository(dto)
+                .findAllDataByPeriod(parseDateToLocal(dto.getDate()), dto.getCarId(),
+                        dto.getSensorType(), dto.getSelection()));
+    }
+
     private ChartDto getChartDtoFromObjArray(List<Object[]> records) {
         Map<String, List<Double>> dataMap = new HashMap<>();
-        records.forEach((record) -> {
-            String label = record[0].toString();
-            List<Double> data = new ArrayList<>();
-            for (int i = 1; i < record.length; i++) {
-                data.add((double) record[i]);
-            }
-            dataMap.put(label, (data));
-        });
+        if (records != null && records.size() > 0 && records.get(0)[0] != null) {
+            records.forEach((record) -> {
+                String label = record[0].toString();
+                List<Double> data = new ArrayList<>();
+                for (int i = 1; i < record.length; i++) {
+                    data.add((double) record[i]);
+                }
+                dataMap.put(label, (data));
+            });
+        }
         return new ChartDto(dataMap);
     }
 
@@ -82,71 +92,19 @@ public class SensorServiceImpl implements SensorService {
     }
 
     private AlertSensorRepository getAlertRepository(String sensorType) {
-        return (AlertSensorRepository)repositoryFactory.getRepository(sensorType);
+        return (AlertSensorRepository) repositoryFactory.getRepository(sensorType);
+    }
+
+    private LocalDateTime parseDateToLocal(String strDate) {
+        return LocalDateTime.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     @Override
-    public ChartDto findAllByDay(DateForChartDto dateForChartDto) {
-        ParamsProvider params = new ParamsProvider(dateForChartDto);
-        return getChartDtoFromObjArray(
-                getChartRepository(dateForChartDto)
-                        .getAllByDay(params.getDate(), params.getCarId()));
-    }
-
-    @Override
-    public ChartDto findAvgByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = new ParamsProvider(dateForChartDto);
-        return getChartDtoFromObjArray(
-                getChartRepository(dateForChartDto)
-                        .getAvgByMonth(params.getDate(), params.getCarId()));
-    }
-
-    @Override
-    public ChartDto findMaxByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = new ParamsProvider(dateForChartDto);
-        return getChartDtoFromObjArray(
-                getChartRepository(dateForChartDto)
-                        .getMaxByMonth(params.getDate(), params.getCarId()));
-    }
-
-    @Override
-    public ChartDto findMinByMonth(DateForChartDto dateForChartDto) {
-        ParamsProvider params = new ParamsProvider(dateForChartDto);
-        return getChartDtoFromObjArray(
-                getChartRepository(dateForChartDto)
-                        .getMinByMonth(params.getDate(), params.getCarId()));
-    }
-
-    @Override
-    public ChartDto findAvgByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider params = new ParamsProvider(dateForChartDto);
-        return getChartDtoFromObjArray(
-                getChartRepository(dateForChartDto)
-                        .getAvgByYear(params.getDate(), params.getCarId()));
-    }
-
-    @Override
-    public ChartDto findMaxByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider params = new ParamsProvider(dateForChartDto);
-        return getChartDtoFromObjArray(
-                getChartRepository(dateForChartDto)
-                        .getMaxByYear(params.getDate(), params.getCarId()));
-    }
-
-    @Override
-    public ChartDto findMinByYear(DateForChartDto dateForChartDto) {
-        ParamsProvider params = new ParamsProvider(dateForChartDto);
-        return getChartDtoFromObjArray(
-                getChartRepository(dateForChartDto)
-                        .getMinByYear(params.getDate(), params.getCarId()));
-    }
-
-
-    @Override
-    public ChartDto findLastValue(DateForChartDto dateForChartDto) {
+    public ChartDto findCurrentLevel(DateForChartDto dateForChartDto){
         return new ChartDto(repositoryFactory.getBatteryRepository()
-                .getLastValue(dateForChartDto.getCarId()));
+                .findCurrentLevel(dateForChartDto.getCarId()));
     }
+
 
     @Override
     public RecordDto findRecordBeforeDate(RecordDto recordDto) {
@@ -154,11 +112,10 @@ public class SensorServiceImpl implements SensorService {
                 .findRecordBeforeDate(
                         parseDateToLocal(recordDto.getDate()),
                         carRepository.findByVin(recordDto.getCarVin()).getId());
-        if(sensor != null) {
+        if (sensor != null) {
             return new RecordDto(sensor.getDate().toString(), sensor.getValue());
         }
         return null;
     }
-
 
 }

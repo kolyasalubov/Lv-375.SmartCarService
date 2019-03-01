@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.service.impl.files;
+package ua.ita.smartcarservice.service.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

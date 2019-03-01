@@ -34,35 +34,18 @@ public class TechnicalServiceEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String address;
 
-        @ManyToOne
-        @JoinColumn(name = "dealer_id", nullable = true)
-        private DealerEntity dealer;
+
+    @ManyToOne
+    @JoinColumn(name = "dealer_id", nullable = true)
+    private DealerEntity dealer;
 
 
     @OneToMany(mappedBy = "technicalServiceId", orphanRemoval = true)
     private List<UserTechnicalService> userTechnicalServices;
 
-//    @ManyToOne
-//    @JoinColumn(name = "dealerEntity")
-//    private DealerEntity dealerEntity;
-
-//    @ManyToOne
-//    @JoinColumn(name = "dealer", nullable = true)
-//    private DealerEntity dealer;
-
-
-
     @JsonIgnore
     @OneToMany(mappedBy = "serviceId")
     Set<ServicesFeedback> servicesFeedback;
-//}
-//
-//    public DealerEntity getDealer() {
-//        return dealer;
-//    }
-//
-//    public void setDealer(DealerEntity dealer) {
-//        this.dealer = dealer;
-//    }
+
 
 }
