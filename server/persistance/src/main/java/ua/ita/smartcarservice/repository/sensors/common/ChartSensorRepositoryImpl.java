@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
+import ua.ita.smartcarservice.entity.sensors.common.SensorElements;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
+import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
 import ua.ita.smartcarservice.entity.sensors.common.Tires;
 
 import javax.persistence.EntityManager;
@@ -55,8 +57,8 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     }
 
     private void initPaths(Root root, String sensorType) {
-        datePath = root.get("date");
-        carIdPath = root.get("car").get("id");
+        datePath = root.get(SensorElements.DATE.toString());
+        carIdPath = root.get(SensorElements.CAR.toString()).get(SensorElements.ID.toString());
         initValuePath(root, sensorType);
     }
 
@@ -69,20 +71,20 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     }
 
     private Object[] getValuesNames(String sensorType) {
-        if (sensorType.equals("tire pressure")) {
+        if (sensorType.equals(SensorTypes.TIRE_PRESSURE.toString())) {
             return Tires.values();
         } else {
-            return new Object[]{"value"};
+            return new Object[]{SensorElements.VALUE.toString()};
         }
     }
 
     private Expression getSelectedPeriod() {
-        if (selection.contains("day")) {
-            return getPartOfDate("time");
-        } else if (selection.contains("month")) {
-            return getPartOfDate("day");
+        if (selection.contains(SensorElements.DAY.toString())) {
+            return getPartOfDate(SensorElements.TIME.toString());
+        } else if (selection.contains(SensorElements.MONTH.toString())) {
+            return getPartOfDate(SensorElements.DAY.toString());
         } else {
-            return getPartOfDate("month");
+            return getPartOfDate(SensorElements.MONTH.toString());
         }
     }
 
@@ -91,9 +93,9 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     }
 
     private Expression getAggregatedValue(Path<Double> value) {
-        if (selection.contains("min")) {
+        if (selection.contains(SensorElements.MIN.toString())) {
             return builder.min(value);
-        } else if (selection.contains("max")) {
+        } else if (selection.contains(SensorElements.MAX.toString())) {
             return builder.max(value);
         } else {
             return value;
@@ -110,17 +112,17 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
 
     private Predicate[] getPredicates(long carId, LocalDateTime date) {
         Predicate equalCar = builder.equal(carIdPath, carId);
-        Predicate equalYear = builder.equal(getPartOfDate("year"), date.getYear());
-        Predicate equalMonth = builder.equal(getPartOfDate("month"), date.getMonthValue());
-        Predicate equalDay = builder.equal(getPartOfDate("day"), date.getDayOfMonth());
+        Predicate equalYear = builder.equal(getPartOfDate(SensorElements.YEAR.toString()), date.getYear());
+        Predicate equalMonth = builder.equal(getPartOfDate(SensorElements.MONTH.toString()), date.getMonthValue());
+        Predicate equalDay = builder.equal(getPartOfDate(SensorElements.DAY.toString()), date.getDayOfMonth());
 
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(equalCar);
         predicates.add(equalYear);
 
-        if (selection.contains("day")) {
+        if (selection.contains(SensorElements.DAY.toString())) {
             predicates.addAll(Arrays.asList(equalMonth, equalDay));
-        } else if (selection.contains("month")) {
+        } else if (selection.contains(SensorElements.MONTH.toString())) {
             predicates.add(equalMonth);
         }
 
