@@ -58,8 +58,6 @@ export class TechserviceComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           this.techservice = data;
-          console.log(data);
-          console.log(this.techservice);
         }
       });
   }
