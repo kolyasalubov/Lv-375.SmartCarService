@@ -51,7 +51,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         criteria.select(builder.array(selectionValues));
         criteria.where(predicates);
         criteria.groupBy(selectedPeriod);
-        criteria.orderBy(builder.asc(datePath));
+        criteria.orderBy(builder.asc(selectedPeriod));
 
         return entityManager.createQuery(criteria).getResultList();
     }
