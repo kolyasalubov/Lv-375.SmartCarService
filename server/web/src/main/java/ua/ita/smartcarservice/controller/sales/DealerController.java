@@ -182,9 +182,9 @@ public class DealerController {
 
     }
 
-    @GetMapping("api/dealer/getAllTradeIn/{username}")
-    public  ResponseEntity<List<TradeInDto>> getAllDealersTradeIn(@PathVariable String username){
-        List<TradeInDto>tradeInDtos=tradeInService.tradeinDtos(username);
-        return new ResponseEntity<>(tradeInDtos, HttpStatus.OK);
-    }
+//    @GetMapping("api/dealer/getAllTradeIn/{username}")
+//    public  ResponseEntity<List<TradeInDto>> getAllDealersTradeIn(@PathVariable String username){
+//        List<TradeInDto>tradeInDtos=tradeInService.tradeinDtos(username);
+//        return new ResponseEntity<>(tradeInDtos, HttpStatus.OK);
+//    }
 }
