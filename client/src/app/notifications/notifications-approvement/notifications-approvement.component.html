@@ -1,9 +1,11 @@
-<br><br><br>
+<div class="container">
 <div class="notification-header">
-  <button mdbBtn color="teal" rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect (click)="approve()">
+    <button mdbBtn rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect (click)="cancel()">
+      Cancel
+    </button>
+  <button mdbBtn rounded="true" size="sm" type="button" class="m-0 approve-btn" mdbWavesEffect (click)="approve()">
     Approve
   </button>
-  <button type="button" class="btn btn-dark btn-sm" size="sm" (click)="cancel()">Cancel</button>
 </div>
 
 <mdb-card cascade="true" narrower="true">
@@ -19,37 +21,39 @@
         <thead>
         <tr>
           <th class="th-lg">
-            <a (click)="sortBy('message')">Message
+            <a (click)="sortBy('message')">Selected alerts:
             </a>
           </th>
-          <th class="th-lg">
-            <a (click)="sortBy('date')">Date
-            </a>
-          </th>
-
         </tr>
         </thead>
         <!--Table head-->
 
         <!--Table body-->
+        <div class="notifications-container">
         <tbody>
         <ng-container *ngFor="let n of notifications">
           <tr *ngIf="n.isSelected">
             <td>{{n.message}}</td>
             <td>{{n.notificationTime }}</td>
             <td>
-              <button class="btn btn-danger btn-sm" (click)="removeFromApprovement(n.id)"> X</button>
+                <div class="icon cursor-pointer">
+                    <div (click)="removeFromApprovement(n.id)">
+                      <img src="assets/icons/icon_close.png" width="35">
+                    </div>
+                </div>
+              <!-- <button class="btn btn-danger btn-sm" (click)="removeFromApprovement(n.id)"> X</button> -->
             </td>
           </tr>
         </ng-container>
         </tbody>
+        </div>
         <!--Table body-->
       </table>
       <!--Table-->
     </div>
   </div>
 </mdb-card>
-
+</div>
 
 <!-- <app-menu></app-menu>
 

@@ -1,18 +1,24 @@
 package ua.ita.smartcarservice.entity.sensors.common;
 
 public enum Tires {
-    FRONT_LEFT("frontLeft"),
-    FRONT_RIGHT("frontRight"),
-    BACK_LEFT("backLeft"),
-    BACK_RIGHT("backRight");
+    FRONT_LEFT("frontLeft", "valueFrontLeft"),
+    FRONT_RIGHT("frontRight", "valueFrontRight"),
+    BACK_LEFT("backLeft", "valueBackLeft"),
+    BACK_RIGHT("backRight", "valueBackRight");
 
-    private String tire;
+    private String name;
+    private String value;
 
-    private Tires(String tire) {
-        this.tire = tire;
+    private Tires(String name, String value) {
+        this.name = name;
+        this.value = value;
     }
 
     public String toString() {
-        return tire;
+        return value;
+    }
+
+    public String getName() {
+        return name;
     }
 }

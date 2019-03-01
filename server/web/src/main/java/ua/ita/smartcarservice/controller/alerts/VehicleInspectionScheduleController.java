@@ -31,31 +31,6 @@ public class VehicleInspectionScheduleController {
 	@Autowired
 	private FaultCodeService faultCodeService;
 
-	@Scheduled(cron = "0 0 8 * * *", zone="Europe/Athens")
-	public void getCarsForYearlyInspection() {
-		List<NotificationsDto> toSave = new ArrayList<>();
-
-		/* cars for yearly inspection */
-		FaultCodeDto yearlyInspection = faultCodeService.getFaultCode("yearly-inspection");
-		List<VehicleInspectionDto> viDto =
-				vehicleInspectionService.getCarsForYearlyInspection();
-		for (VehicleInspectionDto inspection : viDto) {
-			toSave.add(new NotificationsDto(yearlyInspection, inspection));
-		}
-
-		/* users to warn by car mileage */
-		FaultCodeDto mileageInspection = faultCodeService.getFaultCode("mileage-inspection");
-		List<CarDto> inspectionsMileage =
-				vehicleInspectionService.getCarsForVehicleInspectionByMileage();
-		for (CarDto car : inspectionsMileage) {
-			toSave.add(new NotificationsDto(mileageInspection, car));
-		}
-
-		if (!toSave.isEmpty()) {
-			notificationService.saveAllNotifications(toSave);
-		}
-	}
-
 	@PostMapping("/api/inspection")
 	public void createVehicleInspection (@RequestParam(value = "dateOfInspection") Date dateOfInspection,
 										 @RequestParam(value = "mileageOfCar") Integer mileageOfCar,

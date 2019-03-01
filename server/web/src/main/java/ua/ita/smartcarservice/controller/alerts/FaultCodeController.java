@@ -1,6 +1,8 @@
 package ua.ita.smartcarservice.controller.alerts;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +14,16 @@ import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.alerts.FaultCodeService;
 import ua.ita.smartcarservice.service.alerts.NotificationService;
 
+import java.lang.invoke.MethodHandles;
+
 @RestController
 @RequestMapping("/api")
 public class FaultCodeController {
+
+	private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+
+	@Autowired
+	private SimpMessagingTemplate template;
 
 	@Autowired
 	private FaultCodeService faultCodeService;
@@ -34,8 +43,9 @@ public class FaultCodeController {
 			CarDto car = carService.findByVin(vinNumber);
 			NotificationsDto toSave = new NotificationsDto(faultCode, car);
 			notificationsService.saveNotification(toSave);
+			template.convertAndSend("/notifications", toSave);
 		} catch (Exception e) {
-			System.out.println("FaultCode error: " + e.getMessage());
+			logger.error("Error! Cannot add notification while handling fault code received from car: " + e.getMessage());
 		}
 	}
 }

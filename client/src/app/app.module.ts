@@ -22,6 +22,7 @@ import {UsersComponent} from './users/users.component';
 import {InfoComponent} from './info/info.component';
 import {CarProfileComponent} from './car-profile/car-profile.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import {NotificationsService} from  './notifications/notifications.service';
 import {NotificationsApprovementComponent} from './notifications/notifications-approvement/notifications-approvement.component';
 import {NotificationsListComponent} from './notifications/notifications-list/notifications-list.component';
 import {MapComponent} from './techservice/map/map.component';
@@ -39,7 +40,9 @@ import { DealercarsComponent } from './dealer/dealercars/dealercars.component';
 import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
+import { PreviewComponent } from './preview/preview.component';
 import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
+
 
 @NgModule({
   declarations: [
@@ -71,7 +74,9 @@ import { ServicesFeedbackPageComponent } from './services-feedback-page/services
     DealerstosComponent,
     TradesinComponent,
     TradeInComponent,
+    PreviewComponent,
     ServicesFeedbackPageComponent
+
   ],
   imports: [
     BrowserModule,
@@ -86,7 +91,9 @@ import { ServicesFeedbackPageComponent } from './services-feedback-page/services
     ChartPageModule,
     SecurityModule
   ],
-  providers: [],
+  providers: [
+    //NotificationsService
+  ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [SecurityModule]
