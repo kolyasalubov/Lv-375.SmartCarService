@@ -17,13 +17,15 @@ public class DealerEntity {
     public DealerEntity() {
     }
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dealerId;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userEntity;
 
     @Column(length = 100, nullable = false, unique = false)
     private String dealerName;

@@ -49,18 +49,26 @@ public class TradeInServiceImpl implements TradeInService {
     }
 
     @Override
-    public List<TradeIn> tradesIn(DealerEntity dealerEntity) {
-        return tradeInRepository.findAllByDealerAndIsactive(dealerEntity,"active");
+    public List<TradeIn> tradesIn(String username) {
+        return tradeInRepository.findAllByDealerAndIsactive(dealerRepository.findByUserEntity_Username(username),"active");
     }
 
     @Override
-    public List<TradeInDto> tradeinDtos(DealerEntity dealerEntity) {
+    public List<TradeInDto> tradeinDtos(String username) {
         List<TradeInDto> tradeInDtos = new ArrayList<>();
 
-        List<TradeIn> tradeIns = tradesIn(dealerEntity);
+        List<TradeIn> tradeIns = tradesIn(username);
         for (TradeIn tradeIn:tradeIns) {
-
-            tradeInDtos.add(new TradeInDto());
+       tradeInDtos.add(new TradeInDto(tradeIn.getId(),
+               userRepository.getUserById(tradeIn.getIdUser()).getFullName(),
+               userRepository.getUserById(tradeIn.getIdUser()).getEmail(),
+               userRepository.getUserById(tradeIn.getIdUser()).getNumberPhone(),
+               carRepository.findByVin(tradeIn.getVinNewCar()).getModel(),
+               carRepository.findByVin(tradeIn.getVinNewCar()).getBrand(),
+               carRepository.findByVin(tradeIn.getVinNewCar()).getPrice(),
+               carRepository.findByVin(tradeIn.getVinUsedCar()).getModel(),
+               carRepository.findByVin(tradeIn.getVinUsedCar()).getBrand()
+                             ));
         }
 
         return tradeInDtos;
