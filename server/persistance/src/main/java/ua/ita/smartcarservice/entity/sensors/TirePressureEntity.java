@@ -27,10 +27,10 @@ public class TirePressureEntity extends BaseSensorEntity implements ISensorEntit
 
     public ISensorEntity setValues(ISensorEntity entity, Map<String, Double> values) {
         TirePressureEntity iEntity = (TirePressureEntity) entity;
-        iEntity.setValueBackRight(values.get(Tires.BACK_RIGHT.toString()));
-        iEntity.setValueBackLeft(values.get(Tires.BACK_LEFT.toString()));
-        iEntity.setValueFrontRight(values.get(Tires.FRONT_RIGHT.toString()));
-        iEntity.setValueFrontLeft(values.get(Tires.FRONT_LEFT.toString()));
+        iEntity.setValueBackRight(values.get(Tires.BACK_RIGHT.getName()));
+        iEntity.setValueBackLeft(values.get(Tires.BACK_LEFT.getName()));
+        iEntity.setValueFrontRight(values.get(Tires.FRONT_RIGHT.getName()));
+        iEntity.setValueFrontLeft(values.get(Tires.FRONT_LEFT.getName()));
 
         return iEntity;
     }

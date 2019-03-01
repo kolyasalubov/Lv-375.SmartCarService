@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.feedback.ServicesFeedback;
@@ -17,6 +18,12 @@ public class TechnicalServiceEntity {
     public TechnicalServiceEntity() {
     }
 
+    public TechnicalServiceEntity(String name, String address, DealerEntity dealerEntity) {
+        this.name = name;
+        this.address = address;
+        this.dealer = dealerEntity;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long technicalServiceId;
@@ -28,14 +35,17 @@ public class TechnicalServiceEntity {
     private String address;
 
 
+    @ManyToOne
+    @JoinColumn(name = "dealer_id", nullable = true)
+    private DealerEntity dealer;
+
+
     @OneToMany(mappedBy = "technicalServiceId", orphanRemoval = true)
     private List<UserTechnicalService> userTechnicalServices;
-
-    @ManyToOne
-    @JoinColumn(name = "dealerEntity")
-    private DealerEntity dealerEntity;
 
     @JsonIgnore
     @OneToMany(mappedBy = "serviceId")
     Set<ServicesFeedback> servicesFeedback;
+
+
 }

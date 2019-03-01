@@ -15,11 +15,14 @@ import ua.ita.smartcarservice.entity.feedback.WorkersRatings;
 import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.service.booking.WorkDependencyService;
 import ua.ita.smartcarservice.service.feedback.WorkersRatingsService;
+import ua.ita.smartcarservice.service.impl.booking.WorkInfo;
 import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class WorkerController {
@@ -41,17 +44,17 @@ public class WorkerController {
     @PostMapping("/api/workerbycar")
     public ResponseEntity <WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                             workerWithSkillDto) {
-        HashMap <String, List <WorkerDto>> workersBySkillName = new HashMap <>();
 
-        int requiredTime = workDependencyService.findRequiredTime(workerWithSkillDto.getWorkName());
+        WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorkName());
 
-        workerWithSkillDto.getSkillName()
-                .forEach(s -> workersBySkillName.put(s,
-                        workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId())));
+        Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillName().stream().collect(
+                Collectors.toMap(Function.identity(), s->workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()))
+        );
 
         WorkerBySkillNameDto workerBySkillNameDto = new WorkerBySkillNameDto();
         workerBySkillNameDto.setWorkerList(workersBySkillName);
-        workerBySkillNameDto.setRequiredTime(requiredTime);
+        workerBySkillNameDto.setRequiredTime(workInfo.getRequiredTime());
+        workerBySkillNameDto.setWorkInfo(workInfo.getWorkInfo());
 
         return new ResponseEntity <>(workerBySkillNameDto, HttpStatus.OK);
     }

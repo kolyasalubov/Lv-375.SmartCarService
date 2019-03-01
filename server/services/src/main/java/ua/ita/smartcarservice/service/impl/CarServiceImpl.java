@@ -3,11 +3,13 @@ package ua.ita.smartcarservice.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.CarDto;
+import ua.ita.smartcarservice.dto.NewCarDTO;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.exceptions.CarRegisteredAlreadyExсeption;
 import ua.ita.smartcarservice.repository.CarRepository;
-import ua.ita.smartcarservice.repository.Sales.DealerEntityRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
+import ua.ita.smartcarservice.repository.sales.DealerEntityRepository;
 import ua.ita.smartcarservice.service.CarService;
 
 import java.util.ArrayList;
@@ -24,6 +26,24 @@ public class CarServiceImpl implements CarService {
 
     @Autowired
     private DealerEntityRepository dealerRepository;
+
+    public void addCar(NewCarDTO newCarDTO, String username) {
+        UserEntity carOwner = this.userRepository.findByUsername(username).get();
+
+        if (carRepository.findByNumber(newCarDTO.getNumber()) == null && carRepository.findByVin(newCarDTO.getVin()) == null) {
+            Car car = new Car();
+            car.setBrand(newCarDTO.getBrand());
+            car.setModel(newCarDTO.getModel());
+            car.setGraduation_year(newCarDTO.getGraduation_year());
+            car.setNumber(newCarDTO.getNumber());
+            car.setVin(newCarDTO.getVin());
+            car.setUser(carOwner);
+
+            carRepository.save(car);
+        } else {
+            throw new CarRegisteredAlreadyExсeption();
+        }
+    }
 
     //for used car
     public void create(String brand, String model, String graduation_year, String number, String vin, String username) {
@@ -126,6 +146,51 @@ public class CarServiceImpl implements CarService {
                 carDto.getVin(),
                 carDto.getCarOwner());
         return car;
+    }
+    @Override
+    public List<CarDto> findAllDealersCars() {
+        List<CarDto>carDtos=new ArrayList<>();
+
+        List<Car>carList=carRepository.findAll();
+
+        for(Car car:carList){
+
+            if(car.getUser()==null ){
+                carDtos.add(getCarDto(car));
+            }
+
+        }
+
+        return carDtos;
+    }
+    @Override
+    public List<CarDto> findByDealerEdr(String edr) {
+        List<CarDto>carDtos=new ArrayList<>();
+
+        for (Car car:carRepository.findAll()){
+            carDtos.add(getCarDto(car));
+        }
+        return carDtos;
+    }
+    public void createByDealer(String brand, String model, String graduation_year, String number,Double price, String vin, String username) {
+
+        Car car=new Car();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setGraduation_year(graduation_year);
+        car.setNumber(number);
+        car.setPrice(price);
+        car.setVin(vin);
+        car.setDealer(dealerRepository.findByUserEntity_Username(username));
+        carRepository.save(car);
+    }
+    @Override
+    public List<CarDto> findbyUserLogin(String login) {
+        List<CarDto> carDtos = new ArrayList<>();
+        for (Car car : carRepository.findAllByDealer(dealerRepository.findByUserEntity_Username(login))) {
+            carDtos.add(getCarDto(car));
+        }
+        return carDtos;
     }
 
 }

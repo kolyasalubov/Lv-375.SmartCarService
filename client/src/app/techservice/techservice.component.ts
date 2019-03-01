@@ -65,8 +65,8 @@ export class TechserviceComponent implements OnInit {
 
   deleteTechservice() {
     this.techserviceService.deleteTechservice(this.techservice.stoId)
-    .subscribe();
-    this.techservice = this.techserviceStub;
+    .subscribe(()=>{
+      this.techservice = new Techservice();
+    }); 
   }
-
 }

@@ -16,12 +16,12 @@
                     <label for="form59" style="margin-left: 12px; margin-top: 68px;">Address (pick on map)</label>
                     <br>   
                     <div *ngIf="techservice.stoId < 0">
-                        <button (click)="createTechservice(techservice, user)" type="button" mdbBtn block="true" color="dark" mdbWavesEffect>Create Technical Service</button>
+                        <button [disabled]="!techservice.name && !techservice.address" (click)="createTechservice(techservice, user)" type="button" mdbBtn block="true" style="background-color:#336B87; color: white;" mdbWavesEffect>Create Technical Service</button>
                     </div>    
             
                     <div *ngIf="techservice.stoId > 0" class="row">
                         <div class="col">
-                            <button (click)="updateTechservice(techservice)" type="button" block="true" style="background-color:#336B87; color: white;" mdbWavesEffec mdbBtn>Update Info</button>
+                            <button [disabled]="!techservice.name" (click)="updateTechservice(techservice)" type="button" block="true" style="background-color:#336B87; color: white;" mdbWavesEffec mdbBtn>Update Info</button>
                         </div>
             
                         <div class="col">

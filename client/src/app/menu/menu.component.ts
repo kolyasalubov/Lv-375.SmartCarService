@@ -3,6 +3,8 @@ import { TokenStorageService } from '../auth/token-storage.service';
 import { User } from '../users/user';
 import { UsersService } from '../users/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TechserviceService } from '../techservice/techservice.service';
+import { Techservice } from '../techservice/techservice';
 
 import { Notifications } from '../notifications/notifications';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -17,14 +19,17 @@ export class MenuComponent implements OnInit {
   private roles: String[];
   private authority: String;
   private username: String;
-  user: User;
+  private techservice: Techservice = new Techservice();
+  user: User = new User(null, null, null, null, null, null);
   private notificationsOpen: boolean;
+
   notifications: Notifications[];
 
-  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private router: Router,
+  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private techserviceService: TechserviceService, private router: Router, 
     private notificationsService: NotificationsService) { }
 
   ngOnInit() {
+    
     this.notificationsOpen = false;
     this.username = this.tokenStorage.getUsername();
 
@@ -74,6 +79,32 @@ export class MenuComponent implements OnInit {
   logout(){
     this.tokenStorage.signOut();
     window.location.href='/ui/auth/login';
+    }
+  goToDealerinfo(){
+
+    this.router.navigate(['/ui/dealer']);
+
+  }
+  goToDealerCars(){
+    this.router.navigate(['/ui/dealercars']);
+  }
+  addCarToDealer(){
+
+    this.router.navigate(['/ui/addDealerCar']);
+
   }
 
+  goToServicesFeedback() {
+    this.getTechservice(this.user);
+  }
+
+  getTechservice(user: User):any {
+    this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
+    .subscribe(data => {if (data!=null) {
+                          this.techservice = data;
+                          console.log(this.techservice);
+                          this.router.navigate(['/ui/techservice/' + this.techservice.stoId + '/feedback'])
+                          }
+                        });
+  }
 }

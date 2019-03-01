@@ -9,7 +9,6 @@ import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.alerts.FaultCodeDto;
 import ua.ita.smartcarservice.dto.alerts.NotificationsDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
-import ua.ita.smartcarservice.entity.alerts.FaultCode;
 import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.SensorService;

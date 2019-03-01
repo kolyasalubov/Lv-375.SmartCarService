@@ -6,6 +6,7 @@ import { NewBooking } from './new-booking';
 import { error } from '@angular/compiler/src/util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingInfo } from './booking-info';
+import { WorkInfo } from '../worker-list/work-info';
 
 @Component({
   selector: 'app-time-list',
@@ -18,7 +19,7 @@ export class TimeListComponent implements OnInit {
   carId : number;
 
   @Input()
-  requiredTime : number;
+  workInfo : Array<WorkInfo>;
 
   @Input()
   timeList : TimeList;
@@ -56,29 +57,16 @@ export class TimeListComponent implements OnInit {
     //return work.length == 0;
   }
 
-  chooseDate(start : string){
-    if(this.newBooking == undefined){
-      this.newBooking = new NewBooking();
-    }
-    if(this.newBooking.start == start){
-      this.newBooking = new NewBooking();
-      return;
-    }
-    this.newBooking.start = start;
-    this.newBooking.requiredTime = this.requiredTime;
-    this.newBooking.workerId = this.timeList.workerId;
-    this.newBooking.carId = this.carId;
-    console.log(this.newBooking);
-  }
   postBooking(){
-    if(this.newBooking != undefined){
-        this.timeListServices.postNewBooking(this.newBooking)
+    let newBooking: NewBooking = new NewBooking();
+    newBooking.carId = this.carId;
+    newBooking.start = this.bookingInfo.startBooking;
+    newBooking.workInfo = this.workInfo;
+    newBooking.workerId = this.timeList.workerId;
+    
+        this.timeListServices.postNewBooking(newBooking)
         .subscribe((date) => this.postBookingStatusCode = date,
         error => this.error = error);
-  }
-    else{
-      this.postBookingStatusCode = 404;
-    }
 }
 goToHomePage() {
   this.router.navigate(['ui/home']);

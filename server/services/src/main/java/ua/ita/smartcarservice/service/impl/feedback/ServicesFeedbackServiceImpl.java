@@ -3,7 +3,7 @@ package ua.ita.smartcarservice.service.impl.feedback;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackDto;
+import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackOutputDto;
 import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackInputDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.feedback.ServicesFeedback;
@@ -61,35 +61,35 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
     }
 
     @Override
-    public List<ServicesFeedbackDto> getServicesFeedback(Long serviceId) {
-        List<ServicesFeedbackDto> servicesFeedbackDtoList = new ArrayList<>();
+    public List<ServicesFeedbackOutputDto> getServicesFeedback(Long serviceId) {
+        List<ServicesFeedbackOutputDto> servicesFeedbackOutputDtoList = new ArrayList<>();
         List<ServicesFeedback> servicesFeedbackEntityList;
         TechnicalServiceEntity technicalServiceEntity;
 
         technicalServiceEntity = technicalServiceRepository.getOne(serviceId);
-        servicesFeedbackEntityList = servicesFeedbackRepository.getByServiceId(technicalServiceEntity);
+        servicesFeedbackEntityList = servicesFeedbackRepository.getByServiceIdOrderByTimeAsc(technicalServiceEntity);
 
         servicesFeedbackEntityList.parallelStream().forEach(eachEntity -> {
-            servicesFeedbackDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));
+            servicesFeedbackOutputDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));
         });
 
-        return servicesFeedbackDtoList;
+        return servicesFeedbackOutputDtoList;
     }
 
     @Override
-    public List<ServicesFeedbackDto> getUsersFeedback(String username) {
-        List<ServicesFeedbackDto> servicesFeedbackDtoList = new ArrayList<>();
+    public List<ServicesFeedbackOutputDto> getUsersFeedback(String username) {
+        List<ServicesFeedbackOutputDto> servicesFeedbackOutputDtoList = new ArrayList<>();
         List<ServicesFeedback> servicesFeedbackEntityList;
         UserEntity userEntity;
 
         userEntity = userRepository.getByUsername(username);
-        servicesFeedbackEntityList = servicesFeedbackRepository.getByUserId(userEntity);
+        servicesFeedbackEntityList = servicesFeedbackRepository.getByUserIdOrderByTimeAsc(userEntity);
 
         servicesFeedbackEntityList.parallelStream().forEach(eachEntity -> {
-            servicesFeedbackDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));
+            servicesFeedbackOutputDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));
         });
 
-        return servicesFeedbackDtoList;
+        return servicesFeedbackOutputDtoList;
     }
 
     @Override
@@ -104,10 +104,10 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
         return rating;
     }
 
-    private ServicesFeedbackDto getServicesFeedbackDtoFromEntity(ServicesFeedback servicesFeedbackEntity) {
-        ServicesFeedbackDto servicesFeedbackDto;
+    private ServicesFeedbackOutputDto getServicesFeedbackDtoFromEntity(ServicesFeedback servicesFeedbackEntity) {
+        ServicesFeedbackOutputDto servicesFeedbackOutputDto;
 
-        servicesFeedbackDto = new ServicesFeedbackDto(
+        servicesFeedbackOutputDto = new ServicesFeedbackOutputDto(
                 servicesFeedbackEntity.getId(),
                 servicesFeedbackEntity.getText(),
                 servicesFeedbackEntity.getTime().format(ISO_LOCAL_DATE),
@@ -115,7 +115,7 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
                 servicesFeedbackEntity.getServiceId().getName()
         );
 
-        return servicesFeedbackDto;
+        return servicesFeedbackOutputDto;
     }
 
 }

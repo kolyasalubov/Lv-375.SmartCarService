@@ -1,10 +1,10 @@
-INSERT INTO skills(name, required_time) VALUES('Service Technician', 2);
-INSERT INTO skills(name, required_time) VALUES('Diagnostic Technician', 3);
-INSERT INTO skills(name, required_time) VALUES('Transmission Technician', 4);
-INSERT INTO skills(name, required_time) VALUES('Brake Technician', 2);
-INSERT INTO skills(name, required_time) VALUES('Body Repair Technician', 5);
-INSERT INTO skills(name, required_time) VALUES('Vehicle Refinisher', 3);
-INSERT INTO skills(name, required_time) VALUES('Vehicle Inspector', 5);
+INSERT INTO skills(name) VALUES('Service Technician');
+INSERT INTO skills(name) VALUES('Diagnostic Technician');
+INSERT INTO skills(name) VALUES('Transmission Technician');
+INSERT INTO skills(name) VALUES('Brake Technician');
+INSERT INTO skills(name) VALUES('Body Repair Technician');
+INSERT INTO skills(name) VALUES('Vehicle Refinisher');
+INSERT INTO skills(name) VALUES('Vehicle Inspector');
 
 
 INSERT INTO role(name) VALUES('ROLE_CAR_OWNER');

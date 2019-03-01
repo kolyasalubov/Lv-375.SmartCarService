@@ -20,9 +20,9 @@ export class ChartService {
   constructor(private http: HttpClient) {
   }
 
-  public getChartData(sensorType: string, carId: number, period: string, date: Date = new Date()) {
-    let dateDto: DateDto = new DateDto(sensorType, carId, this.newDateInMySqlString(date));
-    return this.getDataFromDB(dateDto, this.URL + period);
+  public getChartData(sensorType: string, carId: number, selection: string, date: Date = new Date()) {
+    let dateDto: DateDto = new DateDto(sensorType, carId, this.newDateInMySqlString(date), selection);
+    return this.getDataFromDB(dateDto, this.URL);
   }
 
   private newDateInMySqlString(date: Date): string {
@@ -34,7 +34,8 @@ export class ChartService {
     this.httpOptions.params = new HttpParams()
       .set("sensorType", dateDto.sensorType)
       .set("carId", String(dateDto.carId))
-      .set("date", dateDto.date);
+      .set("date", dateDto.date)
+      .set("selection", dateDto.selection);
 
     return this.http.get<ChartDto>(url, this.httpOptions);
   }

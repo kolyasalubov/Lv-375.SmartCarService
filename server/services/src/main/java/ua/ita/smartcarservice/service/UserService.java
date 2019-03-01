@@ -22,4 +22,9 @@ public interface UserService {
 
     UserEntity findUser (String userName);
 
+    UserEntity findByUserName(String username);
+
+    UserEntity findById(Long id);
+
+
 }
