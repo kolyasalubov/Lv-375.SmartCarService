@@ -23,12 +23,41 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     SensorEntityFactory entityFactory;
 
     private CriteriaBuilder builder;
+    private CriteriaQuery criteria;
+    private Class entityClass;
+    private Root root;
 
     private Path<String> datePath;
     private Map<String, Path<Double>> valuePath;
     private Path<Car> carIdPath;
 
     private String selection;
+
+    private void initCriteria(String sensorType) {
+        builder = entityManager.getCriteriaBuilder();
+        entityClass = entityFactory.getEntity(sensorType).getClass();
+        criteria = builder.createQuery(entityClass);
+        root = criteria.from(entityClass);
+    }
+
+    @Override
+//    @Query("SELECT t.value FROM #{#entityName} t WHERE t.id = " +
+//            "(SELECT MAX(e.id) FROM #{#entityName} e " +
+//            "WHERE e.car.id = :carId)")
+    public Double findLastRecordValue(@Param("carId") long carId,
+                                      @Param("sensorType") String sensorType) {
+        initCriteria(sensorType);
+
+        Subquery subquery = criteria.subquery(entityClass);
+        Root fromSubquery = subquery.from(entityClass);
+        subquery.select(builder.max(fromSubquery.get("id")));
+        subquery.where(builder.equal(fromSubquery.get("car").get("id"), carId));
+
+        criteria.select(root.get("value"));
+        criteria.where(builder.equal(root.get("id"), subquery));
+
+        return (Double) entityManager.createQuery(criteria).getResultList().get(0);
+    }
 
     @Override
     public List<Object[]> findAllDataByPeriod(@Param("date") LocalDateTime date,
@@ -37,11 +66,8 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
                                               @Param("selection") String selection) {
 
         this.selection = selection;
-
-        builder = entityManager.getCriteriaBuilder();
-        Class entityClass = entityFactory.getEntity(sensorType).getClass();
-        CriteriaQuery criteria = builder.createQuery(entityClass);
-        initPaths(criteria.from(entityClass), sensorType);
+        initCriteria(sensorType);
+        initPaths(root, sensorType);
 
 
         Expression selectedPeriod = getSelectedPeriod();
