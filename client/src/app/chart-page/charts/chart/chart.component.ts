@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 import {ChartService} from './chart.service';
 import {ChartDto} from './chart-dto';
@@ -12,7 +12,7 @@ import COLORS from '../../colors';
   styleUrls: ['./chart.component.scss'],
   providers: [ChartService]
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent {
 
   @Input()
   sensorType: string;
@@ -34,13 +34,6 @@ export class ChartComponent implements OnInit {
 
 
   constructor(private chartService: ChartService) {
-  }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    this.setBackgroundColor(`Day_${this.sensorType}`, COLORS.get('LIGHT_BTN'));
   }
 
   // *****
@@ -74,6 +67,7 @@ export class ChartComponent implements OnInit {
 
   initCharts(): void {
     this.getChartDto(this.period + this.selection);
+    this.setBackgroundColor(`Day_${this.sensorType}`, COLORS.get('LIGHT_BTN'));
   }
 
   changePeriod(period: string): void {

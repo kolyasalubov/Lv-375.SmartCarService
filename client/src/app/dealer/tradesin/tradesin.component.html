@@ -1,3 +1,23 @@
-<p>
-  tradesin works!
-</p>
+<br><br><br><br>
+<div class="container-fluid" *ngFor="let tradein of allTradeIn">
+  <!--{{allTradeIn | json}}-->
+
+  <ul>
+    <h3> Info </h3>
+    <div class="points" >
+      <li> userFullName : {{tradein.userFullName}} </li>
+      <li> id : {{tradein.id}} </li>
+      <li> userEmail : {{tradein.userEmail}} </li>
+      <li> userPhone : {{tradein.userPhone}} </li>
+      <li> newCarModel : {{tradein.newCarModel}} </li>
+      <li> newCarBrand : {{tradein.newCarBrand}} </li>
+      <li> newCarPrice : {{tradein.newCarPrice}} </li>
+      <li> usedCarModel : {{tradein.usedCarModel}} </li>
+      <li> usedCarBrand : {{tradein.usedCarBrand}} </li>
+    </div>
+    <br>
+    <button class="btn btn-outline my-2 my-sm-0"  style="background-color: #c5001a">Delete <i class="fa fa-trash-o" aria-hidden="true">OkOKOK</i></button>
+  </ul>
+
+</div>
+<br><br>

@@ -17,7 +17,7 @@ export class ProgressChartComponent implements OnInit {
 
   chartService: ChartService;
 
-  private percent: number;
+  private percent: number = 100;
 
   constructor(private http: HttpClient) {
     this.chartService = new ChartService(http);
