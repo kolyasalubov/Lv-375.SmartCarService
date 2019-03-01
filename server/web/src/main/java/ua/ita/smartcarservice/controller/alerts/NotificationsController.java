@@ -12,6 +12,8 @@ import java.util.List;
 @RequestMapping({"/api/notifications"})
 public class NotificationsController {
 
+	private final boolean NOT_VISIBLE = false;
+
 	@Autowired
 	private NotificationService notificationsService;
 
@@ -27,11 +29,11 @@ public class NotificationsController {
 		notificationsService.deleteNotificationById(id);
 	}
 
-	/* Method for changing visibility of Notification from true to false */
+	/* Method for disabling Notification */
 	@PostMapping(path ={"/{id}"})
 	public void updateNotification (@PathVariable("id") Long id) {
 		NotificationsDto dto = notificationsService.getNotification(id);
-		dto.setIsVisible(false);
+		dto.setIsVisible(NOT_VISIBLE);
 		notificationsService.updateNotification(dto);
 	}
 }
