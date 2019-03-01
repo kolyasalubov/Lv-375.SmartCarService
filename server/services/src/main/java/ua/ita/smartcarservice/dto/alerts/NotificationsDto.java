@@ -24,36 +24,36 @@ public class NotificationsDto {
 	private Boolean isVisible;
 	private Long carId;
 	private Long userId;
-	private Long skillId;
+	private Long workTypeId;
 
 	/* to save Notification in method getCarsForYearlyInspetion */
-	public NotificationsDto(FaultCodeDto faultCode, VehicleInspectionDto vehicleInspection) {
+	public NotificationsDto(AlertsDto alertsDto, VehicleInspectionDto vehicleInspection) {
 		this.message = vehicleInspection.getCar().getBrand() + " "
 				+ vehicleInspection.getCar().getModel() + ": "
-				+ faultCode.getDescription();
-		this.suggestion = faultCode.getSuggestion();
+				+ alertsDto.getDescription();
+		this.suggestion = alertsDto.getSuggestion();
 		this.notificationTime = new Timestamp(System.currentTimeMillis());
-		this.type = faultCode.getType();
+		this.type = alertsDto.getAlertType();
 		this.isVisible = true;
 		this.carId = vehicleInspection.getCar().getId();
 		this.userId = vehicleInspection.getCar().getUser().getId();
-		this.skillId = faultCode.getSkill().getSkillId();
+		this.workTypeId = alertsDto.getWorkType().getWorkId();
 	}
 
 	/* to save notification for user */
-	public NotificationsDto(FaultCodeDto faultCode, CarDto car) {
-		this.message = car.getBrand() + " " + car.getModel() + ": " + faultCode.getDescription();
-		this.suggestion = faultCode.getSuggestion();
+	public NotificationsDto(AlertsDto alertsDto, CarDto car) {
+		this.message = car.getBrand() + " " + car.getModel() + ": " + alertsDto.getDescription();
+		this.suggestion = alertsDto.getSuggestion();
 		this.notificationTime = new Timestamp(System.currentTimeMillis());
-		this.type = faultCode.getType();
+		this.type = alertsDto.getAlertType();
 		this.isVisible = true;
 		this.carId = car.getId();
 		this.userId = car.getCarOwner().getId();
-		this.skillId = faultCode.getSkill() == null ? null : faultCode.getSkill().getSkillId();
+		this.workTypeId = alertsDto.getWorkType() == null ? null : alertsDto.getWorkType().getWorkId();
 	}
 
 	public NotificationsDto(Long id, String message, String suggestion, Timestamp notificationTime,
-							String type, Boolean isVisible, Long carId, Long userId, Long skillId) {
+							String type, Boolean isVisible, Long carId, Long userId, Long workTypeId) {
 		this.id = id;
 		this.message = message;
 		this.suggestion = suggestion;
@@ -62,6 +62,6 @@ public class NotificationsDto {
 		this.isVisible = isVisible;
 		this.carId = carId;
 		this.userId = userId;
-		this.skillId = skillId;
+		this.workTypeId = workTypeId;
 	}
 }
