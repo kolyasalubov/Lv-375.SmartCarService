@@ -42,6 +42,7 @@ import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
+import { ProgresbarComponent } from './progresbar/progresbar.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { ServicesFeedbackPageComponent } from './services-feedback-page/services
     TradesinComponent,
     TradeInComponent,
     PreviewComponent,
-    ServicesFeedbackPageComponent
+    ServicesFeedbackPageComponent,
+    ProgresbarComponent
 
   ],
   imports: [
