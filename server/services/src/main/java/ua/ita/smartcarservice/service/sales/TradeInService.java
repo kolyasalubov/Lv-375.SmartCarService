@@ -27,8 +27,9 @@ void createTradeIn(CreateTraidInDto traidInDto);
 
 void create(String vinNewCar,String vinUsedCar);
 
-List<TradeIn>tradesIn(DealerEntity dealerEntity);
+List<TradeIn>tradesIn(String username);
 
-List<TradeInDto>tradeinDtos(DealerEntity dealerEntity);
+List<TradeInDto>tradeinDtos(String username);
+
 
 }

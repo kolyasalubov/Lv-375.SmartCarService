@@ -25,11 +25,7 @@ show: boolean;
     this.dealerService.getDealer(this.username).
     subscribe(data => this.mydealer=data);
 
-
-
    }
-
-
   createDealer(){
     console.log(this.mydealer);
     this.dealerService.createDealer(this.mydealer,this.username).subscribe();
