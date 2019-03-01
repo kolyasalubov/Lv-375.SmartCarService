@@ -9,6 +9,7 @@ import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.dto.sales.DealerDto;
 import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
+import ua.ita.smartcarservice.dto.sales.TradeInDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.service.CarService;
@@ -17,6 +18,7 @@ import ua.ita.smartcarservice.service.sales.DealerService;
 import ua.ita.smartcarservice.service.sales.TradeInService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -180,4 +182,9 @@ public class DealerController {
 
     }
 
+//    @GetMapping("api/dealer/getAllTradeIn/{username}")
+//    public  ResponseEntity<List<TradeInDto>> getAllDealersTradeIn(@PathVariable String username){
+//        List<TradeInDto>tradeInDtos=tradeInService.tradeinDtos(username);
+//        return new ResponseEntity<>(tradeInDtos, HttpStatus.OK);
+//    }
 }

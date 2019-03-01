@@ -39,7 +39,9 @@ import { DealercarsComponent } from './dealer/dealercars/dealercars.component';
 import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
+import { PreviewComponent } from './preview/preview.component';
 import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
+
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { ServicesFeedbackPageComponent } from './services-feedback-page/services
     DealerstosComponent,
     TradesinComponent,
     TradeInComponent,
+    PreviewComponent,
     ServicesFeedbackPageComponent
+
   ],
   imports: [
     BrowserModule,
