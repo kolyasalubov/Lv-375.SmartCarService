@@ -22,6 +22,7 @@ import {UsersComponent} from './users/users.component';
 import {InfoComponent} from './info/info.component';
 import {CarProfileComponent} from './car-profile/car-profile.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
+import {NotificationsService} from  './notifications/notifications.service';
 import {NotificationsApprovementComponent} from './notifications/notifications-approvement/notifications-approvement.component';
 import {NotificationsListComponent} from './notifications/notifications-list/notifications-list.component';
 import {MapComponent} from './techservice/map/map.component';
@@ -70,7 +71,9 @@ import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.co
     ChartPageModule,
     SecurityModule
   ],
-  providers: [],
+  providers: [
+    //NotificationsService
+  ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [SecurityModule]
