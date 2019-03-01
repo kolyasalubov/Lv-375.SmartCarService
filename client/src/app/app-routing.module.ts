@@ -34,7 +34,7 @@ import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
-
+import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
 
 
 const routes: Routes = [
@@ -88,6 +88,10 @@ const routes: Routes = [
   {
     path: 'ui/techservice',
     component: TechserviceComponent
+  },
+  {
+    path: 'ui/techservice/:id/feedback',
+    component: ServicesFeedbackPageComponent
   },
   {
     path: 'ui/skills',

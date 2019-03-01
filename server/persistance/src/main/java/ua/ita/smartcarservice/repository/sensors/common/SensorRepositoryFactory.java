@@ -48,8 +48,9 @@ public class SensorRepositoryFactory {
     private Map<String, BasicSensorRepository<? extends BaseSensorEntity>> repositoryFactory = new HashMap<>();
 
     public BasicSensorRepository<? extends BaseSensorEntity> getRepository(String type) {
-        if (repositoryFactory.size() == 0)
+        if (repositoryFactory.size() == 0) {
             repositoryInit();
+        }
         return repositoryFactory.get(type);
     }
 

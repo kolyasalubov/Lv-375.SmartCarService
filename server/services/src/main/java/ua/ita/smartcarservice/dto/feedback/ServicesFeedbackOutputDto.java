@@ -1,17 +1,20 @@
 package ua.ita.smartcarservice.dto.feedback;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class ServicesFeedbackOutputDto {
-    Long id;
+    private Long id;
 
-    String text;
+    private String text;
 
-    String time;
+    private String time;
 
-    String fullName;
+    private String fullName;
 
-    String serviceName;
+    private String serviceName;
 
     public ServicesFeedbackOutputDto(Long id, String text, String time, String fullName, String serviceName) {
         this.id = id;

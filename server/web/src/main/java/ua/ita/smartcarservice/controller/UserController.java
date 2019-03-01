@@ -24,7 +24,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    ServicesFeedbackService servicesFeedbackService;
+    private ServicesFeedbackService servicesFeedbackService;
 
     private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
@@ -74,7 +74,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/api/users/{userName}/feedback")
+    @GetMapping("/users/{userName}/feedback")
     ResponseEntity<List<ServicesFeedbackOutputDto>> getAllUsersFeedback(@PathVariable String userName) {
         ResponseEntity<List<ServicesFeedbackOutputDto>> responseEntity;
 

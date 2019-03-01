@@ -67,7 +67,7 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
         TechnicalServiceEntity technicalServiceEntity;
 
         technicalServiceEntity = technicalServiceRepository.getOne(serviceId);
-        servicesFeedbackEntityList = servicesFeedbackRepository.getByServiceId(technicalServiceEntity);
+        servicesFeedbackEntityList = servicesFeedbackRepository.getByServiceIdOrderByTimeAsc(technicalServiceEntity);
 
         servicesFeedbackEntityList.parallelStream().forEach(eachEntity -> {
             servicesFeedbackOutputDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));
@@ -83,7 +83,7 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
         UserEntity userEntity;
 
         userEntity = userRepository.getByUsername(username);
-        servicesFeedbackEntityList = servicesFeedbackRepository.getByUserId(userEntity);
+        servicesFeedbackEntityList = servicesFeedbackRepository.getByUserIdOrderByTimeAsc(userEntity);
 
         servicesFeedbackEntityList.parallelStream().forEach(eachEntity -> {
             servicesFeedbackOutputDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));

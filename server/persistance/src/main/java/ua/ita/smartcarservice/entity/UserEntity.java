@@ -50,6 +50,10 @@ public class UserEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "worker")
 	Set<WorkTime> workTimes;
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
+	AvatarEntity avatar;
 /*
 	@JsonIgnore
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
