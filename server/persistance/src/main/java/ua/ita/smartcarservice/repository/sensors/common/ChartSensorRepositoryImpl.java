@@ -5,13 +5,12 @@ import org.springframework.data.repository.query.Param;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
+import ua.ita.smartcarservice.entity.sensors.common.Tires;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements ChartSensorRepository<T> {
 
@@ -24,7 +23,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     private CriteriaBuilder builder;
 
     private Path<String> datePath;
-    private Path<Double> valuePath;
+    private Map<String, Path<Double>> valuePath;
     private Path<Car> carIdPath;
 
     private String selection;
@@ -40,14 +39,14 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         builder = entityManager.getCriteriaBuilder();
         Class entityClass = entityFactory.getEntity(sensorType).getClass();
         CriteriaQuery criteria = builder.createQuery(entityClass);
-        initPaths(criteria.from(entityClass));
+        initPaths(criteria.from(entityClass), sensorType);
 
 
         Expression selectedPeriod = getSelectedPeriod();
-        Expression selectedValue = getSelectedValue();
         Predicate[] predicates = getPredicates(carId, date);
+        Expression[] selectionValues = getSelection(selectedPeriod, valuePath);
 
-        criteria.select(builder.array(selectedPeriod, selectedValue));
+        criteria.select(builder.array(selectionValues));
         criteria.where(predicates);
         criteria.groupBy(selectedPeriod);
         criteria.orderBy(builder.asc(datePath));
@@ -55,10 +54,26 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         return entityManager.createQuery(criteria).getResultList();
     }
 
-    private void initPaths(Root root) {
+    private void initPaths(Root root, String sensorType) {
         datePath = root.get("date");
-        valuePath = root.get("value");
         carIdPath = root.get("car").get("id");
+        initValuePath(root, sensorType);
+    }
+
+    private void initValuePath(Root root, String sensorType) {
+        valuePath = new HashMap<>();
+        Arrays.stream(getValuesNames(sensorType)).forEach((value) -> {
+            String key = value.toString();
+            valuePath.put(key, root.get(key));
+        });
+    }
+
+    private Object[] getValuesNames(String sensorType) {
+        if (sensorType.equals("tire pressure")) {
+            return Tires.values();
+        } else {
+            return new Object[]{"value"};
+        }
     }
 
     private Expression getSelectedPeriod() {
@@ -75,14 +90,21 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         return builder.function(part, Integer.class, datePath);
     }
 
-    private Expression getSelectedValue() {
+    private Expression getAggregatedValue(Path<Double> value) {
         if (selection.contains("min")) {
-            return builder.min(valuePath);
+            return builder.min(value);
         } else if (selection.contains("max")) {
-            return builder.max(valuePath);
+            return builder.max(value);
         } else {
-            return valuePath;
+            return value;
         }
+    }
+
+    private Expression[] getSelection(Expression selectedPeriod, Map<String, Path<Double>> values) {
+        List<Expression> list = new ArrayList<>();
+        list.add(selectedPeriod);
+        values.values().forEach((value) -> list.add(getAggregatedValue(value)));
+        return list.toArray(new Expression[]{});
     }
 
 
