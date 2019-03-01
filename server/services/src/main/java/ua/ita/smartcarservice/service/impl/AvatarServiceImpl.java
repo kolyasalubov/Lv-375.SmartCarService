@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.AvatarDto;
 import ua.ita.smartcarservice.entity.AvatarEntity;
@@ -38,6 +39,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public AvatarDto getAvatarDtoByUserId(Long userId) {
-        return entityToDto(avatarRepository.getByUserId(userId));
+
+        return entityToDto(avatarRepository.getAvatarEntityByUserId(userService.findById(userId)));
     }
 }

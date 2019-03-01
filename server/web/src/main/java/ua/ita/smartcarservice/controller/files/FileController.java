@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.controller.files;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -41,7 +43,7 @@ public class FileController {
 
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file, @RequestParam Long id) {
-        String username = userService.getUserById(id).getUsername();
+        String username = userService.findById(id).getUsername();
         String fileName = fileStorageService.storeFile(file, id, username);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -51,7 +53,7 @@ public class FileController {
         String fileNameHash = hashService.makeHash(id, username, originalFileName);
         avatarService.addAvatarToUser(new AvatarDto(id,
                 fileDownloadUri,
-                (fileStorageService.getFileStorageLocation().toAbsolutePath().toString() + "\\" + fileNameHash + file.getContentType())));
+                (StringUtils.cleanPath(fileStorageService.getFileStorageLocation().toAbsolutePath().toString() + "\\" + fileNameHash + "." + FilenameUtils.getExtension(file.getOriginalFilename())))));
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
     }
