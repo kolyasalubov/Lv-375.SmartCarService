@@ -133,7 +133,7 @@ public class NotificationsServiceImpl implements NotificationService{
 				dto.getIsVisible(),
 				dto.getCarId(),
 				dto.getUserId(),
-				dto.getWorkTypeId()) ;
+				dto.getWorkTypeName()) ;
 	}
 
 	private NotificationsDto entityToDto (Notifications entity) {
@@ -145,7 +145,7 @@ public class NotificationsServiceImpl implements NotificationService{
 				entity.getIsVisible(),
 				entity.getCarId(),
 				entity.getUserId(),
-				entity.getWorkTypeId());
+				entity.getWorkTypeName());
 	}
 
 	private Notifications dtoToEntityWithId(NotificationsDto dto) {
@@ -157,7 +157,7 @@ public class NotificationsServiceImpl implements NotificationService{
 				dto.getIsVisible(),
 				dto.getCarId(),
 				dto.getUserId(),
-				dto.getWorkTypeId()) ;
+				dto.getWorkTypeName()) ;
 	}
 
 	/* Helper method to analyze sensors data */

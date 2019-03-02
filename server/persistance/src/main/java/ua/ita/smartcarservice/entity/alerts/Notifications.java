@@ -46,11 +46,11 @@ public class Notifications {
 	@Column (name = "user_id")
 	private Long userId;
 
-	@Column (name = "work_type_id")
-	private Long workTypeId;
+	@Column (name = "work_type_name")
+	private String workTypeName;
 
 	public Notifications(String message, String suggestion, Timestamp notificationTime, String type, Boolean isVisible,
-						 Long carId, Long userId, Long workTypeId) {
+						 Long carId, Long userId, String workTypeName) {
 		this.message = message;
 		this.suggestion = suggestion;
 		this.notificationTime = notificationTime;
@@ -58,11 +58,11 @@ public class Notifications {
 		this.isVisible = isVisible;
 		this.carId = carId;
 		this.userId = userId;
-		this.workTypeId = workTypeId;
+		this.workTypeName = workTypeName;
 	}
 
 	public Notifications(Long id, String message, String suggestion, Timestamp notificationTime, String type, Boolean isVisible,
-						 Long carId, Long userId, Long workTypeId) {
+						 Long carId, Long userId, String workTypeName) {
 		this.id = id;
 		this.message = message;
 		this.suggestion = suggestion;
@@ -71,6 +71,6 @@ public class Notifications {
 		this.isVisible = isVisible;
 		this.carId = carId;
 		this.userId = userId;
-		this.workTypeId = workTypeId;
+		this.workTypeName = workTypeName;
 	}
 }

@@ -24,7 +24,7 @@ public class NotificationsDto {
 	private Boolean isVisible;
 	private Long carId;
 	private Long userId;
-	private Long workTypeId;
+	private String workTypeName;
 
 	/* to save Notification in method getCarsForYearlyInspetion */
 	public NotificationsDto(AlertsDto alertsDto, VehicleInspectionDto vehicleInspection) {
@@ -37,7 +37,7 @@ public class NotificationsDto {
 		this.isVisible = true;
 		this.carId = vehicleInspection.getCar().getId();
 		this.userId = vehicleInspection.getCar().getUser().getId();
-		this.workTypeId = alertsDto.getWorkType().getWorkId();
+		this.workTypeName = alertsDto.getWorkType().getName();
 	}
 
 	/* to save notification for user */
@@ -49,11 +49,11 @@ public class NotificationsDto {
 		this.isVisible = true;
 		this.carId = car.getId();
 		this.userId = car.getCarOwner().getId();
-		this.workTypeId = alertsDto.getWorkType() == null ? null : alertsDto.getWorkType().getWorkId();
+		this.workTypeName = alertsDto.getWorkType() == null ? null : alertsDto.getWorkType().getName();
 	}
 
 	public NotificationsDto(Long id, String message, String suggestion, Timestamp notificationTime,
-							String type, Boolean isVisible, Long carId, Long userId, Long workTypeId) {
+							String type, Boolean isVisible, Long carId, Long userId, String workTypeName) {
 		this.id = id;
 		this.message = message;
 		this.suggestion = suggestion;
@@ -62,6 +62,6 @@ public class NotificationsDto {
 		this.isVisible = isVisible;
 		this.carId = carId;
 		this.userId = userId;
-		this.workTypeId = workTypeId;
+		this.workTypeName = workTypeName;
 	}
 }

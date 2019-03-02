@@ -17,42 +17,6 @@ INSERT INTO role(name) VALUES('ROLE_DIELER');
 INSERT INTO role(name) VALUES('ROLE_WORKER');
 INSERT INTO role(name) VALUES('ROLE_ADMIN');
 
-insert into work_type (cost, name, required_time, skill_id)
-values (125.00, "Work work", 12, 1);
-
-INSERT INTO alerts(alert_code, description, alert_type, work_type_id)
-VALUES ("B1315", "Problem in Front passenger child seat recognition","Warning", 1),
-("C1010","Battery Voltage Low","Warning",1),
-("C1012","Battery Voltage High","Warning", 1),
-("C1512", "Brakes Overheated","Warning", 1),
-("P1791", "Transmission Range Display Circ. Short to Ground","Warning", 1),
-("B1476", "Airbag malfunction indicator and warning lamp is defective","Warning",1),
-("P1296", "Engine/Transmission Control Modules Versions do not match","Warning", 1),
-("B1617", "Left/Right license plate lamp is defective","Warning", 1),
-("P1659", "Brake Switch Circ. Error Message from Engine Contr.","Warning", 1),
-("yearly-inspection", "Last overall inspection of your car was year ago. It is time to repeat it","Information", 1),
-("mileage-inspection", "You have ridden more than 10 000 kilometers since last overall inspection of your car. It is time to visit your technical service", "Information", 1);
-
-INSERT INTO alerts(alert_code, description, alert_type)
-VALUES
-("car_is_ready", "Your vehicle is ready to be picked up", "Information"),
-("leave_review", "Are you satisfied with your last service?", "Information"),
-("fuel", "Your car needs fuel. Time for a trip to the petrol station. Liters left: ", "Information"),
-("glass washer fluid", "You are running out of glass washer fluid. 0.5l left. ", "Information"),
-("coolant", "You are running out of coolant. But it is not critical yet. 0.5l left. ", "Information")
-;
-INSERT INTO alerts(alert_code, description, suggestion, alert_type)
-VALUES
-("WL001", "You're not wearing your seatbelt",
-"This doesn't require a checkup from a professional but it's quite possibly the most important aspect of driving. Seat belt use is one of the most effective ways to save lives and reduce injuries in crashes, yet millions do not buckle up on every trip. Safety first and put on your belt, buddy.",
-"Seatbelt indicator"),
-("WL002", "Your car's coolant is overheating",
-"Quickly pull over and let your car cool down or the heat can destroy your car's engine.",
-"Engine temperature warning light"),
-("WL003", "It's likely that you left your handbrake on. But if the light is still lit when you are driving, it could mean your car is low on brake fluid or something more severe.",
-"If the red brake light blinks, or comes on and off intermittently, and there is no change in the feel of the brake pedal, then have the vehicle properly diagnosed by a qualified repair shop as soon as possible.",
-"Brake warning light");
-
 INSERT INTO work_type(cost, name, required_time, skill_id)
 VALUES
 (140,'Engine oil change', 30, 1),
@@ -120,4 +84,37 @@ VALUES
 (150, 'Replacement of the semi-axis', 60, 10),
 (200, 'Replacement CV Joints', 100, 10),
 (150, 'Outboard bearing replacement', 50, 10);
+
+INSERT INTO alerts(alert_code, description, alert_type, work_type_id)
+VALUES ("B1315", "Problem in Front passenger child seat recognition","Warning", 2),
+("C1010","Battery Voltage Low","Warning", 41),
+("C1012","Battery Voltage High","Warning", 41),
+("C1512", "Brakes Overheated","Warning", 10),
+("P1791", "Transmission Range Display Circ. Short to Ground","Warning", 58),
+("B1476", "Airbag malfunction indicator and warning lamp is defective","Warning", 2),
+("P1296", "Engine/Transmission Control Modules Versions do not match","Warning", 58),
+("B1617", "Left/Right license plate lamp is defective","Warning", 2),
+("P1659", "Brake Switch Circ. Error Message from Engine Contr.","Warning", 15),
+("yearly-inspection", "Last overall inspection of your car was year ago. It is time to repeat it","Information", 8),
+("mileage-inspection", "You have ridden more than 10 000 kilometers since last overall inspection of your car. It is time to visit your technical service", "Information", 8);
+
+INSERT INTO alerts(alert_code, description, alert_type)
+VALUES
+("car_is_ready", "Your vehicle is ready to be picked up", "Information"),
+("leave_review", "Are you satisfied with your last service?", "Information"),
+("fuel", "Your car needs fuel. Time for a trip to the petrol station. Liters left: ", "Information"),
+("glass washer fluid", "You are running out of glass washer fluid. 0.5l left. ", "Information"),
+("coolant", "You are running out of coolant. But it is not critical yet. 0.5l left. ", "Information")
+;
+INSERT INTO alerts(alert_code, description, suggestion, alert_type)
+VALUES
+("WL001", "You're not wearing your seatbelt",
+"This doesn't require a checkup from a professional but it's quite possibly the most important aspect of driving. Seat belt use is one of the most effective ways to save lives and reduce injuries in crashes, yet millions do not buckle up on every trip. Safety first and put on your belt, buddy.",
+"Seatbelt indicator"),
+("WL002", "Your car's coolant is overheating",
+"Quickly pull over and let your car cool down or the heat can destroy your car's engine.",
+"Engine temperature warning light"),
+("WL003", "It's likely that you left your handbrake on. But if the light is still lit when you are driving, it could mean your car is low on brake fluid or something more severe.",
+"If the red brake light blinks, or comes on and off intermittently, and there is no change in the feel of the brake pedal, then have the vehicle properly diagnosed by a qualified repair shop as soon as possible.",
+"Brake warning light");
 
