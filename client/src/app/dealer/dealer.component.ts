@@ -13,7 +13,7 @@ export class DealerComponent implements OnInit {
   username: String;
 
 // mydealer:Dealer;
-mydealertmp:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
+mydealertmp:Dealer={dealerName:'1',dealerAddress:'1',dealerEdr:'1',dealerEmail:'1'};
 mydealer=this.mydealertmp;
 show: boolean;
 
@@ -31,4 +31,7 @@ show: boolean;
     this.dealerService.createDealer(this.mydealer,this.username).subscribe();
   }
 
+  editDealer(){
+    this.dealerService.editDealer(this.mydealer).subscribe();
+  }
 }

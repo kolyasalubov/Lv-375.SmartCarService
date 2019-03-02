@@ -76,7 +76,7 @@ public class Car {
     public Car() {
     }
 
-    //For new cars
+    /* For new cars */
     public Car(String brand, String model, String graduation_year, String number, Double price, String vin,
                Date end_guarantee, DealerEntity dealer, UserEntity user, Set<VehicleInspection> vehicleInspections) {
         this.brand = brand;
@@ -91,7 +91,7 @@ public class Car {
         this.vehicleInspections = vehicleInspections;
     }
 
-    //For used cars
+    /* For user cars */
     public Car(String brand, String model, String graduation_year, String number, String vin, UserEntity user) {
         this.brand = brand;
         this.model = model;
@@ -99,6 +99,16 @@ public class Car {
         this.number = number;
         this.vin = vin;
         this.user = user;
+    }
+
+    public Car(String brand, String model, String graduation_year, String number, Double price, String vin, DealerEntity dealer) {
+        this.brand = brand;
+        this.model = model;
+        this.graduation_year = graduation_year;
+        this.number = number;
+        this.price = price;
+        this.vin = vin;
+        this.dealer = dealer;
     }
 
 

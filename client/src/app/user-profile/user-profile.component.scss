@@ -17,8 +17,7 @@ p {
     background-color: #336B87
 }
 
-
-   
+  
 .container-fluid {
 	  background-color: #f1f1f1;
     margin: auto;
@@ -56,15 +55,20 @@ p {
   }
 
   .card-block .card .card-body i{
-	  padding-left: 0%;
-	margin-right: 20px;
+	padding-left: 0%;
+    margin-right: 20px;
+    
   }
 
-  #carMain{
-	display: inline-block;
-}
+  .desc a{
+    color: black;
+  }
 
-#carMain .card{
+  .desc a :hover{
+    color: #336B87;
+  }
+
+ .card{
 	position: relative;
 	display: inline-block;
 	background-repeat: no-repeat;
@@ -72,7 +76,21 @@ p {
 	width: 350px;
 	height: 400px;
 	text-align: center;
-	left: 1%;
+    left: 1%;
+    margin: 2em;
+}
+
+.info{
+	position: relative;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 500px;
+	height: 400px;
+	text-align: center;
+    left: 1%;
+    margin: 2em;
+    border-color: black;
 }
 
 .points{

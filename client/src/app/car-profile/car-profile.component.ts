@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {VechicleInspection} from './vechicle-inspection';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-car-profile',
@@ -26,7 +27,7 @@ export class CarProfileComponent implements OnInit {
   errorCode: number;
   error: ErrorEvent;
 
-  constructor(private carService: CarProfileService, private tokenStorage: TokenStorageService, private router: Router ) { }
+  constructor(private carService: CarProfileService, private tokenStorage: TokenStorageService, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.username = this.tokenStorage.getUsername();
@@ -39,15 +40,15 @@ export class CarProfileComponent implements OnInit {
     .subscribe(error => this.errorCode = error.status,
     error => this.error = error);
 
-    setTimeout(() => {
+      setTimeout(() => {
       if(this.errorCode === 201){
       this.showCarProfile = false;
       this.showInspection = true;
-    } else if(this.errorCode === 400){
+      } else if(this.errorCode === 400){
       if(confirm("Car with such registration or vin number is present in our system. Please check your data.")) {
         }
-    } else {
-      if(confirm("Car with such registration or vin number is present in our system. Please check your data.")) {
+      } else {
+      if(confirm("Something bad happened; please try again later")) {
       }
     }
   }, 1000);
@@ -56,6 +57,7 @@ export class CarProfileComponent implements OnInit {
  }
 
   Confirm(){
+    this.carVechicleInspection.dateOfInspection == "" ? "" : this.datePipe.transform(this.carVechicleInspection.dateOfInspection, 'yyyy-MM-dd')
     this.carService.createInspection(this.carVechicleInspection, this.carVin).subscribe();
     this.reloadPage();
   }
@@ -63,6 +65,4 @@ export class CarProfileComponent implements OnInit {
   reloadPage() {
     window.location.href='/ui/home';
   }
-
-
 }

@@ -20,11 +20,15 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 
     Car findByNumber(String number);
 
+    @Query("select c from Car c join c.user u where u.username = :username")
+    List <Car> findByUsername (@Param("username") String username);
+
     List<Car>findAllByDealer(DealerEntity dealerEntity);
 
     List<Car> findAllByDealerDealerEdr(String edr);
 
     List<Car>findByUser_Username(String username);
+
 
 }
 

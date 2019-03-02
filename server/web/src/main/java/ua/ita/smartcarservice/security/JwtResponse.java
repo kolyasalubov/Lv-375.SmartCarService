@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.security;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -13,14 +14,12 @@ import java.util.Collection;
  * 4. Array of User’s Authorities
  */
 
-
 public class JwtResponse {
 
     private String token;
     private String type;
     private String username;
     private Collection<? extends GrantedAuthority> authorities;
-
 
     public JwtResponse(String accessToken, String username, Collection<? extends GrantedAuthority> authorities) {
         super();
@@ -64,6 +63,7 @@ public class JwtResponse {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
+
 
 
 }

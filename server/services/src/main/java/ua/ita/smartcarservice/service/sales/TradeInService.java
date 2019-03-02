@@ -30,6 +30,7 @@ void create(String vinNewCar,String vinUsedCar);
 List<TradeIn>tradesIn(String username);
 
 List<TradeInDto>tradeinDtos(String username);
+void deleteTradeIn(Long id);
 
 
 }

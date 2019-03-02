@@ -53,7 +53,7 @@ public class TechnicalServiceController {
             logger.info("Successfully get all the technical services.");
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            logger.error("Error while getting all the technical services. Details: " + e.getMessage());
+            logger.error("Error while getting all the technical services. Details: {}", e);
         }
 
         return responseEntity;
