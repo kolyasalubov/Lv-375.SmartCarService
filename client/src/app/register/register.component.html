@@ -1,20 +1,20 @@
 <div style="height: 80%" class="d-flex justify-content-center align-items-center">
-  <form form="registerForm" (ngSubmit)="onSubmit() && f.registerForm.valid" #f="ngForm" class="border border-light p-4" [mustMatch]="['password', 'confirmPassword']" novalidate>
+  <form form="registerForm" (ngSubmit)="onSubmit()" #f="ngForm" class="border border-light p-4" [mustMatch]="['password', 'confirmPassword']" novalidate>
 
   <p class="h3 mb-4 text-center">Welcome to our
     <br>
     <kbd>Smart</kbd>carservice</p>
-  <div class="form-group">
-    <label for="username">Username</label>
-  <input type="text" name="username" [(ngModel)]="registerForm.username" class="form-control mb-2" #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.invalid }" required>
-  <div *ngIf="f.submitted && username.invalid" class="invalid-feedback">
-      <div *ngIf="username.errors.required">Username is required</div>
+    <div class="form-group">
+      <label for="username">Username</label>
+    <input type="text" name="username" [(ngModel)]="registerForm.username" class="form-control mb-2" #username="ngModel" [ngClass]="{ 'is-invalid': f.submitted && username.invalid }" required>
+    <div *ngIf="username.invalid && username.touched">
+        <div style="color: red" *ngIf="username.errors.required">Username is required</div>
+    </div>
   </div>
-</div>
 <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" name="password" [(ngModel)]="registerForm.password" class="form-control mb-2" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required minlength="8" />
-    <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+    <input type="password" name="password" [(ngModel)]="registerForm.password" class="form-control mb-2" #password="ngModel" required minlength="8" />
+    <div style="color: red" *ngIf="password.invalid && password.touched">
         <div *ngIf="password.errors.required">Password is required</div>
         <div *ngIf="password.errors.minlength">Password must be at least 8 characters</div>
     </div>
@@ -22,7 +22,7 @@
 <div class="form-group">
     <label for="confirmPassword">Confirm password</label>
     <input type="password" name="confirmPassword" [(ngModel)]="registerForm.confirmPassword" class="form-control mb-2" #confirmPassword="ngModel" [ngClass]="{ 'is-invalid': f.submitted && confirmPassword.invalid }" required/>
-    <div *ngIf="f.submitted && confirmPassword.invalid" class="invalid-feedback">
+    <div style="color: red" *ngIf="confirmPassword.invalid && confirmPassword.touched">
         <div *ngIf="confirmPassword.errors.required">Confirm Password is required</div>
         <div *ngIf="confirmPassword.errors.mustMatch">Passwords must match</div>
     </div>
@@ -30,15 +30,15 @@
   <div class="form-group">
   <label for="email">Email</label>
   <input type="email" name="email" [(ngModel)]="registerForm.email" class="form-control mb-2"#email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email />
-  <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+  <div style="color: red" *ngIf="email.invalid && email.touched">
       <div *ngIf="email.errors.required">Email is required</div>
-      <div *ngIf="email.errors.email">Email must be a valid email address</div>
+      <div *ngIf="email.errors.email">Your email not valid</div>
   </div>
 </div>
 <div class="form-group">
     <label for="fullName">Full name</label>
     <input type="text" name="fullName" [(ngModel)]="registerForm.fullName" class="form-control mb-2" #fullName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && fullName.invalid }" required minlength="2" maxlength="30"/>
-  <div *ngIf="f.submitted && fullName.invalid" class="invalid-feedback">
+  <div style="color: red" *ngIf="fullName.invalid && fullName.touched">
       <div *ngIf="fullName.errors.required">Full name is required</div>
       <div *ngIf="fullName.errors.minlength">Full name must be at least 2 characters</div>
       <div *ngIf="fullName.errors.maxlength">Full name can be max 30 characters</div>
@@ -46,9 +46,10 @@
 </div>
 <div class="form-group">
 <label for="numberPhone">Phone Number</label>
-<input type="text" name="numberPhone" [(ngModel)]="registerForm.numberPhone" class="form-control mb-2" #numberPhone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && numberPhone.invalid }" required pattern="^[(]{0,1}[0-9]{0,3}[)]{0,1}[-\s\.0-9]{0,11}$"/>
-<div *ngIf="numberPhone.invalid" class="invalid-feedback">
+<input type="text" name="numberPhone" [(ngModel)]="registerForm.numberPhone" class="form-control mb-2" #numberPhone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && numberPhone.invalid }" required pattern="^[(]{0,1}[0-9]{0,3}[)]{0,1}[-\s\.0-9]{0,11}$" minlength="10"/>
+<div style="color: red" *ngIf="numberPhone.invalid && numberPhone.touched">
     <div *ngIf="numberPhone.errors.required">Phone Number is required</div>
+    <div *ngIf="numberPhone.errors.minlength">Phone Number must containts 10 symbols</div>
     <div *ngIf="numberPhone.errors.pattern">Phone Number must be 063 123 45 67</div>
 </div>
 </div>

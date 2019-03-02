@@ -3,7 +3,7 @@ import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
-import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import {MDBBootstrapModule, PopoverModule} from 'angular-bootstrap-md';
 
 import {AppRoutingModule} from './app-routing.module';
 import {SecurityModule} from './security/security.module';
@@ -42,6 +42,15 @@ import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
+import { ProgresbarComponent } from './progresbar/progresbar.component';
+import { AlertsComponent } from './alerts/alerts.component';
+import * as Material from '@angular/material';
+import { MatDialog, MatDialogModule } from '@angular/material';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
+import { DataCardComponent } from './cars/data-card/data-card.component';
+
 
 
 @NgModule({
@@ -75,7 +84,14 @@ import { ServicesFeedbackPageComponent } from './services-feedback-page/services
     TradesinComponent,
     TradeInComponent,
     PreviewComponent,
-    ServicesFeedbackPageComponent
+    ServicesFeedbackPageComponent,
+<<<<<<< HEAD
+    ProgresbarComponent
+=======
+    AlertsComponent,
+    DataCardComponent,
+   // Material.MatDialogModule
+>>>>>>> 2315fab68784ec17cc7d1a48bfd1667157e6ac04
 
   ],
   imports: [
@@ -89,14 +105,20 @@ import { ServicesFeedbackPageComponent } from './services-feedback-page/services
     }),
     BookingModule,
     ChartPageModule,
-    SecurityModule
+    SecurityModule,
+    OverlayModule,
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [
     //NotificationsService
+    MatDialog,
+    DatePipe
   ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
-  exports: [SecurityModule]
-})
+  exports: [SecurityModule],
+  entryComponents:[AlertsComponent]
+  })
 export class AppModule {
 }

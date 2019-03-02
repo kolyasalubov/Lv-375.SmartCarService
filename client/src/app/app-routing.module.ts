@@ -35,10 +35,15 @@ import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
-
+import { ProgresbarComponent } from './progresbar/progresbar.component';
+import { AlertsComponent } from './alerts/alerts.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
+  {
+    path: 'ui/progresbar',
+    component: ProgresbarComponent
+  },
   {
     path: 'ui/preview',
     component: PreviewComponent
@@ -137,7 +142,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'ui/ownercars/:id',
+    path: 'ui/cars',
     component: CarsComponent
   },
   {
@@ -180,6 +185,10 @@ const routes: Routes = [
 {
     path: 'ui/carprofile',
     component: CarDetailsComponent
+},
+{
+  path: 'ui/message',
+  component: AlertsComponent
 }
 ]
 

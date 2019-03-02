@@ -1,23 +1,34 @@
 <br><br><br><br>
 <div class="container-fluid" *ngFor="let tradein of allTradeIn">
   <!--{{allTradeIn | json}}-->
+    <div class="points" style="float: left;margin-left: 200px;">
+      <img id="car" src="assets/img/car.png" width="240px" height="120px" style="text-align: center;">
+      <h3> User </h3>
+<ul>
+  <li> User`s fullname : {{tradein.userFullName}} </li>
+  <li> User Email : {{tradein.userEmail}} </li>
+  <li> User Phone : {{tradein.userPhone}} </li>
+  <li> User`s Car Model : {{tradein.usedCarModel}} </li>
+  <li> User`s Car Brand : {{tradein.usedCarBrand}} </li>
 
-  <ul>
-    <h3> Info </h3>
-    <div class="points" >
-      <li> userFullName : {{tradein.userFullName}} </li>
-      <li> id : {{tradein.id}} </li>
-      <li> userEmail : {{tradein.userEmail}} </li>
-      <li> userPhone : {{tradein.userPhone}} </li>
-      <li> newCarModel : {{tradein.newCarModel}} </li>
-      <li> newCarBrand : {{tradein.newCarBrand}} </li>
-      <li> newCarPrice : {{tradein.newCarPrice}} </li>
-      <li> usedCarModel : {{tradein.usedCarModel}} </li>
-      <li> usedCarBrand : {{tradein.usedCarBrand}} </li>
+</ul>
+
     </div>
     <br>
-    <button class="btn btn-outline my-2 my-sm-0"  style="background-color: #c5001a">Delete <i class="fa fa-trash-o" aria-hidden="true">OkOKOK</i></button>
-  </ul>
+    <div class="points" >
+
+      <img id="car" src="assets/img/car.png" width="240px" height="120px" style="text-align: center;">
+      <h3> Dealer </h3>
+
+      <ul>
+        <li> New Car Model : {{tradein.newCarModel}} </li>
+        <li> New Car Brand : {{tradein.newCarBrand}} </li>
+        <li> New Car Price : {{tradein.newCarPrice}} </li>
+      </ul>
+
+    </div>
+    <br>
+  <button class="btn btn-outline my-2 my-sm-0"  (click)="deleteTradeIn(tradein.id)" style="background-color: #c5001a"> Done </button>
 
 </div>
 <br><br>

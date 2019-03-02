@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { SignUpInfo } from '../auth/signup-info';
 import { ROLES } from '../roles/mock-roles';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
   unchecked = true;
+  
  
   constructor(private authService: AuthService) { }
 
@@ -44,8 +46,8 @@ export class RegisterComponent implements OnInit {
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
         console.log(data);
-        this.isSignedUp = true;
         this.isSignUpFailed = false;
+        this.isSignedUp = true;
         this.reloadPage();
       },
       error => {
