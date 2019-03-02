@@ -88,6 +88,7 @@ public class BookingServiceImpl implements BookingService {
             workTime.setCar(car);
             workTime.setWorker(
                     userRepository.getOne(searchWorkerToWork(workersSkills, workTypes, workInfoDto.getWorkId())));
+            workTime.setWork(workTypeRepository.getOne(workInfoDto.getWorkId()));
 
             bookingToAdd.add(workTime);
         });
