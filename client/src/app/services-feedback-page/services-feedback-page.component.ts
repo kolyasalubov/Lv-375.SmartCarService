@@ -19,5 +19,6 @@ export class ServicesFeedbackPageComponent implements OnInit {
 
   ngOnInit() {
     this.techserviceId = Number.parseInt( this.route.snapshot.paramMap.get('id'));
+    console.log(this.techserviceId);
   }
 }
