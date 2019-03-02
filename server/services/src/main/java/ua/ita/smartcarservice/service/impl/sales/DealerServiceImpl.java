@@ -28,9 +28,15 @@ public class DealerServiceImpl implements DealerService {
 
     @Autowired
     private CarRepository carRepository;
+//    @Override
+//    public void createDealer(DealerEntity dealerEntity, String username) {
+//        dealerRepository.save(new DealerEntity(userRepository.getUserById(userRepository.findByUsername(username).get().getId()),dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail()));
+//    }
+
+
     @Override
-    public void createDealer(DealerEntity dealerEntity, String username) {
-        dealerRepository.save(new DealerEntity(userRepository.getUserById(userRepository.findByUsername(username).get().getId()),dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail()));
+    public void createDealer(DealerDto dealerDto, String username) {
+        dealerRepository.save(new DealerEntity(userRepository.getByUsername(username),dealerDto.getDealerName(),dealerDto.getDealerAddress(),dealerDto.getDealerEdr(),dealerDto.getDealerEmail()));
     }
 
     @Override

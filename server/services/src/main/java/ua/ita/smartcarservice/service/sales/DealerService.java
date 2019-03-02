@@ -12,7 +12,8 @@ import java.util.List;
  */
 public interface DealerService {
 
-    void createDealer(DealerEntity dealerEntity, String username);
+    void createDealer(DealerDto dealerDto, String username);
+
 
     DealerEntity getDealerEntityByUserName(String Username);
 
