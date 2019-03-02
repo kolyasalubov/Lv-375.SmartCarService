@@ -18,5 +18,9 @@ username:String;
     this.username=this.tokenStorage.getUsername();
 this.tradesinService.getAllTradeInByDealer(this.username).subscribe(data=>this.allTradeIn=data)
   }
+  deleteTradeIn(id:number){
+    this.tradesinService.deleteTradeIn(id).subscribe();
+
+  }
 
 }

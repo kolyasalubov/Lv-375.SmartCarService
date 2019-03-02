@@ -27,7 +27,7 @@ public interface CarService {
 
     void create(String brand, String model,String graduation_year,String number,String vin, String username);
 
-    void createByDealer(String brand, String model,String graduation_year,String number,Double price,String vin,String username);
+    void createByDealer(CarDto carDto,String username);
 
     List<CarDto> findByDealerEdr(String edr);
 
