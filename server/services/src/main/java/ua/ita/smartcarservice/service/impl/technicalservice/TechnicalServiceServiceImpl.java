@@ -34,6 +34,17 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     DealerEntityRepository dealerEntityRepository;
 
     @Override
+    public TechnicalServiceDto getTechnicalServiceDtoByUser(String username) {
+        TechnicalServiceEntity technicalServiceEntity;
+        TechnicalServiceDto technicalServiceDto;
+
+        technicalServiceEntity = technicalServiceRepository.getTechnicalServiceEntityByUsername(username);
+        technicalServiceDto = this.convertToDto(technicalServiceEntity);
+
+        return technicalServiceDto;
+    }
+
+    @Override
     public void addWorkerToTechnicalService(String username, Long technicalServiceId) {
         UserEntity workerEntity = userRepository.getByUsername(username);
         TechnicalServiceEntity technicalServiceEntity = technicalServiceRepository.getOne(technicalServiceId);
@@ -167,7 +178,7 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Override
     public List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username) {
-        List<TechnicalServiceEntity> technicalServiceList = new ArrayList<>();// = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
+        List<TechnicalServiceEntity> technicalServiceList  = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
         List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
         for(TechnicalServiceEntity technicalService:technicalServiceList){
 

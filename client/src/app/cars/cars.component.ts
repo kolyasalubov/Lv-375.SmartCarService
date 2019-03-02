@@ -6,6 +6,7 @@ import { TokenStorageService } from '../auth/token-storage.service';
 import { UsersService } from '../users/users.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from '../alerts/alert.service';
 
 
 
@@ -23,37 +24,20 @@ export class CarsComponent implements OnInit {
   showCards: boolean = false;
   showProfile: boolean = false;
   userId: Number;
+  errorCode: number;
+  error: ErrorEvent;
 
-  @Input()
-  id: number;
-
-
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService) { }
 
   ngOnInit(){
-/*
-    this.username = this.tokenStorage.getUsername();
-    this.userService.getUserByUsername(this.username)
-    .subscribe(data => this.user = data);
-*/
-   this.route.params.subscribe(params => {
-    this.id = params["id"];
-});
 
-/*if(this.user.id != this.id){
-  if(confirm("Such request is not allowed")) {
-  } else {
-    this.carsService.getOwnerCarsById(this.id)
-    .subscribe(data => this.cars = data);
-  }
-}   */
-this.carsService.getOwnerCarsById(this.id)
-.subscribe(data => this.cars = data);
+  this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
+  .subscribe(data => this.cars = data);
 
    setTimeout(() => {
-     if(this.cars == null){
+    if(this.cars == null){
       if(confirm("You don't have registered car")) {
-      }
+    }
      } else if(this.cars.length > 1){
      this.showCards = true;
      } else{
@@ -63,7 +47,7 @@ this.carsService.getOwnerCarsById(this.id)
 }
 
     deleteCarById(id: number){
-      if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
+    if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
     this.carsService.deleteCarById(id).subscribe();
     this.reloadPage();
     }
@@ -78,22 +62,21 @@ this.carsService.getOwnerCarsById(this.id)
     this.router.navigate(['ui/tradeIn',vin]);
   }
 
-
-    goToCharts(car: Car){
+  goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
           carId: car.id,
           carVin: car.vin
         }}
       );
-    }
+  }
 
-    history(id: number){
-
+    history(){
+    //this.alertService.openCongirmDialog();
     }
 
     reloadPage() {
-      window.location.href='/ui/ownercars/' + this.id;
+      window.location.href='/ui/cars/';
     }
 
     closeProfile(){
