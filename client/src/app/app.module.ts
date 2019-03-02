@@ -85,13 +85,9 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     TradeInComponent,
     PreviewComponent,
     ServicesFeedbackPageComponent,
-<<<<<<< HEAD
-    ProgresbarComponent
-=======
+    ProgresbarComponent,
     AlertsComponent,
     DataCardComponent,
-   // Material.MatDialogModule
->>>>>>> 2315fab68784ec17cc7d1a48bfd1667157e6ac04
 
   ],
   imports: [
@@ -111,7 +107,7 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     BrowserAnimationsModule
   ],
   providers: [
-    //NotificationsService
+    
     MatDialog,
     DatePipe
   ],
