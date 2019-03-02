@@ -107,7 +107,7 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     BrowserAnimationsModule
   ],
   providers: [
-    
+
     MatDialog,
     DatePipe
   ],
