@@ -29,7 +29,7 @@ export class ServicesFeedbackComponent implements OnInit {
               private userService: UsersService) { }
 
   ngOnInit() {
-    this.getCurrentUser().then(() => {
+    this.getTechserviceByCurrentUser().then(() => {
       this.serviceId = this.techservice.stoId;
       
       if(this.serviceId) {
@@ -56,7 +56,19 @@ export class ServicesFeedbackComponent implements OnInit {
 
   getTechservice(user: User) {
     return new Promise((resolve, reject) => {
-      this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
+      this.techserviceService.getTechnicalServiceByUsername(this.tokenStorage.getUsername())
+        .subscribe(data => {
+          if (data != null) {
+            this.techservice = data;
+          }
+          resolve();
+        });
+    });
+  }
+
+  getTechserviceByCurrentUser() {
+    return new Promise((resolve, reject) => {
+      this.techserviceService.getTechnicalServiceByUsername(this.tokenStorage.getUsername())
         .subscribe(data => {
           if (data != null) {
             this.techservice = data;

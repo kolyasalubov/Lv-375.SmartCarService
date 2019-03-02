@@ -197,6 +197,25 @@ public class TechnicalServiceController {
     }
 
     /*
+        Method for getting Technical Service bu User ID
+    */
+    @GetMapping("/api/v1/users/username/{username}/techservice")
+    public ResponseEntity<TechnicalServiceDto> findTechnicalServiceByUsername(@PathVariable("username") String username) {
+
+        ResponseEntity<TechnicalServiceDto> responseEntity;
+
+        try {
+            responseEntity = new ResponseEntity<TechnicalServiceDto>(technicalServiceService.getTechnicalServiceDtoByUser(username), HttpStatus.OK);
+            logger.info("Successfully get a Technical Service by username: " + username);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<TechnicalServiceDto>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting a Technical Service by username id: " + username + " Details: " + e.getMessage());
+        }
+
+        return responseEntity;
+    }
+
+    /*
     Method for deleting Technical Service by ID
      */
     @DeleteMapping("/api/v1/techservices/{techServiceId}")
