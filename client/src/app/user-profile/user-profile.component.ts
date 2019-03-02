@@ -32,10 +32,11 @@ setTimeout(() => {
 this.carService.getOwnerCarsById(this.userProfile.id)
 .subscribe(data => this.cars = data);
 }, 1000);
-
+/*
    setTimeout(() => {
      this.numberOfCars = this.cars.length;
       }, 1000);
+      */
   }
 
   closeProfile(){

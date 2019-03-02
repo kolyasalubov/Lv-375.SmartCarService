@@ -35,6 +35,7 @@ import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
+import { AlertsComponent } from './alerts/alerts.component';
 
 
 const routes: Routes = [
@@ -137,7 +138,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'ui/ownercars/:id',
+    path: 'ui/cars',
     component: CarsComponent
   },
   {
@@ -180,6 +181,10 @@ const routes: Routes = [
 {
     path: 'ui/carprofile',
     component: CarDetailsComponent
+},
+{
+  path: 'ui/message',
+  component: AlertsComponent
 }
 ]
 

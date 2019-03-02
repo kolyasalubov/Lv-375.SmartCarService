@@ -6,7 +6,9 @@ import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.NewCarDTO;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.exceptions.CarNotFoundException;
 import ua.ita.smartcarservice.exceptions.CarRegisteredAlreadyExсeption;
+import ua.ita.smartcarservice.exceptions.CarsNotFoundException;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.sales.DealerEntityRepository;
@@ -27,6 +29,8 @@ public class CarServiceImpl implements CarService {
     @Autowired
     private DealerEntityRepository dealerRepository;
 
+    /* Create car*/
+    @Override
     public void addCar(NewCarDTO newCarDTO, String username) {
         UserEntity carOwner = this.userRepository.findByUsername(username).get();
 
@@ -45,41 +49,55 @@ public class CarServiceImpl implements CarService {
         }
     }
 
-    //for used car
-    public void create(String brand, String model, String graduation_year, String number, String vin, String username) {
-        UserEntity carOwner = this.userRepository.findByUsername(username).get();
-
-        Car car = new Car();
-        car.setBrand(brand);
-        car.setModel(model);
-        car.setGraduation_year(graduation_year);
-        car.setNumber(number);
-        car.setVin(vin);
-        car.setUser(carOwner);
-
-        carRepository.save(car);
-    }
-
+    /* Find all cars*/
+    @Override
     public List<CarDto> findAll() {
+        List<Car> cars = carRepository.findAll();
+        if (cars.isEmpty()) {
+            throw new CarsNotFoundException();
+        }
         List<CarDto> carDtos = new ArrayList<>();
-
         for (Car car : carRepository.findAll()) {
             carDtos.add(getCarDto(car));
         }
         return carDtos;
     }
 
+    /* Find cars by user id*/
+    @Override
     public List<CarDto> findByUserId(Long id) {
+        List <Car> cars = carRepository.findByUserId(id);
+        if (cars.isEmpty()) {
+            throw new CarsNotFoundException();
+        }
         List<CarDto> carDtos = new ArrayList<>();
-
-        for (Car car : carRepository.findByUserId(id)) {
+            for (Car car : carRepository.findByUserId(id)) {
             carDtos.add(getCarDto(car));
         }
         return carDtos;
     }
 
-    public CarDto getCarById(Long id) {
+    /* Find cars by username */
+    @Override
+    public List<CarDto> findByUsername(String username){
+        List <Car> cars = carRepository.findByUsername(username);
+        if (cars.isEmpty()) {
+            throw new CarsNotFoundException();
+        }
+        List<CarDto> carDtos = new ArrayList<>();
+        for (Car car : carRepository.findByUsername(username)) {
+            carDtos.add(getCarDto(car));
+        }
+        return carDtos;
+    }
+
+    /* Find car by id*/
+    @Override
+    public CarDto findCarById(Long id) {
         Car car = carRepository.getCarById(id);
+        if (car == null) {
+            throw new CarNotFoundException(id);
+        }
         CarDto carDto;
         if(car == null){
             carDto = null;
@@ -90,34 +108,45 @@ public class CarServiceImpl implements CarService {
         }
     }
 
+    /* Find car by vin*/
+    @Override
+    public CarDto findByVin(String vin) {
+        Car car = carRepository.findByVin(vin);
+        if (car == null) {
+            throw new CarNotFoundException(vin);
+        }
+        CarDto carDto;
+        if(car == null){
+            carDto = null;
+            return carDto;
+        } else {
+            carDto = getCarDto(car);
+            return carDto;
+        }
+    }
+
+    /* Find car by number*/
+    @Override
+    public CarDto findByNumber(String number) {
+        Car car = carRepository.findByNumber(number);
+        if (car == null) {
+            throw new CarNotFoundException(number);
+        }
+        CarDto carDto;
+        if(car == null){
+            carDto = null;
+            return carDto;
+        } else {
+            carDto = getCarDto(car);
+            return carDto;
+        }
+    }
+
+    /* Delete car by id*/
+    @Override
     public void deleteById(Long id) {
         carRepository.deleteById(id);
     }
-
-    public CarDto findByVin(String vin) {
-        Car car = carRepository.findByVin(vin);
-        CarDto carDto;
-        if(car == null){
-            carDto = null;
-            return carDto;
-        } else {
-            carDto = getCarDto(car);
-            return carDto;
-        }
-    }
-
-    public CarDto findByNumber(String number) {
-        Car car = carRepository.findByNumber(number);
-        CarDto carDto;
-        if(car == null){
-            carDto = null;
-            return carDto;
-        } else {
-            carDto = getCarDto(car);
-            return carDto;
-        }
-    }
-
 
     //for Car => CarDto
     public CarDto getCarDto(Car car) {
@@ -147,6 +176,7 @@ public class CarServiceImpl implements CarService {
                 carDto.getCarOwner());
         return car;
     }
+
     @Override
     public List<CarDto> findAllDealersCars() {
         List<CarDto>carDtos=new ArrayList<>();
@@ -163,15 +193,17 @@ public class CarServiceImpl implements CarService {
 
         return carDtos;
     }
+
     @Override
     public List<CarDto> findByDealerEdr(String edr) {
-        List<CarDto>carDtos=new ArrayList<>();
+        List<CarDto> carDtos=new ArrayList<>();
 
         for (Car car:carRepository.findAll()){
             carDtos.add(getCarDto(car));
         }
         return carDtos;
     }
+
     public void createByDealer(String brand, String model, String graduation_year, String number,Double price, String vin, String username) {
 
         Car car=new Car();
@@ -184,6 +216,7 @@ public class CarServiceImpl implements CarService {
         car.setDealer(dealerRepository.findByUserEntity_Username(username));
         carRepository.save(car);
     }
+
     @Override
     public List<CarDto> findbyUserLogin(String login) {
         List<CarDto> carDtos = new ArrayList<>();
@@ -191,6 +224,21 @@ public class CarServiceImpl implements CarService {
             carDtos.add(getCarDto(car));
         }
         return carDtos;
+    }
+
+    //for used car
+    public void create(String brand, String model, String graduation_year, String number, String vin, String username) {
+        UserEntity carOwner = this.userRepository.findByUsername(username).get();
+
+        Car car = new Car();
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setGraduation_year(graduation_year);
+        car.setNumber(number);
+        car.setVin(vin);
+        car.setUser(carOwner);
+
+        carRepository.save(car);
     }
 
 }

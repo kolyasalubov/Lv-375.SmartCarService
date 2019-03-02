@@ -5,7 +5,6 @@ import { UsersService } from '../users/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TechserviceService } from '../techservice/techservice.service';
 import { Techservice } from '../techservice/techservice';
-
 import { Notifications } from '../notifications/notifications';
 import { NotificationsService } from '../notifications/notifications.service';
 
@@ -73,7 +72,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToOwnerCars() {
-    this.router.navigate(['/ui/ownercars', this.user.id]);
+    this.router.navigate(['/ui/cars']);
   }
 
   logout(){

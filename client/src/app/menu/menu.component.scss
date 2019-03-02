@@ -52,6 +52,14 @@
     color: white;
   }
 
+  .sidebar-user {
+    margin-top: 15px;
+  }
+
+  #name{
+    font-weight: bold;
+  }
+
          /*----------Dropdown-----------*/
   .dropbtn {
     background-color:#2D4161;
@@ -167,6 +175,10 @@
   -o-transition: background .5s;
   -ms-transition: background .5s;
   transition: background .5s;
+}
+
+#sidebar_menu img{
+padding-top: 15px;
 }
 
 .sidebar_name {
