@@ -1,0 +1,23 @@
+.card-block .card{
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 270px;
+	height: 100px;
+	left: 5%;
+	margin: 1em;
+  }
+
+  .card-block .card .card-body{
+	background-repeat: no-repeat;
+	background-size: cover;
+	text-align: center;
+	display:inline-block;
+	width:270px;
+	padding:10px 10px 10px;
+  }
+
+  .card-block .card .card-body i{
+	  padding-left: 0%;
+	margin-right: 20px;
+  }

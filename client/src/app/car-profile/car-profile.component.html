@@ -59,13 +59,14 @@
 </div>
 
 <!--------------Vechicle inspection------------->
+
 <div *ngIf="showInspection" class="container">
   <form form="carVechicleInspection" (ngSubmit)="Confirm()" #v="ngForm">
     <p class="h3 mb-4">Last vachicle inspection</p>
 
     <div class="form-group">
-      <label for="dateOfInspection"> Date ("yyyy-mm-dd")</label>
-      <input type="text" class="form-control" id ="dateOfInspection" required [(ngModel)]="carVechicleInspection.dateOfInspection" name="dateOfInspection" #dateOfInspection="ngModel" minlength="10" maxlength="10">
+      <label for="dateOfInspection"> Date</label>
+      <input type="date" class="form-control" id ="dateOfInspection" required [(ngModel)]="carVechicleInspection.dateOfInspection" name="dateOfInspection" #dateOfInspection="ngModel" minlength="10" maxlength="10">
       <div [hidden]="dateOfInspection.valid || dateOfInspection.pristine"
            class="alert">
         * 10 characters

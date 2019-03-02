@@ -7,21 +7,25 @@ import java.util.List;
 
 public interface CarService {
 
+    CarDto findCarById(Long id);
+
     List<CarDto> findByUserId(Long id);
 
-    List<CarDto> findbyUserLogin(String login);
+    List<CarDto> findByUsername(String username);
+
+    CarDto findByNumber(String number);
 
     CarDto findByVin(String vin);
 
-    CarDto getCarById(Long id);
+    List<CarDto> findAll();
+
+    void addCar (NewCarDTO newCarDTO, String username);
+
+    void deleteById(Long id);
+
+    List<CarDto> findbyUserLogin(String login);
 
     void create(String brand, String model,String graduation_year,String number,String vin, String username);
-
-    List<CarDto> findAll ();
-
-    void deleteById (Long id);
-
-    CarDto findByNumber (String number);
 
     void createByDealer(CarDto carDto,String username);
 
@@ -29,6 +33,6 @@ public interface CarService {
 
     List<CarDto>findAllDealersCars();
 
-    void addCar (NewCarDTO newCarDTO, String username);
+
 
 }

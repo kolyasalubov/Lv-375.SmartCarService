@@ -18,7 +18,8 @@ export class AppComponent implements OnInit {
     if (!isLogged
       && !window.location.href.includes('/ui/auth/login')
       && !window.location.href.includes('/ui/signup')
-      && !window.location.href.includes('/ui/preview')) {
+      && !window.location.href.includes('/ui/preview')
+      && !window.location.href.includes('/ui/progresbar')) {
       console.log(window.location);
       window.location.href = "/ui/preview";
 
