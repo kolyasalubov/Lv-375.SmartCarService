@@ -29,8 +29,8 @@ export class CarsComponent implements OnInit {
   @Input()
   id: number;
 
-  mileage: number;
-  speed: number;
+  // mileage: number;
+  // speed: number;
 
   constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private chartService: ChartService) { }
 
@@ -46,25 +46,27 @@ export class CarsComponent implements OnInit {
     this.id = params["id"];
 });
 
-this.chartService.getChartData("mileage", this.id, "/last")
-.subscribe(
-  data => {
-    let chartData: ChartData = new ChartData();
-    chartData.setChartData(data);
-    this.mileage = chartData.data[0];
-  },
-  error => console.error('Error: ', error)
-);
+    //TODO move in another component
 
-    this.chartService.getChartData("speed", this.id, "/day/max")
-      .subscribe(
-        data => {
-          let chartData: ChartData = new ChartData();
-          chartData.setChartData(data);
-          this.speed = Math.round(chartData.data[0]);
-        },
-        error => console.error('Error: ', error)
-      );
+    // this.chartService.getChartData("mileage", this.id, "/last") //TODO change id to car.id
+    //   .subscribe(
+    //     data => {
+    //       let chartData: ChartData = new ChartData();
+    //       chartData.setChartData(data);
+    //       this.mileage = chartData.data[0];
+    //     },
+    //     error => console.error('Error: ', error)
+    //   );
+    //
+    // this.chartService.getChartData("speed", this.id, "/day/max") //TODO change id to car.id
+    //   .subscribe(
+    //     data => {
+    //       let chartData: ChartData = new ChartData();
+    //       chartData.setChartData(data);
+    //       this.speed = Math.round(chartData.data[0]);
+    //     },
+    //     error => console.error('Error: ', error)
+    //   );
 
 /*if(this.user.id != this.id){
   if(confirm("Such request is not allowed")) {
