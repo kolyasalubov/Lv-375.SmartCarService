@@ -78,20 +78,20 @@ export class CarsComponent implements OnInit {
     .subscribe(data => this.cars = data);
   }
 }   */
-this.carsService.getOwnerCarsById(this.id)
-.subscribe(data => this.cars = data);
 
-   setTimeout(() => {
-    if(this.cars == null){
-      if(confirm("You don't have registered car")) {
-    }
-     } else if(this.cars.length > 1){
-     this.showCards = true;
-     } else{
-       this.showProfile = true;
-     }; }, 1000);
-
-}
+    this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
+      .subscribe(data => {
+        this.cars = data;
+        if (this.cars == null) {
+          // this.showProposal = true;
+          window.alert("There are no cars!")
+        } else if (this.cars.length > 1) {
+          this.showCards = true;
+        } else {
+          this.showProfile = true;
+        }
+      });
+  }
 
     deleteCarById(id: number){
     if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
