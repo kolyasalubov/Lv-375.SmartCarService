@@ -22,13 +22,13 @@
   <hr style="border:2px solid #f1f1f1; width: 360px">
   <div id="buttons">
            <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true" ></i><div class="buttonText"> Apply for STO</div> </button>
-           <button class="btn btn-outline my-2 my-sm-0" (click) = "history(user.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i><div class="buttonText"> Service history </div> </button>
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "history()" title="Service history"><i class="fa fa-history" aria-hidden="true"></i><div class="buttonText"> Service history </div> </button>
            <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show charts"><i class="fa fa-line-chart" aria-hidden="true"></i><div class="buttonText"> Show charts </div></button>
            <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(car.vin)" title="Apply for TradeeIn"> <i class="fa fa-refresh" aria-hidden="true"></i><div class="buttonText"> Trade In </div></button>
-          <button class="btn btn-outline my-2 my-sm-0" (click) = "openProfile(car)" title="Open profile"><i class="fa fa-window-maximize" aria-hidden="true"></i><div class="buttonText"> Open profile</div> </button>
-          <button class="btn btn-outline my-2 my-sm-0" id="delete" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i><div class="buttonText"> Delete car</div> </button>
- </div>
- </div>
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "openProfile(car)" title="Open profile"><i class="fa fa-window-maximize" aria-hidden="true"></i><div class="buttonText"> Open profile</div> </button>
+           <button class="btn btn-outline my-2 my-sm-0" id="delete" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i><div class="buttonText"> Delete car</div> </button>
+  </div>
+</div>
 
 </div>
 </div>
@@ -46,16 +46,28 @@
         <span aria-hidden="true">&times;</span>
       </button>
     <div class="card-block">
-        <div class="card">
-            <div class="card-body">
 
-                <i class="fa fa-check-square-o fa-4x" aria-hidden="true"></i>
-                  <div class="desc" style="display: inline-block">
-               <h2> 100 000 </h2>
-               <!--<h2> {{mileage}}</h2>-->
+      <!--<div class="card-data">-->
+      <!--<app-data-card></app-data-card>-->
+      <!--</div>-->
+
+      <!--<div class="card-data">-->
+        <!--<app-data-card></app-data-card>-->
+        <!--</div>-->
+
+        <!--<div class="card-data">-->
+          <!--<app-data-card></app-data-card>-->
+        <!--</div>-->
+
+       <div class="card">
+          <div class="card-body">
+            <i class="fa fa-check-square-o fa-4x" aria-hidden="true"></i>
+              <div class="desc" style="display: inline-block">
+                <h2> 10 000</h2>
+                <h2> {{mileage}}</h2>
                 <h5> Mileage passed</h5>
               </div>
-        </div>
+          </div>
         </div>
 
         <div class="card">
@@ -64,9 +76,9 @@
                  <div class="desc" style="display: inline-block;">
                     <!--<h2> {{speed}} mi/h</h2>-->
                     <h2> 120 mi/h</h2>
-                  <h5> Max speed</h5>
+                    <h5> Max speed</h5>
                 </div>
-        </div>
+            </div>
         </div>
 
         <div class="card">
@@ -74,11 +86,11 @@
                 <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
                 <div class="desc" style="display: inline-block">
                   <h2> 2</h2>
-                   <h5> Services received</h5>
+                  <h5> Services received</h5>
                 </div>
+            </div>
         </div>
-        </div>
-        </div>
+</div>
 
         <!-----------------------Car card---------------------->
 <div id="carMain">
@@ -96,11 +108,10 @@
   </div>
     <div id="options">
         <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true"></i></button>
-        <button class="btn btn-outline my-2 my-sm-0" (click) = "history(user.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
+        <button class="btn btn-outline my-2 my-sm-0" (click) = "history()" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
         <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(car.vin)" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
         <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show all charts"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
         <button id="delete" class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-
     </div>
     </div>
 </div>
@@ -129,10 +140,10 @@
             </thead>
             <tbody>
               <tr>
-                <th scope="row">1</th>
-                <td>2019-02-02</td>
-                <td>14:00 - 15:30</td>
-                <td>vechicle inspection</td>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>

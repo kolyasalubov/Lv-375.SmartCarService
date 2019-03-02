@@ -7,6 +7,7 @@ import { UsersService } from '../users/users.service';
 import { ChartService } from '../chart-page/charts/chart/chart.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from '../alerts/alert.service';
 
 import { ChartData } from '../chart-page/charts/chart/chart-data';
 
@@ -25,6 +26,8 @@ export class CarsComponent implements OnInit {
   showCards: boolean = false;
   showProfile: boolean = false;
   userId: Number;
+  errorCode: number;
+  error: ErrorEvent;
 
   @Input()
   id: number;
@@ -79,9 +82,9 @@ this.carsService.getOwnerCarsById(this.id)
 .subscribe(data => this.cars = data);
 
    setTimeout(() => {
-     if(this.cars == null){
+    if(this.cars == null){
       if(confirm("You don't have registered car")) {
-      }
+    }
      } else if(this.cars.length > 1){
      this.showCards = true;
      } else{
@@ -91,7 +94,7 @@ this.carsService.getOwnerCarsById(this.id)
 }
 
     deleteCarById(id: number){
-      if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
+    if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
     this.carsService.deleteCarById(id).subscribe();
     this.reloadPage();
     }
@@ -106,22 +109,21 @@ this.carsService.getOwnerCarsById(this.id)
     this.router.navigate(['ui/tradeIn',vin]);
   }
 
-
-    goToCharts(car: Car){
+  goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
           carId: car.id,
           carVin: car.vin
         }}
       );
-    }
+  }
 
-    history(id: number){
-
+    history(){
+    //this.alertService.openCongirmDialog();
     }
 
     reloadPage() {
-      window.location.href='/ui/ownercars/' + this.id;
+      window.location.href='/ui/cars/';
     }
 
     closeProfile(){

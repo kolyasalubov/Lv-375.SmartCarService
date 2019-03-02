@@ -23,61 +23,52 @@ public class CarController {
     @Autowired
     private CarService carService;
 
-    /*   Delete car by id*/
+    /* Delete car by id*/
     @DeleteMapping("/car/{id}")
     public ResponseEntity deleteById(@PathVariable Long id) {
         carService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /* Get car by id*/
+    /* Find car by id*/
     @GetMapping("/car/{id}")
-    public ResponseEntity<CarDto> getCarById(@PathVariable Long id) {
-        CarDto car = carService.getCarById(id);
-        if (carService.getCarById(id) == null) {
-            throw new CarNotFoundException(id);
-        }
+    public ResponseEntity<CarDto> findCarById(@PathVariable Long id) {
+        CarDto car = carService.findCarById(id);
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
-    /* Get all cars */
+    /* Find all cars */
     @GetMapping("/cars")
     public ResponseEntity<List<CarDto>> findAll() {
         List<CarDto> cars = carService.findAll();
-        if (cars.isEmpty()) {
-            throw new CarsNotFoundException();
-        }
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-
-    /* Get owner's cars */
+    /* Find owner's cars by user id*/
     @GetMapping("/owner/{id}/cars")
     public ResponseEntity<List<CarDto>> findByUserId(@PathVariable Long id) {
         List<CarDto> cars = carService.findByUserId(id);
-        if (cars.isEmpty()) {
-            throw new CarsNotFoundException();
-        }
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    /*  Get car by vin */
+    /* Find owner's cars by user id*/
+    @GetMapping("/owner/{username}/car")
+    public ResponseEntity<List<CarDto>> findByUsername(@PathVariable String username) {
+        List<CarDto> cars = carService.findByUsername(username);
+        return new ResponseEntity<>(cars, HttpStatus.OK);
+    }
+
+    /*  Find car by vin */
     @GetMapping("/car/{vin}/vin")
     public ResponseEntity<CarDto> findByVin(@PathVariable String vin) {
         CarDto car = carService.findByVin(vin);
-        if (car == null) {
-            throw new CarNotFoundException(vin);
-        }
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
-    /*  Get car by number */
+    /*  Find car by number */
     @GetMapping("/car/{number}/number")
     public ResponseEntity<CarDto> findByNumber(@PathVariable String number) {
         CarDto car = carService.findByNumber(number);
-        if (car == null) {
-            throw new CarNotFoundException(number);
-        }
         return new ResponseEntity<>(car, HttpStatus.OK);
     }
 
@@ -85,7 +76,6 @@ public class CarController {
     @PostMapping("/newcar")
     public ResponseEntity addCar(@RequestParam(value = "username") String username,
                                  @RequestBody NewCarDTO newCarDTO) {
-
         carService.addCar(newCarDTO, username);
         return new ResponseEntity(HttpStatus.CREATED);
     }

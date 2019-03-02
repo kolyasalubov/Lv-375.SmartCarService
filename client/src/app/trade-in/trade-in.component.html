@@ -1,40 +1,45 @@
-<div id="carMain" style="margin-left: 200px;margin-top: 100px;">
+<br>
+<br>
+<div class="container-fluid" >
   <div class="card">
     <div class="card-body">
-      <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right;">
-      <h3> Your car  </h3>
+      <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right; float:left;">
+
       <div class="points" >
-        <li>Brand:{{mycar.brand}} .... Model  : {{mycar.model}}  </li>
-<li> Number : {{mycar.number}}</li>
-        <li *ngIf="!mycar.end_guarantee == null">End of guarantee : {{mycar.end_guarantee}} </li>
+        <ul class="hr">
+          <h3>Your car </h3>
+          <li>Brand  : {{mycar.brand}} </li>
+          <li>Model : {{mycar.model}}  </li>
+          <li>Graduation year : {{mycar.graduation_year}} </li>
+          <li>Number : {{mycar.number}} </li>
+          <li>Vin : {{mycar.vin}} </li>
+        </ul>
+
       </div>
+      <div id="options"></div>
     </div>
-  </div>
-</div>
-<br><br>
-<div *ngFor="let dealercar of allCars" style="margin-left: 220px;">
-  <div class="card">
+  </div></div>
+<hr>
+<div class="container-fluid" >
+  <div class="card" *ngFor="let dealercar of allCars">
     <div class="card-body">
-      <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right;">
-      <h3> {{dealercar.brand}} </h3>
+      <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right; float:left;">
+
       <div class="points" >
-        <li>Brand:{{dealercar.brand}}  Model  : {{dealercar.model}}  </li>
-        <li> Number : {{dealercar.number}}</li>
-        <li >Price : {{dealercar.price}} </li>
-        <!--<li *ngIf="!dealercar.end_guarantee == null">End of guarantee : {{dealercar.end_guarantee}} </li>-->
-        <button class="btn btn-outline my-2 my-sm-0" (click)="sendTradeIn(dealercar.vin,mycar.vin)"  style="background-color: #c5001a"> <i class="btn my-2 my-sm-0" aria-hidden="true">TradeIn</i></button>
+        <ul class="hr">
+          <h3>{{dealercar.brand}} </h3>
+          <li>Model : {{dealercar.model}}  </li>
+          <li>Graduation year : {{mycar.graduation_year}} </li>
+          <li>Number :  {{dealercar.number}} </li>
+          <li>price : {{dealercar.price}} </li>
+        </ul>
+      </div>
+      <div id="options">
+        <button class="btn btn-outline my-2 my-sm-0;" (click)="sendTradeIn(dealercar.vin,mycar.vin)"  style="background-color: #c5001a;margin-left: 30%"> <i class="btn my-2 my-sm-0" aria-hidden="true">TradeIn</i></button>
 
       </div>
     </div>
-  </div>
-
-
-
-</div>
-
-
-
-
+  </div></div>
 <!--<br><br><br><br>-->
 <!--<div class=" container-fluid">-->
   <!--<ul>-->

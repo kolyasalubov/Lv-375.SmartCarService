@@ -16,6 +16,8 @@ public interface TechnicalServiceService {
 
     TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId);
 
+    TechnicalServiceDto getTechnicalServiceDtoByUser(String username);
+
     void deleteTechnicalService(Long id);
 
     void addWorkerToTechnicalService(String username, Long technicalServiceId);

@@ -5,7 +5,10 @@ import { UsersService } from '../users/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TechserviceService } from '../techservice/techservice.service';
 import { Techservice } from '../techservice/techservice';
-
+import { Notifications } from '../notifications/notifications';
+import { NotificationsService } from '../notifications/notifications.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { ObserveOnMessage } from 'rxjs/internal/operators/observeOn';
 
 @Component({
   selector: 'app-menu',
@@ -21,7 +24,10 @@ export class MenuComponent implements OnInit {
   user: User = new User(null, null, null, null, null, null);
   private notificationsOpen: boolean;
 
-  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private techserviceService: TechserviceService, private router: Router) { }
+  notifications: Notifications[];
+
+  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private techserviceService: TechserviceService, private router: Router, 
+    private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     
@@ -29,9 +35,9 @@ export class MenuComponent implements OnInit {
     this.username = this.tokenStorage.getUsername();
 
     this.userService.getUserByUsername(this.username)
-    .subscribe(data => this.user = data);
+      .subscribe(data => this.user = data);
 
-      if (this.tokenStorage.getToken()) {
+    if (this.tokenStorage.getToken()) {
       this.roles = this.tokenStorage.getAuthorities();
       this.roles.every(role => {
         if (role === 'ROLE_CAR_OWNER') {
@@ -43,10 +49,10 @@ export class MenuComponent implements OnInit {
         } else if (role === 'ROLE_TECHNICAL_MANAGER') {
           this.authority = 'techmanager';
           return false;
-        }else if (role === 'ROLE_DIELER') {
+        } else if (role === 'ROLE_DIELER') {
           this.authority = 'dieler';
           return false;
-        }else if (role === 'ROLE_ADMIN') {
+        } else if (role === 'ROLE_ADMIN') {
           this.authority = 'admin';
           return false;
         } else if (role === 'ROLE_WORKER') {
@@ -55,9 +61,11 @@ export class MenuComponent implements OnInit {
         }
 
       });
-          } else {
-            window.location.href = "/ui/auth/login";
-          }
+    } else {
+      window.location.href = "/ui/auth/login";
+    }
+    this.notificationsService.currentNotifications.subscribe(data => this.notifications = data);
+    this.notificationsService.updateNotifications(this.notificationsService.getAllNotifications(this.user.id));
   }
 
   goToNotifications(){
@@ -66,7 +74,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToOwnerCars() {
-    this.router.navigate(['/ui/ownercars', this.user.id]);
+    this.router.navigate(['/ui/cars']);
   }
 
   logout(){
@@ -87,17 +95,10 @@ export class MenuComponent implements OnInit {
 
   }
 
-  goToServicesFeedback() {
-    this.getTechservice(this.user);
-  }
-
-  getTechservice(user: User):any {
-    this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
-    .subscribe(data => {if (data!=null) {
-                          this.techservice = data;
-                          console.log(this.techservice);
-                          this.router.navigate(['/ui/techservice/' + this.techservice.stoId + '/feedback'])
-                          }
-                        });
-  }
+  /*
+  goToDealer() {
+    this.getTechservice(this.user).then(() => {
+    this.router.navigate(['/iu/techservice/' + this.techservice.stoId + '/dealer'])
+    });  
+  }*/
 }

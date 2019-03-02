@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Notifications } from  './notifications';
+import * as SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,9 +17,12 @@ export class NotificationsService {
   private baseUrl = '/api/notifications';
   private notificationsSource = new BehaviorSubject<Notifications[]>([]);
   currentNotifications = this.notificationsSource.asObservable();
-
-  private msgSource = new BehaviorSubject<String>("Default msg source");
-  currentMsg = this.msgSource.asObservable();
+ 
+  // connect(){
+  //   let socket = new WebSocket('http://localhost:9501/socket');
+  //   let ws = Stomp.over(socket);
+  //   return ws;
+  // }
 
   updateNotifications(notifications : Observable<Notifications[]>){
     notifications.subscribe(data => {
@@ -25,10 +30,6 @@ export class NotificationsService {
       this.notificationsSource.next(data);
 
     });
-  }
-
-  updateMsg(msg: String) {
-    this.msgSource.next(msg);
   }
 
   constructor(private http: HttpClient) { }
