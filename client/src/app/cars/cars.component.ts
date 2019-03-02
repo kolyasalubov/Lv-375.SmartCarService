@@ -4,15 +4,17 @@ import { CarsService } from './cars.service';
 import { User } from '../users/user';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { UsersService } from '../users/users.service';
+import { ChartService } from '../chart-page/charts/chart/chart.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
+import { ChartData } from '../chart-page/charts/chart/chart-data';
 
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.component.html',
-  styleUrls: ['./cars.component.scss']
+  styleUrls: ['./cars.component.scss'],
+  providers: [ChartService]
 })
 export class CarsComponent implements OnInit {
 
@@ -27,10 +29,14 @@ export class CarsComponent implements OnInit {
   @Input()
   id: number;
 
+  mileage: number;
+  speed: number;
 
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private chartService: ChartService) { }
 
   ngOnInit(){
+
+
 /*
     this.username = this.tokenStorage.getUsername();
     this.userService.getUserByUsername(this.username)
@@ -39,6 +45,26 @@ export class CarsComponent implements OnInit {
    this.route.params.subscribe(params => {
     this.id = params["id"];
 });
+
+this.chartService.getChartData("mileage", this.id, "/last")
+.subscribe(
+  data => {
+    let chartData: ChartData = new ChartData();
+    chartData.setChartData(data);
+    this.mileage = chartData.data[0];
+  },
+  error => console.error('Error: ', error)
+);
+
+    this.chartService.getChartData("speed", this.id, "/day/max")
+      .subscribe(
+        data => {
+          let chartData: ChartData = new ChartData();
+          chartData.setChartData(data);
+          this.speed = Math.round(chartData.data[0]);
+        },
+        error => console.error('Error: ', error)
+      );
 
 /*if(this.user.id != this.id){
   if(confirm("Such request is not allowed")) {

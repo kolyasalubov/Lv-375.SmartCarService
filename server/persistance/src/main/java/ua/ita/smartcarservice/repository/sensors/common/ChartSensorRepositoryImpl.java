@@ -2,61 +2,52 @@ package ua.ita.smartcarservice.repository.sensors.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
 import ua.ita.smartcarservice.entity.sensors.common.SensorElements;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
-import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
-import ua.ita.smartcarservice.entity.sensors.common.Tires;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements ChartSensorRepository<T> {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     SensorEntityFactory entityFactory;
 
     private CriteriaBuilder builder;
-    private CriteriaQuery criteria;
-    private Class entityClass;
-    private Root root;
 
-    private Path<String> datePath;
-    private Map<String, Path<Double>> valuePath;
-    private Path<Car> carIdPath;
-
-    private String selection;
-
-    private void initCriteria(String sensorType) {
-        builder = entityManager.getCriteriaBuilder();
-        entityClass = entityFactory.getEntity(sensorType).getClass();
-        criteria = builder.createQuery(entityClass);
-        root = criteria.from(entityClass);
-    }
+    private final int DEFAULT_VALUE = 0;
 
     @Override
-//    @Query("SELECT t.value FROM #{#entityName} t WHERE t.id = " +
-//            "(SELECT MAX(e.id) FROM #{#entityName} e " +
-//            "WHERE e.car.id = :carId)")
-    public Double findLastRecordValue(@Param("carId") long carId,
-                                      @Param("sensorType") String sensorType) {
-        initCriteria(sensorType);
+    public Integer findLastRecordValue(@Param("carId") long carId,
+                                       @Param("sensorType") String sensorType) {
+
+        builder = entityManager.getCriteriaBuilder();
+        Class entityClass = entityFactory.getEntity(sensorType).getClass();
+        CriteriaQuery criteria = builder.createQuery(entityClass);
+        Root root = criteria.from(entityClass);
 
         Subquery subquery = criteria.subquery(entityClass);
         Root fromSubquery = subquery.from(entityClass);
-        subquery.select(builder.max(fromSubquery.get("id")));
-        subquery.where(builder.equal(fromSubquery.get("car").get("id"), carId));
+        subquery.select(builder.max(fromSubquery.get(SensorElements.ID.toString())));
+        subquery.where(builder.equal(fromSubquery.get(SensorElements.CAR.toString()).get(SensorElements.ID.toString()), 1));  //TODO change 1 to carId
 
-        criteria.select(root.get("value"));
-        criteria.where(builder.equal(root.get("id"), subquery));
+        Path value = root.get(SensorElements.VALUE.toString());
+        criteria.select(value);
+        criteria.where(builder.in(root.get(SensorElements.ID.toString())).value(subquery));
 
-        return (Double) entityManager.createQuery(criteria).getResultList().get(0);
+        List records = entityManager.createQuery(criteria).getResultList();
+        return records.size() == 0 ? DEFAULT_VALUE : (int)Math.round((double)records.get(0));
     }
 
     @Override
@@ -65,87 +56,53 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
                                               @Param("sensorType") String sensorType,
                                               @Param("selection") String selection) {
 
-        this.selection = selection;
-        initCriteria(sensorType);
-        initPaths(root, sensorType);
+        builder = entityManager.getCriteriaBuilder();
+        Class entityClass = entityFactory.getEntity(sensorType).getClass();
+        CriteriaQuery criteria = builder.createQuery(entityClass);
+        Root root = criteria.from(entityClass);
 
+        ChartCriteriaElementsProvider elementsProvider =
+                new ChartCriteriaElementsProvider(1, date, selection, sensorType, root); //TODO change 1 to carId
 
-        Expression selectedPeriod = getSelectedPeriod();
-        Predicate[] predicates = getPredicates(carId, date);
-        Expression[] selectionValues = getSelection(selectedPeriod, valuePath);
+        Expression selectedPeriod = getSelectedPeriod(elementsProvider);
+        Predicate[] predicates = getPredicates(elementsProvider);
+        Expression[] selectionValues = getSelection(selectedPeriod, elementsProvider);
 
         criteria.select(builder.array(selectionValues));
         criteria.where(predicates);
         criteria.groupBy(selectedPeriod);
-        criteria.orderBy(builder.asc(datePath));
+        criteria.orderBy(builder.asc(selectedPeriod));
 
         return entityManager.createQuery(criteria).getResultList();
     }
 
-    private void initPaths(Root root, String sensorType) {
-        datePath = root.get(SensorElements.DATE.toString());
-        carIdPath = root.get(SensorElements.CAR.toString()).get(SensorElements.ID.toString());
-        initValuePath(root, sensorType);
-    }
+    private Expression getSelectedPeriod(ChartCriteriaElementsProvider elementsProvider) {
+        String selection = elementsProvider.getSelection();
+        Path<String> datePath = elementsProvider.getDatePath();
 
-    private void initValuePath(Root root, String sensorType) {
-        valuePath = new HashMap<>();
-        Arrays.stream(getValuesNames(sensorType)).forEach((value) -> {
-            String key = value.toString();
-            valuePath.put(key, root.get(key));
-        });
-    }
-
-    private Object[] getValuesNames(String sensorType) {
-        if (sensorType.equals(SensorTypes.TIRE_PRESSURE.toString())) {
-            return Tires.values();
-        } else {
-            return new Object[]{SensorElements.VALUE.toString()};
-        }
-    }
-
-    private Expression getSelectedPeriod() {
         if (selection.contains(SensorElements.DAY.toString())) {
-            return getPartOfDate(SensorElements.TIME.toString());
+            return getPartOfDate(SensorElements.TIME.toString(), datePath);
         } else if (selection.contains(SensorElements.MONTH.toString())) {
-            return getPartOfDate(SensorElements.DAY.toString());
+            return getPartOfDate(SensorElements.DAY.toString(), datePath);
         } else {
-            return getPartOfDate(SensorElements.MONTH.toString());
+            return getPartOfDate(SensorElements.MONTH.toString(), datePath);
         }
     }
 
-    private Expression getPartOfDate(String part) {
-        return builder.function(part, Integer.class, datePath);
-    }
+    private Predicate[] getPredicates(ChartCriteriaElementsProvider elementsProvider) {
+        Path<String> datePath = elementsProvider.getDatePath();
+        LocalDateTime date = elementsProvider.getDate();
 
-    private Expression getAggregatedValue(Path<Double> value) {
-        if (selection.contains(SensorElements.MIN.toString())) {
-            return builder.min(value);
-        } else if (selection.contains(SensorElements.MAX.toString())) {
-            return builder.max(value);
-        } else {
-            return value;
-        }
-    }
-
-    private Expression[] getSelection(Expression selectedPeriod, Map<String, Path<Double>> values) {
-        List<Expression> list = new ArrayList<>();
-        list.add(selectedPeriod);
-        values.values().forEach((value) -> list.add(getAggregatedValue(value)));
-        return list.toArray(new Expression[]{});
-    }
-
-
-    private Predicate[] getPredicates(long carId, LocalDateTime date) {
-        Predicate equalCar = builder.equal(carIdPath, carId);
-        Predicate equalYear = builder.equal(getPartOfDate(SensorElements.YEAR.toString()), date.getYear());
-        Predicate equalMonth = builder.equal(getPartOfDate(SensorElements.MONTH.toString()), date.getMonthValue());
-        Predicate equalDay = builder.equal(getPartOfDate(SensorElements.DAY.toString()), date.getDayOfMonth());
+        Predicate equalCar = builder.equal(elementsProvider.getCarIdPath(), elementsProvider.getCarId());
+        Predicate equalYear = builder.equal(getPartOfDate(SensorElements.YEAR.toString(), datePath), date.getYear());
+        Predicate equalMonth = builder.equal(getPartOfDate(SensorElements.MONTH.toString(), datePath), date.getMonthValue());
+        Predicate equalDay = builder.equal(getPartOfDate(SensorElements.DAY.toString(), datePath), date.getDayOfMonth());
 
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(equalCar);
         predicates.add(equalYear);
 
+        String selection = elementsProvider.getSelection();
         if (selection.contains(SensorElements.DAY.toString())) {
             predicates.addAll(Arrays.asList(equalMonth, equalDay));
         } else if (selection.contains(SensorElements.MONTH.toString())) {
@@ -153,5 +110,30 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         }
 
         return predicates.toArray(new Predicate[]{});
+    }
+
+    private Expression getPartOfDate(String part, Path<String> datePath) {
+        return builder.function(part, Integer.class, datePath);
+    }
+
+    private Expression[] getSelection(Expression selectedPeriod, ChartCriteriaElementsProvider elementsProvider) {
+        Map<String, Path<Double>> mapOfValues = elementsProvider.getValuePath();
+        String selection = elementsProvider.getSelection();
+
+        List<Expression> list = new ArrayList<>();
+        list.add(selectedPeriod);
+        list.addAll(mapOfValues.values().stream()
+                .map(value -> getAggregatedValue(value, selection)).collect(Collectors.toList()));
+        return list.toArray(new Expression[]{});
+    }
+
+    private Expression getAggregatedValue(Path<Double> value, String selection) {
+        if (selection.contains(SensorElements.MIN.toString())) {
+            return builder.min(value);
+        } else if (selection.contains(SensorElements.MAX.toString())) {
+            return builder.max(value);
+        } else {
+            return builder.avg(value);
+        }
     }
 }
