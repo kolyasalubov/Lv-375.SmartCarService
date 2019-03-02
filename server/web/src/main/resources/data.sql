@@ -35,5 +35,3 @@ VALUES
 ("glass washer fluid", "You are running out of glass washer fluid. 0.5l left. ", "Information"),
 ("coolant", "You are running out of coolant. But it is not critical yet. 0.5l left. ", "Information")
 ;
-
-SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));

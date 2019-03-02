@@ -70,12 +70,8 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public ChartDto findLastRecordValue(DateForChartDto dto){
-        ChartSensorRepository r = getChartRepository(dto);
-        Integer i = r.findLastRecordValue(dto.getCarId(), dto.getSensorType());
-        ChartDto Cdto = new ChartDto(i);
-        return Cdto;
-//        return new ChartDto(getChartRepository(dto)
-//                .findLastRecordValue(dto.getCarId(), dto.getSensorType()));
+        return new ChartDto(getChartRepository(dto)
+                .findLastRecordValue(dto.getCarId(), dto.getSensorType()));
     }
 
     private ChartDto getChartDtoFromObjArray(List<Object[]> records) {
