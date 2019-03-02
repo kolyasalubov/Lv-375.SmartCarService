@@ -1,4 +1,4 @@
-.list-group-item{
+.list-group-item, .table-list{
     &:hover{
         cursor: pointer;
     }
@@ -34,4 +34,11 @@
 }
 .non-selectSkill{
     background-color: rgb(238, 236, 236);
+}
+.no-warning{
+    margin-left: 225px;
+    padding-top: 100px;
+}
+.warning{
+    margin-left: 225px;
 }

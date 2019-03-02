@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.entity.technicalservice;
 
 import lombok.Data;
 import ua.ita.smartcarservice.entity.booking.WorkDependency;
+import ua.ita.smartcarservice.entity.booking.WorkTime;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,4 +34,7 @@ public class WorkType {
 
     @OneToMany(mappedBy = "dependentWork")
     List<WorkDependency> listOfDependentWork;
+
+    @OneToMany(mappedBy = "work")
+    List<WorkTime> workTimes;
 }

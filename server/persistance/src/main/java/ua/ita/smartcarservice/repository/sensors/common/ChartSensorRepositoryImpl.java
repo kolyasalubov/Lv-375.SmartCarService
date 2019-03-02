@@ -98,7 +98,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         } else if (selection.contains(SensorElements.MAX.toString())) {
             return builder.max(value);
         } else {
-            return value;
+            return builder.avg(value);
         }
     }
 

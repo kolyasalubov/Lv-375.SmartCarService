@@ -11,7 +11,7 @@ public interface BookingService {
 
     List<LocalDateTime> findTimeToBooking(BookingDto bookingDto);
 
-    boolean addBooking(NewBookingDto newSessionDto);
+    void addBooking(NewBookingDto newSessionDto);
 
     List <WorkTimeDto> findAllByWorkerId(Long workerId);
 

@@ -28,6 +28,11 @@ export class WorkerListComponent implements OnInit {
   lastIndexMap : Map<string, number> = new Map();
   error: ErrorEvent;
 
+  getDefault : boolean = false;
+  defaulWorker : Map<string, number> = new Map();
+
+  incorrectNumberOfWorkers : boolean = false; 
+
   date : string;
   constructor(private workerListService : WorkerListService) {}
 
@@ -42,7 +47,7 @@ export class WorkerListComponent implements OnInit {
   }
 
   ChooseWorker(worker : Worker, skillname : string) :void{
-
+    this.incorrectNumberOfWorkers = false;
     this.showTime = false;
 
       if(this.lastIndexMap.get(skillname) != undefined){
@@ -77,11 +82,24 @@ export class WorkerListComponent implements OnInit {
     
     let workId : Array<number> = new Array();
 
+    if(this.getDefault){
+      this.defaulWorker.forEach((value : number, key : string) => {
+        workId.push(value);
+      })
+    }
+    else{
     this.lastIndexMap.forEach((value: number, key: string) => {
       if(value != -1){
         workId.push(value);
       }
-  });
+    });
+  }
+
+    if(workId.length != this.workerList.skillName.length){
+        this.incorrectNumberOfWorkers = true;
+        return;
+    }
+
     this.timeList.workerId = workId;
     this.timeList.needTime = this.workersTime.requiredTime;
 
@@ -103,5 +121,23 @@ export class WorkerListComponent implements OnInit {
       return (String)(requiredTime) + "minutes"
     }
   }
+
+  addToDefault(skillName : string, worker : Worker): string{
+    this.incorrectNumberOfWorkers = false;
+      if(this.defaulWorker.get(skillName) == undefined){
+        this.defaulWorker.set(skillName, worker.workerId);
+        return worker.fullName;
+      }
+
+      if(Math.random() > 0.5){
+        this.defaulWorker.set(skillName, worker.workerId);
+      }
+
+      return worker.fullName;
+  }
+
+
+
+
 
 }
