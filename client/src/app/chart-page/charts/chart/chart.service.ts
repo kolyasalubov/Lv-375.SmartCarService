@@ -37,6 +37,10 @@ export class ChartService {
       .set("date", dateDto.date)
       .set("selection", dateDto.selection);
 
+      if(dateDto.selection.includes("last")){
+        url += dateDto.selection;
+      }
+
     return this.http.get<ChartDto>(url, this.httpOptions);
   }
 
