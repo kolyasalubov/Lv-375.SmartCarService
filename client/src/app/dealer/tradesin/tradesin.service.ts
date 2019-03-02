@@ -17,5 +17,8 @@ export class TradesinService {
   getAllTradeInByDealer(username:String):Observable<TradeIn[]>{
 return this.http.get<TradeIn[]>('http://localhost:9501/api/dealer/getAllTradeIn/'+username);
   }
+  deleteTradeIn(id: number){
+    return this.http.delete('api/delaer/delete/' + id)
+  }
 
 }

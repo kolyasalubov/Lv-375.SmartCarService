@@ -167,7 +167,7 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Override
     public List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username) {
-        List<TechnicalServiceEntity> technicalServiceList = new ArrayList<>();// = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
+        List<TechnicalServiceEntity> technicalServiceList  = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
         List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
         for(TechnicalServiceEntity technicalService:technicalServiceList){
 

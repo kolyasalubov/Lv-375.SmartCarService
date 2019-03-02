@@ -73,5 +73,10 @@ public class TradeInServiceImpl implements TradeInService {
 
         return tradeInDtos;
     }
+
+    @Override
+    public void deleteTradeIn(Long id) {
+        tradeInRepository.deleteById(id);
+    }
 }
 

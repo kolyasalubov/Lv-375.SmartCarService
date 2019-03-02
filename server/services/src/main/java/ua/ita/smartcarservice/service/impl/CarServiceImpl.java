@@ -172,18 +172,12 @@ public class CarServiceImpl implements CarService {
         }
         return carDtos;
     }
-    public void createByDealer(String brand, String model, String graduation_year, String number,Double price, String vin, String username) {
 
-        Car car=new Car();
-        car.setBrand(brand);
-        car.setModel(model);
-        car.setGraduation_year(graduation_year);
-        car.setNumber(number);
-        car.setPrice(price);
-        car.setVin(vin);
-        car.setDealer(dealerRepository.findByUserEntity_Username(username));
-        carRepository.save(car);
+    @Override
+    public void createByDealer(CarDto carDto, String username) {
+ carRepository.save(new Car(carDto.getBrand(),carDto.getModel(),carDto.getGraduation_year(),carDto.getNumber(),carDto.getPrice(),carDto.getVin(),dealerRepository.findByUserEntity_Username(username)));
     }
+
     @Override
     public List<CarDto> findbyUserLogin(String login) {
         List<CarDto> carDtos = new ArrayList<>();
