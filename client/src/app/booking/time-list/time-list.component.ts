@@ -26,7 +26,9 @@ export class TimeListComponent implements OnInit {
   timeList : TimeList;
 
   @Input()
-  cost : number;
+  price : number;
+
+
 
   error: ErrorEvent;
   bookingInfo : BookingInfo;
@@ -72,7 +74,7 @@ export class TimeListComponent implements OnInit {
     newBooking.start = this.bookingInfo.startBooking;
     newBooking.workInfo = this.workInfo;
     newBooking.workerId = this.timeList.workerId;
-    
+
         this.timeListServices.postNewBooking(newBooking)
         .subscribe((date) => this.postBookingStatusCode = date,
         error => this.error = error);
@@ -91,17 +93,13 @@ export class TimeListComponent implements OnInit {
     newReport.startTime = this.bookingInfo.startBooking;
     newReport.endTime = this.bookingInfo.endBooking;
     newReport.requiredTime = this.timeList.needTime;
-    newReport.cost = this.cost;
+    newReport.price = this.price;
 
     this.timeListServices.postNewReport(newReport)
         .subscribe((date) => this.postReportStatusCode = date,
         error => this.error = error);
-
-    if(this.postReportStatusCode != 200){
-      this.postReportError = true;
-    }
   }
-  
+
 goToHomePage() {
   this.router.navigate(['ui/home']);
 }

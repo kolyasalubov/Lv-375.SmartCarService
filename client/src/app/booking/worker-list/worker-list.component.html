@@ -11,8 +11,8 @@
                 </mdb-card-title>
                 <mdb-card-text>
                   <div class="jumbotron text-center hoverable p-4"
-                  style="cursor: pointer;"  
-                    *ngFor="let value of item.value" 
+                  style="cursor: pointer;"
+                    *ngFor="let value of item.value"
                     id='worker{{value.workerId}}'
                       (click)="ChooseWorker(value, item.key)">
                       {{addToDefault(item.key, value)}}
@@ -38,6 +38,6 @@
 
   <div *ngIf="showTime">
     <app-time-list [timeList]=timeList  [carId] = carId
-     [workInfo] = workersTime.workInfo [cost] = cost ></app-time-list>
+     [workInfo] = workersTime.workInfo [price] = cost></app-time-list>
   </div>
 </div>

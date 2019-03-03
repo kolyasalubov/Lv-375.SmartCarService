@@ -18,6 +18,9 @@ export class StoSkillComponent implements OnInit {
   error: ErrorEvent;
   searchId : number;
 
+  notificationWork : Map<string, boolean> = new Map();
+  noti : Array<Notification>;
+
   show : boolean = true;
   works : Array<WorkType>;
   headElements : Array<string> = ["Name", "Time", "Cost"];

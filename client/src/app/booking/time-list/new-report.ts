@@ -2,6 +2,6 @@ export class Report{
     startTime : string;
     endTime : string;
     requiredTime : number;
-    cost : number;
+    price : number;
     carId : number;
 }

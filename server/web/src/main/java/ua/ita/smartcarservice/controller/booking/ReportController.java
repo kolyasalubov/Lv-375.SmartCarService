@@ -22,7 +22,6 @@ public class ReportController {
     @PostMapping
     public void saveReport(@RequestBody ReportDto reportDto) {
         long reportId = reportService.addReport(reportDto);
-        //TODO
-//        bookingService.updateReports(reportDto, reportId);
+        bookingService.updateReportsId(reportDto, reportId);
     }
 }

@@ -31,11 +31,12 @@ public class ReportServiceImpl implements ReportService {
     private ReportEntity repordDtoToEntity(ReportDto reportDto){
         ReportEntity entity = new ReportEntity();
         entity.setCar(carRepository.getCarById(reportDto.getCarId()));
-//        TODO get Entity from Siavochka
-//        entity.setTechnicalService(techServiceRepository.find(reportDto.getCarId()).getTechService());
+        entity.setTechnicalService(userTechnicalServiceRepository
+                .findTechnicalServiceByCarId(reportDto.getCarId())
+                .getTechnicalServiceId());
         entity.setStartTime(parseDateToLocal(reportDto.getStartTime()));
         entity.setEndTime(parseDateToLocal(reportDto.getEndTime()));
-        entity.setRequiredHours(reportDto.getRequiredHours());
+        entity.setRequiredTime(reportDto.getRequiredTime());
         entity.setPrice(reportDto.getPrice());
         return entity;
     }

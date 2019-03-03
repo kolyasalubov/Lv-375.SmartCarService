@@ -44,7 +44,7 @@ public class ReportEntity {
     private LocalDateTime endTime;
 
     @Column
-    private Integer requiredHours;
+    private Integer requiredTime;
 
     @Column
     private Integer price;

@@ -11,7 +11,7 @@ public class ReportDto {
 
     private String endTime;
 
-    private int requiredMinutes;
+    private int requiredTime;
 
     private int price;
 
