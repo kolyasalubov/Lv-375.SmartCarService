@@ -68,6 +68,12 @@ public class SensorServiceImpl implements SensorService {
                         dto.getSensorType(), dto.getSelection()));
     }
 
+    @Override
+    public ChartDto findLastRecordValue(DateForChartDto dto){
+        return new ChartDto(getChartRepository(dto)
+                .findLastRecordValue(dto.getCarId(), dto.getSensorType()));
+    }
+
     private ChartDto getChartDtoFromObjArray(List<Object[]> records) {
         Map<String, List<Double>> dataMap = new HashMap<>();
         if (records != null && records.size() > 0 && records.get(0)[0] != null) {
@@ -98,13 +104,6 @@ public class SensorServiceImpl implements SensorService {
     private LocalDateTime parseDateToLocal(String strDate) {
         return LocalDateTime.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
-
-    @Override
-    public ChartDto findCurrentLevel(DateForChartDto dateForChartDto){
-        return new ChartDto(repositoryFactory.getBatteryRepository()
-                .findCurrentLevel(dateForChartDto.getCarId()));
-    }
-
 
     @Override
     public RecordDto findRecordBeforeDate(RecordDto recordDto) {

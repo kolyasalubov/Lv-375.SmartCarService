@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ua.ita.smartcarservice.dto.NewCarDTO;
+import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.exceptions.CarRegisteredAlreadyExсeption;
 import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.exceptions.CarNotFoundException;
 import ua.ita.smartcarservice.exceptions.CarsNotFoundException;
 import ua.ita.smartcarservice.service.CarService;
+import ua.ita.smartcarservice.service.booking.ReportService;
 
 
 @CrossOrigin(origins = "*")
@@ -22,6 +24,8 @@ public class CarController {
 
     @Autowired
     private CarService carService;
+    @Autowired
+    private ReportService reportService;
 
     /* Delete car by id*/
     @DeleteMapping("/car/{id}")
@@ -44,12 +48,12 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-//    /* Find all cars in sto */
-//    @GetMapping("/owner/{id}/cars/sto")
-//    public ResponseEntity<List<CarDto>> findAllInSto(@PathVariable Long id) {
-//        List<CarDto> cars = carService.getAllCarInSto(id);
-//        return new ResponseEntity<>(cars, HttpStatus.OK);
-//    }
+    /* Find all cars in sto */
+    @GetMapping("/owner/{id}/cars/sto")
+    public ResponseEntity<List<ReportEntity>> findAllInSto(@PathVariable Long id) {
+        List<ReportEntity> cars = reportService.getALlCarInSto(id);
+        return new ResponseEntity<>(cars, HttpStatus.OK);
+    }
 
     /* Find owner's cars by user id*/
     @GetMapping("/owner/{id}/cars")

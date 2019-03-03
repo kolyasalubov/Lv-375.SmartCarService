@@ -17,6 +17,7 @@ export class TechserviceService {
 
   techserviceUrl = '/api/v1/users/{userId}/techservices';
   usersTechserviceUrl = "/api/v1/users/{userId}/techservice";
+  usernameTechserviceUrl = "/api/v1/users/username/{username}/techservice";
   crudTechserviceUrl = '/api/v1/techservices/{id}';
 
   constructor(private http: HttpClient) { }
@@ -32,6 +33,12 @@ export class TechserviceService {
   getTechnicalServiceByCurrentUser(userId: number): Observable<Techservice> {
     return this.http.get<Techservice>(this.usersTechserviceUrl
                                       .replace('{userId}', userId.toString()))
+                                      .pipe(catchError(this.errorHandler));
+  }
+
+  getTechnicalServiceByUsername(username: string): Observable<Techservice> {
+    return this.http.get<Techservice>(this.usernameTechserviceUrl
+                                      .replace('{username}', username))
                                       .pipe(catchError(this.errorHandler));
   }
 

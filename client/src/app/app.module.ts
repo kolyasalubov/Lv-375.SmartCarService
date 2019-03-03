@@ -9,7 +9,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {SecurityModule} from './security/security.module';
 import {AppComponent} from './app.component';
 import {TechmanagerProfileComponent} from './techmanager-profile/techmanager-profile.component';
-import {TechmanagerProfileService} from './techmanager-profile/techmanager-profile.service';
 import {ChartPageModule} from './chart-page/chart-page.module';
 import {RolesComponent} from './roles/roles.component';
 import {TechserviceComponent} from './techservice/techservice.component';
@@ -22,16 +21,13 @@ import {UsersComponent} from './users/users.component';
 import {InfoComponent} from './info/info.component';
 import {CarProfileComponent} from './car-profile/car-profile.component';
 import {UserProfileComponent} from './user-profile/user-profile.component';
-import {NotificationsService} from  './notifications/notifications.service';
 import {NotificationsApprovementComponent} from './notifications/notifications-approvement/notifications-approvement.component';
 import {NotificationsListComponent} from './notifications/notifications-list/notifications-list.component';
 import {MapComponent} from './techservice/map/map.component';
 import {AgmCoreModule} from '@agm/core';
-import {LoginComponent} from './login/login.component';
 import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
 import { CarDetailsComponent } from './cars/car-details/car-details.component';
 import { ServicesFeedbackFormComponent} from './services-feedback-form/services-feedback-form.component';
-import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
 import { DealerComponent } from './dealer/dealer.component';
 import { DealcarComponent } from './dealer/dealcar/dealcar.component';
@@ -41,10 +37,8 @@ import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
-import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
 import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
-import * as Material from '@angular/material';
 import { MatDialog, MatDialogModule } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -84,10 +78,14 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     TradesinComponent,
     TradeInComponent,
     PreviewComponent,
-    ServicesFeedbackPageComponent,
     ProgresbarComponent,
     AlertsComponent,
     DataCardComponent,
+    ProgresbarComponent,
+    AlertsComponent,
+    DataCardComponent,
+   // Material.MatDialogModule
+
 
   ],
   imports: [
@@ -114,7 +112,7 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [SecurityModule],
-  entryComponents:[AlertsComponent]
+  entryComponents: [AlertsComponent]
   })
 export class AppModule {
 }
