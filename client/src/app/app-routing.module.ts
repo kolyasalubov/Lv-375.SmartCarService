@@ -37,9 +37,15 @@ import { PreviewComponent } from './preview/preview.component';
 import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
-
+import {DealersComponent} from './dealers/dealers.component';
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
+
+
+  {
+    path: 'ui/techservice/dealer',
+    component:DealersComponent
+  },
   {
     path: 'ui/progresbar',
     component: ProgresbarComponent

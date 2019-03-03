@@ -6,9 +6,6 @@ import ua.ita.smartcarservice.entity.sales.UserSaleManager;
 
 import java.util.List;
 
-/**
- * Created by 1 on 10.02.2019.
- */
 
 public interface SaleManagerService {
 

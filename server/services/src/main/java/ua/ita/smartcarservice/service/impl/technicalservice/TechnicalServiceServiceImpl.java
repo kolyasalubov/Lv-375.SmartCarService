@@ -165,15 +165,15 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         return userTechnicalServiceRepository.findTechnicalServiceByCarId(id).getTechnicalServiceId().getName();
     }
 
-    public TechnicalServiceDto convertToDtoByDelaer(TechnicalServiceEntity technicalServiceEntity) {
-        TechnicalServiceDto dto = new TechnicalServiceDto();
-
-        dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
-        dto.setName(technicalServiceEntity.getName());
-        dto.setAddress(technicalServiceEntity.getAddress());
-
-        return dto;
-    }
+//    public TechnicalServiceDto convertToDtoByDelaer(TechnicalServiceEntity technicalServiceEntity) {
+//        TechnicalServiceDto dto = new TechnicalServiceDto();
+//
+//        dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
+//        dto.setName(technicalServiceEntity.getName());
+//        dto.setAddress(technicalServiceEntity.getAddress());
+//
+//        return dto;
+//    }
 
 
     @Override
@@ -182,7 +182,7 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
         for(TechnicalServiceEntity technicalService:technicalServiceList){
 
-            technicalServiceDtoList.add(convertToDtoByDelaer(technicalService));
+            technicalServiceDtoList.add(convertToDto(technicalService));
         }
         return technicalServiceDtoList;
     }
