@@ -18,6 +18,7 @@ export class ProgressChartComponent implements OnInit {
   chartService: ChartService;
 
   private percent: number = 100;
+  private valid: boolean = false;
 
   constructor(private http: HttpClient) {
     this.chartService = new ChartService(http);
@@ -36,6 +37,9 @@ export class ProgressChartComponent implements OnInit {
         dto => {
           for (const [key, value] of Object.entries(dto.data)) {
             this.percent = value[0];
+            if(this.percent !== 0){
+              this.valid = true;
+            }
           }
         },
         error => console.error('Error: ', error)

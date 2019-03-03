@@ -7,14 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.NewCarDTO;
-import ua.ita.smartcarservice.dto.sales.DealerCarDto;
-import ua.ita.smartcarservice.dto.sales.DealerDto;
-import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
-import ua.ita.smartcarservice.dto.sales.TradeInDto;
+import ua.ita.smartcarservice.dto.sales.*;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.UserService;
+import ua.ita.smartcarservice.service.sales.ApplyService;
 import ua.ita.smartcarservice.service.sales.DealerService;
 import ua.ita.smartcarservice.service.sales.TradeInService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
@@ -46,6 +44,8 @@ public class DealerController {
     @Autowired
     TradeInService tradeInService;
 
+    @Autowired
+    ApplyService applyService;
     /* Get all dealers */
     @GetMapping(path = "api/dealer/getAll")
     public ResponseEntity<List<DealerDto>> getAllDealers() {
@@ -91,12 +91,12 @@ dealerService.createDealer(dealerDto,username);
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllCarDtoByUserNameDealer(username));
     }
-    /* create sto by dealer */
-    @PostMapping(path = "api/dealer/{username}/createSto")
-    public ResponseEntity<?> createDealerSto(@PathVariable String username,@RequestBody DealerStoAddDto stoAddDto) {
-        technicalServiceService.createTechnicalServiceByDealer(stoAddDto, username);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
+//    /* create sto by dealer */
+//    @PostMapping(path = "api/dealer/{username}/createSto")
+//    public ResponseEntity<?> createDealerSto(@PathVariable String username,@RequestBody DealerStoAddDto stoAddDto) {
+//        technicalServiceService.createTechnicalServiceByDealer(stoAddDto, username);
+//        return new ResponseEntity<Void>(HttpStatus.OK);
+//    }
 
     /* create car by dealer */
         @PostMapping("api/dealer/createcar/{username}")
@@ -175,20 +175,12 @@ dealerService.createDealer(dealerDto,username);
 
     }
 
-
-//    @GetMapping("api/dealer/getAllTradeIn/{username}")
-//    public  ResponseEntity<List<TradeInDto>> getAllDealersTradeIn(@PathVariable String username){
-//        List<TradeInDto>tradeInDtos=tradeInService.tradeinDtos(username);
-//        return new ResponseEntity<>(tradeInDtos, HttpStatus.OK);
-//    }
     /* Get dealer's trade in by username */
     @GetMapping("api/dealer/getAllTradeIn/{username}")
     public  ResponseEntity<List<TradeInDto>> getAllDealersTradeIn(@PathVariable String username){
         List<TradeInDto>tradeInDtos=tradeInService.tradeinDtos(username);
         return new ResponseEntity<>(tradeInDtos, HttpStatus.OK);
     }
-
-
 
         /* delete tradeIn by id */
     @DeleteMapping("api/delaer/delete/{id}")
@@ -198,4 +190,26 @@ dealerService.createDealer(dealerDto,username);
 
     }
 
+            /* do tradeIn successed*/
+    @DeleteMapping("api/delaer/successTradeIn/{id}")
+    public ResponseEntity successTradeIn(@PathVariable Long id){
+        tradeInService.successTradeIn(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PostMapping("/api/dealer/epplyToDealer")
+    public ResponseEntity createEpplyToDealer(@RequestBody ApplyToDealerDto apply){
+        applyService.createApplyToDealer(apply);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/api/dealer/allstosToApply/{username}")
+    public  ResponseEntity<List<TechnicalServiceDto>> getAllStotoApply(@PathVariable String username){
+List<TechnicalServiceDto>technicalServiceDtos=applyService.TECHNICAL_SERVICE_DTOS(username);
+
+        return new ResponseEntity<>(technicalServiceDtos, HttpStatus.OK);
+
+    }
 }

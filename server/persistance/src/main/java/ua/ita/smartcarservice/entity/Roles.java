@@ -1,6 +1,6 @@
 package ua.ita.smartcarservice.entity;
 
-public enum RoleName {
+public enum Roles {
 	
 	ROLE_CAR_OWNER,
 	ROLE_SALES_MANAGER,

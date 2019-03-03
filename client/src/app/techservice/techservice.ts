@@ -7,6 +7,7 @@ export class Techservice {
     workers: []; // array of Worker
     dealer: any; // Dealer type
     techManager: TechmanagerProfile;
+    rating: number;
 
     constructor() {
         this.stoId = -1;
@@ -15,5 +16,6 @@ export class Techservice {
         this.workers = [];
         this.dealer = null;
         this.techManager = null;
+        this.rating = 0;
     }
 }

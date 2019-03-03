@@ -4,12 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ua.ita.smartcarservice.entity.alerts.FaultCode;
+import ua.ita.smartcarservice.entity.alerts.Alerts;
 
 @Repository
-public interface FaultCodeRepository extends JpaRepository<FaultCode, Long>{
+public interface AlertsRepository extends JpaRepository<Alerts, Long>{
 
-	@Query ("SELECT f FROM FaultCode f WHERE f.faultCode = :faultCode")
-	FaultCode getFaultCode (@Param ("faultCode") String faultCode);
+	@Query ("SELECT a FROM Alerts a WHERE a.alertCode = :alertCode")
+	Alerts getAlert (@Param ("alertCode") String alertCode);
 
 }

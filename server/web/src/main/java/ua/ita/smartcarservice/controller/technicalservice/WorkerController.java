@@ -41,14 +41,15 @@ public class WorkerController {
 
     private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
-    @PostMapping("/api/workerbycar")
-    public ResponseEntity <WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
+    @PostMapping("/api/workers/skill")
+    public ResponseEntity<WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                             workerWithSkillDto) {
 
         WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorkName());
 
         Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillName().stream().collect(
-                Collectors.toMap(Function.identity(), s->workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()))
+                Collectors.toMap(Function.identity(),
+                        s -> workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()))
         );
 
         WorkerBySkillNameDto workerBySkillNameDto = new WorkerBySkillNameDto();
@@ -109,17 +110,15 @@ public class WorkerController {
 
     @GetMapping("/api/v1/workers/{id}")
     public ResponseEntity<WorkerSkillDto> getWorkerById(@PathVariable Long id) {
-        ResponseEntity<WorkerSkillDto> responceEntity;
-        WorkerSkillDto workerSkillDto;
-
+        ResponseEntity<WorkerSkillDto> responseEntity;
 
         try {
-            responceEntity = new ResponseEntity<>(workerService.getWorkerSkillDtoById(id), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(workerService.getWorkerSkillDtoById(id), HttpStatus.OK);
         } catch (Exception e) {
-            responceEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return responceEntity;
+        return responseEntity;
     }
 }
 

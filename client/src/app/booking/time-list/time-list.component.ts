@@ -7,6 +7,7 @@ import { error } from '@angular/compiler/src/util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BookingInfo } from './booking-info';
 import { WorkInfo } from '../worker-list/work-info';
+import { Report } from './new-report';
 
 @Component({
   selector: 'app-time-list',
@@ -23,11 +24,21 @@ export class TimeListComponent implements OnInit {
 
   @Input()
   timeList : TimeList;
+
+  @Input()
+  price : number;
+
+
+
   error: ErrorEvent;
   bookingInfo : BookingInfo;
   newBooking : NewBooking;
   postBookingStatusCode : number;
+  postReportStatusCode : number;
   lastId : string;
+
+  postBookingError = false;
+  postReportError = false;
 
   months = {'01':'Jan', '02':'Feb', '03':'Mar', '04':'Apr', '05':'May', '06':'June', '07':'July',
    '08':'Aug', '09':'Sept', '10':'Oct','11':'Nov', '12':'Dec'};
@@ -63,11 +74,32 @@ export class TimeListComponent implements OnInit {
     newBooking.start = this.bookingInfo.startBooking;
     newBooking.workInfo = this.workInfo;
     newBooking.workerId = this.timeList.workerId;
-    
+
         this.timeListServices.postNewBooking(newBooking)
         .subscribe((date) => this.postBookingStatusCode = date,
         error => this.error = error);
+
+        if(this.postBookingStatusCode === 200){
+          this.postReport();
+        }
+        else{
+          this.postBookingError = true;
+        }
 }
+
+  postReport(){
+    let newReport: Report = new Report();
+    newReport.carId = this.carId;
+    newReport.startTime = this.bookingInfo.startBooking;
+    newReport.endTime = this.bookingInfo.endBooking;
+    newReport.requiredTime = this.timeList.needTime;
+    newReport.price = this.price;
+
+    this.timeListServices.postNewReport(newReport)
+        .subscribe((date) => this.postReportStatusCode = date,
+        error => this.error = error);
+  }
+
 goToHomePage() {
   this.router.navigate(['ui/home']);
 }

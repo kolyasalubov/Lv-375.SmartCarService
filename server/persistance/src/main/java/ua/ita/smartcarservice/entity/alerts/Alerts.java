@@ -14,48 +14,47 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
+import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "fault_code")
-public class FaultCode {
+@Table(name = "alerts")
+public class Alerts {
 		
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 	
-	@Column (length = 25, name = "fault_code", nullable = false, unique = true)
-	private String faultCode;
+	@Column (length = 35, name = "alert_code", nullable = false, unique = true)
+	private String alertCode;
 	
-	@Column (length = 250, name = "description", nullable = false)
+	@Column (length = 550, name = "description", nullable = false)
 	private String description;
 
-	@Column (length = 1050, name = "suggestion")
+	@Column (length = 2050, name = "suggestion")
 	private String suggestion;
 
-	@Column (length = 100, name = "type", nullable = false)
-	private String type;
+	@Column (length = 100, name = "alert_type", nullable = false)
+	private String alertType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "skill_id")
-	private SkillEntity skill;
+    @JoinColumn(name = "work_type_id")
+	private WorkType workType;
 
-	public FaultCode(String faultCode, String description, String type, SkillEntity skill) {
-		this.faultCode = faultCode;
+	public Alerts(String alertCode, String description, String alertType, WorkType workType) {
+		this.alertCode = alertCode;
 		this.description = description;
-		this.type = type;
-		this.skill = skill;
+		this.alertType = alertType;
+		this.workType = workType;
 	}
 
 	/* Constructor for warning lights that do not requires service help */
-	public FaultCode(String faultCode, String description, String suggestion, String type) {
-		this.faultCode = faultCode;
+	public Alerts(String alertCode, String description, String suggestion, String alertType) {
+		this.alertCode = alertCode;
 		this.description = description;
 		this.suggestion = suggestion;
-		this.type = type;
+		this.alertType = alertType;
 	}
-
-
 }

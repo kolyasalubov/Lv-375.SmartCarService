@@ -1,7 +1,6 @@
 package ua.ita.smartcarservice.controller.technicalservice;
 
 import org.apache.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
-import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.service.feedback.ServicesFeedbackService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
@@ -44,7 +42,7 @@ public class TechnicalServiceController {
     /*
     Method for getting all the technical services
      */
-    @GetMapping("/api/v1/techservices")
+    @GetMapping("/api/techservices")
     ResponseEntity<List<TechnicalServiceDto>> getAllTechnicalServices() {
         ResponseEntity<List<TechnicalServiceDto>> responseEntity;
 
@@ -106,7 +104,7 @@ public class TechnicalServiceController {
 
         try {
             /*  Adding Worker to Technical Service    */
-            technicalServiceService.addWorkerToTechnicalService(username, id);
+            technicalServiceService.addUserToTechnicalService(username, id);
 
             /* Adding Skill to Worker */
             workerService.addSkillToWorker(username, skillId);
@@ -122,9 +120,32 @@ public class TechnicalServiceController {
         return responseEntity;
     }
 
-    /*
-    Method for getting Workers from current TechnicalService,
-    it gets parameters from the URL
+    /**
+     * Method fot creation a connection between User and TechnicalService
+     */
+    @PostMapping("/api/techservices/{id}/users/{username}")
+    ResponseEntity applyUserToTechnicalService(@PathVariable Long id, @PathVariable String username) {
+        ResponseEntity responseEntity;
+
+        try {
+            /*  Adding Worker to Technical Service    */
+            technicalServiceService.addUserToTechnicalService(username, id);
+
+            responseEntity = new ResponseEntity(HttpStatus.OK);
+            logger.info("Successfully applied a user username: " + username + " a technical service with id: " + id);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            logger.error("Error while applying a technical service id:" + id +
+                    " and user username: " + username +
+                    " Details: " + e.getMessage());
+        }
+
+        return responseEntity;
+    }
+
+    /**
+     Method for getting Workers from current TechnicalService,
+     it gets parameters from the URL
      */
     @GetMapping("/api/v1/techservices/{id}/workers")
     //ResponseEntity<List<UserEntity>> getTechnicalServiceWorkers(@PathVariable Long id) {

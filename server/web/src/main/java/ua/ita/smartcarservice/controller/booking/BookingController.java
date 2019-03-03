@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.controller.booking;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,7 @@ import ua.ita.smartcarservice.dto.booking.*;
 import ua.ita.smartcarservice.service.booking.BookingService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 @RestController
@@ -19,33 +21,28 @@ public class BookingController {
     @Autowired
     private TechnicalServiceService technicalService;
 
+    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
-    @PostMapping("/api/sessionbyid")
-    public ResponseEntity<List<WorkTimeDto>> findAllByWorkerId(@RequestParam(value = "workerId", required = false)
-                                                                              String workerId) {
-        return new ResponseEntity <>(bookingService.findAllByWorkerId(Long.valueOf(workerId)), HttpStatus.OK);
-
-    }
-
-    @PostMapping("/api/time")
+    @PostMapping("/api/booking/time")
     public ResponseEntity<BookingInfoDto> findTimeToBooking(@RequestBody BookingDto bookingDto) {
         return new ResponseEntity <>(new BookingInfoDto(bookingService.findTimeToBooking(bookingDto),
                 technicalService.findTechnicalServiceByCarId(bookingDto.getCarId())),
                 HttpStatus.OK);
     }
 
-    @PostMapping("/api/new")
-    public ResponseEntity<HttpStatus> addSession(@RequestBody NewBookingDto newBookingDto) {
-        return bookingService.addBooking(newBookingDto)
-                ? new ResponseEntity <>(HttpStatus.OK)
-                : new ResponseEntity <>(HttpStatus.BAD_REQUEST);
+    @PostMapping("/api/booking/new")
+    public ResponseEntity<HttpStatus> addBooking(@RequestBody NewBookingDto newBookingDto) {
+        logger.info("Trying to add new booking for car with id: " + newBookingDto.getCarId());
+        try {
+            bookingService.addBooking(newBookingDto);
+            logger.info("Successfully added new booking for car with id: " + newBookingDto.getCarId());
+            return new ResponseEntity <>(HttpStatus.OK);
+        }
+        catch (Exception e){
+            logger.error("Can not add new booking for car with id : " + newBookingDto.getCarId());
+            return new ResponseEntity <>(HttpStatus.BAD_REQUEST);
+        }
 
     }
 
-    @GetMapping ("/api/sessionbycarid")
-    public ResponseEntity<List <WorkTimeDto>> findAllByCarId(@RequestParam(value = "carId")
-                                                                     Long carId) {
-        return new ResponseEntity <>(bookingService.findAllByCarId(carId), HttpStatus.OK);
-
-    }
 }
