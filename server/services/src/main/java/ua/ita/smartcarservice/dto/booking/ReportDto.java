@@ -7,8 +7,6 @@ public class ReportDto {
 
     private long carId;
 
-    private long technicalServiceId;
-
     private String startTime;
 
     private String endTime;

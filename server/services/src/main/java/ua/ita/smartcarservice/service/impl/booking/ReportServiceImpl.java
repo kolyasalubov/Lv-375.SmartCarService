@@ -6,7 +6,7 @@ import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.booking.ReportRepository;
-import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceRepository;
+import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.booking.ReportService;
 
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class ReportServiceImpl implements ReportService {
     CarRepository carRepository;
 
     @Autowired
-    TechnicalServiceRepository technicalServiceRepository;
+    UserTechnicalServiceRepository userTechnicalServiceRepository;
 
     public long addReport(ReportDto reportDto){
         return reportRepository.save(repordDtoToEntity(reportDto)).getReportId();
@@ -31,7 +31,8 @@ public class ReportServiceImpl implements ReportService {
     private ReportEntity repordDtoToEntity(ReportDto reportDto){
         ReportEntity entity = new ReportEntity();
         entity.setCar(carRepository.getCarById(reportDto.getCarId()));
-        entity.setTechnicalService(technicalServiceRepository.getByTechnicalServiceId(reportDto.getTechnicalServiceId()));
+//        TODO get Entity from Siavochka
+//        entity.setTechnicalService(techServiceRepository.find(reportDto.getCarId()).getTechService());
         entity.setStartTime(parseDateToLocal(reportDto.getStartTime()));
         entity.setEndTime(parseDateToLocal(reportDto.getEndTime()));
         entity.setPrice(reportDto.getPrice());
