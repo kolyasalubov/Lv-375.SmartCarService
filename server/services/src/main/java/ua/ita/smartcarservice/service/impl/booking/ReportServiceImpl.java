@@ -35,6 +35,7 @@ public class ReportServiceImpl implements ReportService {
 //        entity.setTechnicalService(techServiceRepository.find(reportDto.getCarId()).getTechService());
         entity.setStartTime(parseDateToLocal(reportDto.getStartTime()));
         entity.setEndTime(parseDateToLocal(reportDto.getEndTime()));
+        entity.setRequiredHours(reportDto.getRequiredHours());
         entity.setPrice(reportDto.getPrice());
         return entity;
     }

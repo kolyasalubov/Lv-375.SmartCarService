@@ -19,7 +19,7 @@ public class ReportController {
     @Autowired
     private BookingService bookingService;
 
-    @PostMapping(value = "/new")
+    @PostMapping
     public void saveReport(@RequestBody ReportDto reportDto) {
         long reportId = reportService.addReport(reportDto);
         //TODO
