@@ -22,12 +22,11 @@
             </mdb-card>
         </ng-container>
   </div>
-    <div>
-          <mat-form-field>
-              <input matInput [matDatepicker]="myDatepicker" placeholder="Choose a date">
-              <mat-datepicker-toggle style="position: relative" matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-              <mat-datepicker touchUi="true" #myDatepicker></mat-datepicker>
-            </mat-form-field>
+  <div>
+      <div class="md-form free-time date" style="align-self: center">
+        <input mdbInput type="text" name="time" [(ngModel)]="workerForm.time" class="form-control mb-4;"
+          placeholder="yyyy-mm-dd">
+      </div>
     </div>
     <div class="d-flex justify-content-center" style="margin:20px;">
     <button *ngIf="showTime" mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="getFreeTime()" mdbWavesEffect>Get Free Time</button>
