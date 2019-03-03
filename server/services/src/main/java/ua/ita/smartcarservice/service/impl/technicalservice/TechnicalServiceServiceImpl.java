@@ -162,7 +162,7 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Override
     public String findTechnicalServiceByCarId(Long id){
-        return userTechnicalServiceRepository.findTechnicalServiceByCarId(id);
+        return userTechnicalServiceRepository.findTechnicalServiceByCarId(id).getTechnicalServiceId().getName();
     }
 
     public TechnicalServiceDto convertToDtoByDelaer(TechnicalServiceEntity technicalServiceEntity) {

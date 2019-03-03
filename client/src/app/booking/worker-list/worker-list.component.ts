@@ -21,6 +21,9 @@ export class WorkerListComponent implements OnInit {
   @Input()
   workerList : WorkerList;
 
+  @Input()
+  cost : number;
+
   workersTime : WorkersTime;
   timeList : TimeList = new TimeList();
   workerForm : any = {};

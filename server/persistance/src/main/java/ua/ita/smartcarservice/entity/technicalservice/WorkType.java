@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
 import lombok.Data;
+import ua.ita.smartcarservice.entity.alerts.Alerts;
 import ua.ita.smartcarservice.entity.booking.WorkDependency;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 
@@ -37,4 +38,10 @@ public class WorkType {
 
     @OneToMany(mappedBy = "work")
     List<WorkTime> workTimes;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            mappedBy = "workType")
+    private List<Alerts> alerts;
 }
+
