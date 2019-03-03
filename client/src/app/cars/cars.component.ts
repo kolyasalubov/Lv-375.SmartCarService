@@ -112,8 +112,7 @@ export class CarsComponent implements OnInit {
   goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: car.id,
-          carVin: car.vin
+          carId: car.id
         }}
       );
   }
