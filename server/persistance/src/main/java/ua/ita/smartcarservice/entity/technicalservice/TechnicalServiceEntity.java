@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;

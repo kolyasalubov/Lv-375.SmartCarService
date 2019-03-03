@@ -7,9 +7,6 @@ import ua.ita.smartcarservice.entity.sales.*;
 
 import java.util.List;
 
-/**
- * Created by 1 on 10.02.2019.
- */
 public interface DealerService {
 
     void createDealer(DealerDto dealerDto, String username);

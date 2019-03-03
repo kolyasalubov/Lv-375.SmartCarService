@@ -21,4 +21,7 @@ return this.http.get<TradeIn[]>('http://localhost:9501/api/dealer/getAllTradeIn/
     return this.http.delete('api/delaer/delete/' + id)
   }
 
+  successTradeIn(id: number){
+    return this.http.delete('api/delaer/successTradeIn/' + id)
+  }
 }
