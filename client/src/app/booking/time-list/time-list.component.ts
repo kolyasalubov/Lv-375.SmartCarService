@@ -28,6 +28,8 @@ export class TimeListComponent implements OnInit {
   @Input()
   cost : number;
 
+
+
   error: ErrorEvent;
   bookingInfo : BookingInfo;
   newBooking : NewBooking;
@@ -101,7 +103,7 @@ export class TimeListComponent implements OnInit {
       this.postReportError = true;
     }
   }
-  
+
 goToHomePage() {
   this.router.navigate(['ui/home']);
 }
