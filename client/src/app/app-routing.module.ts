@@ -26,10 +26,10 @@ import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
 import { CarDetailsComponent } from './cars/car-details/car-details.component';
 import { ServicesFeedbackFormComponent } from './services-feedback-form/services-feedback-form.component';
 import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.component';
-import {DealerComponent} from './dealer/dealer.component';
-import {DealcarComponent} from './dealer/dealcar/dealcar.component';
-import {DealerstoaddComponent} from './dealer/dealerstoadd/dealerstoadd.component';
-import {DealercarsComponent} from './dealer/dealercars/dealercars.component';
+import { DealerComponent } from './dealer/dealer.component';
+import { DealcarComponent } from './dealer/dealcar/dealcar.component';
+import { DealerstoaddComponent } from './dealer/dealerstoadd/dealerstoadd.component';
+import { DealercarsComponent } from './dealer/dealercars/dealercars.component';
 import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
@@ -37,8 +37,10 @@ import { PreviewComponent } from './preview/preview.component';
 import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
-import {DealersComponent} from './dealers/dealers.component';
+import { DealersComponent } from './dealers/dealers.component';
 import { TechservicePageComponent } from './techservice-page/techservice-page.component';
+
+
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
 
