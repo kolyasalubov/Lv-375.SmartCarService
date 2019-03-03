@@ -51,7 +51,6 @@ FileStorageServiceImpl implements FileStorageService {
             // Copy file to the target location (Replacing existing file with the same name)
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
             return fileName;
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
@@ -71,6 +70,9 @@ FileStorageServiceImpl implements FileStorageService {
         } catch (MalformedURLException ex) {
             throw new FileNotFoundException("File not found " + fileName, ex);
         }
+    }
+    public URI getFileUri(String fileName){
+        return this.fileStorageLocation.resolve(fileName).normalize().toUri();
     }
 
     public Path getFileStorageLocation() {
