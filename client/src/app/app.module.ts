@@ -51,6 +51,7 @@ import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
 import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
 import { DealersComponent } from './dealers/dealers.component';
+import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 
 
 
@@ -88,11 +89,9 @@ import { DealersComponent } from './dealers/dealers.component';
     ProgresbarComponent,
     AlertsComponent,
     DataCardComponent,
-<<<<<<< HEAD
     TechserviceCardComponent,
-=======
     DealersComponent,
->>>>>>> 913755949f5db84f2a75f94b4317c4fe3548349a
+    TechservicePageComponent,
    // Material.MatDialogModule
 
   ],

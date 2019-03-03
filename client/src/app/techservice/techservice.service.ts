@@ -15,6 +15,8 @@ const httpOptions = {
 })
 export class TechserviceService {
 
+  applyUserToTechservice = '/api/techservices/{id}/users/{username}';
+  allTechservicesUrl = '/api/techservices';
   techserviceUrl = '/api/v1/users/{userId}/techservices';
   usersTechserviceUrl = "/api/v1/users/{userId}/techservice";
   usernameTechserviceUrl = "/api/v1/users/username/{username}/techservice";
@@ -30,6 +32,11 @@ export class TechserviceService {
                                               .pipe(catchError(this.errorHandler));
   }
   
+  getAllTechnicalServices(): Observable<Techservice[]> {
+    return this.http.get<Techservice[]>(this.allTechservicesUrl)
+    .pipe(catchError(this.errorHandler));
+  }
+
   getTechnicalServiceByCurrentUser(userId: number): Observable<Techservice> {
     return this.http.get<Techservice>(this.usersTechserviceUrl
                                       .replace('{userId}', userId.toString()))
@@ -40,6 +47,13 @@ export class TechserviceService {
     return this.http.get<Techservice>(this.usernameTechserviceUrl
                                       .replace('{username}', username))
                                       .pipe(catchError(this.errorHandler));
+  }
+
+  applyUserToTechnicalService(username: string, serviceId: number) {
+    return this.http.post(this.applyUserToTechservice
+      .replace('{id}', serviceId.toString())
+      .replace('{username}', username), httpOptions)
+        .pipe(catchError(this.errorHandler));;
   }
 
   updateTechnicalService(techservice: Techservice) {
