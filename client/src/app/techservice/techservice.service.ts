@@ -15,12 +15,13 @@ const httpOptions = {
 })
 export class TechserviceService {
 
+  
   applyUserToTechservice = '/api/techservices/{id}/users/{username}';
   allTechservicesUrl = '/api/techservices';
-  techserviceUrl = '/api/v1/users/{userId}/techservices';
-  usersTechserviceUrl = "/api/v1/users/{userId}/techservice";
-  usernameTechserviceUrl = "/api/v1/users/username/{username}/techservice";
-  crudTechserviceUrl = '/api/v1/techservices/{id}';
+  techserviceUrl = '/api/users/{userId}/techservices';
+  usersTechserviceUrl = "/api/users/{userId}/techservice";
+  usernameTechserviceUrl = "/api/users/username/{username}/techservice";
+  crudTechserviceUrl = '/api/techservices/{id}';
 
   constructor(private http: HttpClient) { }
 
