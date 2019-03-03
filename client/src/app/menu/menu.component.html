@@ -46,10 +46,12 @@
   <li *ngIf="authority === 'owner'"> <a class="" (click) = "goToOwnerCars()">My cars <i class="fa fa-car" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/newcar" >Add new car <i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/location" >Location of cars <i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
- 
+  <li *ngIf="authority === 'owner'"><a class="" routerLink="/ui/techservices">My Service</a></li>
+
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice">My Service</a></li>
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice/feedback">Feedback</a></li>
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice/dealer">Dealer</a></li>
+  <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservices">Techservices</a></li>
   <li *ngIf="authority === 'sales'"><a class="" routerLink="/">Sales manager</a></li>
   <li *ngIf="authority === 'admin'"><a class="" routerLink="/ui/allusers">See users <i class="fa fa-users" aria-hidden="true"></i></a></li>
 

@@ -1,21 +1,23 @@
-INSERT INTO skills(name) VALUES('Service MOT');
-INSERT INTO skills(name) VALUES('Brake system');
-INSERT INTO skills(name) VALUES('Suspension');
-INSERT INTO skills(name) VALUES('Steering');
-INSERT INTO skills(name) VALUES('Engine');
-INSERT INTO skills(name) VALUES('Fuel system');
-INSERT INTO skills(name) VALUES('Electrician');
-INSERT INTO skills(name) VALUES('Exhaust system');
-INSERT INTO skills(name) VALUES('Clutch');
-INSERT INTO skills(name) VALUES('Transmission');
+INSERT INTO skills(name)
+VALUES('Service MOT'),
+      ('Brake system'),
+      ('Suspension'),
+      ('Steering'),
+      ('Engine'),
+      ('Fuel system'),
+      ('Electrician'),
+      ('Exhaust system'),
+      ('Clutch'),
+      ('Transmission');
 
 
-INSERT INTO role(name) VALUES('ROLE_CAR_OWNER');
-INSERT INTO role(name) VALUES('ROLE_SALES_MANAGER');
-INSERT INTO role(name) VALUES('ROLE_TECHNICAL_MANAGER');
-INSERT INTO role(name) VALUES('ROLE_DIELER');
-INSERT INTO role(name) VALUES('ROLE_WORKER');
-INSERT INTO role(name) VALUES('ROLE_ADMIN');
+INSERT INTO role(name)
+VALUES('ROLE_CAR_OWNER'),
+      ('ROLE_SALES_MANAGER'),
+      ('ROLE_TECHNICAL_MANAGER'),
+      ('ROLE_DIELER'),
+      ('ROLE_WORKER'),
+      ('ROLE_ADMIN');
 
 INSERT INTO work_type(cost, name, required_time, skill_id)
 VALUES
@@ -79,6 +81,7 @@ VALUES
 (500, 'Replacement Manual', 180, 10),
 (150, 'Replacement of the semi-axis', 60, 10),
 (150, 'Outboard bearing replacement', 50, 10);
+>>>>>>> 90c09cc9a285540f35649b8f6770664854bdfc43
 
 
 INSERT INTO work_dependency(main_work, dependent_work)

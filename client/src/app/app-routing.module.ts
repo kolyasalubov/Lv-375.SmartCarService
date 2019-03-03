@@ -27,8 +27,8 @@ import { CarDetailsComponent } from './cars/car-details/car-details.component';
 import { ServicesFeedbackFormComponent } from './services-feedback-form/services-feedback-form.component';
 import { WorkersFeedbackComponent } from './workers-feedback/workers-feedback.component';
 import {DealerComponent} from './dealer/dealer.component';
-import{DealcarComponent} from './dealer/dealcar/dealcar.component';
-import{DealerstoaddComponent} from './dealer/dealerstoadd/dealerstoadd.component';
+import {DealcarComponent} from './dealer/dealcar/dealcar.component';
+import {DealerstoaddComponent} from './dealer/dealerstoadd/dealerstoadd.component';
 import {DealercarsComponent} from './dealer/dealercars/dealercars.component';
 import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
@@ -38,13 +38,14 @@ import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
 import {DealersComponent} from './dealers/dealers.component';
+import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
 
 
   {
     path: 'ui/techservice/dealer',
-    component:DealersComponent
+    component: DealersComponent
   },
   {
     path: 'ui/progresbar',
@@ -60,29 +61,29 @@ const routes: Routes = [
   },
   {
     path: 'ui/dealersTradeIn',
-    component:TradesinComponent
+    component: TradesinComponent
   },
   {
     path: 'ui/dealersSto',
-    component:DealerstosComponent
+    component: DealerstosComponent
   },
 
   {
     path: 'ui/dealercars',
-    component:DealercarsComponent
+    component: DealercarsComponent
   },
   {
     path: 'ui/dealer',
-    component:DealerComponent
+    component: DealerComponent
   },
   {
     path: 'ui/dealerstoadd',
-    component:DealerstoaddComponent
+    component: DealerstoaddComponent
   },
 
   {
     path: 'ui/addDealerCar',
-    component:DealcarComponent
+    component: DealcarComponent
   },
   {
     path: 'ui/feedback',
@@ -99,6 +100,10 @@ const routes: Routes = [
   {
     path: 'ui/techservice',
     component: TechserviceComponent
+  },
+  {
+    path: 'ui/techservices',
+    component: TechservicePageComponent
   },
   {
     path: 'ui/techservice/feedback',
@@ -196,7 +201,7 @@ const routes: Routes = [
   path: 'ui/message',
   component: AlertsComponent
 }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

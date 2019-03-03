@@ -20,9 +20,9 @@ public interface TechnicalServiceService {
 
     void deleteTechnicalService(Long id);
 
-    void addWorkerToTechnicalService(String username, Long technicalServiceId);
+    void addUserToTechnicalService(String username, Long technicalServiceId);
 
-    void deleteWorkerFromTEchnicalService(String username, Long technicalServiceId);
+    void deleteUserFromTechnicalService(String username, Long technicalServiceId);
 
     List<UserEntity> getUsersByRoleAndTechnicalSevice(String roleName, Long technicalServiceId);
 

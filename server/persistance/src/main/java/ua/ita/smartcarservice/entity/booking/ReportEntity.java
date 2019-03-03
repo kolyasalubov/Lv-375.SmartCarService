@@ -32,6 +32,7 @@ public class ReportEntity {
     @JoinColumn(name = "technical_service_id")
     private TechnicalServiceEntity technicalService;
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
     private List<WorkTime> workTimes;
 

@@ -55,7 +55,7 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     }
 
     @Override
-    public void addWorkerToTechnicalService(String username, Long technicalServiceId) {
+    public void addUserToTechnicalService(String username, Long technicalServiceId) {
         UserEntity workerEntity = userRepository.getByUsername(username);
         TechnicalServiceEntity technicalServiceEntity = technicalServiceRepository.getOne(technicalServiceId);
 
@@ -63,8 +63,8 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     }
 
     @Override
-    public void deleteWorkerFromTEchnicalService(String username, Long technicalServiceId) {
-
+    public void deleteUserFromTechnicalService(String username, Long technicalServiceId) {
+        //userTechnicalServiceRepository.
     }
 
     @Override
