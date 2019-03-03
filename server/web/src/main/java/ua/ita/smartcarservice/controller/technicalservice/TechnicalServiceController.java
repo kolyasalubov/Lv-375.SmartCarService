@@ -53,7 +53,7 @@ public class TechnicalServiceController {
             logger.info("Successfully get all the technical services.");
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            logger.error("Error while getting all the technical services. Details: " + e.getMessage());
+            logger.error("Error while getting all the technical services. Details: {}", e);
         }
 
         return responseEntity;
@@ -191,6 +191,25 @@ public class TechnicalServiceController {
         } catch (Exception e) {
             responseEntity = new ResponseEntity<TechnicalServiceDto>(HttpStatus.NO_CONTENT);
             logger.error("Error while getting a Technical Service by User`s id: " + userId + " Details: " + e.getMessage());
+        }
+
+        return responseEntity;
+    }
+
+    /*
+        Method for getting Technical Service bu User ID
+    */
+    @GetMapping("/api/v1/users/username/{username}/techservice")
+    public ResponseEntity<TechnicalServiceDto> findTechnicalServiceByUsername(@PathVariable("username") String username) {
+
+        ResponseEntity<TechnicalServiceDto> responseEntity;
+
+        try {
+            responseEntity = new ResponseEntity<TechnicalServiceDto>(technicalServiceService.getTechnicalServiceDtoByUser(username), HttpStatus.OK);
+            logger.info("Successfully get a Technical Service by username: " + username);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<TechnicalServiceDto>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting a Technical Service by username id: " + username + " Details: " + e.getMessage());
         }
 
         return responseEntity;

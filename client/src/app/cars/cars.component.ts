@@ -4,18 +4,20 @@ import { CarsService } from './cars.service';
 import { User } from '../users/user';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { UsersService } from '../users/users.service';
+import { ChartService } from '../chart-page/charts/chart/chart.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../alerts/alert.service';
 import { MatDialog } from '@angular/material';
 import { AlertsComponent } from '../alerts/alerts.component';
 
-
+import { ChartData } from '../chart-page/charts/chart/chart-data';
 
 @Component({
   selector: 'app-cars',
   templateUrl: './cars.component.html',
-  styleUrls: ['./cars.component.scss']
+  styleUrls: ['./cars.component.scss'],
+  providers: [ChartService]
 })
 export class CarsComponent implements OnInit {
 
@@ -30,10 +32,12 @@ export class CarsComponent implements OnInit {
   errorCode: number;
   error: ErrorEvent;
 
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog) { }
+  // mileage: number;
+  // speed: number;
+
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog, private chartService: ChartService) { }
 
   ngOnInit(){
-
   this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
   .subscribe(data => {
     this.cars = data,
@@ -50,6 +54,29 @@ export class CarsComponent implements OnInit {
     }
   });
 }
+
+      //TODO move in another component
+
+    // this.chartService.getChartData("mileage", this.id, "/last") //TODO change id to car.id
+    //   .subscribe(
+    //     data => {
+    //       let chartData: ChartData = new ChartData();
+    //       chartData.setChartData(data);
+    //       this.mileage = chartData.data[0];
+    //     },
+    //     error => console.error('Error: ', error)
+    //   );
+    //
+    // this.chartService.getChartData("speed", this.id, "/day/max") //TODO change id to car.id
+    //   .subscribe(
+    //     data => {
+    //       let chartData: ChartData = new ChartData();
+    //       chartData.setChartData(data);
+    //       this.speed = Math.round(chartData.data[0]);
+    //     },
+    //     error => console.error('Error: ', error)
+    //   );
+
 
   applyToSTO(id: number){
     this.router.navigate(['/ui/booking', id]);

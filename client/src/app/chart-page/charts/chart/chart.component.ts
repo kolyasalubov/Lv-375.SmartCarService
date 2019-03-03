@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {ChartService} from './chart.service';
-import {ChartDto} from './chart-dto';
-import {ChartData} from './chart-data';
+import { ChartService } from './chart.service';
+import { ChartDto } from './chart-dto';
+import { ChartData } from './chart-data';
 
 import COLORS from '../../colors';
 
@@ -24,9 +24,9 @@ export class ChartComponent {
   private PERIODS = ['Day', 'Month', 'Year'];
   private SELECTIONS = ['Avg', 'Min', 'Max'];
 
-  public chartDatasets: Array<any> = [{data: null, label: null}];
+  public chartDatasets: Array<any> = [{ data: null, label: null }];
   public chartLabels: Array<any> = [null];
-  public colors: Array<any> = [{borderWidth: 2,}];
+  public colors: Array<any> = [{ borderWidth: 2, }];
 
   private period: string = '/day';
   private selection: string = '';
@@ -110,7 +110,7 @@ export class ChartComponent {
     this.chartService.getChartData(this.sensorType, this.carId, period, this.date)
       .subscribe(
         data => {
-          this.setDataAndLabels(data)
+          this.setDataAndLabels(data);
           // this.setColors();
         },
         error => console.error('Error: ', error)
@@ -126,11 +126,11 @@ export class ChartComponent {
 
       TIRES.forEach((tire, i) => {
         chartData.setChartData(chartDto, i);
-        this.chartDatasets.push({data: chartData.data, label: tire});
+        this.chartDatasets.push({ data: chartData.data, label: tire });
       });
     } else {
       chartData.setChartData(chartDto);
-      this.chartDatasets = [{data: chartData.data, label: this.getCurrentPeriod(this.date)}];
+      this.chartDatasets = [{ data: chartData.data, label: this.getCurrentPeriod(this.date) }];
     }
 
     this.chartLabels = (chartDto === null) ? null : this.changeLabels(chartData.labels);
@@ -143,6 +143,7 @@ export class ChartComponent {
       oldLabels.forEach(label => {
         labels.push(label.slice(0, 5));
       });
+      labels = this.sortHours(labels);
     } else if (this.period.includes('month')) {
       labels = oldLabels;
     } else {
@@ -153,6 +154,38 @@ export class ChartComponent {
 
     return labels;
   }
+
+  private sortHours(labels: string[]): string[] {
+    labels.sort(function (a, b) {
+
+      let getHour = (label: string): number => Number(label.slice(0, 2));
+      let getMinutes = (label: string): number => Number(label.slice(3, 5));
+
+      let hourA: number = getHour(a);
+      let hourB: number = getHour(b);
+
+      let minutesA: number = getMinutes(a);
+      let minutesB: number = getMinutes(b);
+
+      if (hourA > hourB) {
+        return 1;
+      }
+      if (hourA < hourB) {
+        return -1;
+      } else {
+        if (minutesA > minutesB) {
+          return 1;
+        }
+        if (minutesA < minutesB) {
+          return -1;
+        }
+      }
+      return 0;
+    });
+
+    return labels;
+  }
+
 
   // public setColors() {
   //   console.log(this.chartDatasets[0].data.length());

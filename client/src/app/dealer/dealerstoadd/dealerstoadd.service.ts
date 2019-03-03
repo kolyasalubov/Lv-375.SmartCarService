@@ -21,9 +21,16 @@ export class DealerstoaddService {
   //   return this.http.put<DealerSto>('http://localhost:9501/api/dealer/createtechservices/?username=' + username + '&name='+sto.name + '&address='+ sto.address,sto);
 
   // }
-   createDealerSto(username:String,sto:Techservice):Observable<Techservice>{
+  //  createDealerSto(username:String,sto:Techservice):Observable<Techservice>{
+  //   return this.http.put<Techservice>('http://localhost:9501/api/dealer/createtechservices/?username=' + username + '&name='+sto.name + '&address='+ sto.address,sto);
+  // }
 
-    return this.http.put<Techservice>('http://localhost:9501/api/dealer/createtechservices/?username=' + username + '&name='+sto.name + '&address='+ sto.address,sto);
+  // getAllDealersSto(username:String):Observable<Techservice[]>{
+  //   return this.http.get<Techservice[]>('http://localhost:9501/api/dealer/allstos/'+username);
+  // }
+
+  getAllStosApply(username:String):Observable<Techservice[]>{
+      return this.http.get<Techservice[]>('http://localhost:9501/api/dealer/allstosToApply/'+username);
 
   }
 }

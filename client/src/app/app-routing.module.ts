@@ -34,12 +34,22 @@ import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
-import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
+import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
-
-
+import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
+import {DealersComponent} from './dealers/dealers.component';
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
+
+
+  {
+    path: 'ui/techservice/dealer',
+    component:DealersComponent
+  },
+  {
+    path: 'ui/progresbar',
+    component: ProgresbarComponent
+  },
   {
     path: 'ui/preview',
     component: PreviewComponent
@@ -91,8 +101,8 @@ const routes: Routes = [
     component: TechserviceComponent
   },
   {
-    path: 'ui/techservice/:id/feedback',
-    component: ServicesFeedbackPageComponent
+    path: 'ui/techservice/feedback',
+    component: ServicesFeedbackComponent
   },
   {
     path: 'ui/skills',

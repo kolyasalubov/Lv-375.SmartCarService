@@ -13,5 +13,8 @@ public interface ChartSensorRepository<T extends BaseSensorEntity> {
                              @Param("sensorType") String sensorType,
                              @Param("selection") String selection);
 
+    Integer findLastRecordValue(@Param("carId") long carId,
+                                @Param("sensorType") String sensorType);
+
 }
 

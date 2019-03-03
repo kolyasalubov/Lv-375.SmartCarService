@@ -198,19 +198,4 @@ public class CarServiceImpl implements CarService {
         return carDtos;
     }
 
-    //for used car
-    public void create(String brand, String model, String graduation_year, String number, String vin, String username) {
-        UserEntity carOwner = this.userRepository.findByUsername(username).get();
-
-        Car car = new Car();
-        car.setBrand(brand);
-        car.setModel(model);
-        car.setGraduation_year(graduation_year);
-        car.setNumber(number);
-        car.setVin(vin);
-        car.setUser(carOwner);
-
-        carRepository.save(car);
-    }
-
 }

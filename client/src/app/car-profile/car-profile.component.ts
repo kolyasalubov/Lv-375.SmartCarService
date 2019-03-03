@@ -54,9 +54,7 @@ export class CarProfileComponent implements OnInit {
   });
   }
 
- 
-
-  Confirm(){
+   Confirm(){
     this.carVechicleInspection.dateOfInspection == "" ? "" : this.datePipe.transform(this.carVechicleInspection.dateOfInspection, 'yyyy-MM-dd')
     this.carService.createInspection(this.carVechicleInspection, this.carVin).subscribe();
     this.reloadPage();

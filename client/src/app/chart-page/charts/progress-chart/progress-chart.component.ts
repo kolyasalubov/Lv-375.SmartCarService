@@ -24,10 +24,10 @@ export class ProgressChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getChartDto();
   }
 
   ngAfterViewInit(): void {
-    this.getChartDto();
   }
 
   private getChartDto(): void {

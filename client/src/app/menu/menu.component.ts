@@ -7,6 +7,8 @@ import { TechserviceService } from '../techservice/techservice.service';
 import { Techservice } from '../techservice/techservice';
 import { Notifications } from '../notifications/notifications';
 import { NotificationsService } from '../notifications/notifications.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { ObserveOnMessage } from 'rxjs/internal/operators/observeOn';
 
 @Component({
   selector: 'app-menu',
@@ -92,17 +94,10 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/ui/addDealerCar']);
   }
 
-  goToServicesFeedback() {
-    this.getTechservice(this.user);
-  }
-
-  getTechservice(user: User):any {
-    this.techserviceService.getTechnicalServiceByCurrentUser(this.user.id)
-    .subscribe(data => {if (data!=null) {
-                          this.techservice = data;
-                          console.log(this.techservice);
-                          this.router.navigate(['/ui/techservice/' + this.techservice.stoId + '/feedback'])
-                          }
-                        });
-  }
+  /*
+  goToDealer() {
+    this.getTechservice(this.user).then(() => {
+    this.router.navigate(['/iu/techservice/' + this.techservice.stoId + '/dealer'])
+    });  
+  }*/
 }

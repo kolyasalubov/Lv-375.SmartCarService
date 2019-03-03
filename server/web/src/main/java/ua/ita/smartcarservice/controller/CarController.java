@@ -80,21 +80,4 @@ public class CarController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    /* Create car */
-    @PostMapping("/car")
-    public ResponseEntity createCar(@RequestParam(value = "brand") String brand,
-                                    @RequestParam(value = "model") String model,
-                                    @RequestParam(value = "graduationyear") String graduation_year,
-                                    @RequestParam(value = "number") String number,
-                                    @RequestParam(value = "vin") String vin,
-                                    @RequestParam(value = "username") String username) {
-
-        if (carService.findByNumber(number) == null && carService.findByVin(vin) == null) {
-            carService.create(brand, model, graduation_year, number, vin, username);
-            return new ResponseEntity(HttpStatus.CREATED);
-        } else {
-            throw new CarRegisteredAlreadyExсeption();
-        }
-    }
-
 }

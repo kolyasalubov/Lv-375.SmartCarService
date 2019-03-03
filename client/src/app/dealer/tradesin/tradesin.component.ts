@@ -22,5 +22,7 @@ this.tradesinService.getAllTradeInByDealer(this.username).subscribe(data=>this.a
     this.tradesinService.deleteTradeIn(id).subscribe();
 
   }
-
+  SuccessTradeIn(id:number){
+    this.tradesinService.successTradeIn(id).subscribe();
+  }
 }

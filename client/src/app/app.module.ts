@@ -41,7 +41,7 @@ import { DealerstosComponent } from './dealer/dealerstos/dealerstos.component';
 import { TradesinComponent } from './dealer/tradesin/tradesin.component';
 import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
-import { ServicesFeedbackPageComponent } from './services-feedback-page/services-feedback-page.component';
+import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import * as Material from '@angular/material';
 import { MatDialog, MatDialogModule } from '@angular/material';
@@ -49,6 +49,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
+import { DealersComponent } from './dealers/dealers.component';
+
 
 
 
@@ -83,10 +85,11 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     TradesinComponent,
     TradeInComponent,
     PreviewComponent,
-    ServicesFeedbackPageComponent,
+    ProgresbarComponent,
     AlertsComponent,
     DataCardComponent,
-    // Material.MatDialogModule
+    DealersComponent,
+   // Material.MatDialogModule
 
   ],
   imports: [

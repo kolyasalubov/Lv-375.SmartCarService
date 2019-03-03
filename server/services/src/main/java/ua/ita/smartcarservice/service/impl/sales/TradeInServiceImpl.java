@@ -15,9 +15,7 @@ import ua.ita.smartcarservice.service.sales.TradeInService;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 1 on 27.02.2019.
- */
+
 @Service
 public class TradeInServiceImpl implements TradeInService {
 
@@ -77,6 +75,13 @@ public class TradeInServiceImpl implements TradeInService {
     @Override
     public void deleteTradeIn(Long id) {
         tradeInRepository.deleteById(id);
+    }
+
+    @Override
+    public void successTradeIn(Long id) {
+        TradeIn tradeIn=tradeInRepository.getOne(id);
+        tradeIn.setIsactive("notActive");
+        tradeInRepository.save(tradeIn);
     }
 }
 

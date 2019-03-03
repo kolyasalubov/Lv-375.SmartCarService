@@ -14,12 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.LoginForm;
 import ua.ita.smartcarservice.dto.SignUpForm;
 import ua.ita.smartcarservice.entity.RoleEntity;
-import ua.ita.smartcarservice.entity.RoleName;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.repository.RoleRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.security.JwtResponse;
-import ua.ita.smartcarservice.security.ResponseMessage;
 import ua.ita.smartcarservice.security.TokenProvider;
 import ua.ita.smartcarservice.service.mail.MailService;
 
@@ -51,49 +49,32 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
-
         Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = tokenProvider.generateToken(authentication);
-
         UserDetails userDetail = (UserDetails) authentication.getPrincipal();
-
-        System.out.println("User DEtail " + userDetail);
-
         return ResponseEntity.ok(new JwtResponse(jwt, userDetail.getUsername(), userDetail.getAuthorities()));
-
-
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm registerRequest) {
-
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
-
-            return new ResponseEntity<>(new ResponseMessage("Fail: Username is already exists!"), HttpStatus.BAD_REQUEST);
-
+            return new ResponseEntity<>("Fail: Username is already exists!", HttpStatus.BAD_REQUEST);
         }
-        mailService.sendEmailRegistration(registerRequest.getUsername(),registerRequest.getPassword(),registerRequest.getEmail(),registerRequest.getFullName());
+        mailService.sendEmailRegistration(registerRequest.getUsername(), registerRequest.getPassword(), registerRequest.getEmail(), registerRequest.getFullName());
         UserEntity userEntity = new UserEntity(registerRequest.getUsername(), passwordEncoder.encode(registerRequest.getPassword()),
-            registerRequest.getEmail(), registerRequest.getFullName(), registerRequest.getNumberPhone());
-
-
+                registerRequest.getEmail(), registerRequest.getFullName(), registerRequest.getNumberPhone());
         Set<RoleEntity> roles = new HashSet<RoleEntity>();
         Set<String> strRole = registerRequest.getRole();
         strRole.forEach(role -> {
             RoleEntity roleEntity = roleRepository.findByName(role);
             roles.add(roleEntity);
         });
-
-
         userEntity.setRoles(roles);
         userRepository.save(userEntity);
 
-        return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
-
+        return new ResponseEntity<>("User registered successfully!", HttpStatus.OK);
     }
 
 }
