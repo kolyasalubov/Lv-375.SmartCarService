@@ -1,6 +1,6 @@
 <div class="container">
 <div class="notification-header">
-    <button mdbBtn rounded="true" size="sm" type="button" class="m-0" mdbWavesEffect (click)="cancel()">
+    <button mdbBtn rounded="true" style="color:rgb(45, 66, 98)" size="sm" type="button" class="m-0" mdbWavesEffect (click)="cancel()">
       Cancel
     </button>
   <button mdbBtn rounded="true" size="sm" type="button" class="m-0 approve-btn" mdbWavesEffect (click)="approve()">
@@ -34,7 +34,7 @@
         <ng-container *ngFor="let n of notifications">
           <tr *ngIf="n.isSelected">
             <td>{{n.message}}</td>
-            <td>{{n.notificationTime }}</td>
+            <td>{{n.notificationTime | date : "MMM d, y h:mm a"}}</td>
             <td>
                 <div class="icon cursor-pointer">
                     <div (click)="removeFromApprovement(n.id)">
