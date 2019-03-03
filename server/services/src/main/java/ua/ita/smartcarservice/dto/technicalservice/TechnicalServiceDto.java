@@ -5,6 +5,7 @@ import lombok.Data;
 import ua.ita.smartcarservice.dto.UserDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -17,10 +18,10 @@ public class TechnicalServiceDto {
     private String address;
 
     //private Dealer dealer;
-
+    private Double rating;
 
     private UserEntity technicalManager;
 
     @JsonIgnore//Works
-    private Set<UserEntity> workerSet;
+    private List<UserEntity> workers;
 }

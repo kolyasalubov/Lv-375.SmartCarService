@@ -18,7 +18,7 @@ export class DealerstoaddComponent implements OnInit {
 // sto: DealerSto = this.techserviceStub;
 
 
-techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
+techserviceStub: Techservice = new Techservice();
 sto: Techservice = this.techserviceStub;
 
   constructor(private tokenStorage: TokenStorageService,private dealerstoaddService:DealerstoaddService) { }

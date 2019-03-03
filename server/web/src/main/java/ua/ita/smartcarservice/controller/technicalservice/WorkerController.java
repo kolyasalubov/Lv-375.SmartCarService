@@ -109,17 +109,15 @@ public class WorkerController {
 
     @GetMapping("/api/v1/workers/{id}")
     public ResponseEntity<WorkerSkillDto> getWorkerById(@PathVariable Long id) {
-        ResponseEntity<WorkerSkillDto> responceEntity;
-        WorkerSkillDto workerSkillDto;
-
+        ResponseEntity<WorkerSkillDto> responseEntity;
 
         try {
-            responceEntity = new ResponseEntity<>(workerService.getWorkerSkillDtoById(id), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(workerService.getWorkerSkillDtoById(id), HttpStatus.OK);
         } catch (Exception e) {
-            responceEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return responceEntity;
+        return responseEntity;
     }
 }
 
