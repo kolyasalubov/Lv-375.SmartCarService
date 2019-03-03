@@ -51,6 +51,7 @@ import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +86,7 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     ServicesFeedbackPageComponent,
     AlertsComponent,
     DataCardComponent,
-   // Material.MatDialogModule
+    // Material.MatDialogModule
 
   ],
   imports: [

@@ -79,18 +79,17 @@ export class MenuComponent implements OnInit {
     this.tokenStorage.signOut();
     window.location.href='/ui/auth/login';
     }
+
   goToDealerinfo(){
-
     this.router.navigate(['/ui/dealer']);
-
   }
+  
   goToDealerCars(){
     this.router.navigate(['/ui/dealercars']);
   }
+
   addCarToDealer(){
-
     this.router.navigate(['/ui/addDealerCar']);
-
   }
 
   goToServicesFeedback() {

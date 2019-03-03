@@ -35,8 +35,7 @@ export class CarProfileService {
    }
 
  createInspection(carVechicleInspection: VechicleInspection, carVin: String): Observable<VechicleInspection>{
-  console.log(carVechicleInspection.dateOfInspection, carVechicleInspection.mileageOfCar, carVin);
-   return this.http.post <VechicleInspection>('api/inspection?dateOfInspection=' + carVechicleInspection.dateOfInspection + '&mileageOfCar=' + carVechicleInspection.mileageOfCar + '&vin=' + carVin, carVechicleInspection, httpOptions)
+     return this.http.post <VechicleInspection>('api/inspection?dateOfInspection=' + carVechicleInspection.dateOfInspection + '&mileageOfCar=' + carVechicleInspection.mileageOfCar + '&vin=' + 1, carVechicleInspection, httpOptions)
    .pipe(
     catchError(this.handleError)
   );

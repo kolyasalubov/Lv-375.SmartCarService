@@ -37,24 +37,24 @@ export class CarProfileComponent implements OnInit {
   onSubmit(){
 
     this.carService.addCar(this.carProfile, this.username)
-    .subscribe(error => this.errorCode = error.status,
-    error => this.error = error);
-
-      setTimeout(() => {
+    .subscribe(error => {
+      this.errorCode = error.status,
+      error => this.error = error;
+      
       if(this.errorCode === 201){
       this.showCarProfile = false;
       this.showInspection = true;
       } else if(this.errorCode === 400){
+        console.log(this.errorCode)
       if(confirm("Car with such registration or vin number is present in our system. Please check your data.")) {
         }
       } else {
-      if(confirm("Something bad happened; please try again later")) {
-      }
+      if(confirm("Something bad happened; please try again later")) {}
     }
-  }, 1000);
+  });
+  }
 
-      setTimeout(() => {console.log("returned status - " + this.errorCode + "; Error returned - " + this.error); }, 1000);
- }
+ 
 
   Confirm(){
     this.carVechicleInspection.dateOfInspection == "" ? "" : this.datePipe.transform(this.carVechicleInspection.dateOfInspection, 'yyyy-MM-dd')
