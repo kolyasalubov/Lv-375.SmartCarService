@@ -39,7 +39,7 @@ public class WorkTime {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "report_id", nullable = false)
+    @JoinColumn(name = "report_id")
     private ReportEntity report;
 
 }
