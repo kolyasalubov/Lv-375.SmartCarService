@@ -88,7 +88,6 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
             return getPartOfDate(SensorElements.MONTH.toString(), datePath);
         }
     }
-
     private Predicate[] getPredicates(ChartCriteriaElementsProvider elementsProvider) {
         Path<String> datePath = elementsProvider.getDatePath();
         LocalDateTime date = elementsProvider.getDate();

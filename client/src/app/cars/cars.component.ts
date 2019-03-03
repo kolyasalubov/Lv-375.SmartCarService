@@ -43,11 +43,11 @@ export class CarsComponent implements OnInit {
     this.cars = data,
     error => this.errorCode = error.status;
 
-    if(this.cars.length == 1){
+    if(this.cars.length === 1){
       this.showProfile = true;  
     } else if(this.cars.length > 1){
       this.showCards = true;
-    } else if(this.cars == null){
+    } else if(this.cars === null){
       this.showProposal = true;
     } else{
       this.showProposal = true;
@@ -90,14 +90,13 @@ export class CarsComponent implements OnInit {
   goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: car.id,
-          carVin: car.vin
+          carId: car.id
         }}
       );
   }
 
-    history(){
-    }
+  history(){
+  }
 
     reloadPage() {
       window.location.href='/ui/cars/';

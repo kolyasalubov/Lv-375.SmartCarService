@@ -1,4 +1,8 @@
-<div class="d-flex flex-row" style="margin-left: 225px; padding-top: 100px;">
+<div class="d-flex flex-column" >
+    <div *ngIf="noWorkSelect" class=" d-flex alert alert-warning justify-content-center" role="alert" style="padding-top: 100px;">
+        You did not choose any service. Please choose something.
+      </div>
+<div class="{{isWarning()}}" id="bookingPage">
 <div class="d-flex flex-column" style="width: 250px;">
     <div class="d-flex flex-row" style="height:54px">
         <div class=" justify-content-sm-start">
@@ -27,7 +31,7 @@
             </tr>
           </thead>
           <tbody>
-              <tr mdbTableCol *ngFor="let work of works" class={{setWorkStyle(work)}} id="{{work.name}}" (click)="addOrDelete(work, work.skillName)" >
+              <tr mdbTableCol *ngFor="let work of works" class={{setWorkStyle(work)}} style="cursor: pointer;"  id="{{work.name}}" (click)="addOrDelete(work, work.skillName)" >
                 <td><a>{{work.name}}</a></td>
                 <td>{{work.requiredTime}}</td>
                 <td>{{work.cost}}</td>
@@ -36,6 +40,7 @@
           </table>
   </div>
 <div *ngIf="!show">
-  <app-worker-list [workerList]=workerList [carId] = searchId ></app-worker-list>
+  <app-worker-list [workerList]=workerList [carId] = searchId [cost]=totalPrice ></app-worker-list>
+</div>
 </div>
 </div>

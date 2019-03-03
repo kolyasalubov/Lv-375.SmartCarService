@@ -6,6 +6,12 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { WorkerListComponent } from './worker-list/worker-list.component';
 import { TimeListComponent } from './time-list/time-list.component';
 import { FormsModule } from '@angular/forms';
+import { MatDatepickerModule, MatDatepickerInput } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
+
 @NgModule({
   declarations: [
     BookingComponent,
@@ -17,7 +23,12 @@ import { FormsModule } from '@angular/forms';
   imports: [
     MDBBootstrapModule.forRoot(),
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    BrowserAnimationsModule
   ]
 })
 export class BookingModule { }

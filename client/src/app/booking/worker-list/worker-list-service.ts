@@ -17,7 +17,7 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class WorkerListService{
-    workerByCarUrl : string = '/api/workerbycar';
+    workerByCarUrl : string = '/api/workers/skill';
 
     constructor(private http: HttpClient) {}
 

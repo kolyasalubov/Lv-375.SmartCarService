@@ -1,10 +1,12 @@
 package ua.ita.smartcarservice.service.impl.technicalservice;
 
 import org.apache.catalina.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
+import ua.ita.smartcarservice.entity.RoleNames;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
@@ -12,9 +14,11 @@ import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.sales.DealerEntityRepository;
 import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
+import ua.ita.smartcarservice.service.feedback.ServicesFeedbackService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 
 import javax.swing.text.html.parser.Entity;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     TechnicalServiceRepository technicalServiceRepository;
 
     @Autowired
+    ServicesFeedbackService servicesFeedbackService;
+
+    @Autowired
     UserTechnicalServiceRepository userTechnicalServiceRepository;
 
     @Autowired
@@ -32,6 +39,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Autowired
     DealerEntityRepository dealerEntityRepository;
+
+    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+
 
     @Override
     public TechnicalServiceDto getTechnicalServiceDtoByUser(String username) {
@@ -106,17 +116,20 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         dto.setName(technicalServiceEntity.getName());
         dto.setAddress(technicalServiceEntity.getAddress());
         //dto.setTechnicalManager(userTechnicalServiceRepository.getTechnicalServiceManagerByServiceId(technicalServiceEntity));
-
+        /*logger.info("Rating of service id:" + technicalServiceEntity.getTechnicalServiceId() + " = " +
+                servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));
+        dto.setRating(servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));*/
+        dto.setWorkers(getUsersByRoleAndTechnicalSevice(RoleNames.ROLE_WORKER.name(), technicalServiceEntity.getTechnicalServiceId()));
         return dto;
     }
 
     @Override
     public TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId) {
-        try {
+        /*try {
             TechnicalServiceEntity entity = technicalServiceRepository.getTechnicalServiceEntityByUser(userId);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         return convertToDto(technicalServiceRepository.getTechnicalServiceEntityByUser(userId));
     }
@@ -162,7 +175,7 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Override
     public String findTechnicalServiceByCarId(Long id){
-        return userTechnicalServiceRepository.findTechnicalServiceByCarId(id);
+        return userTechnicalServiceRepository.findTechnicalServiceByCarId(id).getTechnicalServiceId().getName();
     }
 
 //    public TechnicalServiceDto convertToDtoByDelaer(TechnicalServiceEntity technicalServiceEntity) {

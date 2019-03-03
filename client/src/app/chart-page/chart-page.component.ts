@@ -9,14 +9,12 @@ import {ActivatedRoute} from '@angular/router';
 export class ChartPageComponent implements OnInit {
 
   carId: number;
-  carVin: string;
 
   constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.carId = Number(this.getFromRouterParams('carId'));
-    this.carVin = this.getFromRouterParams('carVin');
   }
 
   private getFromRouterParams(param: string) {

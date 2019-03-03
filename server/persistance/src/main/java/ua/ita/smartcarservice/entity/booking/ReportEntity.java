@@ -23,14 +23,14 @@ public class ReportEntity {
     private Long reportId;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Car car;
 
-    @ManyToOne
-    @JoinColumn(name = "technical_service_id", nullable = false)
-    private TechnicalServiceEntity technicalServiceId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "technical_service_id")
+    private TechnicalServiceEntity technicalService;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
     private List<WorkTime> workTimes;
@@ -42,6 +42,9 @@ public class ReportEntity {
     @Column(nullable = false, columnDefinition = "DATETIME")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
+
+    @Column
+    private Integer requiredTime;
 
     @Column
     private Integer price;
