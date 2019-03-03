@@ -29,7 +29,7 @@ public class ReportEntity {
     private Car car;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "technical_service_id", nullable = false)
+    @JoinColumn(name = "technical_service_id")
     private TechnicalServiceEntity technicalService;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
