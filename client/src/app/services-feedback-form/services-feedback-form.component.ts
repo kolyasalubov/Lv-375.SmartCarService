@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ServicesFeedbackForm } from './services-feedback-form';
 import { Techservice } from '../techservice/techservice';
-import { UsersService } from '../users/users.service';
 import { TokenStorageService } from '../auth/token-storage.service';
-import { Worker } from '../techservice/worker/worker';
 import { TechserviceService } from '../techservice/techservice.service';
 import { ServicesFeedbackService } from '../services-feedback/services-feedback.service';
 
@@ -17,7 +15,7 @@ export class ServicesFeedbackFormComponent implements OnInit {
   feedbackForm: ServicesFeedbackForm = new ServicesFeedbackForm();
   techservice: Techservice = new Techservice();
   //@Input() workers: Worker[]; 
-  /*@Input()*/ workers: number[] = [10, 11, 12]; 
+  /*@Input()*/ workers: number[] = [2, 3, 4]; 
 
   constructor(private tokenStorage: TokenStorageService,
     private techserviceService: TechserviceService,

@@ -5,6 +5,7 @@ import {TokenStorageService} from '../auth/token-storage.service';
 import {User} from '../users/user';
 import {UsersService} from '../users/users.service';
 import {MapComponent} from 'src/app/techservice/map/map.component'
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-techservice',

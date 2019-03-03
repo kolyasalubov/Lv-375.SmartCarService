@@ -4,6 +4,7 @@ import { throwError, Observable } from 'rxjs';
 import { ServicesFeedbackForm } from '../services-feedback-form/services-feedback-form';
 import { catchError } from 'rxjs/operators';
 import { ServicesFeedback } from './services-feedback';
+import { Globals } from '../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,27 +17,27 @@ const httpOptions = {
 })
 export class ServicesFeedbackService {
 
-  feedbackByServiceId: string = '/api/techservices/{serviceId}/feedback';
-  feedbackByUserName: string = '/api/users/{userName}/feedback';
+  feedbackByServiceId: string = '/techservices/{serviceId}/feedback';
+  feedbackByUserName: string = '/users/{userName}/feedback';
 
   constructor(private http: HttpClient) { }
  
   sendFeedback(feedback: ServicesFeedbackForm) {
     return this.http.post(
-      this.feedbackByServiceId.replace('{serviceId}', feedback.serviceId.toString()), 
+      Globals.baseURL + this.feedbackByServiceId.replace('{serviceId}', feedback.serviceId.toString()), 
       feedback, 
       httpOptions).pipe(catchError(this.errorHandler));
   }
   
   getFeedbackByServiceId(serviceId: number): Observable<ServicesFeedback[]> {
     return this.http.get<ServicesFeedback[]>(
-      this.feedbackByServiceId.replace('{serviceId}', serviceId.toString()))
+      Globals.baseURL + this.feedbackByServiceId.replace('{serviceId}', serviceId.toString()))
         .pipe(catchError(this.errorHandler));
   }
 
   getFeedbackByUserName(userName: string): Observable<ServicesFeedback[]> {
     return this.http.get<ServicesFeedback[]>(
-      this.feedbackByUserName.replace('{userName}', userName))
+      Globals.baseURL + this.feedbackByUserName.replace('{userName}', userName))
         .pipe(catchError(this.errorHandler));
   }
 

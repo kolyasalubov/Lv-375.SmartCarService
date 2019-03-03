@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { Skill } from './skill';
 import { catchError } from 'rxjs/operators';
+import { Globals } from 'src/app/globals';
 
 
 
@@ -17,12 +18,12 @@ const httpOptions = {
 })
 export class SkillService {
 
-  allSkillsURL = '/api/v1/skills';
+  allSkillsURL = '/skills';
 
   constructor(private http: HttpClient) { }
 
   getAllSkills() {
-    return this.http.get<Skill[]>(this.allSkillsURL)
+    return this.http.get<Skill[]>(Globals.baseURL + this.allSkillsURL)
                       .pipe(catchError(this.errorHandler));
   }
 
