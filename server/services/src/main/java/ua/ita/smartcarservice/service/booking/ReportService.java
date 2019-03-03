@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ReportService {
 
+    List<ReportEntity> getALlCarInSto(Long id);
+
     long addReport(ReportDto reportDto);
 
     ReportEntity findReportById(long reportId);

@@ -14,7 +14,7 @@ import {MapComponent} from 'src/app/techservice/map/map.component'
 export class TechserviceComponent implements OnInit {
 
 
-  techserviceStub: Techservice = {stoId: -1, name: '', address: '', workers: [], dealer: null, techManager: null};
+  techserviceStub: Techservice = new Techservice();
   techservice: Techservice = this.techserviceStub;
   created: boolean;
 
@@ -58,6 +58,7 @@ export class TechserviceComponent implements OnInit {
       .subscribe(data => {
         if (data != null) {
           this.techservice = data;
+          console.log(data);
         }
       });
   }

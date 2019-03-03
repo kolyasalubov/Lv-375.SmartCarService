@@ -8,7 +8,6 @@ import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.booking.ReportRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.booking.ReportService;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -45,6 +44,13 @@ public class ReportServiceImpl implements ReportService {
 
     private LocalDateTime parseDateToLocal(String strDate) {
         return LocalDateTime.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+    }
+
+    @Override
+    public List<ReportEntity> getALlCarInSto(Long id) {
+        List<ReportEntity> progres = reportRepository.getALlCarInSto(id);
+        return progres;
     }
 
 

@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;

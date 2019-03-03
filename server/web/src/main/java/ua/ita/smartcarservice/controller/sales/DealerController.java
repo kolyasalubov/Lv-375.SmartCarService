@@ -197,19 +197,34 @@ dealerService.createDealer(dealerDto,username);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+            /* create apply to dealer*/
     @PostMapping("/api/dealer/epplyToDealer")
     public ResponseEntity createEpplyToDealer(@RequestBody ApplyToDealerDto apply){
         applyService.createApplyToDealer(apply);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-
+            /*get all applies to dealers*/
     @GetMapping("/api/dealer/allstosToApply/{username}")
     public  ResponseEntity<List<TechnicalServiceDto>> getAllStotoApply(@PathVariable String username){
 List<TechnicalServiceDto>technicalServiceDtos=applyService.TECHNICAL_SERVICE_DTOS(username);
-
         return new ResponseEntity<>(technicalServiceDtos, HttpStatus.OK);
+    }
+
+                /*add sto to dealer with apply */
+    @PostMapping("/api/dealer/addStoWithApply")
+    public ResponseEntity addStoWithApply(@RequestBody ApplyToDealerDto apply){
+applyService.applyToDealer(apply);
+        return new ResponseEntity(HttpStatus.CREATED);
 
     }
+
+    /* ignore sto apply to dealer  */
+    @PostMapping("/api/dealer/ignoreApply")
+    public ResponseEntity ignoreStoApply(@RequestBody ApplyToDealerDto apply){
+        applyService.deleteApply(apply);
+        return new ResponseEntity(HttpStatus.CREATED);
+
+    }
+
 }
