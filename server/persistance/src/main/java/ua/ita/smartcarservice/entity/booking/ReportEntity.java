@@ -1,7 +1,6 @@
 package ua.ita.smartcarservice.entity.booking;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -27,18 +26,18 @@ public class ReportEntity {
     private Long reportId;
 
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Car car;
 
-    @JsonBackReference
+
     @ManyToOne
     @JoinColumn(name = "technical_service_id")
     private TechnicalServiceEntity technicalService;
 
-    @JsonBackReference
+
+    @JsonIgnore
     @OneToMany(mappedBy = "report")
     private List<WorkTime> workTimes;
 

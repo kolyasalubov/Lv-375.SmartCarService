@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-
 @Service
 public class ReportServiceImpl implements ReportService {
 
@@ -25,6 +24,7 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     UserTechnicalServiceRepository userTechnicalServiceRepository;
 
+    @Override
     public long addReport(ReportDto reportDto) {
         return reportRepository.save(repordDtoToEntity(reportDto)).getReportId();
     }
@@ -44,13 +44,16 @@ public class ReportServiceImpl implements ReportService {
 
     private LocalDateTime parseDateToLocal(String strDate) {
         return LocalDateTime.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
     }
 
-    @Override
-    public List<ReportEntity> findAllReportsByUserId(Long id) {
-        List<ReportEntity> progres = reportRepository.findAllReportsByUserId(id);
-        return progres;
+    public ReportEntity findReportById(long reportId) {
+        return reportRepository.findById(reportId).get();
     }
+
+    public List<ReportEntity> findAllReportsByUserId(long userId) {
+        return reportRepository.findAllReportsByUserId(userId);
+    }
+
+
 }
 

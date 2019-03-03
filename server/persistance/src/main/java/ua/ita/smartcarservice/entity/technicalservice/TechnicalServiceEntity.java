@@ -48,6 +48,8 @@ public class TechnicalServiceEntity {
     @OneToMany(mappedBy = "serviceId")
     Set<ServicesFeedback> servicesFeedback;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "technicalService")
     private List<ReportEntity> reports;
 

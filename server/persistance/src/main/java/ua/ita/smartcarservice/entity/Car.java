@@ -2,19 +2,15 @@ package ua.ita.smartcarservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.ToString;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
-
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sensors.MileageEntity;
 
 import javax.persistence.*;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -80,21 +76,6 @@ public class Car {
   	private List<MileageEntity> mileageEntities;
 
     public Car() {
-    }
-
-    /* For new cars */
-    public Car(String brand, String model, String graduation_year, String number, Double price, String vin,
-               Date end_guarantee, DealerEntity dealer, UserEntity user, Set<VehicleInspection> vehicleInspections) {
-        this.brand = brand;
-        this.model = model;
-        this.graduation_year = graduation_year;
-        this.number = number;
-        this.price = price;
-        this.vin = vin;
-        this.end_guarantee = end_guarantee;
-        this.dealer = dealer;
-        this.user = user;
-        this.vehicleInspections = vehicleInspections;
     }
 
     /* For user cars */

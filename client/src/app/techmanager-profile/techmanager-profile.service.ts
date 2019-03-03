@@ -4,6 +4,7 @@ import { TechmanagerProfile } from './techmanager-profile';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import { Globals } from '../globals';
 
 
 const httpOptions = {
@@ -17,7 +18,7 @@ const httpOptions = {
 })
 export class TechmanagerProfileService {
 
-  profileInfoUrl = '/api/v1/techmanagers/3';
+  profileInfoUrl = Globals.baseURL + '/v1/techmanagers/3';
 
   constructor(private http: HttpClient) { }
 

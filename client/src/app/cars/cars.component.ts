@@ -8,6 +8,8 @@ import { ChartService } from '../chart-page/charts/chart/chart.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../alerts/alert.service';
+import { MatDialog } from '@angular/material';
+import { AlertsComponent } from '../alerts/alerts.component';
 
 import { ChartData } from '../chart-page/charts/chart/chart-data';
 
@@ -25,31 +27,35 @@ export class CarsComponent implements OnInit {
   car: Car;
   showCards: boolean = false;
   showProfile: boolean = false;
+  showProposal: boolean = false;
   userId: Number;
   errorCode: number;
   error: ErrorEvent;
 
-  @Input()
-  id: number;
-
   // mileage: number;
   // speed: number;
 
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private chartService: ChartService) { }
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog, private chartService: ChartService) { }
 
   ngOnInit(){
+  this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
+  .subscribe(data => {
+    this.cars = data,
+    error => this.errorCode = error.status;
 
+    if(this.cars.length === 1){
+      this.showProfile = true;  
+    } else if(this.cars.length > 1){
+      this.showCards = true;
+    } else if(this.cars === null){
+      this.showProposal = true;
+    } else{
+      this.showProposal = true;
+    }
+  });
+}
 
-/*
-    this.username = this.tokenStorage.getUsername();
-    this.userService.getUserByUsername(this.username)
-    .subscribe(data => this.user = data);
-*/
-   this.route.params.subscribe(params => {
-    this.id = params["id"];
-});
-
-    //TODO move in another component
+      //TODO move in another component
 
     // this.chartService.getChartData("mileage", this.id, "/last") //TODO change id to car.id
     //   .subscribe(
@@ -71,38 +77,10 @@ export class CarsComponent implements OnInit {
     //     error => console.error('Error: ', error)
     //   );
 
-/*if(this.user.id != this.id){
-  if(confirm("Such requekst is not allowed")) {
-  } else {
-    this.carsService.getOwnerCarsById(this.id)
-    .subscribe(data => this.cars = data);
-  }
-}   */
 
-    this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
-      .subscribe(data => {
-        this.cars = data;
-        if (this.cars == null) {
-          // this.showProposal = true;
-          window.alert("There are no cars!")
-        } else if (this.cars.length > 1) {
-          this.showCards = true;
-        } else {
-          this.showProfile = true;
-        }
-      });
-  }
-
-    deleteCarById(id: number){
-    if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
-    this.carsService.deleteCarById(id).subscribe();
-    this.reloadPage();
-    }
-  }
-
-    applyToSTO(id: number){
+  applyToSTO(id: number){
     this.router.navigate(['/ui/booking', id]);
-    }
+  }
 
   applyToTradeIn(vin: String){
     console.log(vin);
@@ -117,9 +95,8 @@ export class CarsComponent implements OnInit {
       );
   }
 
-    history(){
-    //this.alertService.openCongirmDialog();
-    }
+  history(){
+  }
 
     reloadPage() {
       window.location.href='/ui/cars/';
@@ -157,6 +134,18 @@ export class CarsComponent implements OnInit {
     getCarByVin(vin: String){
       this.carsService.getCarByVin(vin).subscribe(data => this.car = data);
       console.log(this.car);
+    }
+
+    deleteCarById(id: Number): void {
+      const dialogRef = this.dialog.open(AlertsComponent, {
+        height: '150px',
+        width: '400px',
+        data: id
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log();
+        });
     }
 
 }

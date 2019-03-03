@@ -99,6 +99,9 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
 
         technicalServiceEntity = technicalServiceRepository.getOne(serviceId);
         rating = servicesFeedbackRepository.getServicesRating(technicalServiceEntity);
+        if(rating == null) {
+            rating = 0d;
+        }
         rating = BigDecimal.valueOf(rating).setScale(1, RoundingMode.HALF_UP).doubleValue();
 
         return rating;

@@ -47,6 +47,7 @@
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/newcar" >Add new car <i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/location" >Location of cars <i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"><a class="" routerLink="/ui/techservices">My Service</a></li>
+
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice">My Service</a></li>
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice/feedback">Feedback</a></li>
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice/dealer">Dealer</a></li>
@@ -54,18 +55,14 @@
   <li *ngIf="authority === 'sales'"><a class="" routerLink="/">Sales manager</a></li>
   <li *ngIf="authority === 'admin'"><a class="" routerLink="/ui/allusers">See users <i class="fa fa-users" aria-hidden="true"></i></a></li>
 
-    <li *ngIf="authority === 'dieler'"><a class="" (click)="goToDealerinfo()" >Dealer</a></li>
-    <li *ngIf="authority === 'dieler'"><a class="" (click)="addCarToDealer()">Add car as dieler</a></li>
-    <li *ngIf="authority === 'dieler'"><a class="" (click)="goToDealerCars()">All my cars as dieler </a></li>
-
-    <li *ngIf="authority === 'dieler'"><a class="" routerLink="/ui/newcar">Add car as user</a></li>
-    <li *ngIf="authority === 'dieler'"> <a class="" (click)="goToOwnerCars()">Your cars as user </a></li>
-    <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealerstoadd">add sto </a></li>
-    <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealersSto">my stos </a></li>
-
-    <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealersTradeIn">Trade In </a></li>
-
-
+  <li *ngIf="authority === 'dieler'"><a class="" (click)="goToDealerinfo()" >Dealer</a></li>
+  <li *ngIf="authority === 'dieler'"><a class="" (click)="addCarToDealer()">Add car as dieler</a></li>
+  <li *ngIf="authority === 'dieler'"><a class="" (click)="goToDealerCars()">All my cars as dieler </a></li>
+  <li *ngIf="authority === 'dieler'"><a class="" routerLink="/ui/newcar">Add car as user</a></li>
+  <li *ngIf="authority === 'dieler'"> <a class="" (click)="goToOwnerCars()">Your cars as user </a></li>
+  <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealerstoadd">add sto </a></li>
+  <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealersSto">my stos </a></li>
+  <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealersTradeIn">Trade In </a></li>
   </ul>
   </div>
   </div>

@@ -3,6 +3,7 @@ import { UsersService } from '../users/users.service';
 import { TechserviceService } from '../techservice/techservice.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { Techservice } from '../techservice/techservice';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-techservice-page',
@@ -28,6 +29,7 @@ export class TechservicePageComponent implements OnInit {
   }
 
   getTechservice() {
+    Globals.baseURL;
     return new Promise((resolve, reject) => {
       this.techserviceService.getTechnicalServiceByUsername(this.tokenStorage.getUsername())
         .subscribe(data => {

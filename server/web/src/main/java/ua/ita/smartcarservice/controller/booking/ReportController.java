@@ -28,9 +28,9 @@ public class ReportController {
     }
 
     @GetMapping("/progress/{id}")
-    public ResponseEntity<List<ReportEntity>> findAllInSto(@PathVariable Long id) {
-        List<ReportEntity> cars = reportService.findAllReportsByUserId(id);
-        cars.forEach(e -> e.toString());
-        return new ResponseEntity<>(cars, HttpStatus.OK);
+
+    public ResponseEntity<List<ReportEntity>> findAllReportsByUserId(@PathVariable Long id) {
+        List<ReportEntity> reports = reportService.findAllReportsByUserId(id);
+        return new ResponseEntity<>(reports, HttpStatus.OK);
     }
 }

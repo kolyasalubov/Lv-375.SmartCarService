@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * Controller (REST) works with TechnicalService
  */
+@RequestMapping("/api")
 @RestController
 public class TechnicalServiceController {
 
@@ -42,7 +43,7 @@ public class TechnicalServiceController {
     /*
     Method for getting all the technical services
      */
-    @GetMapping("/api/techservices")
+    @GetMapping("/techservices")
     ResponseEntity<List<TechnicalServiceDto>> getAllTechnicalServices() {
         ResponseEntity<List<TechnicalServiceDto>> responseEntity;
 
@@ -60,7 +61,7 @@ public class TechnicalServiceController {
     /*
     Method for creating TechnicalService, it gets parameters from the URL
      */
-    @PostMapping("/api/v1/users/{id}/techservices")
+    @PostMapping("/users/{id}/techservices")
     @ResponseBody
     void createTechnicalService(
             @PathVariable Long id,
@@ -78,7 +79,7 @@ public class TechnicalServiceController {
     /*
     Method for getting whole information about about current TechnicalService by its id
      */
-    @GetMapping("/api/v1/techservices/{id}")
+    @GetMapping("/techservices/{id}")
     ResponseEntity<TechnicalServiceDto> getTechnicalService(@PathVariable Long id) {
         ResponseEntity<TechnicalServiceDto> responseEntity;
 
@@ -98,7 +99,7 @@ public class TechnicalServiceController {
      * Method fot creation a connection between Worker and TechnicalService
      * also it adds a Skill to Current Worker
      */
-    @PostMapping("/api/v1/techservices/{id}/workers/{username}/skills/{skillId}")
+    @PostMapping("/techservices/{id}/workers/{username}/skills/{skillId}")
     ResponseEntity addWorkerToTechnicalService(@PathVariable Long id, @PathVariable String username, @PathVariable Long skillId) {
         ResponseEntity responseEntity;
 
@@ -123,7 +124,7 @@ public class TechnicalServiceController {
     /**
      * Method fot creation a connection between User and TechnicalService
      */
-    @PostMapping("/api/techservices/{id}/users/{username}")
+    @PostMapping("/techservices/{id}/users/{username}")
     ResponseEntity applyUserToTechnicalService(@PathVariable Long id, @PathVariable String username) {
         ResponseEntity responseEntity;
 
@@ -135,7 +136,7 @@ public class TechnicalServiceController {
             logger.info("Successfully applied a user username: " + username + " a technical service with id: " + id);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            logger.error("Error while applying a technical service id:" + id +
+            logger.error("Error while aworkerspplying a technical service id:" + id +
                     " and user username: " + username +
                     " Details: " + e.getMessage());
         }
@@ -147,7 +148,7 @@ public class TechnicalServiceController {
      Method for getting Workers from current TechnicalService,
      it gets parameters from the URL
      */
-    @GetMapping("/api/v1/techservices/{id}/workers")
+    @GetMapping("/techservices/{id}/workers")
     //ResponseEntity<List<UserEntity>> getTechnicalServiceWorkers(@PathVariable Long id) {
     ResponseEntity<List<WorkerSkillDto>> getTechnicalServiceWorkers(@PathVariable Long id) {
 
@@ -175,7 +176,7 @@ public class TechnicalServiceController {
     Method for updating information about current TechnicalService,
     it gets parameters from the URL
      */
-    @PutMapping("/api/v1/techservices/{id}")
+    @PutMapping("/techservices/{id}")
     void updateTechnicalService(@PathVariable Long id,
                                 @RequestParam(value = "name", required = false) String name,
                                 @RequestParam(value = "address", required = false) String address) {
@@ -201,7 +202,7 @@ public class TechnicalServiceController {
     /*
     Method for getting Technical Service bu User ID
      */
-    @GetMapping("/api/v1/users/{userId}/techservice")
+    @GetMapping("/users/{userId}/techservice")
     public ResponseEntity<TechnicalServiceDto> findTechnicalServiceByUserId(@PathVariable("userId") Long userId) {
 
         ResponseEntity<TechnicalServiceDto> responseEntity;
@@ -220,7 +221,7 @@ public class TechnicalServiceController {
     /*
         Method for getting Technical Service bu User ID
     */
-    @GetMapping("/api/v1/users/username/{username}/techservice")
+    @GetMapping("/users/username/{username}/techservice")
     public ResponseEntity<TechnicalServiceDto> findTechnicalServiceByUsername(@PathVariable("username") String username) {
 
         ResponseEntity<TechnicalServiceDto> responseEntity;
@@ -239,7 +240,7 @@ public class TechnicalServiceController {
     /*
     Method for deleting Technical Service by ID
      */
-    @DeleteMapping("/api/v1/techservices/{techServiceId}")
+    @DeleteMapping("/techservices/{techServiceId}")
     void deleteTechnicalService(@PathVariable Long techServiceId) throws Exception {
         try {
             technicalServiceService.deleteTechnicalService(techServiceId);
@@ -249,12 +250,12 @@ public class TechnicalServiceController {
         }
     }
 
-    @GetMapping("/api/v1/techservices/{techServiceId}/rating")
+    @GetMapping("/techservices/{techServiceId}/rating")
     Double getServicesRating(@PathVariable Long techServiceId) {
         return servicesFeedbackService.getServicesRating(techServiceId);
     }
 
-    @PostMapping("/api/techservices/{techServiceId}/feedback")
+    @PostMapping("/techservices/{techServiceId}/feedback")
     void addFeedbackAboutTechnicalService(
             @PathVariable Long techServiceId,
             @RequestBody ServicesFeedbackInputDto servicesFeedbackInputDto) {
@@ -264,7 +265,7 @@ public class TechnicalServiceController {
         logger.info(servicesFeedbackInputDto);
     }
 
-    @GetMapping("/api/techservices/{techServiceId}/feedback")
+    @GetMapping("/techservices/{techServiceId}/feedback")
     ResponseEntity<List<ServicesFeedbackOutputDto>> getAllFeedbackAboutService(@PathVariable Long techServiceId) {
         ResponseEntity<List<ServicesFeedbackOutputDto>> responseEntity;
 

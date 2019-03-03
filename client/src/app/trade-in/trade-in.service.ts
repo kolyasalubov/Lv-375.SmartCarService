@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, from } from 'rxjs';
 import {Car} from 'src/app/cars/car';
 import {TradeIn} from './tradein';
+import { Globals } from '../globals';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -17,18 +18,18 @@ export class TradeInService {
   constructor(private http:HttpClient) { }
 
 getAllDealers():Observable<Dealer[]>{
-return this.http.get<Dealer[]>('http://localhost:9501/api/dealer/getAll');
+return this.http.get<Dealer[]>(Globals.baseURL + '/dealer/getAll');
 }
 
 getAllCarsByDealerEdr(edr:String):Observable<Car[]>{
-return this.http.get<Car[]>('http://localhost:9501/api/dealer/getAllCars/'+edr);
+return this.http.get<Car[]>( Globals.baseURL + '/dealer/getAllCars/'+edr);
 }
 getAllCars():Observable<Car[]>{
-  return this.http.get<Car[]>('http://localhost:9501/api/dealer/allCars');
+  return this.http.get<Car[]>( Globals.baseURL + '/dealer/allCars');
     }
 
   sendTradeIn(newCarvin: String,UsedCarvin: String):Observable<TradeIn>{
-return this.http.post<TradeIn>('http://localhost:9501/api/dealer/createTradeIn/?vinNewCar='+ newCarvin+'&vinBCar='+UsedCarvin,httpOptions);
+return this.http.post<TradeIn>( Globals.baseURL + '/dealer/createTradeIn/?vinNewCar='+ newCarvin+'&vinBCar='+UsedCarvin,httpOptions);
     }
 
 }

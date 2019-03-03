@@ -114,9 +114,8 @@
 /*----------------------Sidebar-------------------*/
 
   .wrapper {
-    
     transition: all .4s ease 0s;
-    height: 100%;
+    min-height: 100vh;
 }
 
 #sidebar-wrapper {

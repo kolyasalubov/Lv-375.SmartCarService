@@ -83,7 +83,6 @@ VALUES
 (150, 'Outboard bearing replacement', 50, 10);
 
 
-
 INSERT INTO work_dependency(main_work, dependent_work)
 VALUES
 (17, 2), (30, 18), (17, 54), (56, 5), (21, 14), (42, 41), (13, 37), (51, 20), (54, 21), (57, 48),
