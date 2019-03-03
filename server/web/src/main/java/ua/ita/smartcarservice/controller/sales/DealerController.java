@@ -219,6 +219,7 @@ applyService.applyToDealer(apply);
 
     }
 
+    /* ignore sto apply to dealer  */
     @PostMapping("/api/dealer/ignoreApply")
     public ResponseEntity ignoreStoApply(@RequestBody ApplyToDealerDto apply){
         applyService.deleteApply(apply);
