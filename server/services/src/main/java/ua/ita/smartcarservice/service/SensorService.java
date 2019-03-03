@@ -13,7 +13,7 @@ public interface SensorService {
     /* READ */
     ChartDto findDataByPeriod(DateForChartDto dateForChartDto);
 
-    ChartDto findCurrentLevel(DateForChartDto dateForChartDto);
+    ChartDto findLastRecordValue(DateForChartDto dateForChartDto);
 
     RecordDto findRecordBeforeDate(RecordDto recordDto);
 

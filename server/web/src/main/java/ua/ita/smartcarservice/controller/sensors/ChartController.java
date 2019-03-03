@@ -26,8 +26,8 @@ public class ChartController {
     }
 
     @GetMapping(value = "/last")
-    public ResponseEntity<ChartDto> findCurrentLevel(@RequestParam Map<String,String> parametersMap) {
-        return getResponse(sensorService.findCurrentLevel(new DateForChartDto(parametersMap)));
+    public ResponseEntity<ChartDto> findLastRecordValue(@RequestParam Map<String,String> parametersMap) {
+        return getResponse(sensorService.findLastRecordValue(new DateForChartDto(parametersMap)));
     }
 
     private ResponseEntity<ChartDto> getResponse(ChartDto chartDto) {
