@@ -21,4 +21,8 @@ public class ChartDto {
     public ChartDto(Double value){
         this.data.put("value", Arrays.asList(value));
     }
+
+    public ChartDto(Integer value){
+        this.data.put("value", Arrays.asList((double)value));
+    }
 }

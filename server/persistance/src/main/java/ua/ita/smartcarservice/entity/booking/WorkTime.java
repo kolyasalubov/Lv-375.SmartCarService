@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,12 +30,24 @@ public class WorkTime {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "carId", nullable = false)
+    @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "worker_id", nullable = false)
     private UserEntity worker;
+
+
+    @ManyToOne
+    @JoinColumn(name = "work_id", nullable = false)
+    private WorkType work;
+
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "report_id")
+    private ReportEntity report;
+
 
 }

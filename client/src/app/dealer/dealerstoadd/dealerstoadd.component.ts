@@ -12,28 +12,27 @@ import { Techservice } from 'src/app/techservice/techservice';
 })
 export class DealerstoaddComponent implements OnInit {
   username: String;
-  Techservice
+  // Techservice
 
-// techserviceStub: DealerSto = { name: '', address: ''};
-// sto: DealerSto = this.techserviceStub;
-
-
-techserviceStub: Techservice = new Techservice();
-sto: Techservice = this.techserviceStub;
+// techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
+stos: Techservice[];
 
   constructor(private tokenStorage: TokenStorageService,private dealerstoaddService:DealerstoaddService) { }
 
 
   ngOnInit() {
     this.username = this.tokenStorage.getUsername();
+
+    this.dealerstoaddService.getAllStosApply(this.username).subscribe(data=>this.stos=data);
+
   }
 
-  createSto(){
-console.log(this.sto);
-this.dealerstoaddService.createDealerSto(this.username,this.sto).subscribe();
-this.sto.address='';
-this.sto.name='';
-
-}
+//   createSto(){
+// console.log(this.sto);
+// this.dealerstoaddService.createDealerSto(this.username,this.sto).subscribe();
+// this.sto.address='';
+// this.sto.name='';
+//
+// }
 
 }

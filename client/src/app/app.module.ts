@@ -50,6 +50,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
 import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
+import { DealersComponent } from './dealers/dealers.component';
 
 
 
@@ -87,7 +88,11 @@ import { TechserviceCardComponent } from './techservice-card/techservice-card.co
     ProgresbarComponent,
     AlertsComponent,
     DataCardComponent,
+<<<<<<< HEAD
     TechserviceCardComponent,
+=======
+    DealersComponent,
+>>>>>>> 913755949f5db84f2a75f94b4317c4fe3548349a
    // Material.MatDialogModule
 
   ],

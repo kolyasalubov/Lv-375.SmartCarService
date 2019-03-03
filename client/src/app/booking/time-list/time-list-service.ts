@@ -7,6 +7,7 @@ import { TimeList } from './time-list';
 import { WorkTime } from './work-time';
 import { NewBooking } from './new-booking';
 import { BookingInfo } from './booking-info';
+import { Report } from './new-report';
 
 
 const httpOptions = {
@@ -19,8 +20,9 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class TimeListService{
-    bookingTime : string = "/api/time";
-    newBooking : string = "/api/new";
+    bookingTime : string = "/api/booking/time";
+    newBooking : string = "/api/booking/new";
+    newReport : string = "/api/report"
 
     constructor(private http: HttpClient) {}
 
@@ -33,6 +35,13 @@ const httpOptions = {
 
     postNewBooking(newBooking : NewBooking) : Observable<number>{
       return this.http.post<number>(this.newBooking, newBooking, httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+    }
+
+    postNewReport(newReport : Report) : Observable<number>{
+      return this.http.post<number>(this.newReport, newReport, httpOptions)
       .pipe(
         catchError(this.errorHandler)
       );

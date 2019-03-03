@@ -1,6 +1,6 @@
 <div class='d-flex justify-content-center flex-wrap charts'>
-  <progress-chart class="align-self-center" sensorType='battery' [carId]=carId></progress-chart>
-  <progress-chart class="align-self-center" sensorType='Max battery capacity' [carId]=carId></progress-chart>
+  <progress-chart *ngIf="valid" class="align-self-center" sensorType='battery' [carId]=carId></progress-chart>
+  <progress-chart *ngIf="valid" class="align-self-center" sensorType='Max battery capacity' [carId]=carId></progress-chart>
 
   <line-chart sensorType='speed' [carId]=carId></line-chart>
   <line-chart sensorType='mileage' [carId]=carId></line-chart>

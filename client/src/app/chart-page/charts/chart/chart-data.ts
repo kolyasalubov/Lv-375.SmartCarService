@@ -11,7 +11,6 @@ export class ChartData {
   }
 
   setChartData(dto: ChartDto, position: number = 0) {
-    console.log(dto);
     if (dto === null) {
       this.data = [];
     } else {

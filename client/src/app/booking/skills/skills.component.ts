@@ -18,17 +18,27 @@ export class StoSkillComponent implements OnInit {
   error: ErrorEvent;
   searchId : number;
 
+  notificationWork : Map<string, boolean> = new Map();
+  noti : Array<Notification>;
+
   show : boolean = true;
   works : Array<WorkType>;
   headElements : Array<string> = ["Name", "Time", "Cost"];
   selectedSkill : Map<string, number> = new Map();
   lastSkillName : string;
 
+  noWorkSelect = false;
+
+  worksNameForNotification : Array<string>;
+
   constructor(private skillService: SkillService, private route: ActivatedRoute) {}
   ngOnInit() {
      this.route.params.subscribe(params => {
      this.searchId = params["id"];
    });
+   this.route.params.subscribe(params => {
+    this.worksNameForNotification = params["worksName"];
+  });
      this.skillService.getAllSkillsToStoResp(this.searchId)
      .subscribe((data : Map<string, Array<WorkType>>)=> this.workType = data,
       error => this.error = error);
@@ -38,6 +48,7 @@ export class StoSkillComponent implements OnInit {
 
   addOrDelete(w : WorkType, skillName : string){
     this.show = true;
+    this.noWorkSelect = false;
 
     if(this.selectedWork.get(w.name) != undefined){
       if(this.selectedWork.get(w.name) == -1){
@@ -86,7 +97,12 @@ export class StoSkillComponent implements OnInit {
 
   changeShow(){
     this.workerList = this.GetData();
-    this.show = false;
+    if(this.workerList.workName.length == 0){
+      this.noWorkSelect = true;
+    }
+    else{
+      this.show = false;
+    }
   }
 
   GetData() : WorkerList {
@@ -140,6 +156,15 @@ this.selectedSkill.forEach((value: number, key: string) => {
     this.setSkillClass(skillId, "selectSkill");
     this.setSkillClass(this.lastSkillName, "non-selectSkill");
     this.lastSkillName = skillId;
+  }
+}
+
+isWarning(){
+  if(this.noWorkSelect){
+    document.getElementById("bookingPage").className = "d-flex flex-row warning";
+  }
+  else{
+    document.getElementById("bookingPage").className = "d-flex flex-row no-warning";
   }
 }
 
