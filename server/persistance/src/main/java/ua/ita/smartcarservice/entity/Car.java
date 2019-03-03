@@ -3,7 +3,9 @@ package ua.ita.smartcarservice.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.ToString;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
+import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
@@ -68,6 +70,10 @@ public class Car {
     @JsonIgnore
     @OneToMany (mappedBy = "car")
     private Set<WorkTime> workTimes;
+
+    @JsonIgnore
+    @OneToMany (mappedBy = "car")
+    private List<ReportEntity> reports;
     
     //needed for getByMileage method
   	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")

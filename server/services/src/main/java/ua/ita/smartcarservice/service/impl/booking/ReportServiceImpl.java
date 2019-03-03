@@ -48,8 +48,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<ReportEntity> getALlCarInSto(Long id) {
-        List<ReportEntity> progres = reportRepository.getALlCarInSto(id);
+    public List<ReportEntity> findAllReportsByUserId(Long id) {
+        List<ReportEntity> progres = reportRepository.findAllReportsByUserId(id);
         return progres;
     }
 }
