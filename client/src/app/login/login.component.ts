@@ -41,8 +41,15 @@ this.authService.attemptAuth(this.loginInfo).subscribe(
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
-        this.reloadPage();
-      },
+ //       this.roles.every(role => {
+ //         if (role === 'ROLE_CAR_OWNER') {
+ //         window.location.href='/ui/cars'
+ //         return false;
+ //         }
+ //       })
+       this.reloadPage();
+          
+        },
       error => {
         console.log(error);
         this.errorMessage = error.error.message;

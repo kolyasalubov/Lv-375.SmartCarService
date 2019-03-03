@@ -45,7 +45,7 @@
   }
 
   .card-block .card .card-body i{
-	  padding-left: 0%;
+	padding-left: 0%;
 	margin-right: 20px;
   }
 
@@ -103,12 +103,10 @@
     padding: 8px;
     color: white;
     background-color: #336B87;
-
     cursor: pointer;
     width: 20%;
     font-size: 18px;
-	
-	margin-top: 70px; 
+		margin-top: 70px; 
 }
 
 
@@ -229,11 +227,10 @@
   .flip-card-back button{
     border-color: rgb(31, 84, 110);
     display: inline-block;
-   padding: 8px;
+    padding: 8px;
     color: white;
     background-color: #336B87;
-	text-align: left;
-//	justify-items: flex-end;
+	  text-align: left;
     cursor: pointer;
     width: 40%;
     font-size: 14px;
@@ -260,9 +257,43 @@ background-color: #C4001A;
 }
 
 
+////////////////////////Proposal////////////////////////////
+.wrapper{
+background-color: #f1f1f1;
+margin: auto;
+width: 40%;
+height: 30%;
+border: 2px solid rgb(211, 212, 211);
+border-radius: 10px;
+padding: 10px;
+margin-right: 25%;
+margin-bottom: 2%;
+text-align: center;
+}
 
+#question{
+  padding: 2%;
+  margin: 2%;
+}
 
+#question button{
+  border-color: rgb(31, 84, 110);
+  padding: 8px;
+  color: white;
+  background-color: #336B87;
+  cursor: pointer;
+  width: 20%;
+  font-size: 15px;
+  margin-top: 70px;
+  display: inline-block;
+}
 
+#question button:hover{
+text-emphasis-color: black;
+background-color: #2987BB;
+color: black;
+}
 
-
-
+#question button i{
+margin-left: 5%;
+}
