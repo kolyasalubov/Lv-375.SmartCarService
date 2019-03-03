@@ -11,6 +11,7 @@ import { TechserviceService } from '../techservice/techservice.service';
 export class TechserviceCardComponent implements OnInit {
 
   @Input() techservice: Techservice;
+  @Input() applyButton: boolean = false;
 
   constructor(
     private techserviceService: TechserviceService,

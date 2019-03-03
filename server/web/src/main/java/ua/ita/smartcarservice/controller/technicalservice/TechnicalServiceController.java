@@ -135,7 +135,7 @@ public class TechnicalServiceController {
             logger.info("Successfully applied a user username: " + username + " a technical service with id: " + id);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            logger.error("Error while applying a technical service id:" + id +
+            logger.error("Error while aworkerspplying a technical service id:" + id +
                     " and user username: " + username +
                     " Details: " + e.getMessage());
         }

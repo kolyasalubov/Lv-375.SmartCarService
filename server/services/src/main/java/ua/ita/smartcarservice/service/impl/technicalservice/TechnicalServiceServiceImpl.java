@@ -116,9 +116,9 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         dto.setName(technicalServiceEntity.getName());
         dto.setAddress(technicalServiceEntity.getAddress());
         //dto.setTechnicalManager(userTechnicalServiceRepository.getTechnicalServiceManagerByServiceId(technicalServiceEntity));
-        /*logger.info("Rating of service id:" + technicalServiceEntity.getTechnicalServiceId() + " = " +
+        logger.info("Rating of service id:" + technicalServiceEntity.getTechnicalServiceId() + " = " +
                 servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));
-        dto.setRating(servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));*/
+        dto.setRating(servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));
         dto.setWorkers(getUsersByRoleAndTechnicalSevice(RoleNames.ROLE_WORKER.name(), technicalServiceEntity.getTechnicalServiceId()));
         return dto;
     }
