@@ -72,7 +72,7 @@ export class CarsComponent implements OnInit {
     //   );
 
 /*if(this.user.id != this.id){
-  if(confirm("Such request is not allowed")) {
+  if(confirm("Such requekst is not allowed")) {
   } else {
     this.carsService.getOwnerCarsById(this.id)
     .subscribe(data => this.cars = data);

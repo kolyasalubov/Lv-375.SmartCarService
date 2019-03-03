@@ -6,7 +6,7 @@ export interface Notifications {
     type: string;
     carId: number;
     userId: number;
-    skillId: number;
+    workTypeName: string;
     isSelected: boolean;
 
     showCheckbox: boolean;

@@ -17,8 +17,8 @@ export class CarsService {
 
   constructor(private http:HttpClient) { }
 
-  getOwnerCarsByUsername(username: String): Observable<Car[]> {
-    return this.http.get<Car[]>('api/owner/' + username + '/car')
+  getOwnerCarsByUsername(username: String): Observable<Array<Car>> {
+    return this.http.get<Array<Car>>('api/owner/' + username + '/car')
     .pipe(
       catchError(this.handleError)
     );

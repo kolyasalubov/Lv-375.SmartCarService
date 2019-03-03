@@ -18,8 +18,8 @@ public class WorkTypeController {
     @Autowired
     private WorkTypeService workTypeService;
 
-    @GetMapping("/api/worksbycar/{id}")
-    public ResponseEntity<Map<String, List<WorkTypeDto>>> findAlService(@PathVariable Long id){
+    @GetMapping("/api/works/{id}")
+    public ResponseEntity<Map<String, List<WorkTypeDto>>> findAllService(@PathVariable Long id){
         return new ResponseEntity<>(workTypeService.getAllService(id), HttpStatus.OK);
     }
 

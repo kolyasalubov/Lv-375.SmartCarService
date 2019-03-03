@@ -14,9 +14,7 @@ import ua.ita.smartcarservice.service.sales.DealerService;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 1 on 27.02.2019.
- */
+
 @Service
 public class DealerServiceImpl implements DealerService {
 

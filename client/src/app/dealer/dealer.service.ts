@@ -16,17 +16,7 @@ export class DealerService {
 
   constructor(private http:HttpClient) { }
 
-// createDealer(dealer: Dealer,username: String):Observable<Dealer>{
-//
-//   return this.http.put<Dealer>('http://localhost:9501/api/dealer/create/?dealerName=' + dealer.dealerName+'&dealerAddress='+dealer.dealerAddress+'&dealerEdr='+dealer.dealerEdr+'&dealerEmail='+dealer.dealerEmail+'&username='+ username ,dealer,httpOptions);
-// }
 
-//   addCar(carProfile: OwnerCar, username: String): Observable<HttpResponse<OwnerCar>>{
-//     return this.http.post<OwnerCar>('api/newcar/?username=' + username , carProfile, { observe: 'response' })
-//       .pipe(
-//         catchError(this.handleError)
-//       );
-//   }
   createDealer(dealer: Dealer,username: String):Observable<HttpResponse<Dealer>>{
 
     return this.http.post<Dealer>('http://localhost:9501/api/dealer/create/'+username,dealer,{observe: 'response' });

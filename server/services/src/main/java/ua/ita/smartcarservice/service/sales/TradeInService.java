@@ -8,9 +8,7 @@ import ua.ita.smartcarservice.entity.sales.UserSaleManager;
 
 import java.util.List;
 
-/**
- * Created by 1 on 10.02.2019.
- */
+
 public interface TradeInService {
 //
 //void createTradeIn(TradeIn tradeIn);
@@ -31,6 +29,8 @@ List<TradeIn>tradesIn(String username);
 
 List<TradeInDto>tradeinDtos(String username);
 void deleteTradeIn(Long id);
+
+void successTradeIn(Long id);
 
 
 }
