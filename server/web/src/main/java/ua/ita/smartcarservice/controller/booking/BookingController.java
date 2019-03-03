@@ -31,7 +31,7 @@ public class BookingController {
     }
 
     @PostMapping("/api/booking/new")
-    public ResponseEntity<HttpStatus> addSession(@RequestBody NewBookingDto newBookingDto) {
+    public ResponseEntity<HttpStatus> addBooking(@RequestBody NewBookingDto newBookingDto) {
         logger.info("Trying to add new booking for car with id: " + newBookingDto.getCarId());
         try {
             bookingService.addBooking(newBookingDto);

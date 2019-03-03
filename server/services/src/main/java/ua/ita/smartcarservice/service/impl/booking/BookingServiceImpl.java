@@ -1,10 +1,11 @@
 package ua.ita.smartcarservice.service.impl.booking;
 
-import org.apache.tomcat.jni.Local;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.booking.BookingDto;
 import ua.ita.smartcarservice.dto.booking.NewBookingDto;
+import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.dto.booking.WorkTimeDto;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.booking.TimePoint;
@@ -24,7 +25,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -94,6 +94,14 @@ public class BookingServiceImpl implements BookingService {
         });
 
         bookingRepository.saveAll(bookingToAdd);
+    }
+
+    @Override
+    public void updateReportsId(ReportDto reportDto, Long reportId){
+        bookingRepository.updateReportsId(parseFromFront(reportDto.getStartTime()),
+                parseFromFront(reportDto.getEndTime()),
+                        reportDto.getCarId(),
+                        reportId);
     }
 
     @Override
@@ -241,7 +249,7 @@ public class BookingServiceImpl implements BookingService {
         return -1L;
     }
 
-    private LocalDateTime parseFromFront(String s) {
+    public LocalDateTime parseFromFront(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(s.substring(0, s.indexOf('T')) + " " + s.substring(s.indexOf('T') + 1), formatter);
     }

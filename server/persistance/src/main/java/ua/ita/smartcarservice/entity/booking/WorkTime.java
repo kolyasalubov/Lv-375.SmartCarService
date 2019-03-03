@@ -38,9 +38,16 @@ public class WorkTime {
     @JoinColumn(name = "worker_id", nullable = false)
     private UserEntity worker;
 
+
     @ManyToOne
     @JoinColumn(name = "work_id", nullable = false)
     private WorkType work;
+
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "report_id")
+    private ReportEntity report;
 
 
 }
