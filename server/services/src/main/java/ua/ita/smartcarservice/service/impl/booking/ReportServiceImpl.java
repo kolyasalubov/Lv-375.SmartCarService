@@ -8,9 +8,10 @@ import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.booking.ReportRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.booking.ReportService;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -24,11 +25,11 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     UserTechnicalServiceRepository userTechnicalServiceRepository;
 
-    public long addReport(ReportDto reportDto){
+    public long addReport(ReportDto reportDto) {
         return reportRepository.save(repordDtoToEntity(reportDto)).getReportId();
     }
 
-    private ReportEntity repordDtoToEntity(ReportDto reportDto){
+    private ReportEntity repordDtoToEntity(ReportDto reportDto) {
         ReportEntity entity = new ReportEntity();
         entity.setCar(carRepository.getCarById(reportDto.getCarId()));
         entity.setTechnicalService(userTechnicalServiceRepository
@@ -43,6 +44,13 @@ public class ReportServiceImpl implements ReportService {
 
     private LocalDateTime parseDateToLocal(String strDate) {
         return LocalDateTime.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+    }
+
+    @Override
+    public List<ReportEntity> getALlCarInSto(Long id) {
+        List<ReportEntity> progres = reportRepository.getALlCarInSto(id);
+        return progres;
     }
 }
 

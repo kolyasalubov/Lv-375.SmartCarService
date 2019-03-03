@@ -3,6 +3,7 @@ package ua.ita.smartcarservice.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 
@@ -74,21 +75,6 @@ public class Car {
   	private List<MileageEntity> mileageEntities;
 
     public Car() {
-    }
-
-    /* For new cars */
-    public Car(String brand, String model, String graduation_year, String number, Double price, String vin,
-               Date end_guarantee, DealerEntity dealer, UserEntity user, Set<VehicleInspection> vehicleInspections) {
-        this.brand = brand;
-        this.model = model;
-        this.graduation_year = graduation_year;
-        this.number = number;
-        this.price = price;
-        this.vin = vin;
-        this.end_guarantee = end_guarantee;
-        this.dealer = dealer;
-        this.user = user;
-        this.vehicleInspections = vehicleInspections;
     }
 
     /* For user cars */

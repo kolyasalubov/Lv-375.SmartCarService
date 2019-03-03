@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import { from, Observable } from 'rxjs';
 import { DealerSto } from './dealersto';
 import{Techservice} from 'src/app/techservice/techservice';
+import {Apply} from 'src/app/dealers/apply';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -31,6 +32,22 @@ export class DealerstoaddService {
 
   getAllStosApply(username:String):Observable<Techservice[]>{
       return this.http.get<Techservice[]>('http://localhost:9501/api/dealer/allstosToApply/'+username);
-
   }
+
+
+  // editDealer(dealer: Dealer):Observable<HttpResponse<Dealer>>{
+  //   return this.http.post<Dealer>('http://localhost:9501/api/dealer/edit',dealer,{observe: 'response' });
+  //
+  // }
+
+
+  addSto(apply:Apply):Observable<HttpResponse<Apply>>{
+
+return this.http.post<Apply>('http://localhost:9501/api/dealer/addStoWithApply',apply,{observe: 'response' });
+  }
+
+deleteApply(apply:Apply):Observable<HttpResponse<Apply>>{
+return this.http.post<Apply>('http://localhost:9501/api/dealer/ignoreApply',apply,{observe: 'response' })
+}
+
 }
