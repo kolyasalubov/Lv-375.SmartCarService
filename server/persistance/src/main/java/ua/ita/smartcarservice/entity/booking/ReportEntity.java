@@ -1,8 +1,8 @@
 package ua.ita.smartcarservice.entity.booking;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -22,17 +22,17 @@ public class ReportEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Car car;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "technical_service_id")
     private TechnicalServiceEntity technicalService;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "report")
+    @JsonIgnore
+    @OneToMany(mappedBy = "report")
     private List<WorkTime> workTimes;
 
     @Column(nullable = false, columnDefinition = "DATETIME")

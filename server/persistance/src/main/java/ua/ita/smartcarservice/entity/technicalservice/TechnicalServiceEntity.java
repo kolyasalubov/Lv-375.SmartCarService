@@ -47,7 +47,8 @@ public class TechnicalServiceEntity {
     @OneToMany(mappedBy = "serviceId")
     Set<ServicesFeedback> servicesFeedback;
 
-    @OneToMany(mappedBy = "reportId")
+    @JsonIgnore
+    @OneToMany(mappedBy = "technicalService")
     private List<ReportEntity> reports;
 
 }

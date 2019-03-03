@@ -1,23 +1,29 @@
 package ua.ita.smartcarservice.dto.booking;
 
 import lombok.Data;
-import ua.ita.smartcarservice.entity.Car;
-import ua.ita.smartcarservice.entity.UserEntity;
-import ua.ita.smartcarservice.entity.booking.WorkTime;
-import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 import java.util.List;
 
 @Data
 public class ReportExtendedDto {
 
-    private ReportDto reportDto;
+    // Car
+    private String carBrand;
+    private String carModel;
+    private String carNumber;
 
-    private UserEntity user;
+    // User
+    private String userFullName;
 
-    private Car car;
+    // ReportEntity
+    private String startTime;
+    private String endTime;
+    private int requiredTime;
+    private int price;
 
-    private TechnicalServiceEntity technicalService;
+    // TechnicalService
+    private String technicalServiceName;
+    private String technicalServiceAddress;
 
-    private List<WorkTime> workTimes;
+    private List<WorkerTasksDto> workerTasks;
 }
