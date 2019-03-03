@@ -47,13 +47,6 @@ public class ReportServiceImpl implements ReportService {
 
     }
 
-    @Override
-    public List<ReportEntity> getALlCarInSto(Long id) {
-        List<ReportEntity> progres = reportRepository.getALlCarInSto(id);
-        return progres;
-    }
-
-
     public ReportEntity findReportById(long reportId) {
         return reportRepository.findById(reportId).get();
     }

@@ -12,7 +12,7 @@ import java.util.List;
 
 import java.util.List;
 
-@Repository
+@Reposito
 public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
 
     @Query("SELECT r FROM ReportEntity r " +
