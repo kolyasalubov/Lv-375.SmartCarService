@@ -22,7 +22,8 @@ public interface NotificationService {
 	NotificationsDto getNotification (Long id);
 
 	/* UPDATE */
-	void updateNotification (NotificationsDto notificationDto);
+
+	void disableNotification(NotificationsDto notificationDto);
 
 	/* DELETE */
 	void deleteNotificationById (Long id);

@@ -51,7 +51,10 @@ import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
 import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
 import { DealersComponent } from './dealers/dealers.component';
-import {TechservicePageComponent} from './techservice-page/techservice-page.component';
+import { TechservicePageComponent } from './techservice-page/techservice-page.component';
+import { InfoMassageComponent } from './info-massage/info-massage.component';
+
+
 
 
 
@@ -91,10 +94,10 @@ import {TechservicePageComponent} from './techservice-page/techservice-page.comp
     DataCardComponent,
     TechserviceCardComponent,
     DealersComponent,
-    TechservicePageComponent
-    // Material.MatDialogModule
-
-  ],
+    TechservicePageComponent,
+    InfoMassageComponent,
+   // Material.MatDialogModule
+ ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -112,14 +115,16 @@ import {TechservicePageComponent} from './techservice-page/techservice-page.comp
     BrowserAnimationsModule
   ],
   providers: [
-    //NotificationsService
+    NotificationsService,
     MatDialog,
     DatePipe
   ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [SecurityModule],
-  entryComponents:[AlertsComponent]
+  entryComponents: [
+    AlertsComponent,
+    InfoMassageComponent]
   })
 export class AppModule {
 }

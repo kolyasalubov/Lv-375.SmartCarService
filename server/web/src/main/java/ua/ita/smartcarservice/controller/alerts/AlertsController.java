@@ -23,9 +23,6 @@ public class AlertsController {
 	private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
 	@Autowired
-	private SimpMessagingTemplate template;
-
-	@Autowired
 	private AlertsService alertsService;
 
 	@Autowired
@@ -34,8 +31,11 @@ public class AlertsController {
 	@Autowired
 	private NotificationService notificationsService;
 
+	@Autowired
+	private SimpMessagingTemplate template;
+
 	/* Method for handling fault code received from car */
-	@PostMapping("/faultCode")
+	@PostMapping("/alertCode")
 	public void handleFaultCode(@RequestParam(value="vinNumber") String vinNumber,
 								@RequestParam(value="code") String code) {
 		try {
@@ -43,7 +43,7 @@ public class AlertsController {
 			CarDto car = carService.findByVin(vinNumber);
 			NotificationsDto toSave = new NotificationsDto(faultCode, car);
 			notificationsService.saveNotification(toSave);
-			template.convertAndSend("/notifications", toSave);
+			template.convertAndSend("/notifications-list", toSave);
 		} catch (Exception e) {
 			logger.error("Error! Cannot add notification while handling fault code received from car: " + e.getMessage());
 		}

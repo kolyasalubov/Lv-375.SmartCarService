@@ -10,8 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../alerts/alert.service';
 import { MatDialog } from '@angular/material';
 import { AlertsComponent } from '../alerts/alerts.component';
-
 import { ChartData } from '../chart-page/charts/chart/chart-data';
+import { JsonPipe } from '@angular/common';
+import { InfoMassageComponent } from '../info-massage/info-massage.component';
 
 @Component({
   selector: 'app-cars',
@@ -21,7 +22,7 @@ import { ChartData } from '../chart-page/charts/chart/chart-data';
 })
 export class CarsComponent implements OnInit {
 
-  cars: Car[];
+  cars: Car[] = [];
   private username: String;
   user: User;
   car: Car;
@@ -41,15 +42,13 @@ export class CarsComponent implements OnInit {
   this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
   .subscribe(data => {
     this.cars = data,
-    error => this.errorCode = error.status;
+    error => this.error = error;
 
     if(this.cars.length === 1){
       this.showProfile = true;  
     } else if(this.cars.length > 1){
       this.showCards = true;
-    } else if(this.cars === null){
-      this.showProposal = true;
-    } else{
+    } else {
       this.showProposal = true;
     }
   });
@@ -144,8 +143,7 @@ export class CarsComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log();
-        });
+      });
     }
-
+    
 }
