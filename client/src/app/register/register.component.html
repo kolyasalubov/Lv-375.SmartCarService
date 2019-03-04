@@ -41,7 +41,7 @@
 <div class="form-group">
     <label for="fullName">Full name</label>
     <input type="text" name="fullName" [(ngModel)]="registerForm.fullName" class="form-control mb-2" #fullName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && fullName.invalid }" required minlength="2" maxlength="30"/>
-  <div style="color: red" *ngIf="fullName.invalid && fullName.touched">
+    <div style="color: red" *ngIf="fullName.invalid && fullName.touched">
       <div *ngIf="fullName.errors.required">Full name is required</div>
       <div *ngIf="fullName.errors.minlength">Full name must be at least 2 characters</div>
       <div *ngIf="fullName.errors.maxlength">Full name can be max 30 characters</div>
