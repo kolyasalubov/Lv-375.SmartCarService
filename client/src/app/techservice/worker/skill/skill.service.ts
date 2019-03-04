@@ -18,12 +18,12 @@ const httpOptions = {
 })
 export class SkillService {
 
-  allSkillsURL = Globals.baseURL + '/v1/skills';
+  allSkillsURL = '/skills';
 
   constructor(private http: HttpClient) { }
 
   getAllSkills() {
-    return this.http.get<Skill[]>(this.allSkillsURL)
+    return this.http.get<Skill[]>(Globals.baseURL + this.allSkillsURL)
                       .pipe(catchError(this.errorHandler));
   }
 

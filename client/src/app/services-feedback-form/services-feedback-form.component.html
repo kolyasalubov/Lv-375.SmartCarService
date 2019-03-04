@@ -32,9 +32,10 @@
 </mdb-card>
 
 
-<div *ngFor="let worker of workers" style="position: relative; top: -220px; left: 120px; z-index: -1;">
+<div *ngFor="let worker of workers" style="position: relative; top: -220px; left: 120px;">
   <app-workers-feedback [workerId]="worker"></app-workers-feedback>
 </div>
 
-
+<!--
 <services-feedback [serviceId]="4"></services-feedback>
+-->
