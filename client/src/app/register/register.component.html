@@ -60,10 +60,16 @@
 <div class="btn-group" mdbDropdown>
   <button mdbDropdownToggle type="button" mdbBtn style="background: white; color: black; width: 260px;" class="dropdown-toggle waves-light"
     mdbWavesEffect>
-    {{selectedRole ? selectedRole.name.replace('_', ' ') : 'Who are you?'}}
+    {{selectedRole ? selectedRole.name : 'Who are you?'}}
   </button>
 <div class="dropdown-menu dropdown-primary">
-    <a class="dropdown-item" *ngFor="let role of roleArray" (click)="chooseRole(role)">{{role.name.replace('_', ' ')}}</a>
+    <a type="radio" class="dropdown-item" *ngFor="let role of roleArray"  (click)="chooseRole(role)">{{role.name}}</a>
+    <!-- <div *ngFor="let role of roleArray">
+      <div class="custom-control custom-radio dropdown-item">
+          <input type="radio" [(ngModel)]="registerForm.checkRole" name="checkRole" class="custom-control-input" [value]='role.name' id="role_{{role.name}}" name="defaultExampleRadios">
+          <label class="custom-control-label" (click)="choseRole()" for="role_{{role.name}}">{{role.name}}</label>
+        </div>
+      </div> -->
   </div>
 </div>
 <div>
