@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from "rxjs/index";
-import {ReportDto} from "./report/report-dto";
+import {ReportDto} from "./vi-report/report-dto";
 import {Globals} from "../globals";
 
 @Injectable()

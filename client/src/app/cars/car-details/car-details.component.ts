@@ -59,8 +59,12 @@ export class CarDetailsComponent implements OnInit {
       });
   }
 
-  applyToSTO(id: number){
-  this.router.navigate(['ui/booking', id]);
+  applyToSTO(carId: number){
+    this.router.navigate(['/ui/booking'],
+    {queryParams: {
+      carId: carId
+    }}
+  );
   }
 
   applyToTradeIn(vin: String){

@@ -6,7 +6,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ServiceHistoryComponent} from "./service-history.component";
 import {PdfComponent} from "./pdf/pdf.component";
-import { ReportComponent } from './report/report.component';
+import { ReportComponent } from './vi-report/report.component';
 
 
 
