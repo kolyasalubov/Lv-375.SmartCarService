@@ -26,8 +26,8 @@ public class ReportController {
 
     @PostMapping
     public void saveReport(@RequestBody ReportDto reportDto) {
-        long reportId = reportService.addReport(reportDto);
-        bookingService.updateReportsId(reportDto, reportId);
+        ReportEntity reportEntity = reportService.addReport(reportDto);
+        bookingService.updateReportsId(reportDto, reportEntity);
     }
 
     @GetMapping("/progress/{id}")

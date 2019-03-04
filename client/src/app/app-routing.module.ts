@@ -170,7 +170,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'ui/booking/:id',
+    path: 'ui/booking',
     component: BookingComponent
   },
 

@@ -49,6 +49,7 @@ public class TechnicalServiceEntity {
     Set<ServicesFeedback> servicesFeedback;
 
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "technicalService")
     private List<ReportEntity> reports;

@@ -12,6 +12,7 @@ import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.booking.ReportRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
+import ua.ita.smartcarservice.service.booking.BookingService;
 import ua.ita.smartcarservice.service.booking.ReportService;
 import ua.ita.smartcarservice.service.booking.WorkTimeService;
 import ua.ita.smartcarservice.service.impl.booking.pdf.PdfCreator;
@@ -33,87 +34,89 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     UserTechnicalServiceRepository userTechnicalServiceRepository;
 
-    @Autowired
-    UserRepository userRepository;
+        @Autowired
+        UserRepository userRepository;
 
-    @Autowired
-    WorkTimeService workTimeService;
+        @Autowired
+        WorkTimeService workTimeService;
 
-    @Override
-    public long addReport(ReportDto reportDto) {
-        return reportRepository.save(repordDtoToEntity(reportDto)).getReportId();
+
+    public ReportEntity addReport(ReportDto reportDto) {
+        return reportRepository.save(repordDtoToEntity(reportDto));
     }
 
-    private ReportEntity repordDtoToEntity(ReportDto reportDto) {
-        ReportEntity entity = new ReportEntity();
+        private ReportEntity repordDtoToEntity (ReportDto reportDto){
+            ReportEntity entity = new ReportEntity();
 
-        entity.setCar(carRepository.getCarById(reportDto.getCarId()));
-        entity.setTechnicalService(userTechnicalServiceRepository
-                .findTechnicalServiceByCarId(reportDto.getCarId())
-                .getTechnicalServiceId());
+            entity.setCar(carRepository.getCarById(reportDto.getCarId()));
+            entity.setTechnicalService(userTechnicalServiceRepository
+                    .findTechnicalServiceByCarId(reportDto.getCarId())
+                    .getTechnicalServiceId());
 
-        entity.setStartTime(parseDateToLocal(reportDto.getStartTime()));
-        entity.setEndTime(parseDateToLocal(reportDto.getEndTime()));
-        entity.setRequiredTime(reportDto.getRequiredTime());
-        entity.setPrice(reportDto.getPrice());
-        return entity;
+            entity.setStartTime(parseDateToLocal(reportDto.getStartTime()));
+            entity.setEndTime(parseDateToLocal(reportDto.getEndTime()));
+            entity.setRequiredTime(reportDto.getRequiredTime());
+            entity.setPrice(reportDto.getPrice());
+            return entity;
+        }
+
+        private LocalDateTime parseDateToLocal (String s){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            return LocalDateTime.parse(s.substring(0, s.indexOf('T')) + " " + s.substring(s.indexOf('T') + 1), formatter);
+        }
+
+        @Override
+        public ReportEntity findReportById ( long reportId){
+            return reportRepository.findById(reportId).get();
+        }
+
+        @Override
+        public List <ReportEntity> findAllReportsByUserId ( long userId){
+            return reportRepository.findAllReportsByUserId(userId);
+        }
+
+        @Override
+        public List <ReportExtendedDto> findAllReportsByCarId ( long carId){
+            return reportRepository.findAllReportsByCarId(carId).stream()
+                    .map(this::reportEntityToExtendedDto).collect(Collectors.toList());
+        }
+
+
+        @Override
+        public PdfDto formExtendedReport ( long reportId){
+            return new PdfDto(new PdfCreator().getByteArrayWithPdfReport(
+                    reportEntityToExtendedDto(reportRepository.findById(reportId).get())));
+        }
+
+        private ReportExtendedDto reportEntityToExtendedDto (ReportEntity report){
+            ReportExtendedDto dto = new ReportExtendedDto();
+            dto.setReportId(report.getReportId());
+
+            long carId = report.getCar().getId();
+            dto.setUserFullName(userRepository.findUserEntityByCarId(carId).getFullName());
+
+            Car car = carRepository.getCarById(carId);
+            dto.setCarBrand(car.getBrand());
+            dto.setCarModel(car.getModel());
+            dto.setCarNumber(car.getNumber());
+
+            dto.setStartTime(report.getStartTime());
+            dto.setEndTime(report.getEndTime());
+            dto.setRequiredTime(report.getRequiredTime());
+            dto.setPrice(report.getPrice());
+
+            TechnicalServiceEntity serviceEntity = userTechnicalServiceRepository
+                    .findTechnicalServiceByCarId(carId).getTechnicalServiceId();
+
+            dto.setTechnicalServiceName(serviceEntity.getName());
+            dto.setTechnicalServiceAddress(serviceEntity.getAddress());
+
+            dto.setWorkerTasks(workTimeService.findWorkerTasksByReportId(report.getReportId()));
+
+            return dto;
+        }
+
+
     }
 
-    private LocalDateTime parseDateToLocal(String strDate) {
-        return LocalDateTime.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
-
-    @Override
-    public ReportEntity findReportById(long reportId) {
-        return reportRepository.findById(reportId).get();
-    }
-
-    @Override
-    public List<ReportEntity> findAllReportsByUserId(long userId) {
-        return reportRepository.findAllReportsByUserId(userId);
-    }
-
-    @Override
-    public List<ReportExtendedDto> findAllReportsByCarId(long carId){
-        return reportRepository.findAllReportsByCarId(carId).stream()
-                .map(this::reportEntityToExtendedDto).collect(Collectors.toList());
-    }
-
-
-    @Override
-    public PdfDto formExtendedReport(long reportId) {
-        return new PdfDto(new PdfCreator().getByteArrayWithPdfReport(
-                reportEntityToExtendedDto(reportRepository.findById(reportId).get())));
-    }
-
-    private ReportExtendedDto reportEntityToExtendedDto(ReportEntity report) {
-        ReportExtendedDto dto = new ReportExtendedDto();
-        dto.setReportId(report.getReportId());
-
-        long carId = report.getCar().getId();
-        dto.setUserFullName(userRepository.findUserEntityByCarId(carId).getFullName());
-
-        Car car = carRepository.getCarById(carId);
-        dto.setCarBrand(car.getBrand());
-        dto.setCarModel(car.getModel());
-        dto.setCarNumber(car.getNumber());
-
-        dto.setStartTime(report.getStartTime());
-        dto.setEndTime(report.getEndTime());
-        dto.setRequiredTime(report.getRequiredTime());
-        dto.setPrice(report.getPrice());
-
-        TechnicalServiceEntity serviceEntity = userTechnicalServiceRepository
-                .findTechnicalServiceByCarId(carId).getTechnicalServiceId();
-
-        dto.setTechnicalServiceName(serviceEntity.getName());
-        dto.setTechnicalServiceAddress(serviceEntity.getAddress());
-
-        dto.setWorkerTasks(workTimeService.findWorkerTasksByReportId(report.getReportId()));
-
-        return dto;
-    }
-
-
-}
 
