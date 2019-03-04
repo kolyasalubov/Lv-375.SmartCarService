@@ -8,6 +8,7 @@ import { WorkTime } from './work-time';
 import { NewBooking } from './new-booking';
 import { BookingInfo } from './booking-info';
 import { Report } from './new-report';
+import { Globals } from 'src/app/globals';
 
 
 const httpOptions = {
@@ -20,9 +21,9 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class TimeListService{
-    bookingTime : string = "/api/booking/time";
-    newBooking : string = "/api/booking/new";
-    newReport : string = "/api/report"
+    bookingTime : string = Globals.baseURL + "/booking/time";
+    newBooking : string = Globals.baseURL + "/booking/new";
+    newReport : string = Globals.baseURL + "/report"
 
     constructor(private http: HttpClient) {}
 

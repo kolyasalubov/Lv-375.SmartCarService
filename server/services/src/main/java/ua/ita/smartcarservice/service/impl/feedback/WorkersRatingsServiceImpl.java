@@ -36,6 +36,10 @@ public class WorkersRatingsServiceImpl implements WorkersRatingsService {
         workerEntity = userRepository.getUserById(workerId);
         avgRating = workersRatingsRepository.getAvgRatingByWorkerId(workerEntity);
 
+        if(avgRating == null) {
+            avgRating = 0d;
+        }
+
         return BigDecimal.valueOf(avgRating).setScale(1, RoundingMode.HALF_UP).doubleValue();
     }
 }

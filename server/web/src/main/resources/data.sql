@@ -81,7 +81,6 @@ VALUES
 (500, 'Replacement Manual', 180, 10),
 (150, 'Replacement of the semi-axis', 60, 10),
 (150, 'Outboard bearing replacement', 50, 10);
->>>>>>> 90c09cc9a285540f35649b8f6770664854bdfc43
 
 
 INSERT INTO work_dependency(main_work, dependent_work)

@@ -3,12 +3,13 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {DateDto} from './date-dto';
 import {ChartDto} from './chart-dto';
+import { Globals } from 'src/app/globals';
 
 @Injectable()
 export class ChartService {
 
   // private URL: string = '/chart';
-  private URL: string = '/api/chart';
+  private URL: string = Globals.baseURL + '/chart';
 
   private httpOptions = {
     headers: new HttpHeaders({

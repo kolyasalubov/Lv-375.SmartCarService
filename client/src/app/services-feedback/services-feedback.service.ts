@@ -4,6 +4,7 @@ import { throwError, Observable } from 'rxjs';
 import { ServicesFeedbackForm } from '../services-feedback-form/services-feedback-form';
 import { catchError } from 'rxjs/operators';
 import { ServicesFeedback } from './services-feedback';
+import { Globals } from '../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,8 +17,8 @@ const httpOptions = {
 })
 export class ServicesFeedbackService {
 
-  feedbackByServiceId: string = '/api/techservices/{serviceId}/feedback';
-  feedbackByUserName: string = '/api/users/{userName}/feedback';
+  feedbackByServiceId: string = Globals.baseURL + '/techservices/{serviceId}/feedback';
+  feedbackByUserName: string = Globals.baseURL + '/users/{userName}/feedback';
 
   constructor(private http: HttpClient) { }
  

@@ -2,18 +2,15 @@ package ua.ita.smartcarservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.Data;
+import lombok.ToString;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
+import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
-
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.entity.sensors.MileageEntity;
 
 import javax.persistence.*;
-
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -69,6 +66,10 @@ public class Car {
     @JsonIgnore
     @OneToMany (mappedBy = "car")
     private Set<WorkTime> workTimes;
+
+    @JsonIgnore
+    @OneToMany (mappedBy = "car")
+    private List<ReportEntity> reports;
     
     //needed for getByMileage method
   	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
