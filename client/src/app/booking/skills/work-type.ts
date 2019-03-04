@@ -1,5 +1,5 @@
 export class WorkType{
-    name : string;
+    workName : string;
     skillName : string;
     requiredTime : number;
     cost : number;

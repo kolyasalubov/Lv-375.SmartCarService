@@ -20,23 +20,23 @@ export class ServiceHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.carId = Number(this.getFromRouterParams('carId'));
-    this.getAllReportsByCarId(this.carId);
+     this.getAllReportsByCarId(this.carId);
   }
 
   private getFromRouterParams(param: string) {
     return this.route.snapshot.queryParamMap.get(param);
   }
 
-  public getAllReportsByCarId(carId: number) {
-    this.service.getAllReportsByCarId(carId)
-      .subscribe(
-        data => {
-          this.reports = data;
-          console.log(data);
-          console.log(this.reports);
-        },
-        error => console.error('Error: ', error)
-      );
-  }
+   public getAllReportsByCarId(carId: number) {
+     this.service.getAllReportsByCarId(carId)
+       .subscribe(
+         data => {
+           this.reports = data;
+           console.log(data);
+           console.log(this.reports);
+         },
+         error => console.error('Error: ', error)
+       );
+   }
 
 }

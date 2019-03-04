@@ -31,16 +31,16 @@ public class BookingController {
     }
 
     @PostMapping("/api/booking/new")
-    public ResponseEntity<HttpStatus> addBooking(@RequestBody NewBookingDto newBookingDto) {
+    public ResponseEntity addBooking(@RequestBody NewBookingDto newBookingDto) {
         logger.info("Trying to add new booking for car with id: " + newBookingDto.getCarId());
         try {
             bookingService.addBooking(newBookingDto);
             logger.info("Successfully added new booking for car with id: " + newBookingDto.getCarId());
-            return new ResponseEntity <>(HttpStatus.OK);
+            return new ResponseEntity(HttpStatus.OK);
         }
         catch (Exception e){
             logger.error("Can not add new booking for car with id : " + newBookingDto.getCarId());
-            return new ResponseEntity <>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
     }

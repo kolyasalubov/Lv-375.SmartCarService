@@ -10,7 +10,7 @@ import { MatDatepickerModule, MatDatepickerInput } from '@angular/material/datep
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations"
     MatNativeDateModule,
     MatInputModule,
     BrowserAnimationsModule
+    
   ]
 })
 export class BookingModule { }

@@ -50,12 +50,21 @@ export class CarsComponent implements OnInit {
           this.showProposal = true;
         }
       });
+      this.username = this.tokenStorage.getUsername();
+    this.userService.getUserByUsername(this.username)
+    .subscribe(data => this.user = data);
   }
 
 
-  applyToSTO(id: number){
-    this.router.navigate(['/ui/booking', id]);
-  }
+    applyToSTO(carId: number, userId : number){
+      console.log(carId);
+      this.router.navigate(['/ui/booking'],
+      {queryParams: {
+        carId: carId,
+        userId: userId
+      }}
+    );
+    }
 
   applyToTradeIn(vin: String){
     console.log(vin);
