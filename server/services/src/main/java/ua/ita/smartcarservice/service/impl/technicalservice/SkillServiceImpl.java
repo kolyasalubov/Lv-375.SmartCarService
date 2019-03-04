@@ -59,13 +59,15 @@ public class SkillServiceImpl implements SkillService {
         return skillBySto;
     }
 
+    /**
+     * This method allows get list of skill entity by car id
+     *
+     * @param carId - car Id
+     * @return - return all skills entity for car
+     */
     @Override
     public List<SkillDto> findSkillNameByCarId(Long carId){
-        List<SkillDto> skillBySto = new ArrayList <>();
-
-        skillRepository.findSkillNameByCarId(carId).forEach(skillEntity -> skillBySto.add(getSkillDto(skillEntity)));
-
-        return skillBySto;
+        return skillRepository.findSkillNameByCarId(carId).stream().map(this::getSkillDto).collect(Collectors.toList());
     }
 
 

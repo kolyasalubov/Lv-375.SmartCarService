@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class SignUpForm {
 	
 	@NotBlank
-	@Size(min = 2, max = 10)
+	@Size(min = 2, max = 15)
 	private String username;
 	
 	@NotBlank

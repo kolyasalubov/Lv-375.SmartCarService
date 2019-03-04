@@ -9,9 +9,9 @@ import ua.ita.smartcarservice.repository.booking.ReportRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.booking.BookingService;
 import ua.ita.smartcarservice.service.booking.ReportService;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -27,11 +27,13 @@ public class ReportServiceImpl implements ReportService {
 
 
 
-    public ReportEntity addReport(ReportDto reportDto){
+
+    public ReportEntity addReport(ReportDto reportDto) {
         return reportRepository.save(repordDtoToEntity(reportDto));
     }
 
-    private ReportEntity repordDtoToEntity(ReportDto reportDto){
+
+    private ReportEntity repordDtoToEntity(ReportDto reportDto) {
         ReportEntity entity = new ReportEntity();
         entity.setCar(carRepository.getCarById(reportDto.getCarId()));
         entity.setTechnicalService(userTechnicalServiceRepository
@@ -48,5 +50,15 @@ public class ReportServiceImpl implements ReportService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(s.substring(0, s.indexOf('T')) + " " + s.substring(s.indexOf('T') + 1), formatter);
     }
+
+    public ReportEntity findReportById(long reportId) {
+        return reportRepository.findById(reportId).get();
+    }
+
+    public List<ReportEntity> findAllReportsByUserId(long userId) {
+        return reportRepository.findAllReportsByUserId(userId);
+    }
+
+
 }
 

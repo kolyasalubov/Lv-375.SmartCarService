@@ -85,29 +85,29 @@ export class StoSkillComponent implements OnInit {
     this.show = true;
     this.noWorkSelect = false;
 
-    if (this.selectedWork.get(w.name) != undefined) {
-      if (this.selectedWork.get(w.name) == -1) {
+    if (this.selectedWork.get(w.workName) != undefined) {
+      if (this.selectedWork.get(w.workName) == -1) {
         this.totalPrice += w.cost;
-        this.selectedWork.set(w.name, 1);
-        this.setClass(w.name, 'selected');
+        this.selectedWork.set(w.workName, 1);
+        this.setClass(w.workName, 'selected');
         this.selectedSkill.set(skillName, this.selectedSkill.get(skillName) + 1);
       }
       else {
         this.totalPrice -= w.cost;
-        this.selectedWork.set(w.name, -1);
-        if (this.notificationWork.get(w.name) == undefined) {
-          this.setClass(w.name, 'non-select');
+        this.selectedWork.set(w.workName, -1);
+        if (this.notificationWork.get(w.workName) == undefined) {
+          this.setClass(w.workName, 'non-select');
         }
         else {
-          this.setClass(w.name, 'notification');
+          this.setClass(w.workName, 'notification');
         }
         this.selectedSkill.set(skillName, this.selectedSkill.get(skillName) - 1);
       }
     }
     else {
-      this.selectedWork.set(w.name, 1);
+      this.selectedWork.set(w.workName, 1);
       this.totalPrice += w.cost;
-      this.setClass(w.name, 'selected');
+      this.setClass(w.workName, 'selected');
       if (this.selectedSkill.get(skillName) == undefined) {
         this.selectedSkill.set(skillName, 1);
       }
@@ -119,8 +119,8 @@ export class StoSkillComponent implements OnInit {
   }
 
   setWorkStyle(w: WorkType): string {
-    if (this.selectedWork.get(w.name) == undefined || this.selectedWork.get(w.name) == -1) {
-      if (this.notificationWork.get(w.name) == undefined) {
+    if (this.selectedWork.get(w.workName) == undefined || this.selectedWork.get(w.workName) == -1) {
+      if (this.notificationWork.get(w.workName) == undefined) {
         return "non-select";
       }
       else {

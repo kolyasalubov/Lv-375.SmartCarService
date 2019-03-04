@@ -5,29 +5,29 @@ import {FormsModule} from '@angular/forms';
 
 import {MDBBootstrapModule, PopoverModule} from 'angular-bootstrap-md';
 
-import {AppRoutingModule} from './app-routing.module';
-import {SecurityModule} from './security/security.module';
-import {AppComponent} from './app.component';
-import {TechmanagerProfileComponent} from './techmanager-profile/techmanager-profile.component';
-import {TechmanagerProfileService} from './techmanager-profile/techmanager-profile.service';
-import {ChartPageModule} from './chart-page/chart-page.module';
-import {RolesComponent} from './roles/roles.component';
-import {TechserviceComponent} from './techservice/techservice.component';
-import {WorkerComponent} from './techservice/worker/worker.component';
-import {BookingModule} from './booking/booking.module';
-import {SkillComponent} from './techservice/worker/skill/skill.component';
-import {MenuComponent} from './menu/menu.component';
-import {CarsComponent} from './cars/cars.component';
-import {UsersComponent} from './users/users.component';
-import {InfoComponent} from './info/info.component';
-import {CarProfileComponent} from './car-profile/car-profile.component';
-import {UserProfileComponent} from './user-profile/user-profile.component';
-import {NotificationsService} from  './notifications/notifications.service';
-import {NotificationsApprovementComponent} from './notifications/notifications-approvement/notifications-approvement.component';
-import {NotificationsListComponent} from './notifications/notifications-list/notifications-list.component';
-import {MapComponent} from './techservice/map/map.component';
-import {AgmCoreModule} from '@agm/core';
-import {LoginComponent} from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
+import { SecurityModule } from './security/security.module';
+import { AppComponent } from './app.component';
+import { TechmanagerProfileComponent } from './techmanager-profile/techmanager-profile.component';
+import { TechmanagerProfileService } from './techmanager-profile/techmanager-profile.service';
+import { ChartPageModule } from './chart-page/chart-page.module';
+import { RolesComponent } from './roles/roles.component';
+import { TechserviceComponent } from './techservice/techservice.component';
+import { WorkerComponent } from './techservice/worker/worker.component';
+import { BookingModule } from './booking/booking.module';
+import { SkillComponent } from './techservice/worker/skill/skill.component';
+import { MenuComponent } from './menu/menu.component';
+import { CarsComponent } from './cars/cars.component';
+import { UsersComponent } from './users/users.component';
+import { InfoComponent } from './info/info.component';
+import { CarProfileComponent } from './car-profile/car-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { NotificationsService } from  './notifications/notifications.service';
+import { NotificationsApprovementComponent } from './notifications/notifications-approvement/notifications-approvement.component';
+import { NotificationsListComponent } from './notifications/notifications-list/notifications-list.component';
+import { MapComponent } from './techservice/map/map.component';
+import { AgmCoreModule } from '@agm/core';
+import { LoginComponent } from './login/login.component';
 import { CarTrackerComponent } from './cars/car-tracker/car-tracker.component';
 import { CarDetailsComponent } from './cars/car-details/car-details.component';
 import { ServicesFeedbackFormComponent} from './services-feedback-form/services-feedback-form.component';
@@ -51,9 +51,9 @@ import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
 import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
 import { DealersComponent } from './dealers/dealers.component';
+import { MatExpansionModule } from '@angular/material';
 import { TechservicePageComponent } from './techservice-page/techservice-page.component';
-
-
+import { InfoMassageComponent } from './info-massage/info-massage.component';
 
 @NgModule({
   declarations: [
@@ -92,9 +92,10 @@ import { TechservicePageComponent } from './techservice-page/techservice-page.co
     TechserviceCardComponent,
     DealersComponent,
     TechservicePageComponent,
-   // Material.MatDialogModule
-
-  ],
+    WorkersFeedbackComponent,
+    // Material.MatDialogModule,
+    InfoMassageComponent
+ ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -109,17 +110,20 @@ import { TechservicePageComponent } from './techservice-page/techservice-page.co
     SecurityModule,
     OverlayModule,
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatExpansionModule
   ],
   providers: [
-    //NotificationsService
+    NotificationsService,
     MatDialog,
     DatePipe
   ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [SecurityModule],
-  entryComponents:[AlertsComponent]
+  entryComponents: [
+    AlertsComponent,
+    InfoMassageComponent]
   })
 export class AppModule {
 }

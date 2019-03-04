@@ -30,6 +30,12 @@ public class WorkTypeServiceImpl implements WorkTypeService {
                 .collect(Collectors.toMap(WorkType::getName, workType -> workType));
     }
 
+    /**
+     * Method which returns info about work with user can choose in his technical service
+     *
+     * @param id - car Id
+     * @return Map this contains key - skillName and value - list of workInfo
+     */
     @Override
     public Map<String, List<WorkTypeDto>> getAllService(Long id){
         return skillService.findSkillNameByCarId(id).stream()
@@ -40,7 +46,7 @@ public class WorkTypeServiceImpl implements WorkTypeService {
 
     private WorkTypeDto getDto(WorkType workType){
         WorkTypeDto workTypeDto = new WorkTypeDto();
-        workTypeDto.setName(workType.getName());
+        workTypeDto.setWorkName(workType.getName());
         workTypeDto.setCost(workType.getCost());
         workTypeDto.setRequiredTime(workType.getRequiredTime());
         workTypeDto.setSkillName(workType.getSkill().getName());

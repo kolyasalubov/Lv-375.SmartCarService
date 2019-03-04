@@ -21,7 +21,6 @@ appl:Apply;
 
     this.dealersService.getAllDealers().
     subscribe(data => this.allDealers=data);
-console.log("id= "+this.techservice.stoId);
 
   }
   getTechserviceByCurrentUser() {

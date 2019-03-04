@@ -3,10 +3,7 @@ package ua.ita.smartcarservice.service.impl.booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ita.smartcarservice.dto.booking.BookingDto;
-import ua.ita.smartcarservice.dto.booking.NewBookingDto;
-import ua.ita.smartcarservice.dto.booking.ReportDto;
-import ua.ita.smartcarservice.dto.booking.WorkTimeDto;
+import ua.ita.smartcarservice.dto.booking.*;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.entity.booking.TimePoint;
@@ -54,16 +51,14 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<WorkTimeDto> findAllByWorkerId(Long workerId) {
-        List<WorkTimeDto> workDto = bookingRepository.findAllByWorkerId(workerId).stream()
-                .map(workTime -> getWorkTimeDto(workTime)).collect(Collectors.toList());
-
-        return workDto;
+        return bookingRepository.findAllByWorkerId(workerId).stream()
+                .map(this::getWorkTimeDto).collect(Collectors.toList());
     }
 
     @Override
     public List<WorkTimeDto> findAllByCarId(Long carId) {
         return bookingRepository.findAllByCarId(carId).stream()
-                .map(workTime -> getWorkTimeDto(workTime)).collect(Collectors.toList());
+                .map(this::getWorkTimeDto).collect(Collectors.toList());
     }
 
     @Override
@@ -72,8 +67,8 @@ public class BookingServiceImpl implements BookingService {
         List<WorkTime> bookingToAdd = new ArrayList <>();
         LocalDateTime start = parseDate(newBookingDto.getStart());
 
-        List<Long> worksId = newBookingDto.getWorksInfo().stream().map(w -> w.getWorkId()).collect(Collectors.toList());
-        List<Long> workersId =  newBookingDto.getWorkersId().stream().map(w->Long.valueOf(w)).collect(Collectors.toList());
+        List<Long> worksId = newBookingDto.getWorksInfo().stream().map(WorkInfoDto::getWorkId).collect(Collectors.toList());
+        List<Long> workersId =  newBookingDto.getWorkersId().stream().map(Long::valueOf).collect(Collectors.toList());
 
         List<WorkType> worksTypes = workTypeRepository.findAllById(worksId);
 
@@ -104,7 +99,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<LocalDateTime> findTimeToBooking(BookingDto bookingDto) {
-        List<Long> workersId = bookingDto.getWorkersId().stream().map(s->Long.valueOf(s)).collect(Collectors.toList());
+        List<Long> workersId = bookingDto.getWorkersId().stream().map(Long::valueOf).collect(Collectors.toList());
         LocalDate time = LocalDate.parse(bookingDto.getTime());
 
         List<WorkTimeDto> timeToWork = findTimeWhenWork(workersId, time, DAYS_WHEN_WE_FIND_FREE_TIME);

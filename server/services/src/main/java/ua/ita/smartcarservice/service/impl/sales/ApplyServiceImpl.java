@@ -30,21 +30,28 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void createApplyToDealer(ApplyToDealerDto applyToDealerDto) {
-   applyRepository.save(new Apply(dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId())));
+        if(applyRepository.findByDealerAndAndTechnicalService(dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId()))==null){
+            applyRepository.save(new Apply(dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId())));
+        }
+
     }
 
     @Override
     public void deleteApply(ApplyToDealerDto applyToDealerDto) {
-applyRepository.delete(applyRepository.findByDealerAndAndTechnicalService(dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId())));
+applyRepository.delete(applyRepository.findByDealerAndAndTechnicalService(dealerRepository.findByUserEntity_Username(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId())));
     }
+
 
     @Override
     public void applyToDealer(ApplyToDealerDto applyToDealerDto) {
-        DealerEntity dealerEntity=dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr());
+
+        DealerEntity dealerEntity=dealerRepository.findByUserEntity_Username(applyToDealerDto.getDealerEdr());
         TechnicalServiceEntity technicalServiceEntity=technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId());
         technicalServiceEntity.setDealer(dealerEntity);
         technicalServiceRepository.save(technicalServiceEntity);
+        deleteApply(applyToDealerDto);
     }
+
     public TechnicalServiceDto convertToDto(TechnicalServiceEntity technicalServiceEntity) {
         TechnicalServiceDto dto = new TechnicalServiceDto();
 
@@ -61,11 +68,8 @@ List<TechnicalServiceDto>technicalServiceDtos=new ArrayList<>();
         List<Apply>applies=applyRepository.findAllByDealer_UserEntityUsername(username);
 
         for (Apply apply:applies){
-
             technicalServiceDtos.add(convertToDto(technicalServiceRepository.getByTechnicalServiceId(apply.getTechnicalService().getTechnicalServiceId())));
-
         }
-
         return technicalServiceDtos;
     }
 }

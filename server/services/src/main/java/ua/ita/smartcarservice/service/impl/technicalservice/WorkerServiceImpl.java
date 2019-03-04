@@ -80,7 +80,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public List<WorkerDto> findByCarIdAndWorkersSkill(String name, Long carId) {
         return userRepository.findByCarIdAndWorkersSkill(name, carId)
-                .stream().map(w -> getWorkerDto(w)).collect(Collectors.toList());
+                .stream().map(this::getWorkerDto).collect(Collectors.toList());
     }
 
     @Override

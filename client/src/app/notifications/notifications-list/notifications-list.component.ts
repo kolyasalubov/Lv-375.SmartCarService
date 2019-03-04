@@ -14,42 +14,55 @@ export class NotificationsListComponent implements OnInit {
 
   notifications: Notifications[];
   private sorted = false;
+  // message : string;
+  // showModal : boolean;
 
   @Input() notification: Notifications;
   @Input() id: number;
   constructor(private router: Router,
               private notificationsService: NotificationsService,
-              private route: ActivatedRoute ) { }
+              private route: ActivatedRoute) { 
+                let stompClient = this.notificationsService.connect();
+                stompClient.connect({}, frame => {
+                  stompClient.subscribe('/notifications-list', notifications => {
+                    console.log("notiffffications: ", notifications);
+                    this.notifications.unshift(JSON.parse(notifications.body));
+                  })
+                })
+              }
 
   ngOnInit() {
     this.route.params.subscribe(params => {this.id = params["id"];});
     this.notificationsService.currentNotifications.subscribe(data => this.notifications = data);
     this.notificationsService.updateNotifications(this.notificationsService.getAllNotifications(this.id));
-    console.log(this.notifications);
   }
   deleteNotification(id : number): void {
-    this.notificationsService.deleteNotification(id)
-      .subscribe(
-        data => {
-          console.log('delete notification data',data);
-          this.notifications = this.notifications.filter(n => n.id !== id);
-        },
-        error => console.log(error));
+    this.notificationsService.deleteNotification(id);
   }
 
   applyFor() : void{
     let isSelected = false;
+    let carIds = new Set();
     this.notifications.forEach(
       n => {
         if(n.isSelected) {
           isSelected = true;
+          carIds.add(n.carId);
         }
       }
     )
-    if(isSelected) {
+    if(isSelected && carIds.size === 1) {
       this.router.navigate(['/ui/notifications-approvement', this.id]);
     } else {
-      alert("Select notifications^^");
+     
+      if (carIds.size > 1){
+        // this.message = "You can choose only one car at once";
+       
+      } else {
+        // this.message = "Select notifications^^";
+        
+      }
+      // this.showModal = true;
     }
   }
 

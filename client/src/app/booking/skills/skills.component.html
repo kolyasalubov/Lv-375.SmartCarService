@@ -31,8 +31,8 @@
             </tr>
           </thead>
           <tbody>
-              <tr mdbTableCol *ngFor="let work of works" class={{setWorkStyle(work)}} style="cursor: pointer;"  id="{{work.name}}" (click)="addOrDelete(work, work.skillName)" >
-                <td><a>{{work.name}}</a></td>
+              <tr mdbTableCol *ngFor="let work of works" class={{setWorkStyle(work)}} style="cursor: pointer;"  id="{{work.workName}}" (click)="addOrDelete(work, work.skillName)" >
+                <td><a>{{work.workName}}</a></td>
                 <td>{{work.cost}}</td>
               </tr>
             </tbody>

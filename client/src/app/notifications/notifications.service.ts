@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { Notifications } from  './notifications';
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
+import { Globals } from '../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,21 +15,20 @@ const httpOptions = {
 })
 export class NotificationsService {
 
-  private baseUrl = '/api/notifications';
+  private baseUrl = Globals.baseURL + '/notifications';
   private notificationsSource = new BehaviorSubject<Notifications[]>([]);
   currentNotifications = this.notificationsSource.asObservable();
  
-  // connect(){
-  //   let socket = new WebSocket('http://localhost:9501/socket');
-  //   let ws = Stomp.over(socket);
-  //   return ws;
-  // }
+  public connect(){
+    let socket = new SockJS('http://localhost:9501/socket');
+    let stompClient = Stomp.over(socket);
+    return stompClient;
+  }
 
   updateNotifications(notifications : Observable<Notifications[]>){
     notifications.subscribe(data => {
       this.wrapNotifications(data);
       this.notificationsSource.next(data);
-
     });
   }
 
@@ -39,7 +39,17 @@ export class NotificationsService {
   }
 
   public deleteNotification(id){
-    return this.http.post(this.baseUrl + "/" + id, null);
+    return this.http.post(this.baseUrl + "/" + id, null).subscribe(
+      data => {
+        console.log('delete notification data',data);
+        var notifications = this.currentNotifications;
+        notifications.forEach(
+          d => { d.filter(n => n.id != id); }
+        );
+        this.updateNotifications(notifications);
+      },
+      error => console.log(error)
+    );
   }
 
   private wrapNotifications(notifications){
