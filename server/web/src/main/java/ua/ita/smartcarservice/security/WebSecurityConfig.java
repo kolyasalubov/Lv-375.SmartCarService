@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ua.ita.smartcarservice.entity.RoleNames;
 import ua.ita.smartcarservice.service.impl.UserDetailsServiceImpl;
 
 import java.util.Arrays;
