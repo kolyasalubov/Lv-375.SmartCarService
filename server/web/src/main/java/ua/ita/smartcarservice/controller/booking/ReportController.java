@@ -28,7 +28,6 @@ public class ReportController {
     }
 
     @GetMapping("/progress/{id}")
-
     public ResponseEntity<List<ReportEntity>> findAllReportsByUserId(@PathVariable Long id) {
         List<ReportEntity> reports = reportService.findAllReportsByUserId(id);
         return new ResponseEntity<>(reports, HttpStatus.OK);
