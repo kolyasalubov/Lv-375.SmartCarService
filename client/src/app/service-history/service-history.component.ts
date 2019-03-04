@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ServiceHistoryService} from "./service-history.service";
-import {ReportDto} from "./report/report-dto";
+import {ReportDto} from "./vi-report/report-dto";
 
 @Component({
   selector: 'service-history',
