@@ -22,15 +22,14 @@ public class SkillServiceImpl implements SkillService {
     @Autowired
     private SkillRepository skillRepository;
 
-    /*
-    Method for getting all the Skills from DB
-     */
     @Override
     public List<SkillDto> getAllSkills() {
         List<SkillDto> allSkill = new ArrayList<>();
-        for (SkillEntity skill : skillRepository.findAll()) {
+
+        skillRepository.findAll().parallelStream().forEach(skill -> {
             allSkill.add(getSkillDto(skill));
-        }
+        });
+
         return allSkill;
     }
 
@@ -39,9 +38,6 @@ public class SkillServiceImpl implements SkillService {
         return skillRepository.findAll().stream().collect(Collectors.toMap(SkillEntity::getName, s -> s));
     }
 
-    /*
-    Method converts Skill entity to DTO
-     */
     @Override
     public SkillDto getSkillDto(SkillEntity skill) {
         SkillDto skillDto = new SkillDto();
@@ -70,10 +66,6 @@ public class SkillServiceImpl implements SkillService {
         return skillRepository.findSkillNameByCarId(carId).stream().map(this::getSkillDto).collect(Collectors.toList());
     }
 
-
-    /*
-    Method returns Skill entity by id
-     */
     @Override
     public SkillEntity getSkillById(Long id) {
         return skillRepository.findById(id).get();

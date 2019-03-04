@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import { SignUpInfo } from '../auth/signup-info';
 import { ROLES } from '../roles/mock-roles';
 import { HttpResponse } from '@angular/common/http';
+import { Role } from '../roles/role';
 
 @Component({
   selector: 'app-register',
@@ -13,12 +14,13 @@ import { HttpResponse } from '@angular/common/http';
 export class RegisterComponent implements OnInit {
   
   roleArray = ROLES;
+  selectedRole: Role = null;
   registerForm: any = {};
   signupInfo: SignUpInfo;
   isSignedUp = false;
   isSignUpFailed = false;
   errorMessage = '';
-  unchecked = true;
+  
   
  
   constructor(private authService: AuthService) { }
@@ -26,11 +28,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  choseRole(){
-    if(this.registerForm.checkRole != null){
-      this.unchecked = false;
-    }
+  chooseRole(selected: Role) {
+    this.selectedRole = selected;
   }
+
 
   onSubmit() {
     console.log(this.registerForm);

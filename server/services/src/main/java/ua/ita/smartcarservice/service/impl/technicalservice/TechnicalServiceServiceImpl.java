@@ -1,12 +1,11 @@
 package ua.ita.smartcarservice.service.impl.technicalservice;
 
-import org.apache.catalina.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
-import ua.ita.smartcarservice.entity.RoleNames;
+import ua.ita.smartcarservice.entity.Roles;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
@@ -17,7 +16,6 @@ import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRe
 import ua.ita.smartcarservice.service.feedback.ServicesFeedbackService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
 
-import javax.swing.text.html.parser.Entity;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +94,6 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     @Override
     public void deleteTechnicalService(Long id) {
         technicalServiceRepository.deleteById(id);
-        // userTechnicalServiceRepository.deleteByTechnicalServiceId(id);
     }
 
     @Override
@@ -115,22 +112,13 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
         dto.setName(technicalServiceEntity.getName());
         dto.setAddress(technicalServiceEntity.getAddress());
-        //dto.setTechnicalManager(userTechnicalServiceRepository.getTechnicalServiceManagerByServiceId(technicalServiceEntity));
-        logger.info("Rating of service id:" + technicalServiceEntity.getTechnicalServiceId() + " = " +
-                servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));
         dto.setRating(servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));
-        dto.setWorkers(getUsersByRoleAndTechnicalSevice(RoleNames.ROLE_WORKER.name(), technicalServiceEntity.getTechnicalServiceId()));
+        dto.setWorkers(getUsersByRoleAndTechnicalSevice(Roles.ROLE_WORKER.toString(), technicalServiceEntity.getTechnicalServiceId()));
         return dto;
     }
 
     @Override
     public TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId) {
-        /*try {
-            TechnicalServiceEntity entity = technicalServiceRepository.getTechnicalServiceEntityByUser(userId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
         return convertToDto(technicalServiceRepository.getTechnicalServiceEntityByUser(userId));
     }
 
@@ -140,9 +128,6 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
         entity.setTechnicalServiceId(technicalServiceDto.getStoId());
         entity.setName(technicalServiceDto.getName());
         entity.setAddress(technicalServiceDto.getAddress());
-
-        //entity.setTechnicalManager(userTechnicalServiceRepository.getOne(technicalServiceDto.getStoId()).getUserId());
-        //entity.setWorkers(technicalServiceDto.getWorkerSet());
 
         return entity;
     }
@@ -164,45 +149,30 @@ public class TechnicalServiceServiceImpl implements TechnicalServiceService {
     }
 
     @Override
-    public TechnicalServiceEntity getByTechnicalManager(UserEntity technicalManager) {
-        return null;// technicalServiceRepository.getByTechnicalManager(technicalManager);
-    }
-
-    @Override
     public TechnicalServiceEntity getTechnicalServiceById(Long id) {
         return technicalServiceRepository.getOne(id);
     }
 
     @Override
-    public String findTechnicalServiceByCarId(Long id){
+    public String findTechnicalServiceByCarId(Long id) {
         return userTechnicalServiceRepository.findTechnicalServiceByCarId(id).getTechnicalServiceId().getName();
     }
 
-//    public TechnicalServiceDto convertToDtoByDelaer(TechnicalServiceEntity technicalServiceEntity) {
-//        TechnicalServiceDto dto = new TechnicalServiceDto();
-//
-//        dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
-//        dto.setName(technicalServiceEntity.getName());
-//        dto.setAddress(technicalServiceEntity.getAddress());
-//
-//        return dto;
-//    }
-
-
     @Override
     public List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username) {
-        List<TechnicalServiceEntity> technicalServiceList  = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
+        List<TechnicalServiceEntity> technicalServiceList = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
         List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
-        for(TechnicalServiceEntity technicalService:technicalServiceList){
 
+        technicalServiceList.parallelStream().forEach(technicalService -> {
             technicalServiceDtoList.add(convertToDto(technicalService));
-        }
+        });
+
         return technicalServiceDtoList;
     }
 
     @Override
     public void createTechnicalServiceByDealer(DealerStoAddDto stoAddDto, String username) {
-        technicalServiceRepository.save(new TechnicalServiceEntity(stoAddDto.getNameSto(),stoAddDto.getAddressSto(),
+        technicalServiceRepository.save(new TechnicalServiceEntity(stoAddDto.getNameSto(), stoAddDto.getAddressSto(),
                 dealerEntityRepository.findByUserEntity_Username(username)));
     }
 

@@ -29,6 +29,6 @@ public class TechnicalServiceServiceImplTest {
     public void getTechnicalServiceDtoByUser() {
         //Preconditions
         List<TechnicalServiceDto> expectedDtoList = new ArrayList<>();
-        
+
     }
 }

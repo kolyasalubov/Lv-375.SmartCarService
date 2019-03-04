@@ -3,160 +3,146 @@ package ua.ita.smartcarservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
+import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "user")
 public class UserEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column(length = 100, nullable = false, unique = true)
-	private String username;
-	@Column(length = 100, nullable = false)
-	private String password;
-	@Column(length = 30, nullable = true)
-	private String email;
-	@Column(length = 50, nullable = false)
-	private String fullName;
-	@Column(length = 15, unique = true)
-	private String numberPhone;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(length = 100, nullable = false, unique = true)
+    private String username;
+    @Column(length = 100, nullable = false)
+    private String password;
+    @Column(length = 30, nullable = true)
+    private String email;
+    @Column(length = 50, nullable = false)
+    private String fullName;
+    @Column(length = 15, unique = true)
+    private String numberPhone;
 
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "user_roles",
-	joinColumns = @JoinColumn(name = "user_id"),
-	inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<RoleEntity> roles = new HashSet<RoleEntity>();
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles = new HashSet<RoleEntity>();
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "userId",  cascade = CascadeType.ALL)
-	private UserTechnicalService userTechnicalService;
+    @JsonIgnore
+    @OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
+    private UserTechnicalService userTechnicalService;
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "workerId", cascade = CascadeType.ALL,
-			fetch = FetchType.LAZY)
-	private WorkersSkill workersSkill;
+    @JsonIgnore
+    @OneToOne(mappedBy = "workerId", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private WorkersSkill workersSkill;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "worker")
-	Set<WorkTime> workTimes;
+    @JsonIgnore
+    @OneToMany(mappedBy = "worker")
+    Set<WorkTime> workTimes;
 
-	@JsonIgnore
-	@OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
-	AvatarEntity avatar;
-/*
-	@JsonIgnore
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	Set<Car> cars;
-	*/
-	public UserEntity() {
-		
-	}
+    @JsonIgnore
+    @OneToOne(mappedBy = "userId", cascade = CascadeType.ALL)
+    AvatarEntity avatar;
 
-	    public UserEntity(String username, String password, String email, String fullName, String numberPhone) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
-		this.fullName = fullName;
-		this.numberPhone = numberPhone;
-	}
+    public UserEntity() {
 
-	public Long getId() {
-		return id;
-	}
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public UserEntity(String username, String password, String email, String fullName, String numberPhone) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.fullName = fullName;
+        this.numberPhone = numberPhone;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getFullName() {
-		return fullName;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getNumberPhone() {
-		return numberPhone;
-	}
+    public String getFullName() {
+        return fullName;
+    }
 
-	public void setNumberPhone(String numberPhone) {
-		this.numberPhone = numberPhone;
-	}
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
-	public Set<RoleEntity> getRoles() {
-		return roles;
-	}
+    public String getNumberPhone() {
+        return numberPhone;
+    }
 
-	public void setRoles(Set<RoleEntity> roles) {
-		this.roles = roles;
-	}
+    public void setNumberPhone(String numberPhone) {
+        this.numberPhone = numberPhone;
+    }
 
-	public UserTechnicalService getUserTechnicalService() {
-		return userTechnicalService;
-	}
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
 
-	public void setUserTechnicalService(UserTechnicalService userTechnicalService) {
-		this.userTechnicalService = userTechnicalService;
-	}
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
 
-	public WorkersSkill getWorkersSkill() {
-		return workersSkill;
-	}
+    public UserTechnicalService getUserTechnicalService() {
+        return userTechnicalService;
+    }
 
-	public void setWorkersSkill(WorkersSkill workersSkill) {
-		this.workersSkill = workersSkill;
-	}
+    public void setUserTechnicalService(UserTechnicalService userTechnicalService) {
+        this.userTechnicalService = userTechnicalService;
+    }
 
-	public Set<WorkTime> getWorkTimes() {
-		return workTimes;
-	}
+    public WorkersSkill getWorkersSkill() {
+        return workersSkill;
+    }
 
-	public void setWorkTimes(Set<WorkTime> workTimes) {
-		this.workTimes = workTimes;
-	}
-/*
-	public Set<Car> getCars() {
-		return cars;
-	}
+    public void setWorkersSkill(WorkersSkill workersSkill) {
+        this.workersSkill = workersSkill;
+    }
 
-	public void setCars(Set<Car> cars) {
-		this.cars = cars;
-	}
-	*/
+    public Set<WorkTime> getWorkTimes() {
+        return workTimes;
+    }
+
+    public void setWorkTimes(Set<WorkTime> workTimes) {
+        this.workTimes = workTimes;
+    }
 }
