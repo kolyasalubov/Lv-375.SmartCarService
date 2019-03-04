@@ -117,9 +117,11 @@ public class NotificationsServiceImpl implements NotificationService{
 
 	/* UPDATE */
 	@Override
-	public void updateNotification(NotificationsDto notificationDto) {
+	public void disableNotification(NotificationsDto notificationDto) {
+		notificationDto.setIsVisible(false);
 		notificationsRepository.save(dtoToEntityWithId(notificationDto));
 	}
+
 
 	/* DELETE */
 	@Override
