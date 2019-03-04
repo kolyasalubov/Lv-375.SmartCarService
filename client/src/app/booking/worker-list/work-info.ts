@@ -1,4 +1,5 @@
 export class WorkInfo{
     workId : number;
-    time : number;
+    start : number;
+    end : number;
 }

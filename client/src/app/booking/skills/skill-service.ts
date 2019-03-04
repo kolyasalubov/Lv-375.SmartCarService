@@ -4,6 +4,7 @@ import { WorkType } from './work-type';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
+import { Globals } from 'src/app/globals';
 
 
 const httpOptions = {
@@ -16,7 +17,7 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class SkillService {
-    workByCarId = '/api/worksbycar/';
+    workByCarId = Globals.baseURL + '/works/';
 
     constructor(private http: HttpClient) {}
 

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Car } from './car';
 import {Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Globals } from '../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,40 +18,40 @@ export class CarsService {
 
   constructor(private http:HttpClient) { }
 
-  getOwnerCarsByUsername(username: String): Observable<Car[]> {
-    return this.http.get<Car[]>('api/owner/' + username + '/car')
+  getOwnerCarsByUsername(username: String): Observable<Array<Car>> {
+    return this.http.get<Array<Car>>(Globals.baseURL + '/owner/' + username + '/car', httpOptions)
     .pipe(
       catchError(this.handleError)
     );
   }
 
   getOwnerCarsById(id: Number): Observable<Car[]> {
-    return this.http.get<Car[]>('api/owner/' + id + '/cars')
+    return this.http.get<Car[]>(Globals.baseURL + '/owner/' + id + '/cars')
     .pipe(
       catchError(this.handleError)
     );
   }
 
   deleteCarById(id: number){
-    return this.http.delete('api/car/' + id)
+    return this.http.delete(Globals.baseURL + '/car/' + id)
   }
 
   getCarById(id: number): Observable<Car> {
-    return this.http.get<Car>('api/car/' + id)
+    return this.http.get<Car>(Globals.baseURL + '/car/' + id)
     .pipe(
       catchError(this.handleError)
     );
   }
 
   getCarByNumber(number: String): Observable<Car> {
-    return this.http.get<Car>('api/car/' + number + '/number')
+    return this.http.get<Car>(Globals.baseURL + '/car/' + number + '/number')
     .pipe(
       catchError(this.handleError)
     );
   }
 
   getCarByVin(vin: String): Observable<Car> {
-    return this.http.get<Car>('api/car/' + vin + '/vin')
+    return this.http.get<Car>(Globals.baseURL + '/car/' + vin + '/vin')
     .pipe(
       catchError(this.handleError)
     );

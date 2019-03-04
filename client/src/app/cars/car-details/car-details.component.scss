@@ -10,10 +10,10 @@
    
 
   .container-fluid {
-	  background-color: #f1f1f1;
+	background-color: #f1f1f1;
     margin: auto;
     width: 82%;
-    height: 90%;
+    height: 100%;
     border: 2px solid rgb(211, 212, 211);
     border-radius: 10px;
     padding: 10px;
@@ -131,3 +131,7 @@
 	#serviceHistory i{
 		float:right;
 	}
+
+	.desc a{
+		color: black;
+	  }

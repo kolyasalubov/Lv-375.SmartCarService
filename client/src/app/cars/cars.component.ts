@@ -8,8 +8,11 @@ import { ChartService } from '../chart-page/charts/chart/chart.service';
 import { identifierModuleUrl } from '@angular/compiler';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../alerts/alert.service';
-
+import { MatDialog } from '@angular/material';
+import { AlertsComponent } from '../alerts/alerts.component';
 import { ChartData } from '../chart-page/charts/chart/chart-data';
+import { JsonPipe } from '@angular/common';
+import { InfoMassageComponent } from '../info-massage/info-massage.component';
 
 @Component({
   selector: 'app-cars',
@@ -19,37 +22,39 @@ import { ChartData } from '../chart-page/charts/chart/chart-data';
 })
 export class CarsComponent implements OnInit {
 
-  cars: Car[];
+  cars: Car[] = [];
   private username: String;
   user: User;
   car: Car;
   showCards: boolean = false;
   showProfile: boolean = false;
+  showProposal: boolean = false;
   userId: Number;
   errorCode: number;
   error: ErrorEvent;
 
-  @Input()
-  id: number;
-
   // mileage: number;
   // speed: number;
 
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private chartService: ChartService) { }
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog, private chartService: ChartService) { }
 
   ngOnInit(){
+  this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
+  .subscribe(data => {
+    this.cars = data,
+    error => this.error = error;
 
+    if(this.cars.length === 1){
+      this.showProfile = true;  
+    } else if(this.cars.length > 1){
+      this.showCards = true;
+    } else {
+      this.showProposal = true;
+    }
+  });
+}
 
-/*
-    this.username = this.tokenStorage.getUsername();
-    this.userService.getUserByUsername(this.username)
-    .subscribe(data => this.user = data);
-*/
-   this.route.params.subscribe(params => {
-    this.id = params["id"];
-});
-
-    //TODO move in another component
+      //TODO move in another component
 
     // this.chartService.getChartData("mileage", this.id, "/last") //TODO change id to car.id
     //   .subscribe(
@@ -71,38 +76,10 @@ export class CarsComponent implements OnInit {
     //     error => console.error('Error: ', error)
     //   );
 
-/*if(this.user.id != this.id){
-  if(confirm("Such request is not allowed")) {
-  } else {
-    this.carsService.getOwnerCarsById(this.id)
-    .subscribe(data => this.cars = data);
-  }
-}   */
-this.carsService.getOwnerCarsById(this.id)
-.subscribe(data => this.cars = data);
 
-   setTimeout(() => {
-    if(this.cars == null){
-      if(confirm("You don't have registered car")) {
-    }
-     } else if(this.cars.length > 1){
-     this.showCards = true;
-     } else{
-       this.showProfile = true;
-     }; }, 1000);
-
-}
-
-    deleteCarById(id: number){
-    if(confirm("Are you sure to delete this car? Note, it can't be restored.")) {
-    this.carsService.deleteCarById(id).subscribe();
-    this.reloadPage();
-    }
-  }
-
-    applyToSTO(id: number){
+  applyToSTO(id: number){
     this.router.navigate(['/ui/booking', id]);
-    }
+  }
 
   applyToTradeIn(vin: String){
     console.log(vin);
@@ -112,15 +89,13 @@ this.carsService.getOwnerCarsById(this.id)
   goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: car.id,
-          carVin: car.vin
+          carId: car.id
         }}
       );
   }
 
-    history(){
-    //this.alertService.openCongirmDialog();
-    }
+  history(){
+  }
 
     reloadPage() {
       window.location.href='/ui/cars/';
@@ -160,4 +135,15 @@ this.carsService.getOwnerCarsById(this.id)
       console.log(this.car);
     }
 
+    deleteCarById(id: Number): void {
+      const dialogRef = this.dialog.open(AlertsComponent, {
+        height: '150px',
+        width: '400px',
+        data: id
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+      });
+    }
+    
 }

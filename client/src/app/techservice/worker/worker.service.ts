@@ -5,6 +5,7 @@ import { throwError } from 'rxjs/internal/observable/throwError';
 import { Skill } from './skill/skill';
 import { Worker } from './worker';
 import { User } from 'src/app/users/user';
+import { Globals } from 'src/app/globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,12 +18,12 @@ const httpOptions = {
 })
 export class WorkerService {
 
-  allWorkersUrl = '/api/v1/techservices/{id}/workers';
-  connectWorker = '/api/v1/techservices/{id}/workers/{username}/skills/{skillId}';
-  deleteWorker = '/api/v1/workers/{id}';
-  getWorker = '/api/v1/workers/{id}';
-  getWorkerRating = '/api/v1/workers/{id}/rating';
-  setWorkerRating = '/api/v1/workers/{id}/rating/{rate}';
+  allWorkersUrl = Globals.baseURL + 'v1/techservices/{id}/workers';
+  connectWorker = Globals.baseURL + '/v1/techservices/{id}/workers/{username}/skills/{skillId}';
+  deleteWorker = Globals.baseURL + '/v1/workers/{id}';
+  getWorker = Globals.baseURL + '/v1/workers/{id}';
+  getWorkerRating = Globals.baseURL + '/v1/workers/{id}/rating';
+  setWorkerRating = Globals.baseURL + '/v1/workers/{id}/rating/{rate}';
 
   constructor(private http: HttpClient) { }
 

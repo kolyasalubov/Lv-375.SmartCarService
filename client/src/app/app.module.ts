@@ -49,6 +49,12 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
+import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
+import { DealersComponent } from './dealers/dealers.component';
+import { TechservicePageComponent } from './techservice-page/techservice-page.component';
+import { InfoMassageComponent } from './info-massage/info-massage.component';
+
+
 
 
 
@@ -86,9 +92,12 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     ProgresbarComponent,
     AlertsComponent,
     DataCardComponent,
+    TechserviceCardComponent,
+    DealersComponent,
+    TechservicePageComponent,
+    InfoMassageComponent,
    // Material.MatDialogModule
-
-  ],
+ ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -113,7 +122,9 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [SecurityModule],
-  entryComponents:[AlertsComponent]
+  entryComponents: [
+    AlertsComponent,
+    InfoMassageComponent]
   })
 export class AppModule {
 }

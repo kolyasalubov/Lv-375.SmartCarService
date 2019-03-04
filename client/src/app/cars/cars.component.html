@@ -22,7 +22,7 @@
   <hr style="border:2px solid #f1f1f1; width: 360px">
   <div id="buttons">
            <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true" ></i><div class="buttonText"> Apply for STO</div> </button>
-           <button class="btn btn-outline my-2 my-sm-0" (click) = "history()" title="Service history"><i class="fa fa-history" aria-hidden="true"></i><div class="buttonText"> Service history </div> </button>
+           <button class="btn btn-outline my-2 my-sm-0" (click) = "history(car.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i><div class="buttonText"> Service history </div> </button>
            <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show charts"><i class="fa fa-line-chart" aria-hidden="true"></i><div class="buttonText"> Show charts </div></button>
            <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(car.vin)" title="Apply for TradeeIn"> <i class="fa fa-refresh" aria-hidden="true"></i><div class="buttonText"> Trade In </div></button>
            <button class="btn btn-outline my-2 my-sm-0" (click) = "openProfile(car)" title="Open profile"><i class="fa fa-window-maximize" aria-hidden="true"></i><div class="buttonText"> Open profile</div> </button>
@@ -34,8 +34,6 @@
 </div>
 </div>
 
-
-
 <!-------------------------Car profile----------------------------->
 
 <!-------------------3 blocks------------------>
@@ -46,20 +44,7 @@
         <span aria-hidden="true">&times;</span>
       </button>
     <div class="card-block">
-
-      <!--<div class="card-data">-->
-      <!--<app-data-card></app-data-card>-->
-      <!--</div>-->
-
-      <!--<div class="card-data">-->
-        <!--<app-data-card></app-data-card>-->
-        <!--</div>-->
-
-        <!--<div class="card-data">-->
-          <!--<app-data-card></app-data-card>-->
-        <!--</div>-->
-
-       <div class="card">
+      <div class="card">
           <div class="card-body">
             <i class="fa fa-check-square-o fa-4x" aria-hidden="true"></i>
               <div class="desc" style="display: inline-block">
@@ -83,10 +68,10 @@
 
         <div class="card">
             <div class="card-body">
-                <i class="fa fa-cogs fa-4x" aria-hidden="true"></i>
-                <div class="desc" style="display: inline-block">
-                  <h2> 2</h2>
-                  <h5> Services received</h5>
+                <i class="fa fa-cogs fa-3x" aria-hidden="true"></i>
+                <div class="desc" style="display: inline-block; color:black;">
+                    <h2><a href="/ui/techservices">64</a></h2>
+                    <h5>Services available</h5>
                 </div>
             </div>
         </div>
@@ -108,7 +93,7 @@
   </div>
     <div id="options">
         <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToSTO(car.id)" title="Apply for STO"><i class="fa fa-wrench" aria-hidden="true"></i></button>
-        <button class="btn btn-outline my-2 my-sm-0" (click) = "history()" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
+        <button class="btn btn-outline my-2 my-sm-0" (click) = "history(car.id)" title="Service history"><i class="fa fa-history" aria-hidden="true"></i> </button>
         <button class="btn btn-outline my-2 my-sm-0" (click) = "applyToTradeIn(car.vin)" title="Apply for TradeIn"><i class="fa fa-refresh" aria-hidden="true"></i></button>
         <button class="btn btn-outline my-2 my-sm-0" (click) = "goToCharts(car)" title="Show all charts"><i class="fa fa-line-chart" aria-hidden="true"></i></button>
         <button id="delete" class="btn btn-outline my-2 my-sm-0" (click) = "deleteCarById(car.id)" title="Delete car"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
@@ -125,7 +110,7 @@
     </div>
 
 
-<!----------------Service history table-------------------->
+<!------------Service history table-------------->
 <div id="serviceHistory" >
 <button class="btn btn-outline my-2 my-sm-0" (click) = "showServiceHistory = !showServiceHistory" >Show service history <i class="fa fa-plus-square" aria-hidden="true"></i></button>
        <div *ngIf = "showServiceHistory">
@@ -156,3 +141,19 @@
 </div>
 
 
+<!--------------------------Proposal--------------------------------->
+<div *ngIf="showProposal">
+        <br><br><br><br><br><br>
+    <div class="wrapper">
+            <button type="button" class="close" (click)="closeProfile()" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        <div id="question">
+        <h5>You don't have registered car.</h5>
+        <h5>Would you like to add it?</h5>
+        <img src="assets/img/car.png" width="260px" height="130px">
+        <br>
+        <button class="btn btn-outline my-2 my-sm-0" routerLink="/ui/newcar" title="Add car">Yes <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>

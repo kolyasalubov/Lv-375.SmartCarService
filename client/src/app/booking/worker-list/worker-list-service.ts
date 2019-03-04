@@ -6,6 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { WorkerList } from './worker-list-real';
 import { Worker } from './worker';
 import { WorkersTime } from './workers-time';
+import { Globals } from 'src/app/globals';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -17,7 +18,7 @@ const httpOptions = {
     providedIn: 'root'
   })
   export class WorkerListService{
-    workerByCarUrl : string = '/api/workerbycar';
+    workerByCarUrl : string = Globals.baseURL + '/api/workers/skill';
 
     constructor(private http: HttpClient) {}
 

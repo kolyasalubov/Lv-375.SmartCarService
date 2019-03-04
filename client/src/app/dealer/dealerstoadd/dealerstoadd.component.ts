@@ -5,6 +5,7 @@ import { DealerSto } from './dealersto';
 import{DealerstoaddService} from './dealerstoadd.service';
 import { from } from 'rxjs';
 import { Techservice } from 'src/app/techservice/techservice';
+import {Apply} from 'src/app/dealers/apply';
 @Component({
   selector: 'app-dealerstoadd',
   templateUrl: './dealerstoadd.component.html',
@@ -12,28 +13,28 @@ import { Techservice } from 'src/app/techservice/techservice';
 })
 export class DealerstoaddComponent implements OnInit {
   username: String;
-  Techservice
 
-// techserviceStub: DealerSto = { name: '', address: ''};
-// sto: DealerSto = this.techserviceStub;
-
-
-techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
-sto: Techservice = this.techserviceStub;
-
+// techserviceStub: Techservice = {stoId:-1, name: '', address: '', workers:[], dealer: null, techManager: null};
+stos: Techservice[];
+apply:Apply;
   constructor(private tokenStorage: TokenStorageService,private dealerstoaddService:DealerstoaddService) { }
 
 
   ngOnInit() {
     this.username = this.tokenStorage.getUsername();
+
+    this.dealerstoaddService.getAllStosApply(this.username).subscribe(data=>this.stos=data);
+
   }
 
-  createSto(){
-console.log(this.sto);
-this.dealerstoaddService.createDealerSto(this.username,this.sto).subscribe();
-this.sto.address='';
-this.sto.name='';
+  add(stoId:number){
 
-}
+    this.dealerstoaddService.addSto(new Apply(this.tokenStorage.getUsername(),stoId)).subscribe();
+  }
+  deleteApply(stoId:number){
+    this.dealerstoaddService.deleteApply(new Apply(this.tokenStorage.getUsername(),stoId)).subscribe();
+
+  }
+
 
 }

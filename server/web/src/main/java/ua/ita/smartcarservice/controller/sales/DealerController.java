@@ -7,14 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.NewCarDTO;
-import ua.ita.smartcarservice.dto.sales.DealerCarDto;
-import ua.ita.smartcarservice.dto.sales.DealerDto;
-import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
-import ua.ita.smartcarservice.dto.sales.TradeInDto;
+import ua.ita.smartcarservice.dto.sales.*;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.UserService;
+import ua.ita.smartcarservice.service.sales.ApplyService;
 import ua.ita.smartcarservice.service.sales.DealerService;
 import ua.ita.smartcarservice.service.sales.TradeInService;
 import ua.ita.smartcarservice.service.technicalservice.TechnicalServiceService;
@@ -46,15 +44,17 @@ public class DealerController {
     @Autowired
     TradeInService tradeInService;
 
+    @Autowired
+    ApplyService applyService;
     /* Get all dealers */
-    @GetMapping(path = "api/dealer/getAll")
+    @GetMapping(path = "/api/dealer/getAll")
     public ResponseEntity<List<DealerDto>> getAllDealers() {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllDealerDto());
     }
 
     /* Get dealer by username*/
-    @GetMapping(path = "api/dealer/get/{username}")
+    @GetMapping(path = "/api/dealer/get/{username}")
     public ResponseEntity<DealerDto> getDealerDto(@PathVariable String username) {
 
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -65,16 +65,17 @@ public class DealerController {
 
 
     /* create  dealer */
-    @PostMapping(path = "api/dealer/create/{username}")
+    @PostMapping(path = "/api/dealer/create/{username}")
     public ResponseEntity<?> createDealer(@PathVariable String username,@RequestBody DealerDto dealerDto) {
 dealerService.createDealer(dealerDto,username);
-
+        System.out.println("username"+username);
+        System.out.println("dealerDto"+dealerDto);
         return new ResponseEntity<Void>(HttpStatus.OK);
 
     }
 
         /* edit  dealer */
-    @PostMapping(path = "api/dealer/edit")
+    @PostMapping(path = "/api/dealer/edit")
     public ResponseEntity<?> editDealer(@RequestBody DealerDto dealerDto) {
 
         dealerService.editDealerByDealerDto(dealerDto);
@@ -85,28 +86,22 @@ dealerService.createDealer(dealerDto,username);
 
 
     /* Get all cars by dealer`s username */
-    @GetMapping(path = "api/dealer/{username}/getAllCar")
+    @GetMapping(path = "/api/dealer/{username}/getAllCar")
     public ResponseEntity<List<DealerCarDto>> getAllDealerCar(@PathVariable String username) {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.ok().headers(responseHeaders).body(dealerService.getAllCarDtoByUserNameDealer(username));
     }
-    /* create sto by dealer */
-    @PostMapping(path = "api/dealer/{username}/createSto")
-    public ResponseEntity<?> createDealerSto(@PathVariable String username,@RequestBody DealerStoAddDto stoAddDto) {
-        technicalServiceService.createTechnicalServiceByDealer(stoAddDto, username);
-        return new ResponseEntity<Void>(HttpStatus.OK);
-    }
 
     /* create car by dealer */
-        @PostMapping("api/dealer/createcar/{username}")
+        @PostMapping("/api/dealer/createcar/{username}")
     public ResponseEntity createDealerCar(@PathVariable String username,@RequestBody CarDto carDto) {
         carService.createByDealer(carDto, username);
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
     /* create sto by dealer */
-    @PutMapping("api/dealer/createtechservices")
+    @PutMapping("/api/dealer/createtechservices")
     public ResponseEntity createTechnicalService(@RequestParam(value="username") String username,
                                                  @RequestParam(value = "name") String name,
                                                  @RequestParam(value = "address") String address) {
@@ -117,7 +112,7 @@ dealerService.createDealer(dealerDto,username);
     }
 
     /* Get dealer's cars */
-    @GetMapping("api/dealer/cars/{username}")
+    @GetMapping("/api/dealer/cars/{username}")
     public ResponseEntity<List<CarDto>> findByDealerUsername(@PathVariable String username) {
         List<CarDto> cars = carService.findbyUserLogin(username);
         if (cars.isEmpty()) {
@@ -128,7 +123,7 @@ dealerService.createDealer(dealerDto,username);
 
 
     /* Get dealer's cars by edr*/
-    @GetMapping("api/dealer/getAllCars/{edr}")
+    @GetMapping("/api/dealer/getAllCars/{edr}")
     public ResponseEntity<List<CarDto>> findByDealerEdr(@PathVariable String edr) {
 
         List<CarDto> cars = carService.findByDealerEdr(edr);
@@ -141,7 +136,7 @@ dealerService.createDealer(dealerDto,username);
 
 
     /* Get dealer's sto */
-    @GetMapping("api/dealer/allstos/{username}")
+    @GetMapping("/api/dealer/allstos/{username}")
     public ResponseEntity<List<TechnicalServiceDto>> findAllStoByDealer(@PathVariable String username){
 
         List<TechnicalServiceDto>technicalServiceDtos=technicalServiceService.getAllTechnicalServicesDtoByDealer(username);
@@ -154,7 +149,7 @@ dealerService.createDealer(dealerDto,username);
 
 
     /* Get  only dealers` cars */
-    @GetMapping("api/dealer/allCars")
+    @GetMapping("/api/dealer/allCars")
     public  ResponseEntity<List<CarDto>> getAllDealersCars(){
         List<CarDto>cars=carService.findAllDealersCars();
 
@@ -166,7 +161,7 @@ dealerService.createDealer(dealerDto,username);
 
 
     /* create trade in */
-    @PostMapping("api/dealer/createTradeIn")
+    @PostMapping("/api/dealer/createTradeIn")
     public ResponseEntity createTradeIn(@RequestParam(value="vinNewCar") String vinNewCar,
                                         @RequestParam(value = "vinBCar") String vinBCar
                                                  ) {
@@ -175,26 +170,55 @@ dealerService.createDealer(dealerDto,username);
 
     }
 
-
-//    @GetMapping("api/dealer/getAllTradeIn/{username}")
-//    public  ResponseEntity<List<TradeInDto>> getAllDealersTradeIn(@PathVariable String username){
-//        List<TradeInDto>tradeInDtos=tradeInService.tradeinDtos(username);
-//        return new ResponseEntity<>(tradeInDtos, HttpStatus.OK);
-//    }
     /* Get dealer's trade in by username */
-    @GetMapping("api/dealer/getAllTradeIn/{username}")
+    @GetMapping("/api/dealer/getAllTradeIn/{username}")
     public  ResponseEntity<List<TradeInDto>> getAllDealersTradeIn(@PathVariable String username){
         List<TradeInDto>tradeInDtos=tradeInService.tradeinDtos(username);
         return new ResponseEntity<>(tradeInDtos, HttpStatus.OK);
     }
 
-
-
         /* delete tradeIn by id */
-    @DeleteMapping("api/delaer/delete/{id}")
+    @DeleteMapping("/api/dealer/delete/{id}")
     public ResponseEntity deleteTradeIn(@PathVariable Long id){
         tradeInService.deleteTradeIn(id);
                 return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+            /* do tradeIn successed*/
+    @DeleteMapping("/api/dealer/successTradeIn/{id}")
+    public ResponseEntity successTradeIn(@PathVariable Long id){
+        tradeInService.successTradeIn(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+            /* create apply to dealer*/
+    @PostMapping("/api/dealer/epplyToDealer")
+    public ResponseEntity createEpplyToDealer(@RequestBody ApplyToDealerDto apply){
+        applyService.createApplyToDealer(apply);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+            /*get all applies to dealers*/
+    @GetMapping("/api/dealer/allstosToApply/{username}")
+    public  ResponseEntity<List<TechnicalServiceDto>> getAllStotoApply(@PathVariable String username){
+List<TechnicalServiceDto>technicalServiceDtos=applyService.TECHNICAL_SERVICE_DTOS(username);
+        return new ResponseEntity<>(technicalServiceDtos, HttpStatus.OK);
+    }
+
+                /*add sto to dealer with apply */
+    @PostMapping("/api/dealer/addStoWithApply")
+    public ResponseEntity addStoWithApply(@RequestBody ApplyToDealerDto apply){
+applyService.applyToDealer(apply);
+        return new ResponseEntity(HttpStatus.CREATED);
+
+    }
+
+    /* ignore sto apply to dealer  */
+    @PostMapping("/api/dealer/ignoreApply")
+    public ResponseEntity ignoreStoApply(@RequestBody ApplyToDealerDto apply){
+        applyService.deleteApply(apply);
+        return new ResponseEntity(HttpStatus.CREATED);
 
     }
 

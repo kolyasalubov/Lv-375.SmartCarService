@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Techservice } from './techservice';
 import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
+import { Globals } from '../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -15,10 +16,13 @@ const httpOptions = {
 })
 export class TechserviceService {
 
-  techserviceUrl = '/api/v1/users/{userId}/techservices';
-  usersTechserviceUrl = "/api/v1/users/{userId}/techservice";
-  usernameTechserviceUrl = "/api/v1/users/username/{username}/techservice";
-  crudTechserviceUrl = '/api/v1/techservices/{id}';
+  
+  applyUserToTechservice = Globals.baseURL + '/techservices/{id}/users/{username}';
+  allTechservicesUrl = Globals.baseURL + '/techservices';
+  techserviceUrl = Globals.baseURL + '/users/{userId}/techservices';
+  usersTechserviceUrl = Globals.baseURL + "/users/{userId}/techservice";
+  usernameTechserviceUrl = Globals.baseURL + "/users/username/{username}/techservice";
+  crudTechserviceUrl = Globals.baseURL + '/techservices/{id}';
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +34,11 @@ export class TechserviceService {
                                               .pipe(catchError(this.errorHandler));
   }
   
+  getAllTechnicalServices(): Observable<Techservice[]> {
+    return this.http.get<Techservice[]>(this.allTechservicesUrl)
+    .pipe(catchError(this.errorHandler));
+  }
+
   getTechnicalServiceByCurrentUser(userId: number): Observable<Techservice> {
     return this.http.get<Techservice>(this.usersTechserviceUrl
                                       .replace('{userId}', userId.toString()))
@@ -40,6 +49,13 @@ export class TechserviceService {
     return this.http.get<Techservice>(this.usernameTechserviceUrl
                                       .replace('{username}', username))
                                       .pipe(catchError(this.errorHandler));
+  }
+
+  applyUserToTechnicalService(username: string, serviceId: number) {
+    return this.http.post(this.applyUserToTechservice
+      .replace('{id}', serviceId.toString())
+      .replace('{username}', username), httpOptions)
+        .pipe(catchError(this.errorHandler));;
   }
 
   updateTechnicalService(techservice: Techservice) {
