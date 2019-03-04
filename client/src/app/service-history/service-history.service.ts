@@ -24,9 +24,9 @@ export class ServiceHistoryService {
 
   }
 
-  //
-  // public getAllReportsByCarId(carId: number): Observable<Array<ReportDto>> {
-  //   return this.http.get<Array<ReportDto>>(`${this.URL}/car/${carId}`)
-  // }
+
+  public getAllReportsByCarId(carId: number): Observable<Array<ReportDto>> {
+    return this.http.get<Array<ReportDto>>(`${this.URL}/car/${carId}`)
+  }
 
 }
