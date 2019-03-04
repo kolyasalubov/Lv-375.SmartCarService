@@ -19,7 +19,7 @@ export class CarsService {
   constructor(private http:HttpClient) { }
 
   getOwnerCarsByUsername(username: String): Observable<Array<Car>> {
-    return this.http.get<Array<Car>>(Globals.baseURL + '/owner/' + username + '/car')
+    return this.http.get<Array<Car>>(Globals.baseURL + '/owner/' + username + '/car', httpOptions)
     .pipe(
       catchError(this.handleError)
     );

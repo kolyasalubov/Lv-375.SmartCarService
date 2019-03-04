@@ -41,14 +41,27 @@ this.authService.attemptAuth(this.loginInfo).subscribe(
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
- //       this.roles.every(role => {
- //         if (role === 'ROLE_CAR_OWNER') {
- //         window.location.href='/ui/cars'
- //         return false;
- //         }
- //       })
-       this.reloadPage();
-          
+        this.roles.every(role => {
+          if (role === 'ROLE_CAR_OWNER') {
+          window.location.href='/ui/cars'
+          return false;
+        } else if (role === 'ROLE_SALES_MANAGER') {
+          window.location.href='/ui/home';
+          return false;
+        } else if (role === 'ROLE_TECHNICAL_MANAGER') {
+          window.location.href='/ui/home';
+          return false;
+        } else if (role === 'ROLE_DIELER') {
+          window.location.href='/ui/home';
+          return false;
+        } else if (role === 'ROLE_ADMIN') {
+          window.location.href='/ui/home';
+          return false;
+        } else if (role === 'ROLE_WORKER') {
+          window.location.href='/ui/home';
+          return false;
+        }
+       })   
         },
       error => {
         console.log(error);

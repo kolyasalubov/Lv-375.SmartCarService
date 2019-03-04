@@ -81,9 +81,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDto> findByUsername(String username) {
         List<Car> cars = carRepository.findByUsername(username);
-        if (cars.isEmpty()) {
-            throw new CarsNotFoundException();
-        }
+
         List<CarDto> carDtos = cars.stream()
                 .map(car -> getCarDto(car))
                 .collect(Collectors.toList());
