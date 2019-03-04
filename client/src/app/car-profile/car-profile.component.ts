@@ -40,7 +40,8 @@ export class CarProfileComponent implements OnInit {
     .subscribe(error => {
       this.httpStatusCode = error.status,
       error => this.error = error;
-      
+      this.carVin = this.carProfile.vin;
+
       if(this.httpStatusCode === 201){
         console.log(this.error);
         this.showCarProfile = false;
