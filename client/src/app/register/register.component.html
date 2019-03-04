@@ -7,8 +7,8 @@
     <div class="form-group">
       <label for="username">Username</label>
     <input type="text" name="username" [(ngModel)]="registerForm.username" class="form-control mb-2" #username="ngModel" required minlength="2" maxlength="15">
-    <div *ngIf="username.invalid && username.touched">
-        <div style="color: red" *ngIf="username.errors.required">Username is required</div>
+    <div style="color: red" *ngIf="username.invalid && username.touched">
+        <div *ngIf="username.errors.required">Username is required</div>
         <div *ngIf="username.errors.minlength">Username must be at least 2 characters</div>
         <div *ngIf="fullName.errors.maxlength">Username can be max 15 characters</div>
     </div>
