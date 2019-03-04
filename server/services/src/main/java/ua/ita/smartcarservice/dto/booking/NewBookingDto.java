@@ -10,16 +10,10 @@ public class NewBookingDto {
 
     String start;
 
-    String end;
+    List<String> workersId;
 
-    List<String> workerId;
-
-    List<WorkInfoDto> workInfo = new ArrayList <>();
+    List<WorkInfoDto> worksInfo = new ArrayList <>();
 
     Long carId;
-
-    int requiredTime;
-
-    int cost;
 
 }

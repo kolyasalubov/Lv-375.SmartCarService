@@ -1,12 +1,12 @@
-<!-- <app-menu></app-menu> -->
-
 <mdb-card style="display: flex; position: relative;  width: 86%; left: 210px; top: 80px">
     <mdb-card-body>
         <mdb-card-title>
             <h4 style="text-align: center">Your Technical Service</h4>
             <hr>
-            <h5>Rating: <i class="fa fa-star-o" aria-hidden="true"></i> {{techservice.rating}}/5</h5>
-            <hr>
+            <div *ngIf="techservice.stoId > 0">
+              <h5>Rating: <i class="fa fa-star-o" aria-hidden="true"></i> {{techservice.rating}}/5</h5>
+              <hr>
+            </div>
         </mdb-card-title>  
 
         <mdb-card-text>
@@ -42,4 +42,18 @@
     </mdb-card-body>
 </mdb-card>
 
-<app-worker *ngIf="techservice.stoId > 0" [techserviceId]="techservice.stoId"></app-worker>
+
+<div style="position: relative; top:100px; left: 210px; width: 86%;">
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Manage Workers
+    </mat-panel-title>
+    <mat-panel-description>
+      Here You can add, delete or simply view workers of Technical Service
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+        
+  <app-worker *ngIf="techservice.stoId > 0" [techserviceId]="techservice.stoId"></app-worker>
+</mat-expansion-panel>
+</div>

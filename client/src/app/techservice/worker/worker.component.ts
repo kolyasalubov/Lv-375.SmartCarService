@@ -26,13 +26,14 @@ export class WorkerComponent implements OnInit {
   ngOnInit() {
     this.recieveWorkers()
   } 
-
+/*
   deleteWorker(workerId: number) {
     this.workerService.deleteWorkerById(workerId).subscribe(
       data => this.recieveWorkers()
     );
 
   }
+*/
 
   recieveWorkers() {
     this.workerService.getAllWorkers(this.techserviceId)

@@ -1,4 +1,4 @@
 export interface Worker{
-    "workerId" : number,
-    "fullName" : string
+    workerId : number,
+    fullName : string
 }

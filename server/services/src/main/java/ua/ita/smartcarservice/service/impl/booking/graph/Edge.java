@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.service.impl.booking.Graph;
+package ua.ita.smartcarservice.service.impl.booking.graph;
 
 import java.util.Comparator;
 

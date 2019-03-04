@@ -68,11 +68,10 @@ export class CarDetailsComponent implements OnInit {
     this.router.navigate(['ui/tradeIn', vin]);
   }
 
-  goToCharts(carId: Number, carVin: String){
+  goToCharts(carId: Number){
     this.router.navigate(['ui/charts'],
       {queryParams: {
         carId: carId,
-        carVin: carVin
       }}
     );
   }

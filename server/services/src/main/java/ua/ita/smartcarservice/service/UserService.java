@@ -1,10 +1,9 @@
 package ua.ita.smartcarservice.service;
 
-import java.util.List;
-
 import ua.ita.smartcarservice.dto.UserDto;
-import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.entity.UserEntity;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -25,6 +24,5 @@ public interface UserService {
     UserEntity findByUserName(String username);
 
     UserEntity findById(Long id);
-
 
 }

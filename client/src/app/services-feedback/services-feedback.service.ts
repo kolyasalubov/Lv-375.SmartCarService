@@ -17,27 +17,34 @@ const httpOptions = {
 })
 export class ServicesFeedbackService {
 
-  feedbackByServiceId: string = Globals.baseURL + '/techservices/{serviceId}/feedback';
-  feedbackByUserName: string = Globals.baseURL + '/users/{userName}/feedback';
+  feedbackByServiceId: string = '/techservices/{serviceId}/feedback';
+  feedbackByUserName: string = '/users/{userName}/feedback';
+  feedbackToLeaveByUsername: string = '/users/{username}/leavefeedback';
 
   constructor(private http: HttpClient) { }
  
   sendFeedback(feedback: ServicesFeedbackForm) {
     return this.http.post(
-      this.feedbackByServiceId.replace('{serviceId}', feedback.serviceId.toString()), 
+      Globals.baseURL + this.feedbackByServiceId.replace('{serviceId}', feedback.serviceId.toString()), 
       feedback, 
       httpOptions).pipe(catchError(this.errorHandler));
   }
   
+  getFeedbackToLeaveByUsername(username: string): Observable<number[]> {
+    return this.http.get<number[]>(Globals.baseURL + 
+      this.feedbackToLeaveByUsername.replace('{username}', username))
+        .pipe(catchError(this.errorHandler));
+  }
+
   getFeedbackByServiceId(serviceId: number): Observable<ServicesFeedback[]> {
     return this.http.get<ServicesFeedback[]>(
-      this.feedbackByServiceId.replace('{serviceId}', serviceId.toString()))
+      Globals.baseURL + this.feedbackByServiceId.replace('{serviceId}', serviceId.toString()))
         .pipe(catchError(this.errorHandler));
   }
 
   getFeedbackByUserName(userName: string): Observable<ServicesFeedback[]> {
     return this.http.get<ServicesFeedback[]>(
-      this.feedbackByUserName.replace('{userName}', userName))
+      Globals.baseURL + this.feedbackByUserName.replace('{userName}', userName))
         .pipe(catchError(this.errorHandler));
   }
 

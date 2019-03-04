@@ -24,6 +24,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@RequestMapping("/api")
 @RestController
 public class WorkerController {
 
@@ -41,26 +42,32 @@ public class WorkerController {
 
     private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
-    @PostMapping("/api/workers/skill")
+    /**
+     * Method get data about chooses works and find optimal required time and workers schedule
+     *
+     * @param workerWithSkillDto - info about chooses works
+     * @return dto object with contains info about workers
+     */
+    @PostMapping("/workers/skill")
     public ResponseEntity<WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                             workerWithSkillDto) {
 
-        WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorkName());
+        WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorksName());
 
-        Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillName().stream().collect(
-                Collectors.toMap(Function.identity(),
-                        s -> workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()))
+        Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillsName().stream().collect(
+                Collectors.toMap(s -> s,
+                        s -> workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getCarId()))
         );
 
         WorkerBySkillNameDto workerBySkillNameDto = new WorkerBySkillNameDto();
-        workerBySkillNameDto.setWorkerList(workersBySkillName);
+        workerBySkillNameDto.setWorkersList(workersBySkillName);
         workerBySkillNameDto.setRequiredTime(workInfo.getRequiredTime());
-        workerBySkillNameDto.setWorkInfo(workInfo.getWorkInfo());
+        workerBySkillNameDto.setWorksInfo(workInfo.getWorkInfo());
 
         return new ResponseEntity <>(workerBySkillNameDto, HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/workers")
+    @GetMapping("/workers")
     public ResponseEntity<List<UserEntity>> getAllWorkers() {
         ResponseEntity<List<UserEntity>> responseEntity;
 
@@ -73,7 +80,7 @@ public class WorkerController {
         return responseEntity;
     }
 
-    @DeleteMapping("/api/v1/workers/{id}")
+    @DeleteMapping("/workers/{id}")
     public ResponseEntity deleteWorkerById(@PathVariable Long id) {
         ResponseEntity responseEntity;
 
@@ -90,12 +97,12 @@ public class WorkerController {
         return responseEntity;
     }
 
-    @PostMapping("/api/v1/workers/{id}/rating/{rate}")
+    @PostMapping("/workers/{id}/rating/{rate}")
     public void addRatingToWorker(@PathVariable Long id, @PathVariable Integer rate) {
         workersRatingsService.addRatingToWorker(id, rate);
     }
 
-    @GetMapping("/api/v1/workers/{id}/rating")
+    @GetMapping("/workers/{id}/rating")
     public ResponseEntity<Double> getWorkersRating(@PathVariable Long id) {
         ResponseEntity<Double> responceEntity;
 
@@ -108,7 +115,7 @@ public class WorkerController {
         return responceEntity;
     }
 
-    @GetMapping("/api/v1/workers/{id}")
+    @GetMapping("/workers/{id}")
     public ResponseEntity<WorkerSkillDto> getWorkerById(@PathVariable Long id) {
         ResponseEntity<WorkerSkillDto> responseEntity;
 

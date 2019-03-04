@@ -3,7 +3,7 @@ import { WorkInfo } from './work-info';
 
 
 export class WorkersTime{
-    workInfo : Array<WorkInfo>;
-    workerList : Map<string, Array<Worker>>;
+    worksInfo : Array<WorkInfo>;
+    workersList : Map<string, Array<Worker>>;
     requiredTime : number;
 }

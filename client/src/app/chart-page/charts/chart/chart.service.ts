@@ -8,7 +8,6 @@ import { Globals } from 'src/app/globals';
 @Injectable()
 export class ChartService {
 
-  // private URL: string = '/chart';
   private URL: string = Globals.baseURL + '/chart';
 
   private httpOptions = {
