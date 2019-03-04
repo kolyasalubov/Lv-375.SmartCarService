@@ -6,8 +6,11 @@ import lombok.Data;
 public class WorkTypeDto {
 
     private String workName;
+
     private String skillName;
+
     private Long requiredTime;
+
     private Long cost;
 
 }
