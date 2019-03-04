@@ -142,8 +142,8 @@ VALUES ("B1315", "Problem in Front passenger child seat recognition","Warning", 
 INSERT INTO alerts(alert_code, description, alert_type)
 VALUES
 ("car_is_ready", "Your vehicle is ready to be picked up", "Information"),
-("leave_review", "Are you satisfied with your last service?", "Information"),
-("fuel", "Your car needs fuel. Time for a trip to the petrol station. Liters left: ", "Information"),
+("leave_review", "Are you satisfied with your last service?", "Review"),
+("fuel", "Your car needs fuel. Time for a trip to the petrol station. Less than 10 liters left.", "Information"),
 ("glass washer fluid", "You are running out of glass washer fluid. 0.5l left. ", "Information"),
 ("coolant", "You are running out of coolant. But it is not critical yet. 0.5l left. ", "Information")
 ;

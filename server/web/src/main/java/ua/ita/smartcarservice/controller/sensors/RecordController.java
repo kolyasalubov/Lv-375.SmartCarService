@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.controller.sensors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,13 @@ public class RecordController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private SimpMessagingTemplate template;
+
     @PostMapping
     public void addRecord(@RequestBody RecordDto recordDto) {
         sensorService.addRecord(recordDto);
         notificationService.addNewNotification(recordDto);
+        template.convertAndSend("/notifications-list", recordDto);
     }
 }
