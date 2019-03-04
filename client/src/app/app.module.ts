@@ -106,7 +106,7 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
     BrowserAnimationsModule
   ],
   providers: [
-    //NotificationsService
+    NotificationsService,
     MatDialog,
     DatePipe
   ],
