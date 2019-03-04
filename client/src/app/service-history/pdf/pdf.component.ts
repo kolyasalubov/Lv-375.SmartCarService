@@ -24,7 +24,8 @@ export class PdfComponent implements OnInit {
       console.log(response);
       console.log(file);
       console.log(fileURL);
-      window.open(fileURL);
+
+      window.location.href = fileURL;
     });
 
   }
