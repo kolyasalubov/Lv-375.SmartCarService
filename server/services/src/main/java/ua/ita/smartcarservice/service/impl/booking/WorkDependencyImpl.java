@@ -40,16 +40,21 @@ public class WorkDependencyImpl implements WorkDependencyService {
         return (int) workTypeRepository.findMaxId().longValue();
     }
 
-
-    public WorkInfo findWorkInfo(List<String> skillName) {
+    /**
+     * Method with uses graph to find required time and workers schedule
+     *
+     * @param worksName list of selected works
+     * @return - required time and workers schedule
+     */
+    public WorkInfo findWorkInfo(List<String> worksName) {
 
         WorkInfo workInfo = new WorkInfo();
 
         ArrayList[] graph = this.graph.getGraph();
 
-        PriorityQueue<Edge> allEdge = getAllEdgeInSortedPosition(skillName);
+        PriorityQueue<Edge> allEdge = getAllEdgeInSortedPosition(worksName);
 
-        Set<Long> needNode = getNeedNode(skillName);
+        Set<Long> needNode = getNeedNode(worksName);
 
         long masks[] = this.graph.getMasks();
 

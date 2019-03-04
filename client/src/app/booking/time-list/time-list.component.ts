@@ -31,7 +31,7 @@ export class TimeListComponent implements OnInit {
   price : number;
 
   @Input()
-  userId : number;
+  notiId : Array<number>;
 
   @Input()
   fromNoti: boolean;
@@ -77,7 +77,11 @@ export class TimeListComponent implements OnInit {
   }
 
   deleteNotifications(){
-    this.notificationService.deleteNotification(this.userId);
+    console.log(this.notiId);
+    for(let index = 0; index < this.notiId.length; index++){
+      console.log(this.notiId[index]);
+          this.notificationService.deleteNotification(this.notiId[index]);
+    }  
   }
 
   postBooking(){

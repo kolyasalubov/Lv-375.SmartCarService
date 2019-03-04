@@ -49,7 +49,7 @@ const httpOptions = {
     }
 
     postFeedBack(workersList : Array<number>, username: string): Observable<any>{
-        return this.http.post<any>('/user/'+username+'/leavefeedback', workersList, httpOptions)
+        return this.http.post<any>(Globals.baseURL + '/users/' + username + '/leavefeedback', workersList, httpOptions)
         .pipe(
           catchError(this.errorHandler)
         );

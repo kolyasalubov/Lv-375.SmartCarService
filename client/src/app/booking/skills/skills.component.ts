@@ -26,6 +26,7 @@ export class StoSkillComponent implements OnInit {
 
   notificationWork: Map<string, boolean> = new Map<string, boolean>();
   noti: Notifications[];
+  notiId : Array<number> = new Array();
 
   show: boolean = true;
   works: Array<WorkType>;
@@ -73,7 +74,8 @@ export class StoSkillComponent implements OnInit {
         console.log(this.noti);
         for(let index = 0; index < this.noti.length; index++){
             if(this.noti[index].isSelected){
-            this.notificationWork.set(this.noti[index].workTypeName, true);
+              this.notificationWork.set(this.noti[index].workTypeName, true);
+                this.notiId.push(this.noti[index].id);
             }
         }  
       }

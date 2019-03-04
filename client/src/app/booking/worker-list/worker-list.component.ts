@@ -25,7 +25,7 @@ export class WorkerListComponent implements OnInit {
   cost : number;
 
   @Input()
-  userId : number;
+  notiId : Array<number>;
 
   @Input()
   fromNoti : boolean;
@@ -146,12 +146,6 @@ export class WorkerListComponent implements OnInit {
     let year : number = (Number)(time.slice(0,4));
     let month : number = (Number)(time.slice(5,7));
     let day : number = (Number)(time.slice(8,10));
-    console.log(year);
-    console.log(month);
-    console.log(day);
-    console.log(today.getFullYear());
-    console.log(today.getMonth() + 1);
-    console.log(today.getDate());
     if(today.getFullYear() > year || (today.getMonth() + 1) > month || today.getDate() > day){
       return false;
     }
