@@ -2,7 +2,6 @@
   <div class="container">
   <form form="car"  (ngSubmit)="createCar()">
   <p class="h3 mb-4">Car profile</p>
-  {{car | json}}
   <label><b>Brand</b></label>
   <input type="text" class="form-control" [(ngModel)]="car.brand" name="brand" >
   <label><b>Model</b></label>
@@ -15,14 +14,14 @@
 
  <label><b>Number</b></label>
   <input type="text" class="form-control" [(ngModel)]="car.number" name="number" required>
-  
+
   <label><b>Price</b></label>
   <input type="number" class="form-control" [(ngModel)]="car.price" name="number" required>
-  
+
 
   <label><b>Vin</b></label>
   <input type="text" class="form-control" [(ngModel)]="car.vin" name="vin" required>
-  <div ng-app="myApp" ng-controller="myCtrl">   
+  <div ng-app="myApp" ng-controller="myCtrl">
   </div>
   <br>
   <div>
