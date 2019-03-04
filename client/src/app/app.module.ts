@@ -92,16 +92,10 @@ import { InfoMassageComponent } from './info-massage/info-massage.component';
     TechserviceCardComponent,
     DealersComponent,
     TechservicePageComponent,
-<<<<<<< HEAD
-    WorkersFeedbackComponent
-    // Material.MatDialogModule
-
-  ],
-=======
-    InfoMassageComponent,
-   // Material.MatDialogModule
+    WorkersFeedbackComponent,
+    // Material.MatDialogModule,
+    InfoMassageComponent
  ],
->>>>>>> a3e1798fad2ac409becdb4fae167c776c0a1f0b2
   imports: [
     BrowserModule,
     HttpClientModule,
