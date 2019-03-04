@@ -22,7 +22,7 @@ import { InfoMassageComponent } from '../info-massage/info-massage.component';
 })
 export class CarsComponent implements OnInit {
 
-  cars: Car[] = [];
+  cars: Car[];
   private username: String;
   user: User;
   car: Car;
@@ -30,7 +30,7 @@ export class CarsComponent implements OnInit {
   showProfile: boolean = false;
   showProposal: boolean = false;
   userId: Number;
-  errorCode: number;
+  httpStatusCode: number;
   error: ErrorEvent;
 
   // mileage: number;
@@ -51,7 +51,7 @@ export class CarsComponent implements OnInit {
     } else {
       this.showProposal = true;
     }
-  });
+  },);
 }
 
       //TODO move in another component

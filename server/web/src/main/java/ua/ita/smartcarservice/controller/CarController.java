@@ -48,13 +48,6 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    /* Find all cars in sto */
-//    @GetMapping("/owner/{id}/cars/sto")
-//    public ResponseEntity<List<ReportEntity>> findAllInSto(@PathVariable Long id) {
-//        List<ReportEntity> cars = reportService.getALlCarInSto(id);
-//        return new ResponseEntity<>(cars, HttpStatus.OK);
-//    }
-
     /* Find owner's cars by user id*/
     @GetMapping("/owner/{id}/cars")
     public ResponseEntity<List<CarDto>> findByUserId(@PathVariable Long id) {
@@ -62,7 +55,7 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    /* Find owner's cars by user id*/
+    /* Find owner's cars by username*/
     @GetMapping("/owner/{username}/car")
     public ResponseEntity<List<CarDto>> findByUsername(@PathVariable String username) {
         List<CarDto> cars = carService.findByUsername(username);
@@ -90,5 +83,4 @@ public class CarController {
         carService.addCar(newCarDTO, username);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
 }
