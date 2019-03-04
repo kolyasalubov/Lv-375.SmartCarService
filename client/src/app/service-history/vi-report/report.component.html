@@ -1,0 +1,33 @@
+<div style="height: 200px; width: 400px;">
+  <!-- Card -->
+  <mdb-card>
+    <div class="view rgba-white-slight waves-light" mdbWavesEffect>
+      <!-- Card img -->
+      <mdb-card-img src="http://www.mcnutttransport.com/wp-content/uploads/2015/06/Depositphotos_4205933_s-604x270.jpg" alt="Vehicle Inspection"></mdb-card-img>
+      <a>
+        <div class="mask"></div>
+      </a>
+    </div>
+    <!--Card content-->
+    <mdb-card-body>
+      <!--Title-->
+      <mdb-card-title>
+        <h4> {{report.carBrand}} {{report.carModel}} </h4>
+      </mdb-card-title>
+
+      <!--Text-->
+      <mdb-card-text> Date: {{formatDate(report.startTime, report.endTime)}} </mdb-card-text>
+      <mdb-card-text> Time: {{report.startTime.toLocaleTimeString()}} - {{report.endTime.toLocaleTimeString()}} </mdb-card-text>
+      <mdb-card-text> Total time of work: {{report.requiredTime / 60.0}} hours </mdb-card-text>
+      <mdb-card-text> Price: {{report.price}} uah </mdb-card-text>
+
+      <!--Works-->
+      <!--<mdb-card-text>  </mdb-card-text>-->
+      <!--<mdb-card-text>  </mdb-card-text>-->
+      <!--<mdb-card-text>  </mdb-card-text>-->
+
+      <pdf [reportId]=report.reportId></pdf>
+    </mdb-card-body>
+  </mdb-card>
+
+</div>

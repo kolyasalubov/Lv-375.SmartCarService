@@ -5,9 +5,12 @@ import lombok.Data;
 @Data
 public class WorkTypeDto {
 
-    private String name;
+    private String workName;
+
     private String skillName;
+
     private Long requiredTime;
+
     private Long cost;
 
 }

@@ -1,3 +1,4 @@
+<br><br><br><br><br><br><br><br>
 <div style="height: 80%" class="d-flex justify-content-center align-items-center">
   <form form="registerForm" (ngSubmit)="onSubmit()" #f="ngForm" class="border border-light p-4" [mustMatch]="['password', 'confirmPassword']" novalidate>
 
@@ -40,7 +41,7 @@
 <div class="form-group">
     <label for="fullName">Full name</label>
     <input type="text" name="fullName" [(ngModel)]="registerForm.fullName" class="form-control mb-2" #fullName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && fullName.invalid }" required minlength="2" maxlength="30"/>
-  <div style="color: red" *ngIf="fullName.invalid && fullName.touched">
+    <div style="color: red" *ngIf="fullName.invalid && fullName.touched">
       <div *ngIf="fullName.errors.required">Full name is required</div>
       <div *ngIf="fullName.errors.minlength">Full name must be at least 2 characters</div>
       <div *ngIf="fullName.errors.maxlength">Full name can be max 30 characters</div>
@@ -55,34 +56,23 @@
     <div *ngIf="numberPhone.errors.pattern">Phone Number must be 063 123 45 67</div>
 </div>
 </div>
-  <!-- DropDownMenu -->
-  <div class="dropdown" mdbDropdown>
-    <button *ngIf="unchecked; else checked" id="whoButton" mdbDropdownToggle type="button" mdbBtn  class="dropdown-toggle btn-sm my-2">
-      Who are you?
-      <ng-template #checked>
-        {{registerForm.checkRole}}
-      </ng-template>
-    </button>
 
-    <div class="dropdown-menu">
-        <div *ngFor="let role of roleArray">
-        <div class="custom-control custom-radio dropdown-item">
-            <input type="radio" [(ngModel)]="registerForm.checkRole" name="checkRole" class="custom-control-input" [value]='role.name' id="role_{{role.name}}" name="defaultExampleRadios">
-            <label class="custom-control-label" (click)="choseRole()" for="role_{{role.name}}">{{role.name}}</label>
-          </div>
+<div class="btn-group" mdbDropdown>
+  <button mdbDropdownToggle type="button" mdbBtn style="background: white; color: black; width: 260px;" class="dropdown-toggle waves-light"
+    mdbWavesEffect>
+    {{selectedRole ? selectedRole.name : 'Who are you?'}}
+  </button>
+<div class="dropdown-menu dropdown-primary">
+    <a type="radio" class="dropdown-item" *ngFor="let role of roleArray"  (click)="chooseRole(role)">{{role.name}}</a>
+    <!-- <div *ngFor="let role of roleArray">
+      <div class="custom-control custom-radio dropdown-item">
+          <input type="radio" [(ngModel)]="registerForm.checkRole" name="checkRole" class="custom-control-input" [value]='role.name' id="role_{{role.name}}" name="defaultExampleRadios">
+          <label class="custom-control-label" (click)="choseRole()" for="role_{{role.name}}">{{role.name}}</label>
         </div>
-        <ng-template #checked>
-          <button id="whoButton" mdbDropdownToggle type="button" mdbBtn  class="dropdown-toggle btn-sm my-2">
-
-          {{registerForm.checkRole}}
-          </button>
-
-          </ng-template>
-
-
-</div>
+      </div> -->
   </div>
-  <div>
+</div>
+<div>
   <button mdbBtn style="background-color: #336B87" class="my-4" type="submit">Sign up</button>
   <a href="/ui/auth/login" mdbBtn style="background-color: #c5001a; color: white" type="button">Cancel</a>
   </div>

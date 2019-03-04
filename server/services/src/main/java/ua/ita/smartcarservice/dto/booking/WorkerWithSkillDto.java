@@ -7,8 +7,10 @@ import java.util.List;
 @Data
 public class WorkerWithSkillDto {
 
-    private List<String> skillName;
-    private List<String> workName;
-    private Long searchId;
+    private List<String> skillsName;
+
+    private List<String> worksName;
+
+    private Long carId;
 
 }

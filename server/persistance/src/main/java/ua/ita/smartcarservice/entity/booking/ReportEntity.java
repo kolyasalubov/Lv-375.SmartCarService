@@ -25,17 +25,14 @@ public class ReportEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
-
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Car car;
 
-
     @ManyToOne
     @JoinColumn(name = "technical_service_id")
     private TechnicalServiceEntity technicalService;
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "report")
@@ -64,8 +61,4 @@ public class ReportEntity {
         this.requiredTime = report.requiredTime;
         this.price = report.price;
     }
-
-
-
-
 }

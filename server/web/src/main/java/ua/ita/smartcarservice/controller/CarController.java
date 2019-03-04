@@ -1,20 +1,15 @@
 package ua.ita.smartcarservice.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import ua.ita.smartcarservice.dto.NewCarDTO;
-import ua.ita.smartcarservice.entity.booking.ReportEntity;
-import ua.ita.smartcarservice.exceptions.CarRegisteredAlreadyExсeption;
 import ua.ita.smartcarservice.dto.CarDto;
-import ua.ita.smartcarservice.exceptions.CarNotFoundException;
-import ua.ita.smartcarservice.exceptions.CarsNotFoundException;
+import ua.ita.smartcarservice.dto.NewCarDTO;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.booking.ReportService;
+
+import java.util.List;
 
 
 @CrossOrigin(origins = "*")

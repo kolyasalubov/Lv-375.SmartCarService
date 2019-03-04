@@ -26,7 +26,7 @@ public class ServicesFeedback {
     UserEntity userId;
 
     @ManyToOne
-    @JoinColumn(name = "serviceId", nullable = false)
+    @JoinColumn(name = "service_id", nullable = false)
     TechnicalServiceEntity serviceId;
 
     public ServicesFeedback() {

@@ -1,18 +1,14 @@
 package ua.ita.smartcarservice.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.UserDto;
-import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {

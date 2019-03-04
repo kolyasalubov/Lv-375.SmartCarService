@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class BookingDto {
 
-    List<String> workerId;
+    List<String> workersId;
 
     String time;
 

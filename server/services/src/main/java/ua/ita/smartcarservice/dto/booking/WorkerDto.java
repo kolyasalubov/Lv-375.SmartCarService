@@ -6,6 +6,7 @@ import lombok.Data;
 public class WorkerDto {
 
     private Long workerId;
+
     private String fullName;
 
 }

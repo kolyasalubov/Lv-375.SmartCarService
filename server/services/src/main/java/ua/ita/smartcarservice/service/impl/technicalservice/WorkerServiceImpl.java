@@ -3,9 +3,8 @@ package ua.ita.smartcarservice.service.impl.technicalservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
-import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
 import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
-import ua.ita.smartcarservice.entity.RoleNames;
+import ua.ita.smartcarservice.entity.Roles;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
@@ -21,6 +20,7 @@ import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkerServiceImpl implements WorkerService {
@@ -59,9 +59,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<UserEntity> getAllWorkers() {
-
-        List<UserEntity> list = userRepository.getUserEntitiesByRoleName(RoleNames.ROLE_WORKER.name());
-        return list;
+        return userRepository.getUserEntitiesByRoleName(Roles.ROLE_WORKER.toString());
     }
 
     @Override
@@ -80,20 +78,15 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<WorkerDto> findByCarIdAndWorkersSkill(String name, Long carId) {
-        List <WorkerDto> workerDtos = new ArrayList<>();
-        for(UserEntity worker : userRepository.findByCarIdAndWorkersSkill(name, carId)){
-            workerDtos.add(getWorkerDto(worker));
-        }
-        return workerDtos;
+        return userRepository.findByCarIdAndWorkersSkill(name, carId)
+                .stream().map(this::getWorkerDto).collect(Collectors.toList());
     }
 
     @Override
     public List<WorkerSkillDto> addSkillToWorkersList(List<UserEntity> workersList) {
         List<WorkerSkillDto> workerSkillDtoList = new ArrayList<>();
-
         workersList.parallelStream().forEach(worker -> {
-            workerSkillDtoList.add(getWorkerSkillDto(
-                    worker,
+            workerSkillDtoList.add(getWorkerSkillDto(worker,
                     workersSkillRepository.getByWorkerId(worker).getSkill()/*getSkillByWorkerId(userRepository.getUserById(worker.getId()))*/));
         });
 
@@ -107,8 +100,8 @@ public class WorkerServiceImpl implements WorkerService {
 
         workersEntity = userRepository.getUserById(workerId);
         workerSkillDto = getWorkerSkillDto(
-                    workersEntity,
-                    workersSkillRepository.getByWorkerId(workersEntity).getSkill());
+                workersEntity,
+                workersSkillRepository.getByWorkerId(workersEntity).getSkill());
 
         return workerSkillDto;
     }

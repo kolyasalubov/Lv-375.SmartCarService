@@ -6,7 +6,9 @@ import lombok.Data;
 public class WorkInfoDto {
 
     private Long workId;
+
     private int start;
+
     private int end;
 
     public WorkInfoDto(Long workId, int start, int end){

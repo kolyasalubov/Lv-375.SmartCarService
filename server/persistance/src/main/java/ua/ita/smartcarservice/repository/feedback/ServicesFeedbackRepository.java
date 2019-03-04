@@ -18,6 +18,5 @@ public interface ServicesFeedbackRepository extends JpaRepository<ServicesFeedba
             "left join UserTechnicalService as uts " +
             "on wr.userId = uts.userId " +
             "where uts.technicalServiceId = :technicalServiceId")
-    Double getServicesRating(
-            @Param("technicalServiceId")TechnicalServiceEntity technicalServiceId);
+    Double getServicesRating(@Param("technicalServiceId") TechnicalServiceEntity technicalServiceId);
 }
