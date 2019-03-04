@@ -39,17 +39,7 @@ export class NotificationsService {
   }
 
   public deleteNotification(id){
-    return this.http.post(this.baseUrl + "/" + id, null).subscribe(
-      data => {
-        console.log('delete notification data',data);
-        var notifications = this.currentNotifications;
-        notifications.forEach(
-          d => { d.filter(n => n.id != id); }
-        );
-        this.updateNotifications(notifications);
-      },
-      error => console.log(error)
-    );
+    return this.http.post(this.baseUrl + "/" + id, null);
   }
 
   private wrapNotifications(notifications){

@@ -37,7 +37,13 @@ export class NotificationsListComponent implements OnInit {
     this.notificationsService.updateNotifications(this.notificationsService.getAllNotifications(this.id));
   }
   deleteNotification(id : number): void {
-    this.notificationsService.deleteNotification(id);
+    this.notificationsService.deleteNotification(id)
+    .subscribe(
+      data => {
+        console.log('delete notification data',data);
+        this.notifications = this.notifications.filter(n => n.id !== id);
+      },
+      error => console.log(error));
   }
 
   applyFor() : void{
@@ -54,15 +60,11 @@ export class NotificationsListComponent implements OnInit {
     if(isSelected && carIds.size === 1) {
       this.router.navigate(['/ui/notifications-approvement', this.id]);
     } else {
-     
       if (carIds.size > 1){
-        // this.message = "You can choose only one car at once";
-       
+        alert("You can choose only one car at once");
       } else {
-        // this.message = "Select notifications^^";
-        
+        alert("Select notifications^^"); 
       }
-      // this.showModal = true;
     }
   }
 
