@@ -7,7 +7,6 @@ import {ChartDto} from './chart-dto';
 @Injectable()
 export class ChartService {
 
-  // private URL: string = '/chart';
   private URL: string = '/api/chart';
 
   private httpOptions = {

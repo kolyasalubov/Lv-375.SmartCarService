@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.service.impl.booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.ita.smartcarservice.dto.booking.PdfDto;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.dto.booking.ReportExtendedDto;
 import ua.ita.smartcarservice.entity.Car;
@@ -13,10 +14,12 @@ import ua.ita.smartcarservice.repository.booking.ReportRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.booking.ReportService;
 import ua.ita.smartcarservice.service.booking.WorkTimeService;
+import ua.ita.smartcarservice.service.impl.booking.pdf.PdfCreator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -71,14 +74,22 @@ public class ReportServiceImpl implements ReportService {
         return reportRepository.findAllReportsByUserId(userId);
     }
 
+    @Override
+    public List<ReportExtendedDto> findAllReportsByCarId(long carId){
+        return reportRepository.findAllReportsByCarId(carId).stream()
+                .map(this::reportEntityToExtendedDto).collect(Collectors.toList());
+    }
+
 
     @Override
-    public ReportExtendedDto formExtendedReport(long reportId) {
-        return reportEntityToExtendedDto(reportRepository.findById(reportId).get());
+    public PdfDto formExtendedReport(long reportId) {
+        return new PdfDto(new PdfCreator().getByteArrayWithPdfReport(
+                reportEntityToExtendedDto(reportRepository.findById(reportId).get())));
     }
 
     private ReportExtendedDto reportEntityToExtendedDto(ReportEntity report) {
         ReportExtendedDto dto = new ReportExtendedDto();
+        dto.setReportId(report.getReportId());
 
         long carId = report.getCar().getId();
         dto.setUserFullName(userRepository.findUserEntityByCarId(carId).getFullName());

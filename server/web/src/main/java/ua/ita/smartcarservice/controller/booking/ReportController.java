@@ -1,7 +1,9 @@
 package ua.ita.smartcarservice.controller.booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
@@ -35,13 +37,25 @@ public class ReportController {
     }
 
     @GetMapping("/pdf/{reportId}")
-    public ResponseEntity<ReportExtendedDto> formPdf(@PathVariable Long reportId) {
-        return new ResponseEntity<>(reportService.formExtendedReport(reportId), HttpStatus.OK);
+    public ResponseEntity<byte[]> formPdf(@PathVariable Long reportId) {
+        byte[] pdf = reportService.formExtendedReport(reportId).getPdf();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        String filename = "report.pdf";
+        headers.setContentDispositionFormData(filename, filename);
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        return new ResponseEntity<>(pdf, headers, HttpStatus.OK);
     }
 
     @GetMapping("/{reportId}")
     public ResponseEntity<ReportEntity> findReportById(@PathVariable Long reportId) {
         return new ResponseEntity<>(reportService.findReportById(reportId), HttpStatus.OK);
+    }
+
+    @GetMapping("/car/{carId}")
+    public ResponseEntity<List<ReportExtendedDto>> findReportsByCarId(@PathVariable Long carId) {
+        return new ResponseEntity<>(reportService.findAllReportsByCarId(carId), HttpStatus.OK);
     }
 
 

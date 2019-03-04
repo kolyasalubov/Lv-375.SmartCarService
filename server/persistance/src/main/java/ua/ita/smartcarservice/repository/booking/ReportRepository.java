@@ -15,4 +15,7 @@ public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
             "JOIN Car c ON r.car.id = c.id WHERE c.user.id = :id")
     List<ReportEntity> findAllReportsByUserId(@Param("id") long userId);
 
+    @Query("SELECT r FROM ReportEntity r WHERE r.car.id = :id")
+    List<ReportEntity> findAllReportsByCarId(@Param("id") long carId);
+
 }

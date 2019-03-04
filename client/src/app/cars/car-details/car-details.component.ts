@@ -64,11 +64,10 @@ export class CarDetailsComponent implements OnInit {
   }
 
 
-  goToCharts(carId: Number, carVin: String){
+  goToCharts(carId: Number){
     this.router.navigate(['ui/charts'],
       {queryParams: {
         carId: carId,
-        carVin: carVin
       }}
     );
   }

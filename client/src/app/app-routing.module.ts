@@ -39,6 +39,7 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
 import { DealersComponent } from './dealers/dealers.component';
 import { TechservicePageComponent } from './techservice-page/techservice-page.component';
+import {ServiceHistoryComponent} from "./service-history/service-history.component";
 
 
 const routes: Routes = [
@@ -149,9 +150,14 @@ const routes: Routes = [
     redirectTo: 'ui/home',
     pathMatch: 'full'
   },
+
   {
     path: 'ui/charts',
     component: ChartPageComponent
+  },
+  {
+    path: 'ui/history',
+    component: ServiceHistoryComponent
   },
 
   {

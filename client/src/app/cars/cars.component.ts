@@ -37,45 +37,23 @@ export class CarsComponent implements OnInit {
 
   constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog, private chartService: ChartService) { }
 
-  ngOnInit(){
-  this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
-  .subscribe(data => {
-    this.cars = data,
-    error => this.errorCode = error.status;
+  ngOnInit() {
+    this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
+      .subscribe(data => {
+        this.cars = data,
+          error => this.errorCode = error.status;
 
-    if(this.cars.length === 1){
-      this.showProfile = true;  
-    } else if(this.cars.length > 1){
-      this.showCards = true;
-    } else if(this.cars === null){
-      this.showProposal = true;
-    } else{
-      this.showProposal = true;
-    }
-  });
-}
-
-      //TODO move in another component
-
-    // this.chartService.getChartData("mileage", this.id, "/last") //TODO change id to car.id
-    //   .subscribe(
-    //     data => {
-    //       let chartData: ChartData = new ChartData();
-    //       chartData.setChartData(data);
-    //       this.mileage = chartData.data[0];
-    //     },
-    //     error => console.error('Error: ', error)
-    //   );
-    //
-    // this.chartService.getChartData("speed", this.id, "/day/max") //TODO change id to car.id
-    //   .subscribe(
-    //     data => {
-    //       let chartData: ChartData = new ChartData();
-    //       chartData.setChartData(data);
-    //       this.speed = Math.round(chartData.data[0]);
-    //     },
-    //     error => console.error('Error: ', error)
-    //   );
+        if (this.cars.length === 1) {
+          this.showProfile = true;
+        } else if (this.cars.length > 1) {
+          this.showCards = true;
+        } else if (this.cars === null) {
+          this.showProposal = true;
+        } else {
+          this.showProposal = true;
+        }
+      });
+  }
 
 
   applyToSTO(id: number){
@@ -87,15 +65,20 @@ export class CarsComponent implements OnInit {
     this.router.navigate(['ui/tradeIn',vin]);
   }
 
-  goToCharts(car: Car){
+  goToCharts(carId: number){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: car.id
+          carId: carId
         }}
       );
   }
 
-  history(){
+  history(carId: number){
+    this.router.navigate(['/ui/history'],
+      {queryParams: {
+        carId: carId
+      }}
+    );
   }
 
     reloadPage() {
@@ -142,7 +125,7 @@ export class CarsComponent implements OnInit {
         width: '400px',
         data: id
       });
-  
+
       dialogRef.afterClosed().subscribe(result => {
         console.log();
         });

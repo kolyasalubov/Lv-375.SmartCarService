@@ -10,6 +10,8 @@ import java.util.Map;
 @Data
 public class ReportExtendedDto {
 
+    private long reportId;
+
     // User
     private String userFullName;
 

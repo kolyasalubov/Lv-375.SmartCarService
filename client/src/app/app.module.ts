@@ -52,6 +52,7 @@ import { DataCardComponent } from './cars/data-card/data-card.component';
 import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
 import { DealersComponent } from './dealers/dealers.component';
 import {TechservicePageComponent} from "./techservice-page/techservice-page.component";
+import {ServiceHistoryModule} from "./service-history/service-history.module";
 
 
 
@@ -91,7 +92,7 @@ import {TechservicePageComponent} from "./techservice-page/techservice-page.comp
     DataCardComponent,
     TechserviceCardComponent,
     DealersComponent,
-    TechservicePageComponent
+    TechservicePageComponent,
     // Material.MatDialogModule
 
   ],
@@ -106,6 +107,7 @@ import {TechservicePageComponent} from "./techservice-page/techservice-page.comp
     }),
     BookingModule,
     ChartPageModule,
+    ServiceHistoryModule,
     SecurityModule,
     OverlayModule,
     MatDialogModule,
