@@ -1,20 +1,14 @@
 package ua.ita.smartcarservice.repository;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
-import ua.ita.smartcarservice.entity.RoleEntity;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
-import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 
-import javax.persistence.NamedNativeQuery;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
@@ -52,4 +46,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 			"and us.technical_service_id = :technical_service_id", nativeQuery = true)
 	List<UserEntity> getUserEntitiesByRoleNameAndTechnicalService(@Param("name") String name,
 																  @Param("technical_service_id") Long technical_service_id);
+
+    @Query("SELECT c.user FROM Car c WHERE c.id = :carId")
+    UserEntity findUserEntityByCarId(@Param("carId") long carId);
+
 }

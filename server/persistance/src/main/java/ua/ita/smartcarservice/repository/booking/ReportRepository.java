@@ -5,14 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
-import ua.ita.smartcarservice.entity.booking.WorkTime;
-
 
 import java.util.List;
 
-import java.util.List;
-
-@Reposito
+@Repository
 public interface ReportRepository extends JpaRepository<ReportEntity, Long> {
 
     @Query("SELECT r FROM ReportEntity r " +

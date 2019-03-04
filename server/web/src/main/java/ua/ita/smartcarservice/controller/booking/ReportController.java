@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
+import ua.ita.smartcarservice.dto.booking.ReportExtendedDto;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.service.booking.BookingService;
 import ua.ita.smartcarservice.service.booking.ReportService;
@@ -31,6 +32,16 @@ public class ReportController {
     public ResponseEntity<List<ReportEntity>> findAllReportsByUserId(@PathVariable Long id) {
         List<ReportEntity> reports = reportService.findAllReportsByUserId(id);
         return new ResponseEntity<>(reports, HttpStatus.OK);
+    }
+
+    @GetMapping("/pdf/{reportId}")
+    public ResponseEntity<ReportExtendedDto> formPdf(@PathVariable Long reportId) {
+        return new ResponseEntity<>(reportService.formExtendedReport(reportId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{reportId}")
+    public ResponseEntity<ReportEntity> findReportById(@PathVariable Long reportId) {
+        return new ResponseEntity<>(reportService.findReportById(reportId), HttpStatus.OK);
     }
 
 
