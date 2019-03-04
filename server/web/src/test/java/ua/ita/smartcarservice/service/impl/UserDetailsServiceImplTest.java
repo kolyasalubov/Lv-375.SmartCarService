@@ -1,5 +1,5 @@
 package ua.ita.smartcarservice.service.impl;
-
+/*
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
@@ -45,3 +45,4 @@ public class UserDetailsServiceImplTest {
 
     }
 }
+*/
