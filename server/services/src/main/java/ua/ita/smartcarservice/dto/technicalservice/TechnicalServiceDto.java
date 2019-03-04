@@ -19,6 +19,5 @@ public class TechnicalServiceDto {
 
     private UserEntity technicalManager;
 
-    @JsonIgnore
     private List<UserEntity> workers;
 }
