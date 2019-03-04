@@ -17,17 +17,17 @@ const httpOptions = {
 export class TechserviceService {
 
   
-  applyUserToTechservice = '/api/techservices/{id}/users/{username}';
-  allTechservicesUrl = '/api/techservices';
-  techserviceUrl = '/api/users/{userId}/techservices';
-  usersTechserviceUrl = "/api/users/{userId}/techservice";
-  usernameTechserviceUrl = "/api/users/username/{username}/techservice";
-  crudTechserviceUrl = '/api/techservices/{id}';
+  applyUserToTechservice = Globals.baseURL + '/techservices/{id}/users/{username}';
+  allTechservicesUrl = Globals.baseURL + '/techservices';
+  techserviceUrl = Globals.baseURL + '/users/{userId}/techservices';
+  usersTechserviceUrl = Globals.baseURL + "/users/{userId}/techservice";
+  usernameTechserviceUrl = Globals.baseURL + "/users/username/{username}/techservice";
+  crudTechserviceUrl = Globals.baseURL + '/techservices/{id}';
 
   constructor(private http: HttpClient) { }
 
   createTechnicalService(techservice: Techservice, userId: number) {
-    return this.http.post(Globals.baseURL + this.techserviceUrl.replace('{userId}', userId.toString())
+    return this.http.post(this.techserviceUrl.replace('{userId}', userId.toString())
                                              + '?name=' + techservice.name
                                               + '&address=' + techservice.address
                                               , techservice)
@@ -35,31 +35,31 @@ export class TechserviceService {
   }
   
   getAllTechnicalServices(): Observable<Techservice[]> {
-    return this.http.get<Techservice[]>(Globals.baseURL + this.allTechservicesUrl)
+    return this.http.get<Techservice[]>(this.allTechservicesUrl)
     .pipe(catchError(this.errorHandler));
   }
 
   getTechnicalServiceByCurrentUser(userId: number): Observable<Techservice> {
-    return this.http.get<Techservice>(Globals.baseURL + this.usersTechserviceUrl
+    return this.http.get<Techservice>(this.usersTechserviceUrl
                                       .replace('{userId}', userId.toString()))
                                       .pipe(catchError(this.errorHandler));
   }
 
   getTechnicalServiceByUsername(username: string): Observable<Techservice> {
-    return this.http.get<Techservice>(Globals.baseURL + this.usernameTechserviceUrl
+    return this.http.get<Techservice>(this.usernameTechserviceUrl
                                       .replace('{username}', username))
                                       .pipe(catchError(this.errorHandler));
   }
 
   applyUserToTechnicalService(username: string, serviceId: number) {
-    return this.http.post(Globals.baseURL + this.applyUserToTechservice
+    return this.http.post(this.applyUserToTechservice
       .replace('{id}', serviceId.toString())
       .replace('{username}', username), httpOptions)
         .pipe(catchError(this.errorHandler));;
   }
 
   updateTechnicalService(techservice: Techservice) {
-    return this.http.put(Globals.baseURL + this.crudTechserviceUrl.replace('{id}', techservice.stoId.toString())
+    return this.http.put(this.crudTechserviceUrl.replace('{id}', techservice.stoId.toString())
                                              + '?name=' + techservice.name
                                               + '&address=' + techservice.address
                                               , techservice)
@@ -67,7 +67,7 @@ export class TechserviceService {
   }
 
   deleteTechservice(techServiceId: number) {
-    return this.http.delete(Globals.baseURL + this.crudTechserviceUrl.replace('{id}', techServiceId.toString()))
+    return this.http.delete(this.crudTechserviceUrl.replace('{id}', techServiceId.toString()))
                                                       .pipe(catchError(this.errorHandler));
   }
   

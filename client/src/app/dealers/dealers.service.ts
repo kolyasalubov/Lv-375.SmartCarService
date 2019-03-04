@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {Dealer} from 'src/app/dealer/dealer';
 import {Apply} from './apply';
 import {Observable} from "rxjs";
+import { Globals } from '../globals';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -17,7 +18,7 @@ export class DealersService {
   constructor(private http:HttpClient) { }
 
   getAllDealers(){
-    return this.http.get<Dealer[]>('http://localhost:9501/api/dealer/getAll');
+    return this.http.get<Dealer[]>(Globals.baseURL + '/dealer/getAll');
   }
 
   // createDealer(dealer: Dealer,username: String):Observable<HttpResponse<Dealer>>{
@@ -27,6 +28,6 @@ export class DealersService {
 
   applyToDealer(apply:Apply):Observable<HttpResponse<Apply>>{
     console.log(apply.dealerEdr+" , "+apply.stoId);
-    return this.http.post<Apply>('http://localhost:9501/api/dealer/epplyToDealer',apply,{observe: 'response' });
+    return this.http.post<Apply>(Globals.baseURL + '/dealer/epplyToDealer',apply,{observe: 'response' });
   }
 }

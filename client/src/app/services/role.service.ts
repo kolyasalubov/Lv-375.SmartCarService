@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { Globals } from '../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -11,7 +12,7 @@ const httpOptions = {
 })
 export class RoleService {
 
-  private roleUrl = 'http://localhost:9501/api/role';
+  private roleUrl = Globals.baseURL + '/role';
 
   constructor(private http: HttpClient) {
   }

@@ -2,6 +2,7 @@ package ua.ita.smartcarservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.ToString;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;

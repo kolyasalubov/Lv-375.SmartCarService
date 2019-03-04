@@ -4,6 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { Skill } from './skill/skill';
 import { Worker } from './worker';
+import { User } from 'src/app/users/user';
 import { Globals } from 'src/app/globals';
 
 const httpOptions = {
