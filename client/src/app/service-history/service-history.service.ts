@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from "rxjs/index";
-import {ReportDto} from "./report/report-dto";
+// import {ReportDto} from "./report/report-dto";
 import {Globals} from "../globals";
 
 @Injectable()
@@ -24,9 +24,9 @@ export class ServiceHistoryService {
 
   }
 
-
-  public getAllReportsByCarId(carId: number): Observable<Array<ReportDto>> {
-    return this.http.get<Array<ReportDto>>(`${this.URL}/car/${carId}`)
-  }
+  //
+  // public getAllReportsByCarId(carId: number): Observable<Array<ReportDto>> {
+  //   return this.http.get<Array<ReportDto>>(`${this.URL}/car/${carId}`)
+  // }
 
 }
