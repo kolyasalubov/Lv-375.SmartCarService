@@ -94,7 +94,7 @@ public class UserController {
         return responseEntity;
     }
 
-    @GetMapping("/user/{username}/leavefeedback")
+    @GetMapping("/users/{username}/leavefeedback")
     public ResponseEntity<List<Long>> findWorkersForFeedbackByUsername(@PathVariable String username) {
         ResponseEntity<List<Long>> responseEntity;
 
@@ -105,7 +105,7 @@ public class UserController {
         return responseEntity;
     }
 
-    @PostMapping("/user/{username}/leavefeedback")
+    @PostMapping("/users/{username}/leavefeedback")
     public ResponseEntity addFeedbackToLeaveByUsername(@PathVariable String username,
                                                         @RequestBody List<Long> workersList) {
         ResponseEntity responseEntity;
@@ -122,7 +122,7 @@ public class UserController {
         return responseEntity;
     }
 
-    @DeleteMapping("/user/{username}/leavefeedback")
+    @DeleteMapping("/users/{username}/leavefeedback")
     public ResponseEntity deleteFeedbackToLeaveByUsername(@PathVariable String username) {
         ResponseEntity responseEntity;
 

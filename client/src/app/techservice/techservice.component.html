@@ -5,8 +5,10 @@
         <mdb-card-title>
             <h4 style="text-align: center">Your Technical Service</h4>
             <hr>
-            <h5>Rating: <i class="fa fa-star-o" aria-hidden="true"></i> {{techservice.rating}}/5</h5>
-            <hr>
+            <div *ngIf="techservice.stoId > 0">
+              <h5>Rating: <i class="fa fa-star-o" aria-hidden="true"></i> {{techservice.rating}}/5</h5>
+              <hr>
+            </div>
         </mdb-card-title>  
 
         <mdb-card-text>

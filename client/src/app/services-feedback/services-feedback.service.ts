@@ -19,7 +19,7 @@ export class ServicesFeedbackService {
 
   feedbackByServiceId: string = '/techservices/{serviceId}/feedback';
   feedbackByUserName: string = '/users/{userName}/feedback';
-  feedbackToLeaveByUsername: string = '/user/{username}/leavefeedback';
+  feedbackToLeaveByUsername: string = '/users/{username}/leavefeedback';
 
   constructor(private http: HttpClient) { }
  
