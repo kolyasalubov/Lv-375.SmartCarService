@@ -40,7 +40,8 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         Subquery subquery = criteria.subquery(entityClass);
         Root fromSubquery = subquery.from(entityClass);
         subquery.select(builder.max(fromSubquery.get(SensorElements.ID.toString())));
-        subquery.where(builder.equal(fromSubquery.get(SensorElements.CAR.toString()).get(SensorElements.ID.toString()), 1));  //TODO change 1 to carId
+        subquery.where(builder.equal(
+                fromSubquery.get(SensorElements.CAR.toString()).get(SensorElements.ID.toString()), carId));
 
         Path value = root.get(SensorElements.VALUE.toString());
         criteria.select(value);
@@ -62,7 +63,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         Root root = criteria.from(entityClass);
 
         ChartCriteriaElementsProvider elementsProvider =
-                new ChartCriteriaElementsProvider(1, date, selection, sensorType, root); //TODO change 1 to carId
+                new ChartCriteriaElementsProvider(carId, date, selection, sensorType, root);
 
         Expression selectedPeriod = getSelectedPeriod(elementsProvider);
         Predicate[] predicates = getPredicates(elementsProvider);

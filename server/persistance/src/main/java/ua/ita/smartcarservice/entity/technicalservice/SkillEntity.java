@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,9 +19,11 @@ public class SkillEntity {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "workerId")
     private List<WorkersSkill> workersSkill;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "skill")
     List<WorkType> workTypes;
 
