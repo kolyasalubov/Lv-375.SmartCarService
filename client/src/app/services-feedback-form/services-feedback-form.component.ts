@@ -15,7 +15,7 @@ export class ServicesFeedbackFormComponent implements OnInit {
   feedbackForm: ServicesFeedbackForm = new ServicesFeedbackForm();
   techservice: Techservice = new Techservice();
   //@Input() workers: Worker[]; 
-  /*@Input()*/ workers: number[] = [2, 3, 4]; 
+  /*@Input()*/ workers: number[] = null;; 
 
   constructor(private tokenStorage: TokenStorageService,
     private techserviceService: TechserviceService,
@@ -24,8 +24,10 @@ export class ServicesFeedbackFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTechnicalServiceFromWorker(this.workers[0]);
-    this.feedbackForm.userName = this.tokenStorage.getUsername();
+    this.getFeedbackToLeaveByCurrentUser().then(() => {
+      this.getTechnicalServiceFromWorker(this.workers[0]);
+      this.feedbackForm.userName = this.tokenStorage.getUsername();
+    })
   }
 
   getTechnicalServiceFromWorker(workerId: number) {
@@ -39,5 +41,16 @@ export class ServicesFeedbackFormComponent implements OnInit {
   sendFeedback() {
     console.log(this.feedbackForm);
     this.servicesFeedbackService.sendFeedback(this.feedbackForm).subscribe();
+  }
+
+  getFeedbackToLeaveByCurrentUser() {
+    return new Promise((resolve, reject) => {
+      this.servicesFeedbackService.getFeedbackToLeaveByUsername(
+        this.tokenStorage.getUsername())
+          .subscribe(data => {
+            this.workers = data;
+            resolve();
+          });
+    })
   }
 }

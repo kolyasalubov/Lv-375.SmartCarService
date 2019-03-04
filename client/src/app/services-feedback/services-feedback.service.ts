@@ -19,6 +19,7 @@ export class ServicesFeedbackService {
 
   feedbackByServiceId: string = '/techservices/{serviceId}/feedback';
   feedbackByUserName: string = '/users/{userName}/feedback';
+  feedbackToLeaveByUsername: string = '/user/{username}/leavefeedback';
 
   constructor(private http: HttpClient) { }
  
@@ -29,6 +30,12 @@ export class ServicesFeedbackService {
       httpOptions).pipe(catchError(this.errorHandler));
   }
   
+  getFeedbackToLeaveByUsername(username: string): Observable<number[]> {
+    return this.http.get<number[]>(Globals.baseURL + 
+      this.feedbackToLeaveByUsername.replace('{username}', username))
+        .pipe(catchError(this.errorHandler));
+  }
+
   getFeedbackByServiceId(serviceId: number): Observable<ServicesFeedback[]> {
     return this.http.get<ServicesFeedback[]>(
       Globals.baseURL + this.feedbackByServiceId.replace('{serviceId}', serviceId.toString()))

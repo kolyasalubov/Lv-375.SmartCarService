@@ -12,6 +12,7 @@ import ua.ita.smartcarservice.dto.UserDto;
 import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackOutputDto;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.service.UserService;
+import ua.ita.smartcarservice.service.feedback.FeedbackToLeaveService;
 import ua.ita.smartcarservice.service.feedback.ServicesFeedbackService;
 
 
@@ -25,6 +26,9 @@ public class UserController {
 
     @Autowired
     private ServicesFeedbackService servicesFeedbackService;
+
+    @Autowired
+    private FeedbackToLeaveService feedbackToLeaveService;
 
     private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
@@ -75,7 +79,7 @@ public class UserController {
 
 
     @GetMapping("/users/{userName}/feedback")
-    ResponseEntity<List<ServicesFeedbackOutputDto>> getAllUsersFeedback(@PathVariable String userName) {
+    public ResponseEntity<List<ServicesFeedbackOutputDto>> getAllUsersFeedback(@PathVariable String userName) {
         ResponseEntity<List<ServicesFeedbackOutputDto>> responseEntity;
 
         try {
@@ -85,6 +89,50 @@ public class UserController {
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
             logger.warn("Can not get feedback from User by username: " + userName + " Details: " + e.getMessage());
+        }
+
+        return responseEntity;
+    }
+
+    @GetMapping("/user/{username}/leavefeedback")
+    public ResponseEntity<List<Long>> findWorkersForFeedbackByUsername(@PathVariable String username) {
+        ResponseEntity<List<Long>> responseEntity;
+
+        responseEntity = new ResponseEntity<>(
+                feedbackToLeaveService.findWorkersIdToLeaveFeedbackByUsername(username),
+                HttpStatus.OK);
+
+        return responseEntity;
+    }
+
+    @PostMapping("/user/{username}/leavefeedback")
+    public ResponseEntity addFeedbackToLeaveByUsername(@PathVariable String username,
+                                                        @RequestBody List<Long> workersList) {
+        ResponseEntity responseEntity;
+
+        try {
+            this.feedbackToLeaveService.saveFeedbackToLeave(username, workersList);
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity(HttpStatus.BAD_REQUEST);
+            logger.error("Can not add feedback to leave by username: " + username
+                    + " Details: " + e.getMessage());
+        }
+
+        return responseEntity;
+    }
+
+    @DeleteMapping("/user/{username}/leavefeedback")
+    public ResponseEntity deleteFeedbackToLeaveByUsername(@PathVariable String username) {
+        ResponseEntity responseEntity;
+
+        try {
+            this.feedbackToLeaveService.deleteByUsername(username);
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
+            logger.error("Can not delete feedback to leave by username: " + username
+                    + " Details: " + e.getMessage());
         }
 
         return responseEntity;
