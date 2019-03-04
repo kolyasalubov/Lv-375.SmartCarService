@@ -95,7 +95,7 @@ public class CarServiceImpl implements CarService {
             throw new CarNotFoundException(id);
         }
         CarDto carDto = getCarDto(car);
-            return carDto;
+        return carDto;
     }
 
     /* Find car by vin*/
@@ -106,7 +106,7 @@ public class CarServiceImpl implements CarService {
             throw new CarNotFoundException(vin);
         }
         CarDto carDto = getCarDto(car);
-            return carDto;
+        return carDto;
     }
 
     /* Find car by number*/
@@ -117,7 +117,7 @@ public class CarServiceImpl implements CarService {
             throw new CarNotFoundException(number);
         }
         CarDto carDto = getCarDto(car);
-            return carDto;
+        return carDto;
     }
 
     /* Delete car by id*/
@@ -126,7 +126,6 @@ public class CarServiceImpl implements CarService {
         carRepository.deleteById(id);
     }
 
-    /* for Car => CarDto */
     public CarDto getCarDto(Car car) {
         CarDto carDto = new CarDto(car.getId(),
                 car.getBrand(),
@@ -143,7 +142,6 @@ public class CarServiceImpl implements CarService {
         return carDto;
     }
 
-    /* for CarDto => CarDto */
     public Car getCar(CarDto carDto) {
         Car car = new Car(
                 carDto.getBrand(),
@@ -158,24 +156,19 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDto> findAllDealersCars() {
         List<CarDto> carDtos = new ArrayList<>();
-
         List<Car> carList = carRepository.findAll();
 
         for (Car car : carList) {
-
             if (car.getUser() == null) {
                 carDtos.add(getCarDto(car));
             }
-
         }
-
         return carDtos;
     }
 
     @Override
     public List<CarDto> findByDealerEdr(String edr) {
         List<CarDto> carDtos = new ArrayList<>();
-
         for (Car car : carRepository.findAll()) {
             carDtos.add(getCarDto(car));
         }

@@ -22,55 +22,48 @@ import { InfoMassageComponent } from '../info-massage/info-massage.component';
 })
 export class CarsComponent implements OnInit {
 
-  cars: Car[] = [];
-  private username: String;
+  cars: Car[];
+  username: String;
   user: User;
   car: Car;
   showCards: boolean = false;
   showProfile: boolean = false;
   showProposal: boolean = false;
   userId: Number;
-  errorCode: number;
+  httpStatusCode: number;
   error: ErrorEvent;
 
-  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog) { }
+  constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog, private chartService: ChartService) { }
 
+  ngOnInit(){
+  this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
+  .subscribe(data => {
+    this.cars = data,
+    error => this.error = error;
 
-  ngOnInit() {
-    this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
-      .subscribe(data => {
-        this.cars = data,
-          error => this.error = error;
-
-        if (this.cars.length === 1) {
-          this.showProfile = true;
-        } else if (this.cars.length > 1) {
-          this.showCards = true;
-        } else {
-          this.showProposal = true;
-        }
-      });
+    if(this.cars.length === 1){
+      this.showProfile = true;  
+    } else if(this.cars.length > 1){
+      this.showCards = true;
+    } else {
+      this.showProposal = true;
+    }
+    });
   }
 
-
-    applyToSTO(carId: number){
-      console.log(carId);
-      this.router.navigate(['/ui/booking'],
-      {queryParams: {
-        carId: carId
-      }}
-    );
-    }
+  applyToSTO(id: number){
+    this.router.navigate(['/ui/booking', id]);
+  }
 
   applyToTradeIn(vin: String){
     console.log(vin);
     this.router.navigate(['ui/tradeIn',vin]);
   }
 
-  goToCharts(carId: number){
+  goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: carId
+          carId: car.id
         }}
       );
   }
@@ -83,16 +76,19 @@ export class CarsComponent implements OnInit {
     );
   }
 
-    reloadPage() {
-      window.location.href='/ui/cars/';
-    }
+  deleteCarById(id: Number): void {
+    const dialogRef = this.dialog.open(AlertsComponent, {
+      height: '150px',
+      width: '400px',
+      data: id
+    });
 
-    closeProfile(){
-      window.location.href='/ui/home'
-    }
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 
-    openProfile(car: Car){
-      this.router.navigate(['ui/carprofile'],
+  openProfile(car: Car){
+    this.router.navigate(['ui/carprofile'],
       {queryParams: {
         carId: car.id,
         carBrand: car.brand,
@@ -104,32 +100,26 @@ export class CarsComponent implements OnInit {
         carEnd_guarantee: car.end_guarantee
       }}
     );
-    }
+  }
 
-    getCarById (id: number){
-     this.carsService.getCarById(id).subscribe(data => this.car = data);
-     console.log(this.car);
-    }
+  getCarById (id: number){
+    this.carsService.getCarById(id).subscribe(data => this.car = data);
+  }
 
-    getCarByNumber(number: String){
-      this.carsService.getCarByNumber(number).subscribe(data => this.car = data);
-      console.log(this.car);
-    }
+  getCarByNumber(number: String){
+    this.carsService.getCarByNumber(number).subscribe(data => this.car = data);
+  }
 
-    getCarByVin(vin: String){
+  getCarByVin(vin: String){
       this.carsService.getCarByVin(vin).subscribe(data => this.car = data);
-      console.log(this.car);
-    }
+  }
 
-    deleteCarById(id: Number): void {
-      const dialogRef = this.dialog.open(AlertsComponent, {
-        height: '150px',
-        width: '400px',
-        data: id
-      });
+  reloadPage() {
+    window.location.href='/ui/cars/';
+  }
 
-      dialogRef.afterClosed().subscribe(result => {
-      });
-    }
-
+  closeProfile(){
+  window.location.href='/ui/home'
+  }
+    
 }
