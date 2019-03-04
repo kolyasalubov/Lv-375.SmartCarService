@@ -1,6 +1,5 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
@@ -48,7 +47,7 @@ public class TechnicalServiceEntity {
     @OneToMany(mappedBy = "serviceId")
     Set<ServicesFeedback> servicesFeedback;
 
-    @OneToMany(mappedBy = "reportId")
+    @OneToMany(mappedBy = "technicalService")
     private List<ReportEntity> reports;
 
 }

@@ -4,9 +4,15 @@ import lombok.Data;
 
 @Data
 public class ReportDto {
-    String startTime;
-    String endTime;
-    int cost;
-    int requiredTime;
-    Long carId;
+
+    private long carId;
+
+    private String startTime;
+
+    private String endTime;
+
+    private int requiredTime;
+
+    private int price;
+
 }

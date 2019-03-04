@@ -8,6 +8,7 @@ import ua.ita.smartcarservice.dto.booking.NewBookingDto;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.dto.booking.WorkTimeDto;
 import ua.ita.smartcarservice.entity.Car;
+import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.entity.booking.TimePoint;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 import ua.ita.smartcarservice.entity.technicalservice.WorkType;
@@ -52,42 +53,39 @@ public class BookingServiceImpl implements BookingService {
     private WorkTypeRepository workTypeRepository;
 
     @Override
-    public List <WorkTimeDto> findAllByWorkerId(Long workerId) {
-
-        List <WorkTimeDto> workDto = bookingRepository.findAllByWorkerId(workerId).stream()
-                .map( workTime -> getWorkTimeDto(workTime)).collect(Collectors.toList());
+    public List<WorkTimeDto> findAllByWorkerId(Long workerId) {
+        List<WorkTimeDto> workDto = bookingRepository.findAllByWorkerId(workerId).stream()
+                .map(workTime -> getWorkTimeDto(workTime)).collect(Collectors.toList());
 
         return workDto;
     }
 
     @Override
-    public List <WorkTimeDto> findAllByCarId(Long carId) {
-        List <WorkTimeDto> workDto = bookingRepository.findAllByCarId(carId).stream()
-                .map( workTime -> getWorkTimeDto(workTime)).collect(Collectors.toList());
-
-        return workDto;
+    public List<WorkTimeDto> findAllByCarId(Long carId) {
+        return bookingRepository.findAllByCarId(carId).stream()
+                .map(workTime -> getWorkTimeDto(workTime)).collect(Collectors.toList());
     }
 
     @Override
     public void addBooking(NewBookingDto newBookingDto) {
         Car car = carRepository.getOne(newBookingDto.getCarId());
-        List <WorkTime> bookingToAdd = new ArrayList <>();
-        LocalDateTime start = parseFromFront(newBookingDto.getStart());
+        List<WorkTime> bookingToAdd = new ArrayList <>();
+        LocalDateTime start = parseDate(newBookingDto.getStart());
 
-        List<Long> worksId = newBookingDto.getWorkInfo().stream().map(w -> w.getWorkId()).collect(Collectors.toList());
-        List<Long> workersId =  newBookingDto.getWorkerId().stream().map(w->Long.valueOf(w)).collect(Collectors.toList());
+        List<Long> worksId = newBookingDto.getWorksInfo().stream().map(w -> w.getWorkId()).collect(Collectors.toList());
+        List<Long> workersId =  newBookingDto.getWorkersId().stream().map(w->Long.valueOf(w)).collect(Collectors.toList());
 
-        List<WorkType> workTypes = workTypeRepository.findAllById(worksId);
+        List<WorkType> worksTypes = workTypeRepository.findAllById(worksId);
 
         List<WorkersSkill> workersSkills = workersSkillRepository.findByWorkAndWorker(workersId, worksId);
 
-        newBookingDto.getWorkInfo().forEach(workInfoDto -> {
+        newBookingDto.getWorksInfo().forEach(workInfoDto -> {
             WorkTime workTime = new WorkTime();
             workTime.setStartBooking(findTimeToSchedule(start, workInfoDto.getStart()));
             workTime.setEndBooking(findTimeToSchedule(start, workInfoDto.getEnd()));
             workTime.setCar(car);
             workTime.setWorker(
-                    userRepository.getOne(searchWorkerToWork(workersSkills, workTypes, workInfoDto.getWorkId())));
+                    userRepository.getOne(searchWorkerToWork(workersSkills, worksTypes, workInfoDto.getWorkId())));
             workTime.setWork(workTypeRepository.getOne(workInfoDto.getWorkId()));
 
             bookingToAdd.add(workTime);
@@ -97,39 +95,36 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void updateReportsId(ReportDto reportDto, Long reportId){
-        bookingRepository.updateReportsId(parseFromFront(reportDto.getStartTime()),
-                parseFromFront(reportDto.getEndTime()),
+    public void updateReportsId(ReportDto reportDto, ReportEntity reportEntity){
+        bookingRepository.updateReportsId(parseDate(reportDto.getStartTime()),
+                parseDate(reportDto.getEndTime()),
                         reportDto.getCarId(),
-                        reportId);
+                        reportEntity);
     }
 
     @Override
     public List<LocalDateTime> findTimeToBooking(BookingDto bookingDto) {
-        List <Long> workerId = bookingDto.getWorkerId().stream().map(s->Long.valueOf(s)).collect(Collectors.toList());
+        List<Long> workersId = bookingDto.getWorkersId().stream().map(s->Long.valueOf(s)).collect(Collectors.toList());
         LocalDate time = LocalDate.parse(bookingDto.getTime());
 
-        List <WorkTimeDto> timeToWork = findTimeWhenWork(workerId, time, DAYS_WHEN_WE_FIND_FREE_TIME);
+        List<WorkTimeDto> timeToWork = findTimeWhenWork(workersId, time, DAYS_WHEN_WE_FIND_FREE_TIME);
 
         return findFreeTime(findAllTimePoints(timeToWork, time), bookingDto.getNeedTime());
 
     }
 
 
-    private List <WorkTimeDto> findTimeWhenWork(List <Long> workerId, LocalDate time, int numberOfDay) {
-        List <WorkTimeDto> findTimeWhenWork = new ArrayList <>();
+    private List<WorkTimeDto> findTimeWhenWork(List<Long> workersId, LocalDate time, int numberOfDay) {
         LocalDate end = time.plusDays(numberOfDay);
         LocalDateTime startTime = LocalDateTime.of(time.getYear(), time.getMonthValue(), time.getDayOfMonth(), 10, 0);
         LocalDateTime endTime = LocalDateTime.of(end.getYear(), end.getMonthValue(), end.getDayOfMonth(), 18, 0);
 
-        bookingRepository.findTimeWhenWork(workerId, startTime, endTime)
-                .forEach(workTime -> findTimeWhenWork.add(getWorkTimeDto(workTime)));
-
-      return findTimeWhenWork;
+        return bookingRepository.findTimeWhenWork(workersId, startTime, endTime).stream()
+                .map(workTime -> (getWorkTimeDto(workTime))).collect(Collectors.toList());
     }
 
-    private List <TimePoint> findAllTimePoints(List <WorkTimeDto> timeToWork, LocalDate time) {
-        List <TimePoint> timePoints = new ArrayList <>();
+    private List<TimePoint> findAllTimePoints(List<WorkTimeDto> timeToWork, LocalDate time) {
+        List<TimePoint> timePoints = new ArrayList <>();
 
         for (int i = 0; i < DAYS_WHEN_WE_FIND_FREE_TIME; i++) {
             timePoints.add(new TimePoint(LocalDateTime.of(time.getYear(), time.getMonth(), time.getDayOfMonth(), 10, 0).plusDays(i), true));
@@ -145,10 +140,7 @@ public class BookingServiceImpl implements BookingService {
         return timePoints;
     }
 
-    private List<LocalDateTime> findFreeTime(List <TimePoint> timePoints, int timeToNeedInMinute) {
-
-        List<LocalDateTime> freeTime = new ArrayList <>();
-
+    private List<LocalDateTime> findFreeTime(List<TimePoint> timePoints, int timeToNeedInMinute) {
         TimePoint start = timePoints.get(0);
         int workNow = -1;
         int remainderOfTime = 0;
@@ -158,7 +150,6 @@ public class BookingServiceImpl implements BookingService {
                 if (timePoints.get(i).getTime().getHour() == WORKS_DAY_START_HOURS) {
                     if (remainderOfTime != 0) {
                         int delta = getDeltaTimeInMinute(timePoints.get(i).getTime(), timePoints.get(i+1).getTime());
-
                         if (delta >= remainderOfTime) {
                             return returnFreeTime(start.getTime(), timePoints.get(i).getTime().plusMinutes(remainderOfTime));
                         } else if (delta < remainderOfTime && timePoints.get(i + 1).getTime().getHour() == WORKS_DAY_END_HOURS) {
@@ -194,7 +185,7 @@ public class BookingServiceImpl implements BookingService {
             }
         }
 
-        return freeTime;
+        return Collections.EMPTY_LIST;
 
     }
 
@@ -233,9 +224,9 @@ public class BookingServiceImpl implements BookingService {
         return (second.getHour() - first.getHour()) * 60 + (second.getMinute() - first.getMinute());
     }
 
-    private Long searchWorkerToWork(List<WorkersSkill> workersSkills, List<WorkType> workType, Long workId){
+    private Long searchWorkerToWork(List<WorkersSkill> workersSkills, List<WorkType> worksType, Long workId){
         Long skillId = -1L;
-        for(WorkType wt : workType){
+        for(WorkType wt : worksType){
             if(wt.getWorkId().equals(workId)){
                 skillId = wt.getSkill().getSkillId();
             }
@@ -249,7 +240,7 @@ public class BookingServiceImpl implements BookingService {
         return -1L;
     }
 
-    public LocalDateTime parseFromFront(String s) {
+    private LocalDateTime parseDate(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(s.substring(0, s.indexOf('T')) + " " + s.substring(s.indexOf('T') + 1), formatter);
     }

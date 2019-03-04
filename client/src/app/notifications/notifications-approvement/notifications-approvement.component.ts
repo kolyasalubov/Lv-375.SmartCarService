@@ -47,7 +47,11 @@ export class NotificationsApprovementComponent implements OnInit {
       }
     )
     if (isSelected) {
-      this.router.navigate(['/ui/booking', this.id]);
+      this.router.navigate(['/ui/booking'],
+      {queryParams: {
+        userId: this.id
+      }}
+    );
     } else {
       alert("Nothing to approve");
     }

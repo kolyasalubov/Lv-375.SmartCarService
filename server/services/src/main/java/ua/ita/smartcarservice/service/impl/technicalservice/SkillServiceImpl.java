@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of Skill service
@@ -35,9 +36,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public Map<String, SkillEntity> findDistinctSkillByName(){
-        Map<String, SkillEntity> requiredTimeByName = new HashMap<>();
-        skillRepository.findAll().forEach(skillEntity -> requiredTimeByName.put(skillEntity.getName(), skillEntity));
-        return requiredTimeByName;
+        return skillRepository.findAll().stream().collect(Collectors.toMap(SkillEntity::getName, s -> s));
     }
 
     /*

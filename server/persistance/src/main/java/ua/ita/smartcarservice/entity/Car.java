@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
+import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
 
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
@@ -72,6 +73,9 @@ public class Car {
     //needed for getByMileage method
   	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
   	private List<MileageEntity> mileageEntities;
+
+  	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+    private List<ReportEntity> reports;
 
     public Car() {
     }

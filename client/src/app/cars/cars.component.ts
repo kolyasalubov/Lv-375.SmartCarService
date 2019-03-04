@@ -40,11 +40,11 @@ export class CarsComponent implements OnInit {
   ngOnInit(){
 
 
-/*
+
     this.username = this.tokenStorage.getUsername();
     this.userService.getUserByUsername(this.username)
     .subscribe(data => this.user = data);
-*/
+
    this.route.params.subscribe(params => {
     this.id = params["id"];
 });
@@ -100,8 +100,14 @@ export class CarsComponent implements OnInit {
     }
   }
 
-    applyToSTO(id: number){
-    this.router.navigate(['/ui/booking', id]);
+    applyToSTO(carId: number, userId : number){
+      console.log(carId);
+      this.router.navigate(['/ui/booking'],
+      {queryParams: {
+        carId: carId,
+        userId: userId
+      }}
+    );
     }
 
   applyToTradeIn(vin: String){
@@ -112,8 +118,7 @@ export class CarsComponent implements OnInit {
   goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: car.id,
-          carVin: car.vin
+          carId: car.id
         }}
       );
   }

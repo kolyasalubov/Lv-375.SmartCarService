@@ -49,7 +49,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
+import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
 import { DealersComponent } from './dealers/dealers.component';
+import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 
 
 
@@ -87,7 +89,9 @@ import { DealersComponent } from './dealers/dealers.component';
     ProgresbarComponent,
     AlertsComponent,
     DataCardComponent,
+    TechserviceCardComponent,
     DealersComponent,
+    TechservicePageComponent,
    // Material.MatDialogModule
 
   ],

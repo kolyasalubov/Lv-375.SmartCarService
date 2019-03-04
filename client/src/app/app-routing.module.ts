@@ -38,6 +38,7 @@ import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
 import {DealersComponent} from './dealers/dealers.component';
+import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
 
@@ -101,6 +102,10 @@ const routes: Routes = [
     component: TechserviceComponent
   },
   {
+    path: 'ui/techservices',
+    component: TechservicePageComponent
+  },
+  {
     path: 'ui/techservice/feedback',
     component: ServicesFeedbackComponent
   },
@@ -157,7 +162,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'ui/booking/:id',
+    path: 'ui/booking',
     component: BookingComponent
   },
 

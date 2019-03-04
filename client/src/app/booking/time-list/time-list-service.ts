@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, map } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 import { TimeList } from './time-list';
 import { WorkTime } from './work-time';
@@ -22,7 +22,7 @@ const httpOptions = {
   export class TimeListService{
     bookingTime : string = "/api/booking/time";
     newBooking : string = "/api/booking/new";
-    newReport : string = "/api/report"
+    newReport : string = "/api/report";
 
     constructor(private http: HttpClient) {}
 
@@ -33,8 +33,8 @@ const httpOptions = {
         );
     }
 
-    postNewBooking(newBooking : NewBooking) : Observable<number>{
-      return this.http.post<number>(this.newBooking, newBooking, httpOptions)
+    postNewBooking(newBooking : NewBooking) : Observable<HttpResponse<TimeList>>{
+      return this.http.post<TimeList>(this.newBooking, newBooking, { observe: 'response' })
       .pipe(
         catchError(this.errorHandler)
       );
@@ -45,6 +45,13 @@ const httpOptions = {
       .pipe(
         catchError(this.errorHandler)
       );
+    }
+
+    postFeedBack(workersList : Array<number>, username: string): Observable<any>{
+        return this.http.post<any>('/user/'+username+'/leavefeedback', workersList, httpOptions)
+        .pipe(
+          catchError(this.errorHandler)
+        );
     }
 
 

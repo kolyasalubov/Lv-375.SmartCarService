@@ -11,7 +11,7 @@ public interface WorkDependencyService {
 
     List<WorkDependency> findAll();
 
-    WorkInfo findWorkInfo(List <String> skillName);
+    WorkInfo findWorkInfo(List <String> skillsName);
 
     int findGraphSize();
 

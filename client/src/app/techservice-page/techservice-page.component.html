@@ -1,0 +1,6 @@
+{{appliedTechservice | json}}
+<h3 *ngIf="appliedTechservice.stoId == -1" style="position: relative; left: 210px; top: 70px;">Choose a Technical Service You Like:</h3>
+<techservice-card 
+  *ngFor="let techservice of allTechservices" 
+  [techservice]="techservice"
+  style="position: relative; top: 80px; left: 200px;"></techservice-card>

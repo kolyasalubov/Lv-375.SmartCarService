@@ -45,17 +45,17 @@ public class WorkerController {
     public ResponseEntity<WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                             workerWithSkillDto) {
 
-        WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorkName());
+        WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorksName());
 
-        Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillName().stream().collect(
-                Collectors.toMap(Function.identity(),
-                        s -> workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()))
+        Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillsName().stream().collect(
+                Collectors.toMap(s -> s,
+                        s -> workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getCarId()))
         );
 
         WorkerBySkillNameDto workerBySkillNameDto = new WorkerBySkillNameDto();
-        workerBySkillNameDto.setWorkerList(workersBySkillName);
+        workerBySkillNameDto.setWorkersList(workersBySkillName);
         workerBySkillNameDto.setRequiredTime(workInfo.getRequiredTime());
-        workerBySkillNameDto.setWorkInfo(workInfo.getWorkInfo());
+        workerBySkillNameDto.setWorksInfo(workInfo.getWorkInfo());
 
         return new ResponseEntity <>(workerBySkillNameDto, HttpStatus.OK);
     }
@@ -110,17 +110,15 @@ public class WorkerController {
 
     @GetMapping("/api/v1/workers/{id}")
     public ResponseEntity<WorkerSkillDto> getWorkerById(@PathVariable Long id) {
-        ResponseEntity<WorkerSkillDto> responceEntity;
-        WorkerSkillDto workerSkillDto;
-
+        ResponseEntity<WorkerSkillDto> responseEntity;
 
         try {
-            responceEntity = new ResponseEntity<>(workerService.getWorkerSkillDtoById(id), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(workerService.getWorkerSkillDtoById(id), HttpStatus.OK);
         } catch (Exception e) {
-            responceEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return responceEntity;
+        return responseEntity;
     }
 }
 

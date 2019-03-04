@@ -8,14 +8,16 @@ import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 import ua.ita.smartcarservice.repository.booking.WorkDependencyRepository;
 import ua.ita.smartcarservice.repository.technicalservice.WorkTypeRepository;
 import ua.ita.smartcarservice.service.booking.WorkDependencyService;
-import ua.ita.smartcarservice.service.impl.booking.Graph.Edge;
-import ua.ita.smartcarservice.service.impl.booking.Graph.Graph;
+import ua.ita.smartcarservice.service.impl.booking.graph.Edge;
+import ua.ita.smartcarservice.service.impl.booking.graph.Graph;
 import ua.ita.smartcarservice.service.technicalservice.WorkTypeService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkDependencyImpl implements WorkDependencyService {
+    private final int NUMBER_OF_WORKS = 60;
 
     @Autowired
     private WorkDependencyRepository workDependencyRepository;
@@ -29,7 +31,7 @@ public class WorkDependencyImpl implements WorkDependencyService {
     @Autowired
     private Graph graph;
 
-    public List <WorkDependency> findAll() {
+    public List<WorkDependency> findAll() {
         return workDependencyRepository.findAll();
     }
 
@@ -39,15 +41,15 @@ public class WorkDependencyImpl implements WorkDependencyService {
     }
 
 
-    public WorkInfo findWorkInfo(List <String> skillName) {
+    public WorkInfo findWorkInfo(List<String> skillName) {
 
         WorkInfo workInfo = new WorkInfo();
 
         ArrayList[] graph = this.graph.getGraph();
 
-        PriorityQueue <Edge> allEdge = getAllEdgeInSortedPosition(skillName);
+        PriorityQueue<Edge> allEdge = getAllEdgeInSortedPosition(skillName);
 
-        Set <Long> needNode = getNeedNode(skillName);
+        Set<Long> needNode = getNeedNode(skillName);
 
         long masks[] = this.graph.getMasks();
 
@@ -71,7 +73,7 @@ public class WorkDependencyImpl implements WorkDependencyService {
                     continue;
                 }
                 boolean canAddToRes = true;
-                for (int j = 1; j <= 60; j++) {
+                for (int j = 1; j <= NUMBER_OF_WORKS; j++) {
                     if ((mask & (1 << j)) == 1 && (masks[(int) dependentEdge.getIndex()] & (1 << j)) != 1) {
                         canAddToRes = false;
                         break;
@@ -91,28 +93,24 @@ public class WorkDependencyImpl implements WorkDependencyService {
     }
 
 
-    private PriorityQueue <Edge> getAllEdgeInSortedPosition(List <String> skillName) {
-        Map <String, WorkType> workByName = getDistinctSkillByName();
+    private PriorityQueue<Edge> getAllEdgeInSortedPosition(List<String> skillsName) {
+        Map<String, WorkType> workByName = getDistinctSkillByName();
 
-        PriorityQueue <Edge> allEdge = new PriorityQueue <>(new Edge(-1, -1));
+        PriorityQueue<Edge> allEdge = new PriorityQueue <>(new Edge(-1, -1));
 
-        skillName.forEach(s -> allEdge.add(new Edge(workByName.get(s).getWorkId(), workByName.get(s).getRequiredTime())));
+        skillsName.forEach(s -> allEdge.add(new Edge(workByName.get(s).getWorkId(), workByName.get(s).getRequiredTime())));
 
         return allEdge;
     }
 
 
-    public Map <String, WorkType> getDistinctSkillByName() {
+    public Map<String, WorkType> getDistinctSkillByName() {
         return workTypeService.findDistinctWorkByName();
     }
 
-    private Set <Long> getNeedNode(List <String> skillName) {
-        Map <String, WorkType> skillByName = getDistinctSkillByName();
+    private Set<Long> getNeedNode(List <String> skillsName) {
+        Map<String, WorkType> skillsByName = getDistinctSkillByName();
 
-        Set <Long> needNode = new HashSet <>();
-
-        skillName.forEach(s -> needNode.add(skillByName.get(s).getWorkId()));
-
-        return needNode;
+        return skillsName.stream().map(s -> skillsByName.get(s).getWorkId()).collect(Collectors.toSet());
     }
 }

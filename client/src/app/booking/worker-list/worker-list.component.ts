@@ -24,6 +24,12 @@ export class WorkerListComponent implements OnInit {
   @Input()
   cost : number;
 
+  @Input()
+  userId : number;
+
+  @Input()
+  fromNoti : boolean;
+
   workersTime : WorkersTime;
   timeList : TimeList = new TimeList();
   workerForm : any = {};
@@ -33,9 +39,7 @@ export class WorkerListComponent implements OnInit {
 
   getDefault : boolean = false;
   defaulWorker : Map<string, number> = new Map();
-
-  incorrectNumberOfWorkers : boolean = false; 
-
+  timeError : boolean = false;
   date : string;
   constructor(private workerListService : WorkerListService) {}
 
@@ -50,9 +54,7 @@ export class WorkerListComponent implements OnInit {
   }
 
   ChooseWorker(worker : Worker, skillname : string) :void{
-    this.incorrectNumberOfWorkers = false;
     this.showTime = false;
-
       if(this.lastIndexMap.get(skillname) != undefined){
         if(this.lastIndexMap.get(skillname) == -1){
           this.setClass(worker.workerId, 'select');
@@ -82,28 +84,26 @@ export class WorkerListComponent implements OnInit {
   getFreeTime(){
     this.timeList.time = this.workerForm.time;
     this.timeList.carId = this.carId;
+    if(!this.dateValidation(this.timeList.time)){
+      this.timeError = true;
+      return;
+    }
+    else{
+      this.timeError = false;
+    }
     
     let workId : Array<number> = new Array();
 
-    if(this.getDefault){
-      this.defaulWorker.forEach((value : number, key : string) => {
-        workId.push(value);
-      })
-    }
-    else{
-    this.lastIndexMap.forEach((value: number, key: string) => {
-      if(value != -1){
-        workId.push(value);
+    this.defaulWorker.forEach((value: number, key: string) => {
+      if(this.lastIndexMap.get(key) != undefined && this.lastIndexMap.get(key) != -1){
+        workId.push(this.lastIndexMap.get(key));
+      }
+      else{
+        workId.push(this.defaulWorker.get(key));
       }
     });
-  }
 
-    if(workId.length != this.workerList.skillName.length){
-        this.incorrectNumberOfWorkers = true;
-        return;
-    }
-
-    this.timeList.workerId = workId;
+    this.timeList.workersId = workId;
     this.timeList.needTime = this.workersTime.requiredTime;
 
     this.showWorker = false;
@@ -126,7 +126,6 @@ export class WorkerListComponent implements OnInit {
   }
 
   addToDefault(skillName : string, worker : Worker): string{
-    this.incorrectNumberOfWorkers = false;
       if(this.defaulWorker.get(skillName) == undefined){
         this.defaulWorker.set(skillName, worker.workerId);
         return worker.fullName;
@@ -137,6 +136,26 @@ export class WorkerListComponent implements OnInit {
       }
 
       return worker.fullName;
+  }
+
+  dateValidation(time : string) : boolean{
+    if(this.workerForm.time == undefined){
+      return false;
+    }
+    let today = new Date();
+    let year : number = (Number)(time.slice(0,4));
+    let month : number = (Number)(time.slice(5,7));
+    let day : number = (Number)(time.slice(8,10));
+    console.log(year);
+    console.log(month);
+    console.log(day);
+    console.log(today.getFullYear());
+    console.log(today.getMonth() + 1);
+    console.log(today.getDate());
+    if(today.getFullYear() > year || (today.getMonth() + 1) > month || today.getDate() > day){
+      return false;
+    }
+    return true;
   }
 
 

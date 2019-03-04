@@ -46,7 +46,7 @@ export class WorkerComponent implements OnInit {
   }
 
   registerWorker() {
-    this.authService.signUp(this.registerForm).subscribe(()=>{
+    this.authService.signUp(this.registerForm).subscribe(() => {
       this.workerService.initialiseWorker(
         this.registerForm.username, 
         this.techserviceId, 
