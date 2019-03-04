@@ -50,18 +50,14 @@ export class CarsComponent implements OnInit {
           this.showProposal = true;
         }
       });
-      this.username = this.tokenStorage.getUsername();
-    this.userService.getUserByUsername(this.username)
-    .subscribe(data => this.user = data);
   }
 
 
-    applyToSTO(carId: number, userId : number){
+    applyToSTO(carId: number){
       console.log(carId);
       this.router.navigate(['/ui/booking'],
       {queryParams: {
-        carId: carId,
-        userId: userId
+        carId: carId
       }}
     );
     }
