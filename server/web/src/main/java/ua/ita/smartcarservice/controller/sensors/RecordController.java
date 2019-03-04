@@ -20,13 +20,9 @@ public class RecordController {
     @Autowired
     private NotificationService notificationService;
 
-    @Autowired
-    private SimpMessagingTemplate template;
-
     @PostMapping
     public void addRecord(@RequestBody RecordDto recordDto) {
         sensorService.addRecord(recordDto);
         notificationService.addNewNotification(recordDto);
-        template.convertAndSend("/notifications-list", recordDto);
     }
 }
