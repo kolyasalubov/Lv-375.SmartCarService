@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -56,11 +57,13 @@ public class NotificationsServiceImpl implements NotificationService{
 	public void addNewNotification(RecordDto recordDto) {
 		String sensorType = recordDto.getSensorType();
 		Double currentValue = (Double)recordDto.getValues().values().toArray()[0];
-		if(analyzeSensorData(sensorType, currentValue)) {
+		if (analyzeSensorData(sensorType, currentValue)) {
 			RecordDto previousRecord = sensorService.findRecordBeforeDate(recordDto);
-			AlertsDto code = alertsService.getAlert(sensorType);
-			CarDto car = carService.findByVin(recordDto.getCarVin());
-			saveNotification(new NotificationsDto(code, car));
+			if (!analyzeSensorData(sensorType, previousRecord.getValue())) {
+				AlertsDto code = alertsService.getAlert(sensorType);
+				CarDto car = carService.findByVin(recordDto.getCarVin());
+				saveNotification(new NotificationsDto(code, car));
+			}
 		}
 	}
 
