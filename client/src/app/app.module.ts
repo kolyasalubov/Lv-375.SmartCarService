@@ -51,9 +51,9 @@ import { DatePipe } from '@angular/common';
 import { DataCardComponent } from './cars/data-card/data-card.component';
 import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
 import { DealersComponent } from './dealers/dealers.component';
-import {TechservicePageComponent} from "./techservice-page/techservice-page.component";
-import {MatExpansionModule} from '@angular/material';
-
+import { MatExpansionModule } from '@angular/material';
+import { TechservicePageComponent } from './techservice-page/techservice-page.component';
+import { InfoMassageComponent } from './info-massage/info-massage.component';
 
 @NgModule({
   declarations: [
@@ -92,10 +92,16 @@ import {MatExpansionModule} from '@angular/material';
     TechserviceCardComponent,
     DealersComponent,
     TechservicePageComponent,
+<<<<<<< HEAD
     WorkersFeedbackComponent
     // Material.MatDialogModule
 
   ],
+=======
+    InfoMassageComponent,
+   // Material.MatDialogModule
+ ],
+>>>>>>> a3e1798fad2ac409becdb4fae167c776c0a1f0b2
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -114,14 +120,16 @@ import {MatExpansionModule} from '@angular/material';
     MatExpansionModule
   ],
   providers: [
-    //NotificationsService
+    NotificationsService,
     MatDialog,
     DatePipe
   ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
   exports: [SecurityModule],
-  entryComponents:[AlertsComponent]
+  entryComponents: [
+    AlertsComponent,
+    InfoMassageComponent]
   })
 export class AppModule {
 }

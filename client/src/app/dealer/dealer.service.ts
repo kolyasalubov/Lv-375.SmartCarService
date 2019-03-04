@@ -22,7 +22,7 @@ export class DealerService {
 
     return this.http.post<Dealer>(Globals.baseURL + '/dealer/create/'+username,dealer,{observe: 'response' });
   }
-getDealer(username: String){
+getDealer(username: String): Observable<Dealer>{
 
   return this.http.get<Dealer>(Globals.baseURL + '/dealer/get/'+username);
 

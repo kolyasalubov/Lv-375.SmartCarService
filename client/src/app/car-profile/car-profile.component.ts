@@ -7,6 +7,8 @@ import {VechicleInspection} from './vechicle-inspection';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FormGroup, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material';
+import { InfoMassageComponent } from '../info-massage/info-massage.component';
 
 @Component({
   selector: 'app-car-profile',
@@ -27,7 +29,7 @@ export class CarProfileComponent implements OnInit {
   errorCode: number;
   error: ErrorEvent;
 
-  constructor(private carService: CarProfileService, private tokenStorage: TokenStorageService, private router: Router, private datePipe: DatePipe) { }
+  constructor(private carService: CarProfileService, private tokenStorage: TokenStorageService, private router: Router, private datePipe: DatePipe, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.username = this.tokenStorage.getUsername();
@@ -44,13 +46,12 @@ export class CarProfileComponent implements OnInit {
       if(this.errorCode === 201){
       this.showCarProfile = false;
       this.showInspection = true;
-      } else if(this.errorCode === 400){
-        console.log(this.errorCode)
-      if(confirm("Car with such registration or vin number is present in our system. Please check your data.")) {
-        }
+      } else if (this.errorCode === 400){
+      console.log(this.errorCode);
+      this.showInfo();
       } else {
-      if(confirm("Something bad happened; please try again later")) {}
-    }
+      this.showInfo();
+     }
   });
   }
 
@@ -62,5 +63,16 @@ export class CarProfileComponent implements OnInit {
 
   reloadPage() {
     window.location.href='/ui/home';
+  }
+
+  showInfo(): void {
+    const dialogRef = this.dialog.open(InfoMassageComponent, {
+      height: '150px',
+      width: '400px',
+      
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }

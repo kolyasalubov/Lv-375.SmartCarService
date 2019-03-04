@@ -27,7 +27,6 @@ export class DealersService {
   // }
 
   applyToDealer(apply:Apply):Observable<HttpResponse<Apply>>{
-    console.log(apply.dealerEdr+" , "+apply.stoId);
     return this.http.post<Apply>(Globals.baseURL + '/dealer/epplyToDealer',apply,{observe: 'response' });
   }
 }

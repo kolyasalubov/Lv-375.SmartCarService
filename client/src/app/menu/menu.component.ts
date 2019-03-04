@@ -79,7 +79,7 @@ export class MenuComponent implements OnInit {
 
   logout(){
     this.tokenStorage.signOut();
-    window.location.href='/ui/auth/login';
+    window.location.href='/ui/preview';
     }
 
   goToDealerinfo(){
