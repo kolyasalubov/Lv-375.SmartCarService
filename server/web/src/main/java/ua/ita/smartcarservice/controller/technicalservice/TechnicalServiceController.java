@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Controller (REST) works with TechnicalService
  */
-//@RequestMapping("/api")
+@RequestMapping("/api")
 @RestController
 public class TechnicalServiceController {
 
