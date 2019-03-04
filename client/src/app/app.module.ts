@@ -54,6 +54,8 @@ import { DealersComponent } from './dealers/dealers.component';
 import { MatExpansionModule } from '@angular/material';
 import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 import { InfoMassageComponent } from './info-massage/info-massage.component';
+import { WorkerCardComponent } from './techservice/worker-card/worker-card.component';
+import { WorkersListComponent } from './techservice/workers-list/workers-list.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,9 @@ import { InfoMassageComponent } from './info-massage/info-massage.component';
     TechservicePageComponent,
     WorkersFeedbackComponent,
     // Material.MatDialogModule,
-    InfoMassageComponent
+    InfoMassageComponent,
+    WorkerCardComponent,
+    WorkersListComponent
  ],
   imports: [
     BrowserModule,
