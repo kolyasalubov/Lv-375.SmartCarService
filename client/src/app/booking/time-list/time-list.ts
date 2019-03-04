@@ -1,5 +1,5 @@
 export class TimeList{
-     workerId : number[];
+     workersId : number[];
      time : string;
      carId : number;
      needTime : number;

@@ -1,6 +1,9 @@
-<div class = "full-page-container">
+<div class = "full-page-container" style="padding-left : 200px; padding-top: 50px">
+  <div *ngIf="postBookingError" class=" d-flex alert alert-danger justify-content-center" role="alert" style="padding-top: 100px;">
+    Something was wrong. Please try again later
+  </div>
   <div>
-    <mdb-card style="max-width: 300px">
+    <mdb-card style="max-width: 400px">
       <mdb-card-img src="assets/img/booking.jpg" alt="Card image cap"></mdb-card-img>
       <mdb-card-body>
         <mdb-card-title>
@@ -10,6 +13,7 @@
           <h5 class="info-text">Service Name: {{bookingInfo.techServiceName}}</h5> 
           <h5 class="info-text">Start: {{getDate(bookingInfo.startBooking)}}</h5>
           <h5 class="info-text">End: {{getDate(bookingInfo.endBooking)}}</h5>
+          <h5 class="info-text">Price: {{price}} ₴</h5>
         </mdb-card-text>
       </mdb-card-body>
     </mdb-card>

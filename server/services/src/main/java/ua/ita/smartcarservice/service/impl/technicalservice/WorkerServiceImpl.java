@@ -21,6 +21,7 @@ import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkerServiceImpl implements WorkerService {
@@ -59,9 +60,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<UserEntity> getAllWorkers() {
-
-        List<UserEntity> list = userRepository.getUserEntitiesByRoleName(RoleNames.ROLE_WORKER.name());
-        return list;
+        return userRepository.getUserEntitiesByRoleName(RoleNames.ROLE_WORKER.name());
     }
 
     @Override
@@ -80,20 +79,15 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<WorkerDto> findByCarIdAndWorkersSkill(String name, Long carId) {
-        List <WorkerDto> workerDtos = new ArrayList<>();
-        for(UserEntity worker : userRepository.findByCarIdAndWorkersSkill(name, carId)){
-            workerDtos.add(getWorkerDto(worker));
-        }
-        return workerDtos;
+        return userRepository.findByCarIdAndWorkersSkill(name, carId)
+                .stream().map(this::getWorkerDto).collect(Collectors.toList());
     }
 
     @Override
     public List<WorkerSkillDto> addSkillToWorkersList(List<UserEntity> workersList) {
         List<WorkerSkillDto> workerSkillDtoList = new ArrayList<>();
-
         workersList.parallelStream().forEach(worker -> {
-            workerSkillDtoList.add(getWorkerSkillDto(
-                    worker,
+            workerSkillDtoList.add(getWorkerSkillDto(worker,
                     workersSkillRepository.getByWorkerId(worker).getSkill()/*getSkillByWorkerId(userRepository.getUserById(worker.getId()))*/));
         });
 
