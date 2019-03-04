@@ -13,9 +13,10 @@ export class DealerComponent implements OnInit {
   username: String;
 
 // mydealer:Dealer;
-mydealertmp:Dealer={dealerName:' ',dealerAddress:' ',dealerEdr:' ',dealerEmail:' '};
+mydealertmp:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
+  // mydealertmp:Dealer=new Dealer();
+
 mydealer=this.mydealertmp;
-show: boolean;
 
 
   constructor(private dealerService: DealerService,private tokenStorage: TokenStorageService) { }
@@ -23,11 +24,10 @@ show: boolean;
   ngOnInit() {
     this.username = this.tokenStorage.getUsername();
     this.dealerService.getDealer(this.username).
-    subscribe(data => this.mydealer=data);
+    subscribe(data => this.mydealer = data);
 
    }
   createDealer(){
-    console.log(this.mydealer);
     this.dealerService.createDealer(this.mydealer,this.username).subscribe();
   }
 

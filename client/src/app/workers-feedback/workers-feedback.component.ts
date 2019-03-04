@@ -16,6 +16,7 @@ export class WorkersFeedbackComponent implements OnInit {
   constructor(private workerService: WorkerService) { }
 
   ngOnInit() {
+    console.log(this.workerId); 
     this.getWorker();
   }
 
@@ -26,10 +27,21 @@ export class WorkersFeedbackComponent implements OnInit {
   }
 
   changeColor(event: Event) {
+    this.clearColor(event);
+
     let number = Number.parseInt(event.srcElement.id);
     for(let i = 1; i <= number; i++) {
       let element = document.getElementById(i.toString());
       element.className += ' light';
+    }
+  }
+
+  clearColor(event: Event) {
+    for(let i = 1; i <= 5; i++) {
+      let element = document.getElementById(i.toString());
+      while(element.classList.contains('light')) {
+        element.className += element.className.replace('light', '');
+      }
     }
   }
 

@@ -5,8 +5,10 @@
         <mdb-card-title>
             <h4 style="text-align: center">Your Technical Service</h4>
             <hr>
-            <h5>Rating: <i class="fa fa-star-o" aria-hidden="true"></i> {{techservice.rating}}/5</h5>
-            <hr>
+            <div *ngIf="techservice.stoId > 0">
+              <h5>Rating: <i class="fa fa-star-o" aria-hidden="true"></i> {{techservice.rating}}/5</h5>
+              <hr>
+            </div>
         </mdb-card-title>  
 
         <mdb-card-text>
@@ -43,3 +45,42 @@
 </mdb-card>
 
 <app-worker *ngIf="techservice.stoId > 0" [techserviceId]="techservice.stoId"></app-worker>
+
+<div style="position: relative; top: 500px; left: 200px;">
+<mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            This is the expansion title
+          </mat-panel-title>
+          <mat-panel-description>
+            This is a summary of the content
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+      
+    <p>This is the primary content of the panel.</p>
+</mat-expansion-panel>
+</div>
+
+<div style="position: relative; top: 700px; left: 200px;">
+<mat-accordion>
+        <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Personal data
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Type your name and age
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+            
+                <mat-form-field>
+                  <input matInput placeholder="First name">
+                </mat-form-field>
+            
+                <mat-form-field>
+                  <input matInput placeholder="Age">
+                </mat-form-field>
+              </mat-expansion-panel>
+             
+</mat-accordion>
+</div>
