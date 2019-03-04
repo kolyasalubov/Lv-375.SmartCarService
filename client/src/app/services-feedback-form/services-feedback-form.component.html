@@ -1,5 +1,3 @@
-<services-feedback [userName]="'manager2'"></services-feedback>
-
 <mdb-card style="width: 400px; position: relative; left: 210px; top: 80px; z-index: 0;">
   <!--<div class="view rgba-white-slight waves-light" mdbWavesEffect>
     // Card img
@@ -32,9 +30,10 @@
 </mdb-card>
 
 
-<div *ngFor="let worker of workers" style="position: relative; top: -220px; left: 120px; z-index: -1;">
+<div *ngFor="let worker of workers" style="position: relative; top: -220px; left: 120px;">
   <app-workers-feedback [workerId]="worker"></app-workers-feedback>
 </div>
 
-
+<!--
 <services-feedback [serviceId]="4"></services-feedback>
+-->

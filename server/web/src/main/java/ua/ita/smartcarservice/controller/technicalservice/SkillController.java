@@ -22,7 +22,7 @@ public class SkillController {
     /*
      * Method for getting all the skills
      */
-    @GetMapping("/api/v1/skills")
+    @GetMapping("/api/skills")
     public ResponseEntity<List<SkillDto>> getAllSkill() {
 
         ResponseEntity<List<SkillDto>> responseEntity;

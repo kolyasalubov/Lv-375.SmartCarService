@@ -61,7 +61,6 @@ public class ReportServiceImpl implements ReportService {
 
     private LocalDateTime parseDateToLocal(String strDate) {
         return LocalDateTime.parse(strDate, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
     }
 
     @Override

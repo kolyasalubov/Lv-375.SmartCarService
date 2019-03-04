@@ -2,18 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from "rxjs/index";
 import {ReportDto} from "./report/report-dto";
+import {Globals} from "../globals";
 
 @Injectable()
 export class ServiceHistoryService {
 
-  private URL: string = '/api/report';
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    }),
-    params: {}
-  };
+  private URL: string = Globals.baseURL + '/report';
 
   constructor(private http: HttpClient) {
   }
@@ -25,7 +19,7 @@ export class ServiceHistoryService {
       'responseType'  : 'arraybuffer' as 'json'
       //'responseType'  : 'blob' as 'json'        //This also worked
     };
-    
+
     return this.http.get<any>(`${this.URL}/pdf/${reportId}`, httpOptions);
 
   }

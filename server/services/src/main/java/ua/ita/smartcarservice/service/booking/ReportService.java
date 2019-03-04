@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ReportService {
 
+
     long addReport(ReportDto reportDto);
 
     ReportEntity findReportById(long reportId);

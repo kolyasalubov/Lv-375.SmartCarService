@@ -89,7 +89,7 @@ const routes: Routes = [
     component: DealcarComponent
   },
   {
-    path: 'ui/feedback',
+    path: 'ui/leavefeedback',
     component: ServicesFeedbackFormComponent
   },
   {

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Car } from '../car';
 import { CarsService } from '../cars.service';
+import { AlertService } from 'src/app/alerts/alert.service';
+import { MatDialog } from '@angular/material';
+import { AlertsComponent } from 'src/app/alerts/alerts.component';
 
 @Component({
   selector: 'app-car-details',
@@ -19,8 +22,7 @@ export class CarDetailsComponent implements OnInit {
   carPrice: String;
   carEnd_guarantee: String;
 
-
-  constructor(private route: ActivatedRoute, private router: Router, private carsService: CarsService,) { }
+  constructor(private route: ActivatedRoute, private router: Router, private carsService: CarsService,  private alertService: AlertService,  public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -45,24 +47,26 @@ export class CarDetailsComponent implements OnInit {
     return this.route.snapshot.queryParamMap.get(param);
   }
 
+  deleteCarById(id: Number): void {
+    const dialogRef = this.dialog.open(AlertsComponent, {
+      height: '150px',
+      width: '400px',
+      data: id
+    });
 
-  deleteCarById(id: number){
-    if(confirm("Are you sure to delete this car? Note, that it can't be restored.")) {
-  this.carsService.deleteCarById(id).subscribe();
-  this.closeProfile();
+    dialogRef.afterClosed().subscribe(result => {
+      console.log();
+      });
   }
-}
 
   applyToSTO(id: number){
   this.router.navigate(['ui/booking', id]);
   }
 
-
   applyToTradeIn(vin: String){
     console.log(vin);
-    this.router.navigate(['ui/tradeIn',vin]);
+    this.router.navigate(['ui/tradeIn', vin]);
   }
-
 
   goToCharts(carId: Number){
     this.router.navigate(['ui/charts'],

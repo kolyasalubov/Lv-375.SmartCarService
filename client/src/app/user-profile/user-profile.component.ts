@@ -17,31 +17,19 @@ export class UserProfileComponent implements OnInit {
   username: String;
   cars: Car[];
   numberOfCars: Number = null;
-
+  today = new Date().toISOString().slice(0, 10)
+  
   constructor(private userService: UsersService, private tokenStorage: TokenStorageService, private carService: CarsService) {
   }
 
   ngOnInit() {
 
-this.username = this.tokenStorage.getUsername();
-
-this.userService.getUserByUsername(this.username)
-.subscribe(data => this.userProfile = data);
-
-setTimeout(() => {
-this.carService.getOwnerCarsById(this.userProfile.id)
-.subscribe(data => this.cars = data);
-}, 1000);
-/*
-   setTimeout(() => {
-     this.numberOfCars = this.cars.length;
-      }, 1000);
-      */
-  }
+  this.userService.getUserByUsername(this.tokenStorage.getUsername())
+  .subscribe(data => this.userProfile = data);
+}
 
   closeProfile(){
     window.location.href='ui/home'
   }
-
 
 }

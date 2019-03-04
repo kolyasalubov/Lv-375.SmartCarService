@@ -30,7 +30,10 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void createApplyToDealer(ApplyToDealerDto applyToDealerDto) {
-   applyRepository.save(new Apply(dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId())));
+        if(applyRepository.findByDealerAndAndTechnicalService(dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId()))==null){
+            applyRepository.save(new Apply(dealerRepository.findByDealerEdr(applyToDealerDto.getDealerEdr()),technicalServiceRepository.getByTechnicalServiceId(applyToDealerDto.getStoId())));
+        }
+
     }
 
     @Override

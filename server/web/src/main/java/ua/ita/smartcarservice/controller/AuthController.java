@@ -18,6 +18,7 @@ import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.repository.RoleRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.security.JwtResponse;
+import ua.ita.smartcarservice.security.ResponseMessage;
 import ua.ita.smartcarservice.security.TokenProvider;
 import ua.ita.smartcarservice.service.mail.MailService;
 
@@ -27,7 +28,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+
 @RestController
 @RequestMapping("api/auth")
 public class AuthController {
@@ -60,7 +61,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm registerRequest) {
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
-            return new ResponseEntity<>("Fail: Username is already exists!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseMessage("Fail: Username is already exists!"), HttpStatus.BAD_REQUEST);
         }
         mailService.sendEmailRegistration(registerRequest.getUsername(), registerRequest.getPassword(), registerRequest.getEmail(), registerRequest.getFullName());
         UserEntity userEntity = new UserEntity(registerRequest.getUsername(), passwordEncoder.encode(registerRequest.getPassword()),
@@ -74,7 +75,7 @@ public class AuthController {
         userEntity.setRoles(roles);
         userRepository.save(userEntity);
 
-        return new ResponseEntity<>("User registered successfully!", HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);
     }
 
 }

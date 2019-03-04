@@ -13,7 +13,7 @@
 	  background-color: #f1f1f1;
     margin: auto;
     width: 82%;
-    height: 90%;
+    height: 95%;
     border: 2px solid rgb(211, 212, 211);
     border-radius: 10px;
     padding: 10px;
@@ -167,7 +167,6 @@
     display: inline-block;  //another element float right
     top: 50%; /* changed from 0 to 50% */
     left: 37%; /* changed from 0 to 50% */
-
     transform: translate(-50%, -50%);  /* added this line */
     background-color:white;
     border: 2px solid #f1f1f1;
@@ -296,4 +295,14 @@ color: black;
 
 #question button i{
 margin-left: 5%;
+}
+
+
+#question img:hover{
+  transform: rotateY(180deg);
+  transform-style: preserve-3d;
+}
+
+.desc a{
+  color: black;
 }
