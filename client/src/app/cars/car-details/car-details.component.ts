@@ -26,8 +26,10 @@ export class CarDetailsComponent implements OnInit {
 
   ngOnInit() {
 
+    this.carId = Number(this.getFromRouterParams('carId'));
+    
   setTimeout(() =>
-    {this.carId = Number(this.getFromRouterParams('carId'));
+    {
     this.carBrand = this.getFromRouterParams('carBrand');
     this.carModel = this.getFromRouterParams('carModel');
     this.carGY = this.getFromRouterParams('carGY');
@@ -71,16 +73,20 @@ export class CarDetailsComponent implements OnInit {
     this.router.navigate(['ui/tradeIn', vin]);
   }
 
-  goToCharts(carId: Number){
+  goToCharts(carId: number){
     this.router.navigate(['ui/charts'],
       {queryParams: {
-        carId: carId,
+        carId: this.carId,
       }}
     );
   }
 
-  history(id: number){
-
+  history(carId: number){
+    this.router.navigate(['ui/history'],
+      {queryParams: {
+        carId: this.carId,
+      }}
+    );
   }
 
   closeProfile(){

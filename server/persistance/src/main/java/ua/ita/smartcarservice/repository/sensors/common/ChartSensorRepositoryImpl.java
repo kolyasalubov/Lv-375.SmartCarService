@@ -26,8 +26,10 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
 
     private CriteriaBuilder builder;
 
+    // TODO rename
     private final int DEFAULT_VALUE = 0;
 
+    // TODO change max to having
     @Override
     public Integer findLastRecordValue(@Param("carId") long carId,
                                        @Param("sensorType") String sensorType) {
