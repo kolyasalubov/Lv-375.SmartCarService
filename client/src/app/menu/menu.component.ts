@@ -30,7 +30,6 @@ export class MenuComponent implements OnInit {
     private notificationsService: NotificationsService) { }
 
   ngOnInit() {
-    
     this.notificationsOpen = false;
     this.username = this.tokenStorage.getUsername();
 
@@ -80,7 +79,7 @@ export class MenuComponent implements OnInit {
   logout(){
     this.tokenStorage.signOut();
     window.location.href='/ui/preview';
-    }
+  }
 
   goToDealerinfo(){
     this.router.navigate(['/ui/dealer']);
@@ -94,10 +93,4 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/ui/addDealerCar']);
   }
 
-  /*
-  goToDealer() {
-    this.getTechservice(this.user).then(() => {
-    this.router.navigate(['/iu/techservice/' + this.techservice.stoId + '/dealer'])
-    });  
-  }*/
 }

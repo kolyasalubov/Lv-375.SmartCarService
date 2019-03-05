@@ -14,10 +14,6 @@ import java.util.List;
 @Repository
 public interface WorkersSkillRepository extends JpaRepository<WorkersSkill, Long> {
     WorkersSkill getBySkill(SkillEntity skillEntity);
-    /*@Query(value = "select * from skills as s " +
-            "left join workers_skills as ws on s.skill_id = ws.skill_id " +
-            "where ws.worker_id = :worker_id", nativeQuery = true)
-    SkillEntity getSkillByWorkerId(@Param("worker_id") Long worker_id);*/
 
     @Query(value = "select s from SkillEntity  s " +
             "left join WorkersSkill as ws " +
@@ -31,5 +27,5 @@ public interface WorkersSkillRepository extends JpaRepository<WorkersSkill, Long
             "where wt.workId in (:workId) and " +
             "ws.workerId.id in (:workerId)")
     List<WorkersSkill> findByWorkAndWorker(@Param("workerId") Collection<Long> workerId,
-                                           @Param("workId") Collection <Long> workId);
+                                           @Param("workId") Collection<Long> workId);
 }

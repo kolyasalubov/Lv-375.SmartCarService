@@ -5,9 +5,6 @@
       <div class= "d-flex alert alert-info justify-content-center" role="alert">
           You can choose workers. If u did not do it, we will choose default workers.
         </div>
-        <div *ngIf = "timeError" class= "d-flex alert alert-danger justify-content-center" role="alert">
-            Please choose date in correct form.
-          </div>
       <h5 class="time-value">Required Time: {{getRequiredTime(workersTime.requiredTime)}}</h5>
     <div *ngIf ="!getDefault" class= "d-flex flex-row flex-wrap">
         <ng-container class="work-container" *ngFor="let item of workersTime.workersList | keyvalue">
@@ -30,12 +27,6 @@
             </mdb-card>
         </ng-container>
   </div>
-  <div>
-      <div class="md-form free-time date" style="align-self: center">
-          <input mdbInput type="text" name="time" [(ngModel)]="workerForm.time" class="form-control mb-4;"
-            placeholder="yyyy-mm-dd">
-        </div>
-    </div>
     <div class="d-flex justify-content-center" style="margin:20px;">
     <button *ngIf="showTime" mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="getFreeTime()" mdbWavesEffect>Get Free Time</button>
     <button *ngIf="!showTime" mdbBtn type="button" class ="justify-content-start" style="background-color: #336B87" (click)="getFreeTime()" mdbWavesEffect>Get Free

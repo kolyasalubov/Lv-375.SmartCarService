@@ -30,7 +30,6 @@ public class Car {
     @Column(length = 20, nullable = false, unique = false)
     private String model;
 
-
     @Column(length = 20, nullable = false, unique = false)
     private String graduation_year;
 
@@ -64,21 +63,20 @@ public class Car {
     private Set<VehicleInspection> vehicleInspections;
 
     @JsonIgnore
-    @OneToMany (mappedBy = "car")
+    @OneToMany(mappedBy = "car")
     private Set<WorkTime> workTimes;
 
     @JsonIgnore
-    @OneToMany (mappedBy = "car")
+    @OneToMany(mappedBy = "car")
     private List<ReportEntity> reports;
-    
-    //needed for getByMileage method
-  	@OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
-  	private List<MileageEntity> mileageEntities;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "car")
+    private List<MileageEntity> mileageEntities;
 
     public Car() {
     }
 
-    /* For user cars */
+    /* For registration by user */
     public Car(String brand, String model, String graduation_year, String number, String vin, UserEntity user) {
         this.brand = brand;
         this.model = model;
@@ -88,6 +86,7 @@ public class Car {
         this.user = user;
     }
 
+    /* For registration by dealer */
     public Car(String brand, String model, String graduation_year, String number, Double price, String vin, DealerEntity dealer) {
         this.brand = brand;
         this.model = model;
@@ -97,7 +96,6 @@ public class Car {
         this.vin = vin;
         this.dealer = dealer;
     }
-
 
     public Long getId() {
         return id;

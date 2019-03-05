@@ -31,7 +31,7 @@ export class TimeListComponent implements OnInit {
   price : number;
 
   @Input()
-  notiId : Array<number>;
+  notiId : number[];
 
   @Input()
   fromNoti: boolean;
@@ -70,7 +70,7 @@ export class TimeListComponent implements OnInit {
   }
 
   parseDate(date : string): string{
-    return date.slice(0, 10) + " " + date.slice(11, 18);
+    return date.slice(0, 10) + " " + date.slice(11, 19);
   }
 
   postFeedBack(){
@@ -103,17 +103,21 @@ export class TimeListComponent implements OnInit {
           console.log(this.errorStatus);
           
           if(this.errorStatus === 200){
+            console.log(this.fromNoti);
+            if(this.fromNoti){
+              for(let index = 0; index < this.notiId.length; index++){
+                console.log(this.notiId[index]);
+                    this.notificationService.deleteNotification(this.notiId[index]).subscribe(error => console.log(error));
+              }
+            }
             this.postReport();
             this.postFeedBack();
-            if(this.fromNoti){
-              this.deleteNotifications();
-            }
           }
           else{
             this.postBookingError = true;
           }
         },); 
-
+        this.goToCarsPage();
 }
 
   postReport(){
@@ -128,7 +132,6 @@ export class TimeListComponent implements OnInit {
         .subscribe((date) => this.postReportStatusCode = date,
         error => this.error = error);
 
-        this.goToCarsPage();
   }
 
 goToHomePage() {

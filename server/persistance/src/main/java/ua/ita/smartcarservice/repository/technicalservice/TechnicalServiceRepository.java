@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 import java.util.List;
@@ -24,6 +23,4 @@ public interface TechnicalServiceRepository extends JpaRepository<TechnicalServi
     TechnicalServiceEntity getTechnicalServiceEntityByUsername(@Param("username") String id);
 
     List<TechnicalServiceEntity> findAllByDealer_UserEntity_Username(String username);
-
-//    void deleteByTechnicalServiceId(L)
 }
