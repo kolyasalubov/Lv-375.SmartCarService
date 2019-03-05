@@ -1,5 +1,5 @@
 export class WorkerList {
-    skillName : Array<string>;
-    workName : Array<string>;
-    searchId : number;
+    skillsName : Array<string>;
+    worksName : Array<string>;
+    carId : number;
 }

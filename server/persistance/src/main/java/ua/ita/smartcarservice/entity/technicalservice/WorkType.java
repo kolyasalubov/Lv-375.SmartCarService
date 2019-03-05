@@ -1,5 +1,6 @@
 package ua.ita.smartcarservice.entity.technicalservice;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.alerts.Alerts;
 import ua.ita.smartcarservice.entity.booking.WorkDependency;
@@ -27,18 +28,22 @@ public class WorkType {
     private Long cost;
 
     @ManyToOne
-    @JoinColumn(name = "skillId", nullable = false)
+    @JoinColumn(name = "skill_id", nullable = false)
     private SkillEntity skill;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "mainWork")
     List<WorkDependency> listOfMainWork;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "dependentWork")
     List<WorkDependency> listOfDependentWork;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "work")
     List<WorkTime> workTimes;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             mappedBy = "workType")

@@ -1,8 +1,7 @@
-package ua.ita.smartcarservice.service.impl.booking.Graph;
+package ua.ita.smartcarservice.service.impl.booking.graph;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.ita.smartcarservice.dto.booking.WorkInfoDto;
 import ua.ita.smartcarservice.entity.booking.WorkDependency;
 import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 import ua.ita.smartcarservice.service.booking.WorkDependencyService;
@@ -47,11 +46,11 @@ public class Graph{
 
         graphNode.forEach(node ->{
             graph[(int)node.getMainWork().getWorkId().longValue()]
-                    .add(new Edge(node.getDependentWork().getWorkId(),
+                    .add(new Node(node.getDependentWork().getWorkId(),
                             requiredTime.get(node.getDependentWork().getName()).getRequiredTime()));
 
             graph[(int)node.getDependentWork().getWorkId().longValue()]
-                    .add(new Edge(node.getMainWork().getWorkId(),
+                    .add(new Node(node.getMainWork().getWorkId(),
                             requiredTime.get(node.getMainWork().getName()).getRequiredTime()));
 
             masks[(int)node.getMainWork().getWorkId().longValue()]|=(int)node.getDependentWork().getWorkId().longValue();

@@ -8,9 +8,9 @@ import java.util.Map;
 @Data
 public class WorkerBySkillNameDto {
 
-    Map<String, List<WorkerDto>> workerList;
+    Map<String, List<WorkerDto>> workersList;
 
-    List<WorkInfoDto> workInfo;
+    List<WorkInfoDto> worksInfo;
 
     int requiredTime;
 

@@ -12,9 +12,6 @@ import java.util.List;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
 
-    @Query("SELECT c.brand, c.model, w.startBooking, w.endBooking, w.worker FROM Car c JOIN WorkTime w ON c.id = w.car WHERE c.user.id = :id")
-    List<Car> getAllCarInSto(@Param("id") Long id);
-
     List<Car> findByUserId(Long id);
 
     Car findByVin(String vin);
@@ -31,7 +28,6 @@ public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car> findAllByDealerDealerEdr(String edr);
 
     List<Car>findByUser_Username(String username);
-
 
 }
 

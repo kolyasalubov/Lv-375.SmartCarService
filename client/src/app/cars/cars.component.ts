@@ -22,19 +22,16 @@ import { InfoMassageComponent } from '../info-massage/info-massage.component';
 })
 export class CarsComponent implements OnInit {
 
-  cars: Car[] = [];
-  private username: String;
+  cars: Car[];
+  username: String;
   user: User;
   car: Car;
   showCards: boolean = false;
   showProfile: boolean = false;
   showProposal: boolean = false;
   userId: Number;
-  errorCode: number;
+  httpStatusCode: number;
   error: ErrorEvent;
-
-  // mileage: number;
-  // speed: number;
 
   constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog, private chartService: ChartService) { }
 
@@ -51,35 +48,18 @@ export class CarsComponent implements OnInit {
     } else {
       this.showProposal = true;
     }
-  });
-}
-
-      //TODO move in another component
-
-    // this.chartService.getChartData("mileage", this.id, "/last") //TODO change id to car.id
-    //   .subscribe(
-    //     data => {
-    //       let chartData: ChartData = new ChartData();
-    //       chartData.setChartData(data);
-    //       this.mileage = chartData.data[0];
-    //     },
-    //     error => console.error('Error: ', error)
-    //   );
-    //
-    // this.chartService.getChartData("speed", this.id, "/day/max") //TODO change id to car.id
-    //   .subscribe(
-    //     data => {
-    //       let chartData: ChartData = new ChartData();
-    //       chartData.setChartData(data);
-    //       this.speed = Math.round(chartData.data[0]);
-    //     },
-    //     error => console.error('Error: ', error)
-    //   );
-
-
-  applyToSTO(id: number){
-    this.router.navigate(['/ui/booking', id]);
+    });
   }
+
+
+    applyToSTO(carId: number){
+      console.log(carId);
+      this.router.navigate(['/ui/booking'],
+      {queryParams: {
+        carId: carId,
+      }}
+    );
+    }
 
   applyToTradeIn(vin: String){
     console.log(vin);
@@ -94,19 +74,27 @@ export class CarsComponent implements OnInit {
       );
   }
 
-  history(){
+  history(carId: number){
+    this.router.navigate(['/ui/history'],
+      {queryParams: {
+        carId: carId
+      }}
+    );
   }
 
-    reloadPage() {
-      window.location.href='/ui/cars/';
-    }
+  deleteCarById(id: Number): void {
+    const dialogRef = this.dialog.open(AlertsComponent, {
+      height: '150px',
+      width: '400px',
+      data: id
+    });
 
-    closeProfile(){
-      window.location.href='/ui/home'
-    }
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 
-    openProfile(car: Car){
-      this.router.navigate(['ui/carprofile'],
+  openProfile(car: Car){
+    this.router.navigate(['ui/carprofile'],
       {queryParams: {
         carId: car.id,
         carBrand: car.brand,
@@ -118,32 +106,26 @@ export class CarsComponent implements OnInit {
         carEnd_guarantee: car.end_guarantee
       }}
     );
-    }
+  }
 
-    getCarById (id: number){
-     this.carsService.getCarById(id).subscribe(data => this.car = data);
-     console.log(this.car);
-    }
+  getCarById (id: number){
+    this.carsService.getCarById(id).subscribe(data => this.car = data);
+  }
 
-    getCarByNumber(number: String){
-      this.carsService.getCarByNumber(number).subscribe(data => this.car = data);
-      console.log(this.car);
-    }
+  getCarByNumber(number: String){
+    this.carsService.getCarByNumber(number).subscribe(data => this.car = data);
+  }
 
-    getCarByVin(vin: String){
+  getCarByVin(vin: String){
       this.carsService.getCarByVin(vin).subscribe(data => this.car = data);
-      console.log(this.car);
-    }
+  }
 
-    deleteCarById(id: Number): void {
-      const dialogRef = this.dialog.open(AlertsComponent, {
-        height: '150px',
-        width: '400px',
-        data: id
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-      });
-    }
+  reloadPage() {
+    this.router.navigate(['ui/cars']);
+  }
+
+  closeProfile(){
+  this.router.navigate(['ui/home']);
+  }
     
 }

@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookingInfo } from './booking-info';
 import { WorkInfo } from '../worker-list/work-info';
 import { Report } from './new-report';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { NotificationsService } from 'src/app/notifications/notifications.service';
 
 @Component({
   selector: 'app-time-list',
@@ -28,25 +30,33 @@ export class TimeListComponent implements OnInit {
   @Input()
   price : number;
 
+  @Input()
+  notiId : number[];
+
+  @Input()
+  fromNoti: boolean;
+
 
 
   error: ErrorEvent;
+  errorStatus : number
   bookingInfo : BookingInfo;
   newBooking : NewBooking;
   postBookingStatusCode : number;
   postReportStatusCode : number;
   lastId : string;
+  username : string;
 
   postBookingError = false;
-  postReportError = false;
 
   months = {'01':'Jan', '02':'Feb', '03':'Mar', '04':'Apr', '05':'May', '06':'June', '07':'July',
    '08':'Aug', '09':'Sept', '10':'Oct','11':'Nov', '12':'Dec'};
 
-  constructor(private timeListServices : TimeListService, private router: Router) {}
+  constructor(private timeListServices : TimeListService, private router: Router,
+    private tokenStorage: TokenStorageService, private notificationService: NotificationsService) {}
 
   ngOnInit() {
-    this.getBookingInfo()
+    this.getBookingInfo();
   }
 
   getBookingInfo(){
@@ -55,66 +65,81 @@ export class TimeListComponent implements OnInit {
     error => this.error = error);
   }
 
-  buttonClick(){
-    this.getBookingInfo();
-  }
-
   getDate(date : string) : string{
     return date.slice(8, 10) + " " + this.months[date.slice(5, 7)] + " " + date.slice(11, 16);
   }
 
-  isEmptyDate(date : Array<WorkTime>): boolean{
-   return date.length == 0;
-    //return work.length == 0;
+  parseDate(date : string): string{
+    return date.slice(0, 10) + " " + date.slice(11, 19);
+  }
+
+  postFeedBack(){
+    this.username = this.username = this.tokenStorage.getUsername();
+    this.timeListServices.postFeedBack(this.timeList.workersId, this.username)
+    .subscribe(error => {
+      this.error = error});
+  }
+
+  deleteNotifications(){
+    console.log(this.notiId);
+    for(let index = 0; index < this.notiId.length; index++){
+      console.log(this.notiId[index]);
+          this.notificationService.deleteNotification(this.notiId[index]);
+    }  
   }
 
   postBooking(){
     let newBooking: NewBooking = new NewBooking();
     newBooking.carId = this.carId;
-    newBooking.start = this.bookingInfo.startBooking;
-    newBooking.workInfo = this.workInfo;
-    newBooking.workerId = this.timeList.workerId;
+    newBooking.start = this.parseDate(this.bookingInfo.startBooking);
+    newBooking.worksInfo = this.workInfo;
+    newBooking.workersId = this.timeList.workersId;
 
         this.timeListServices.postNewBooking(newBooking)
-        .subscribe((date) => this.postBookingStatusCode = date,
-        error => this.error = error);
-
-        if(this.postBookingStatusCode === 200){
-          this.postReport();
-        }
-        else{
-          this.postBookingError = true;
-        }
+        .subscribe(error => {
+          this.errorStatus = error.status,
+          error => this.error = error,
+          this.postBookingStatusCode = this.errorStatus;
+          console.log(this.errorStatus);
+          
+          if(this.errorStatus === 200){
+            console.log(this.fromNoti);
+            if(this.fromNoti){
+              for(let index = 0; index < this.notiId.length; index++){
+                console.log(this.notiId[index]);
+                    this.notificationService.deleteNotification(this.notiId[index]).subscribe(error => console.log(error));
+              }
+            }
+            this.postReport();
+            this.postFeedBack();
+          }
+          else{
+            this.postBookingError = true;
+          }
+        },); 
+        this.goToCarsPage();
 }
 
   postReport(){
     let newReport: Report = new Report();
     newReport.carId = this.carId;
-    newReport.startTime = this.bookingInfo.startBooking;
-    newReport.endTime = this.bookingInfo.endBooking;
+    newReport.startTime = this.parseDate(this.bookingInfo.startBooking);
+    newReport.endTime = this.parseDate(this.bookingInfo.endBooking);
     newReport.requiredTime = this.timeList.needTime;
     newReport.price = this.price;
 
     this.timeListServices.postNewReport(newReport)
         .subscribe((date) => this.postReportStatusCode = date,
         error => this.error = error);
+
   }
 
 goToHomePage() {
   this.router.navigate(['ui/home']);
 }
-select(startSession : string){
-  if(this.lastId != undefined){
-    document.getElementById(this.lastId).className = "jumbotron text-center hoverable p-4 ";
-  }
-  if(this.lastId == startSession){
-    document.getElementById(this.lastId).className = "jumbotron text-center hoverable p-4 "
-  }
-  else{
-  document.getElementById(startSession).className = "jumbotron text-center hoverable p-4 " + "select";
-  }
 
-  this.lastId = startSession;
+goToCarsPage() {
+  this.router.navigate(['ui/cars']);
 }
 
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import ua.ita.smartcarservice.entity.AvatarEntity;
 
 @Repository
-public interface AvatarRepository extends JpaRepository<AvatarEntity,Long> {
+public interface AvatarRepository extends JpaRepository<AvatarEntity, Long> {
     AvatarEntity getByUserId(Long id);
 }

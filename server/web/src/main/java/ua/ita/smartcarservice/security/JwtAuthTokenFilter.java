@@ -1,10 +1,12 @@
 package ua.ita.smartcarservice.security;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ua.ita.smartcarservice.service.impl.UserDetailsServiceImpl;
 
@@ -22,7 +24,7 @@ import java.io.IOException;
  * 4. Load data from users table, then build an authentication object
  * 5. Set the authentication object to Security Context
  */
-
+@Component
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
 
@@ -38,14 +40,14 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
         try {
             String jwt = getJwt(request);
-
+            if(jwt != null) {
                 String username = tokenProvider.getUserNameFromJwtToken(jwt);
                 UserDetails userDetails = userDetailServiceImpl.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
+            }
         } catch (Exception e) {
             logger.error("Can NOT set user authentication: " + e);
         }

@@ -40,7 +40,6 @@ export class CarDetailsComponent implements OnInit {
     setTimeout(() =>
     { console.log(this.carId, this.carBrand, this.carModel, this.carGY, this.carNumber, this.carVin)
     }, 1000);
-
     }
 
   private getFromRouterParams(param: string) {
@@ -59,8 +58,12 @@ export class CarDetailsComponent implements OnInit {
       });
   }
 
-  applyToSTO(id: number){
-  this.router.navigate(['ui/booking', id]);
+  applyToSTO(carId: Number){
+    this.router.navigate(['/ui/booking'],
+    {queryParams: {
+      carId: carId,
+    }}
+   );
   }
 
   applyToTradeIn(vin: String){
@@ -68,11 +71,10 @@ export class CarDetailsComponent implements OnInit {
     this.router.navigate(['ui/tradeIn', vin]);
   }
 
-  goToCharts(carId: Number, carVin: String){
+  goToCharts(carId: Number){
     this.router.navigate(['ui/charts'],
       {queryParams: {
         carId: carId,
-        carVin: carVin
       }}
     );
   }
@@ -82,7 +84,7 @@ export class CarDetailsComponent implements OnInit {
   }
 
   closeProfile(){
-    window.location.href='ui/home'
+    this.router.navigate(['ui/home'])
   }
 
 }

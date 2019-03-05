@@ -1,23 +1,17 @@
 package ua.ita.smartcarservice.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import ua.ita.smartcarservice.dto.NewCarDTO;
-import ua.ita.smartcarservice.entity.booking.ReportEntity;
-import ua.ita.smartcarservice.exceptions.CarRegisteredAlreadyExсeption;
 import ua.ita.smartcarservice.dto.CarDto;
-import ua.ita.smartcarservice.exceptions.CarNotFoundException;
-import ua.ita.smartcarservice.exceptions.CarsNotFoundException;
+import ua.ita.smartcarservice.dto.NewCarDTO;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.booking.ReportService;
 
+import java.util.List;
 
-@CrossOrigin(origins = "*")
+
 @RequestMapping("/api")
 @RestController
 public class CarController {
@@ -48,13 +42,6 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    /* Find all cars in sto */
-//    @GetMapping("/owner/{id}/cars/sto")
-//    public ResponseEntity<List<ReportEntity>> findAllInSto(@PathVariable Long id) {
-//        List<ReportEntity> cars = reportService.getALlCarInSto(id);
-//        return new ResponseEntity<>(cars, HttpStatus.OK);
-//    }
-
     /* Find owner's cars by user id*/
     @GetMapping("/owner/{id}/cars")
     public ResponseEntity<List<CarDto>> findByUserId(@PathVariable Long id) {
@@ -62,7 +49,7 @@ public class CarController {
         return new ResponseEntity<>(cars, HttpStatus.OK);
     }
 
-    /* Find owner's cars by user id*/
+    /* Find owner's cars by username*/
     @GetMapping("/owner/{username}/car")
     public ResponseEntity<List<CarDto>> findByUsername(@PathVariable String username) {
         List<CarDto> cars = carService.findByUsername(username);
@@ -90,5 +77,4 @@ public class CarController {
         carService.addCar(newCarDTO, username);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
 }

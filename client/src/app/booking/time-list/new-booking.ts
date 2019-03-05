@@ -1,8 +1,8 @@
 import { WorkInfo } from '../worker-list/work-info';
 
 export class NewBooking{
-    workerId : Array<number>;
+    workersId : Array<number>;
     start : string;
     carId : number;
-    workInfo : Array<WorkInfo>;
+    worksInfo : Array<WorkInfo>;
 }

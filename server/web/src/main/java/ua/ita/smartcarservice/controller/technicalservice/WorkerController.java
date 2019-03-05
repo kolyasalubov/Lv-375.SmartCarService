@@ -42,21 +42,27 @@ public class WorkerController {
 
     private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
+    /**
+     * Method get data about chooses works and find optimal required time and workers schedule
+     *
+     * @param workerWithSkillDto - info about chooses works
+     * @return dto object with contains info about workers
+     */
     @PostMapping("/workers/skill")
     public ResponseEntity<WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
                                                                             workerWithSkillDto) {
 
-        WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorkName());
+        WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorksName());
 
-        Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillName().stream().collect(
-                Collectors.toMap(Function.identity(),
-                        s -> workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getSearchId()))
+        Map<String, List<WorkerDto>> workersBySkillName = workerWithSkillDto.getSkillsName().stream().collect(
+                Collectors.toMap(s -> s,
+                        s -> workerService.findByCarIdAndWorkersSkill(s, workerWithSkillDto.getCarId()))
         );
 
         WorkerBySkillNameDto workerBySkillNameDto = new WorkerBySkillNameDto();
-        workerBySkillNameDto.setWorkerList(workersBySkillName);
+        workerBySkillNameDto.setWorkersList(workersBySkillName);
         workerBySkillNameDto.setRequiredTime(workInfo.getRequiredTime());
-        workerBySkillNameDto.setWorkInfo(workInfo.getWorkInfo());
+        workerBySkillNameDto.setWorksInfo(workInfo.getWorkInfo());
 
         return new ResponseEntity <>(workerBySkillNameDto, HttpStatus.OK);
     }

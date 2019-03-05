@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import ua.ita.smartcarservice.entity.RoleNames;
+import ua.ita.smartcarservice.entity.Roles;
 import ua.ita.smartcarservice.service.impl.UserDetailsServiceImpl;
 
 import java.util.Arrays;
@@ -34,9 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthEntryPoint unauthorizedHandler;
 
-    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-        return new JwtAuthTokenFilter();
-    }
+    @Autowired
+    private JwtAuthTokenFilter authenticationJwtTokenFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -64,13 +63,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
-//                .antMatchers("/api/techservices/**", "api/user/**", "/api/users/**", "/api/skills/**", "/api/workers/**", "/api/notifications/**").hasAuthority(RoleNames.ROLE_TECHNICAL_MANAGER.toString())
-//                .antMatchers("/api/chart/**", "/api/record/**", "/api/report/**", "/api/techservices/**", "/api/owner/**", "/api/car/**", "/api/newcar/**", "api/workers/**", "api/works/**", "api/booking/**", "/api/notifications/**").hasAuthority(RoleNames.ROLE_CAR_OWNER.toString())
-//                .antMatchers("/api/report/**").hasAuthority(RoleNames.ROLE_WORKER.toString())
-//                .antMatchers("/api/dealer/**").hasAuthority(RoleNames.ROLE_DEALER.toString())
+                .antMatchers("/api/techservices/**", "api/user/**", "/api/users/**", "/api/skills/**", "/api/workers/**", "/api/notifications/**").hasAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString())
+                .antMatchers("/api/chart/**", "/api/record/**", "/api/report/**", "/api/techservices/**", "/api/owner/**", "/api/car/**", "/api/newcar/**", "/api/workers/**", "/api/works/**", "/api/booking/**", "/api/notifications/**", "/api/users/**", "/api/report", "/api/inspection/**").hasAuthority(Roles.ROLE_CAR_OWNER.toString())
+                .antMatchers("/api/report/**").hasAuthority(Roles.ROLE_WORKER.toString())
+                .antMatchers("/api/dealer/**").hasAuthority(Roles.ROLE_DIELER.toString())
                 .anyRequest().permitAll();
 
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

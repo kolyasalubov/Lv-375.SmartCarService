@@ -11,6 +11,4 @@ public class SkillDto {
 
     private String name;
 
-   // private List<FaultCode> faultCode;
-
 }

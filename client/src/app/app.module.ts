@@ -45,16 +45,19 @@ import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { PopupComponent } from './notifications/popup/popup.component';
 import * as Material from '@angular/material';
-import { MatDialog, MatDialogModule } from '@angular/material';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DatePipe } from '@angular/common';
-import { DataCardComponent } from './cars/data-card/data-card.component';
-import { TechserviceCardComponent } from './techservice-card/techservice-card.component';
-import { DealersComponent } from './dealers/dealers.component';
-import { MatExpansionModule } from '@angular/material';
-import { TechservicePageComponent } from './techservice-page/techservice-page.component';
-import { InfoMassageComponent } from './info-massage/info-massage.component';
+import {MatDialog, MatDialogModule} from '@angular/material';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {DatePipe} from '@angular/common';
+import {DataCardComponent} from './cars/data-card/data-card.component';
+import {TechserviceCardComponent} from './techservice-card/techservice-card.component';
+import {DealersComponent} from './dealers/dealers.component';
+import {ServiceHistoryModule} from "./service-history/service-history.module";
+import {MatExpansionModule} from '@angular/material';
+import {TechservicePageComponent} from './techservice-page/techservice-page.component';
+import {InfoMassageComponent} from './info-massage/info-massage.component';
+import {WorkerCardComponent} from './techservice/worker-card/worker-card.component';
+import {WorkersListComponent} from './techservice/workers-list/workers-list.component';
 
 @NgModule({
   declarations: [
@@ -96,8 +99,10 @@ import { InfoMassageComponent } from './info-massage/info-massage.component';
     TechservicePageComponent,
     WorkersFeedbackComponent,
     // Material.MatDialogModule,
-    InfoMassageComponent
- ],
+    InfoMassageComponent,
+    WorkerCardComponent,
+    WorkersListComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -109,6 +114,7 @@ import { InfoMassageComponent } from './info-massage/info-massage.component';
     }),
     BookingModule,
     ChartPageModule,
+    ServiceHistoryModule,
     SecurityModule,
     OverlayModule,
     MatDialogModule,
@@ -127,6 +133,6 @@ import { InfoMassageComponent } from './info-massage/info-massage.component';
     AlertsComponent,
     PopupComponent,
     InfoMassageComponent]
-  })
+})
 export class AppModule {
 }

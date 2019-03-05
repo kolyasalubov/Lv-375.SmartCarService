@@ -24,6 +24,12 @@ export class WorkerListComponent implements OnInit {
   @Input()
   cost : number;
 
+  @Input()
+  notiId : Array<number>;
+
+  @Input()
+  fromNoti : boolean;
+
   workersTime : WorkersTime;
   timeList : TimeList = new TimeList();
   workerForm : any = {};
@@ -33,9 +39,6 @@ export class WorkerListComponent implements OnInit {
 
   getDefault : boolean = false;
   defaulWorker : Map<string, number> = new Map();
-
-  incorrectNumberOfWorkers : boolean = false; 
-
   date : string;
   constructor(private workerListService : WorkerListService) {}
 
@@ -50,9 +53,7 @@ export class WorkerListComponent implements OnInit {
   }
 
   ChooseWorker(worker : Worker, skillname : string) :void{
-    this.incorrectNumberOfWorkers = false;
     this.showTime = false;
-
       if(this.lastIndexMap.get(skillname) != undefined){
         if(this.lastIndexMap.get(skillname) == -1){
           this.setClass(worker.workerId, 'select');
@@ -80,30 +81,21 @@ export class WorkerListComponent implements OnInit {
   }
 
   getFreeTime(){
-    this.timeList.time = this.workerForm.time;
     this.timeList.carId = this.carId;
+    this.timeList.time = this.getCurrentDate();
     
     let workId : Array<number> = new Array();
 
-    if(this.getDefault){
-      this.defaulWorker.forEach((value : number, key : string) => {
-        workId.push(value);
-      })
-    }
-    else{
-    this.lastIndexMap.forEach((value: number, key: string) => {
-      if(value != -1){
-        workId.push(value);
+    this.defaulWorker.forEach((value: number, key: string) => {
+      if(this.lastIndexMap.get(key) != undefined && this.lastIndexMap.get(key) != -1){
+        workId.push(this.lastIndexMap.get(key));
+      }
+      else{
+        workId.push(this.defaulWorker.get(key));
       }
     });
-  }
 
-    if(workId.length != this.workerList.skillName.length){
-        this.incorrectNumberOfWorkers = true;
-        return;
-    }
-
-    this.timeList.workerId = workId;
+    this.timeList.workersId = workId;
     this.timeList.needTime = this.workersTime.requiredTime;
 
     this.showWorker = false;
@@ -126,7 +118,6 @@ export class WorkerListComponent implements OnInit {
   }
 
   addToDefault(skillName : string, worker : Worker): string{
-    this.incorrectNumberOfWorkers = false;
       if(this.defaulWorker.get(skillName) == undefined){
         this.defaulWorker.set(skillName, worker.workerId);
         return worker.fullName;
@@ -137,6 +128,26 @@ export class WorkerListComponent implements OnInit {
       }
 
       return worker.fullName;
+  }
+
+  getCurrentDate() : string{
+    let today = new Date();
+    let date : string = String(today.getFullYear()) + "-";
+    if(today.getMonth() + 1 >= 10 ){
+      date += String(today.getMonth() + 1);
+    }
+    else{
+      date += "0" + String(today.getMonth() + 1);
+    }
+    date+="-";
+    if(today.getDate() >= 10 ){
+      date += String(today.getDate());
+    }
+    else{
+      date += "0" + String(today.getDate());
+    }
+    return date;
+
   }
 
 
