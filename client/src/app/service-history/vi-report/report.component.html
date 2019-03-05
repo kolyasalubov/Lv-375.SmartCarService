@@ -11,21 +11,21 @@
     <!--Card content-->
     <mdb-card-body>
       <!--Title-->
-      <mdb-card-title>
-        <h4> {{report.carBrand}} {{report.carModel}} </h4>
+      <mdb-card-title class="d-flex justify-content-center">
+        <h4> {{report.technicalServiceName}} </h4>
       </mdb-card-title>
 
       <!--Text-->
-      <mdb-card-text> Date: {{formatDate(report.startTime, report.endTime)}} </mdb-card-text>
-      <mdb-card-text> Total time of work: {{report.requiredTime / 60.0}} hours </mdb-card-text>
-      <mdb-card-text> Price: {{report.price}} uah </mdb-card-text>
+      <mdb-card-text> <strong>Car:</strong> {{report.carBrand}} {{report.carModel}} </mdb-card-text>
+      <mdb-card-text> <strong>Date:</strong> {{formatPeriod(report.startTime, report.endTime)}} </mdb-card-text>
+      <mdb-card-text> <strong>Time:</strong> {{formatTime(report.startTime)}} - {{formatTime(report.endTime)}} </mdb-card-text>
+      <mdb-card-text> <strong>Total time of work:</strong> {{roundHours(report.requiredTime)}} hours </mdb-card-text>
+      <mdb-card-text> <strong>Price:</strong> {{report.price}} uah </mdb-card-text>
 
-      <!--Works-->
-      <!--<mdb-card-text>  </mdb-card-text>-->
-      <!--<mdb-card-text>  </mdb-card-text>-->
-      <!--<mdb-card-text>  </mdb-card-text>-->
-
-      <pdf [reportId]=report.reportId></pdf>
+      <div class="d-flex justify-content-center">
+        <pdf [reportId]=report.reportId></pdf>
+      </div>
+      
     </mdb-card-body>
   </mdb-card>
 
