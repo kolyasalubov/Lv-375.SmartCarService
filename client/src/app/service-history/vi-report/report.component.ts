@@ -17,15 +17,29 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
   }
 
-  // public formatDate(date: Date): string {
-  //   let MONTHS = ["January", "February", "March", "April", "May", "June", "July",
-  //     "August", "September", "October", "November", "December"];
-  //   return `${date.getDay()} ${MONTHS[date.getMonth() - 1]} ${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
-  // }
+  public formatDate(date: string): string {
+    let iso: string = new Date(date).toISOString();
+    return iso.slice(0, 10);
+  }
 
-  public formatDate(startDate: Date, endDate): string {
-    return startDate.toLocaleDateString() === endDate.toLocaleDateString() ? startDate.toLocaleDateString()
-      : startDate.toLocaleDateString() + " - " + endDate.toLocaleDateString();
+  public formatTime(date: string): string {
+    let iso: string = new Date(date).toISOString();
+    return iso.slice(11, 16);
+  }
+
+  public formatPeriod(startDate: string, endDate: string): string {
+    let start: string = this.formatDate(startDate);
+    let end: string = this.formatDate(endDate);
+
+    if(start === end){
+      return start;
+    } else {
+      return `${start} - ${end}`;
+    }
+  }
+
+  public roundHours(requiredTime: number): number {
+    return Math.round((requiredTime / 60.0) * 10) / 10;
   }
 
 }

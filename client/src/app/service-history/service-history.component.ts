@@ -20,7 +20,7 @@ export class ServiceHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.carId = Number(this.getFromRouterParams('carId'));
-     this.getAllReportsByCarId(this.carId);
+    this.getAllReportsByCarId(this.carId);
   }
 
   private getFromRouterParams(param: string) {
