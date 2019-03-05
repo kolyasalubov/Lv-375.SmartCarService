@@ -43,6 +43,7 @@ import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
+import { PopupComponent } from './notifications/popup/popup.component';
 import * as Material from '@angular/material';
 import { MatDialog, MatDialogModule } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -88,6 +89,7 @@ import { InfoMassageComponent } from './info-massage/info-massage.component';
     PreviewComponent,
     ProgresbarComponent,
     AlertsComponent,
+    PopupComponent,
     DataCardComponent,
     TechserviceCardComponent,
     DealersComponent,
@@ -123,6 +125,7 @@ import { InfoMassageComponent } from './info-massage/info-massage.component';
   exports: [SecurityModule],
   entryComponents: [
     AlertsComponent,
+    PopupComponent,
     InfoMassageComponent]
   })
 export class AppModule {
