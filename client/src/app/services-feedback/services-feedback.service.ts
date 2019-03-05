@@ -30,6 +30,12 @@ export class ServicesFeedbackService {
       httpOptions).pipe(catchError(this.errorHandler));
   }
   
+  clearFeedbackToleaveByUsername(username: string) {
+    return this.http.delete(Globals.baseURL + 
+        this. feedbackToLeaveByUsername.replace('{userName}', username))
+      .pipe(catchError(this.errorHandler));
+  }
+
   getFeedbackToLeaveByUsername(username: string): Observable<number[]> {
     return this.http.get<number[]>(Globals.baseURL + 
       this.feedbackToLeaveByUsername.replace('{username}', username))
