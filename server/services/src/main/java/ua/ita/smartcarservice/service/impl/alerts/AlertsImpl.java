@@ -13,13 +13,11 @@ public class AlertsImpl implements AlertsService {
 	@Autowired
 	private AlertsRepository alertsRepository;
 
-	/* READ */
 	@Override
 	public AlertsDto getAlert(String code) {
 		return entityToDto(alertsRepository.getAlert(code));
 	}
 
-	/* convert entity to DTO */
 	private AlertsDto entityToDto(Alerts entity) {
 		return new AlertsDto(entity.getAlertCode(),
 				entity.getDescription(),

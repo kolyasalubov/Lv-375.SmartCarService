@@ -24,7 +24,6 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 	@Autowired
 	private CarRepository carRepository;
 
-	/* CREATE */
 	@Override
 	public void saveVehicleInspection(VehicleInspectionDto vehicleInspectionDto) {
 		VehicleInspection entity = new VehicleInspection(
@@ -35,7 +34,6 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 		vehicleInspectionRepository.save(entity);
 	}
 
-	/* READ */
 	@Override
 	public List<VehicleInspectionDto> getCarsForYearlyInspection() {
 		List<VehicleInspectionDto> toReturn = new ArrayList();
@@ -64,11 +62,6 @@ public class VehicleInspectionImpl implements VehicleInspectionService{
 					entity.getVin(),
 					entity.getUser())));
 		return toReturn;
-	}
-
-	@Override
-	public Date getDateOfLastVehicleInspection(long carId) {
-		return vehicleInspectionRepository.getDateOfLastVehicleInspection(carId);
 	}
 
 	@Override

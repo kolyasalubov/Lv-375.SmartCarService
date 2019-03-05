@@ -16,7 +16,7 @@
 
 .notifications-container{
     max-height: 75vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     padding-right: 6px;
 }
@@ -105,6 +105,10 @@
     color: white;
     float: right;
     margin-left: 15px !important;
+    padding-top: unset;
+    padding-bottom: unset;
+    height: 24px;
+    font-size: 8px;
 }
 
 /* for checkbox */
