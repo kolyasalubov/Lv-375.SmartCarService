@@ -121,11 +121,11 @@ export class CarsComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.href='/ui/cars/';
+    this.router.navigate(['ui/cars']);
   }
 
   closeProfile(){
-  window.location.href='/ui/home'
+  this.router.navigate(['ui/home']);
   }
     
 }

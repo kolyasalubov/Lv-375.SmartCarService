@@ -84,7 +84,7 @@ export class CarDetailsComponent implements OnInit {
   }
 
   closeProfile(){
-    window.location.href='ui/home'
+    this.router.navigate(['ui/home'])
   }
 
 }

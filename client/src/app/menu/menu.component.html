@@ -35,13 +35,13 @@
   <div id="sidebar-wrapper">
   <ul id="sidebar_menu" class="sidebar-nav">
   <li class="sidebar-brand">
-    <a id="menu-toggle" href="/ui/home">SmartCarService</a></li>
+    <a id="menu-toggle" (click)="goHome()">SmartCarService</a></li>
   </ul>
   <br>
   <ul id="sidebar" class="sidebar-nav" >
   <li class="sidebar-user">
   <img src="assets/img/icon1.png" width="110px" height="110px" style="margin-left: 7%">
-  <a id="name" href="/ui/userprofile">{{user.fullName}}</a></li>
+  <a id="name" (click)="goToUserProfile()">{{user.fullName}}</a></li>
   <li *ngIf="authority === 'owner'"> <a class="" (click) = "goToOwnerCars()">My cars <i class="fa fa-car" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/newcar" >Add new car <i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/location" >Location of cars <i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
