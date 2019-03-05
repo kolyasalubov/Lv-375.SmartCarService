@@ -34,11 +34,11 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     UserTechnicalServiceRepository userTechnicalServiceRepository;
 
-        @Autowired
-        UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-        @Autowired
-        WorkTimeService workTimeService;
+    @Autowired
+    WorkTimeService workTimeService;
 
 
     public ReportEntity addReport(ReportDto reportDto) {
@@ -62,7 +62,7 @@ public class ReportServiceImpl implements ReportService {
 
         private LocalDateTime parseDateToLocal (String s){
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            return LocalDateTime.parse(s.substring(0, s.indexOf('T')) + " " + s.substring(s.indexOf('T') + 1), formatter);
+            return LocalDateTime.parse(s, formatter);
         }
 
         @Override
@@ -71,12 +71,12 @@ public class ReportServiceImpl implements ReportService {
         }
 
         @Override
-        public List <ReportEntity> findAllReportsByUserId ( long userId){
+        public List<ReportEntity> findAllReportsByUserId ( long userId){
             return reportRepository.findAllReportsByUserId(userId);
         }
 
         @Override
-        public List <ReportExtendedDto> findAllReportsByCarId ( long carId){
+        public List<ReportExtendedDto> findAllReportsByCarId ( long carId){
             return reportRepository.findAllReportsByCarId(carId).stream()
                     .map(this::reportEntityToExtendedDto).collect(Collectors.toList());
         }

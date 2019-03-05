@@ -13,6 +13,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/api/booking")
 public class BookingController {
 
     @Autowired
@@ -23,14 +24,14 @@ public class BookingController {
 
     private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
-    @PostMapping("/api/booking/time")
+    @PostMapping("/time")
     public ResponseEntity<BookingInfoDto> findTimeToBooking(@RequestBody BookingDto bookingDto) {
         return new ResponseEntity <>(new BookingInfoDto(bookingService.findTimeToBooking(bookingDto),
                 technicalService.findTechnicalServiceByCarId(bookingDto.getCarId())),
                 HttpStatus.OK);
     }
 
-    @PostMapping("/api/booking/new")
+    @PostMapping("/new")
     public ResponseEntity addBooking(@RequestBody NewBookingDto newBookingDto) {
         logger.info("Trying to add new booking for car with id: " + newBookingDto.getCarId());
         try {

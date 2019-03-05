@@ -39,7 +39,6 @@ export class WorkerListComponent implements OnInit {
 
   getDefault : boolean = false;
   defaulWorker : Map<string, number> = new Map();
-  timeError : boolean = false;
   date : string;
   constructor(private workerListService : WorkerListService) {}
 
@@ -82,15 +81,8 @@ export class WorkerListComponent implements OnInit {
   }
 
   getFreeTime(){
-    this.timeList.time = this.workerForm.time;
     this.timeList.carId = this.carId;
-    if(!this.dateValidation(this.timeList.time)){
-      this.timeError = true;
-      return;
-    }
-    else{
-      this.timeError = false;
-    }
+    this.timeList.time = this.getCurrentDate();
     
     let workId : Array<number> = new Array();
 
@@ -138,18 +130,24 @@ export class WorkerListComponent implements OnInit {
       return worker.fullName;
   }
 
-  dateValidation(time : string) : boolean{
-    if(this.workerForm.time == undefined){
-      return false;
-    }
+  getCurrentDate() : string{
     let today = new Date();
-    let year : number = (Number)(time.slice(0,4));
-    let month : number = (Number)(time.slice(5,7));
-    let day : number = (Number)(time.slice(8,10));
-    if(today.getFullYear() > year || (today.getMonth() + 1) > month || today.getDate() > day){
-      return false;
+    let date : string = String(today.getFullYear()) + "-";
+    if(today.getMonth() + 1 >= 10 ){
+      date += String(today.getMonth() + 1);
     }
-    return true;
+    else{
+      date += "0" + String(today.getMonth() + 1);
+    }
+    date+="-";
+    if(today.getDate() >= 10 ){
+      date += String(today.getDate());
+    }
+    else{
+      date += "0" + String(today.getDate());
+    }
+    return date;
+
   }
 
 
