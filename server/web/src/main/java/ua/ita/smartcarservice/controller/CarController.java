@@ -12,7 +12,6 @@ import ua.ita.smartcarservice.service.booking.ReportService;
 import java.util.List;
 
 
-@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 @RestController
 public class CarController {
