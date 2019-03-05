@@ -39,8 +39,10 @@ export class ServicesFeedbackFormComponent implements OnInit {
   }
 
   sendFeedback() {
-    console.log(this.feedbackForm);
-    this.servicesFeedbackService.sendFeedback(this.feedbackForm).subscribe();
+    this.servicesFeedbackService.sendFeedback(this.feedbackForm).subscribe(() => {
+        this.servicesFeedbackService.clearFeedbackToleaveByUsername(this.tokenStorage.getUsername()).subscribe();
+      }
+    );
   }
 
   getFeedbackToLeaveByCurrentUser() {
