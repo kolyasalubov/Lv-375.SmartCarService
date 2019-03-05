@@ -167,14 +167,14 @@ public class NotificationsServiceImpl implements NotificationService{
 
 	/* Helper method to analyze sensors data */
 	private boolean analyzeSensorData(String type, Double value) {
-		SensorTypes incomingType = SensorTypes.valueOf(type);
-		if(incomingType == SensorTypes.FUEL && value < CRITICAL_FUEL_LEVEL) {
+		if(type.equals(SensorTypes.FUEL.toString()) && value < CRITICAL_FUEL_LEVEL) {
 			return true;
-		} else if(incomingType == SensorTypes.GLASS_WASHER_FLUID && value < CRITICAL_GLASS_WASHER_FLUID_LEVEL){
+		} else if(type.equals(SensorTypes.GLASS_WASHER_FLUID) && value < CRITICAL_GLASS_WASHER_FLUID_LEVEL){
 			return true;
-		} else if(incomingType == SensorTypes.COOLANT && value < CRITICAL_COOLANT_LEVEL) {
+		} else if(type.equals(SensorTypes.COOLANT) && value < CRITICAL_COOLANT_LEVEL) {
 			return true;
 		}
 		return false;
+
 	}
 }
