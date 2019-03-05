@@ -4,6 +4,7 @@ import { Techservice } from '../techservice/techservice';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { TechserviceService } from '../techservice/techservice.service';
 import { ServicesFeedbackService } from '../services-feedback/services-feedback.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'services-feedback-form',
@@ -19,7 +20,8 @@ export class ServicesFeedbackFormComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService,
     private techserviceService: TechserviceService,
-    private servicesFeedbackService: ServicesFeedbackService) { 
+    private servicesFeedbackService: ServicesFeedbackService,
+    private router: Router) { 
 
   }
 
@@ -41,6 +43,7 @@ export class ServicesFeedbackFormComponent implements OnInit {
   sendFeedback() {
     this.servicesFeedbackService.sendFeedback(this.feedbackForm).subscribe(() => {
         this.servicesFeedbackService.clearFeedbackToleaveByUsername(this.tokenStorage.getUsername()).subscribe();
+        this.router.navigate(['/ui/home']);
       }
     );
   }

@@ -29,17 +29,12 @@
   </mdb-card-body>
 </mdb-card>
 
-<!--
-<div *ngFor="let worker of workers" style="position: relative; top: 90px;" class="row">
-  <app-workers-feedback [workerId]="worker" class="col-sm-2"></app-workers-feedback>
-</div>
--->
 <div class="row" style="position: relative; top: 90px;">
     <app-workers-feedback *ngFor="let worker of workers.slice(0, 2)" [workerId]="worker" class="col col-sm-3"></app-workers-feedback>
 </div>
 <div class="row" style="position: relative; top: 90px;">
     <app-workers-feedback *ngFor="let worker of workers.slice(2, 4)" [workerId]="worker" class="col col-sm-3"></app-workers-feedback>
 </div>
-<!--
-<services-feedback [serviceId]="4"></services-feedback>
--->
+<div class="row" style="position: relative; top: 90px;">
+    <app-workers-feedback *ngFor="let worker of workers.slice(4, 6)" [workerId]="worker" class="col col-sm-3"></app-workers-feedback>
+</div>
