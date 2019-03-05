@@ -64,10 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
-//                .antMatchers("/api/techservices/**", "api/user/**", "/api/users/**", "/api/skills/**", "/api/workers/**", "/api/notifications/**").hasAuthority(RoleNames.ROLE_TECHNICAL_MANAGER.toString())
-//                .antMatchers("/api/chart/**", "/api/record/**", "/api/report/**", "/api/techservices/**", "/api/owner/**", "/api/car/**", "/api/newcar/**", "api/workers/**", "api/works/**", "api/booking/**", "/api/notifications/**").hasAuthority(RoleNames.ROLE_CAR_OWNER.toString())
-//                .antMatchers("/api/report/**").hasAuthority(RoleNames.ROLE_WORKER.toString())
-//                .antMatchers("/api/dealer/**").hasAuthority(RoleNames.ROLE_DEALER.toString())
+                .antMatchers("/api/techservices/**", "api/user/**", "/api/users/**", "/api/skills/**", "/api/workers/**", "/api/notifications/**").hasAuthority(RoleNames.ROLE_TECHNICAL_MANAGER.toString())
+                .antMatchers("/api/chart/**", "/api/record/**", "/api/report/**", "/api/techservices/**", "/api/owner/**", "/api/car/**", "/api/newcar/**", "api/workers/**", "api/works/**", "api/booking/**", "/api/notifications/**").hasAuthority(RoleNames.ROLE_CAR_OWNER.toString())
+                .antMatchers("/api/report/**").hasAuthority(RoleNames.ROLE_WORKER.toString())
+               .antMatchers("/api/dealer/**").hasAuthority(RoleNames.ROLE_DEALER.toString())
                 .anyRequest().permitAll();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -2,11 +2,11 @@ package ua.ita.smartcarservice.service.impl.booking.graph;
 
 import java.util.Comparator;
 
-public class Edge implements Comparator {
+public class Node implements Comparator {
     private long index;
     private long requiredTime;
 
-    public Edge(long index, long requiredTime){
+    public Node(long index, long requiredTime){
         this.index = index;
         this.requiredTime = requiredTime;
     }
@@ -20,8 +20,8 @@ public class Edge implements Comparator {
     }
     @Override
     public int compare(Object o1, Object o2) {
-        Edge e1 = (Edge)o1;
-        Edge e2 = (Edge)o2;
+        Node e1 = (Node)o1;
+        Node e2 = (Node)o2;
 
         return Long.compare(e1.requiredTime, e2.requiredTime)* -1;
     }

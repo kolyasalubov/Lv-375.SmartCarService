@@ -69,6 +69,10 @@ export class TimeListComponent implements OnInit {
     return date.slice(8, 10) + " " + this.months[date.slice(5, 7)] + " " + date.slice(11, 16);
   }
 
+  parseDate(date : string): string{
+    return date.slice(0, 10) + " " + date.slice(11, 18);
+  }
+
   postFeedBack(){
     this.username = this.username = this.tokenStorage.getUsername();
     this.timeListServices.postFeedBack(this.timeList.workersId, this.username)
@@ -87,7 +91,7 @@ export class TimeListComponent implements OnInit {
   postBooking(){
     let newBooking: NewBooking = new NewBooking();
     newBooking.carId = this.carId;
-    newBooking.start = this.bookingInfo.startBooking;
+    newBooking.start = this.parseDate(this.bookingInfo.startBooking);
     newBooking.worksInfo = this.workInfo;
     newBooking.workersId = this.timeList.workersId;
 
@@ -115,8 +119,8 @@ export class TimeListComponent implements OnInit {
   postReport(){
     let newReport: Report = new Report();
     newReport.carId = this.carId;
-    newReport.startTime = this.bookingInfo.startBooking;
-    newReport.endTime = this.bookingInfo.endBooking;
+    newReport.startTime = this.parseDate(this.bookingInfo.startBooking);
+    newReport.endTime = this.parseDate(this.bookingInfo.endBooking);
     newReport.requiredTime = this.timeList.needTime;
     newReport.price = this.price;
 

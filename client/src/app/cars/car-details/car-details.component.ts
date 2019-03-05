@@ -40,7 +40,6 @@ export class CarDetailsComponent implements OnInit {
     setTimeout(() =>
     { console.log(this.carId, this.carBrand, this.carModel, this.carGY, this.carNumber, this.carVin)
     }, 1000);
-
     }
 
   private getFromRouterParams(param: string) {
@@ -59,12 +58,12 @@ export class CarDetailsComponent implements OnInit {
       });
   }
 
-  applyToSTO(carId: number){
+  applyToSTO(carId: Number){
     this.router.navigate(['/ui/booking'],
     {queryParams: {
-      carId: carId
+      carId: carId,
     }}
-  );
+   );
   }
 
   applyToTradeIn(vin: String){

@@ -23,9 +23,6 @@ public interface BookingRepository extends JpaRepository<WorkTime, Long> {
                                     @Param("starttime") LocalDateTime time,
                                     @Param("endtime") LocalDateTime endt);
 
-    @Query("select count(w) from WorkTime as w where :starttime < w.endBooking and :endtime > w.startBooking")
-    int selectNumberOfBookingWithDate(@Param("starttime") LocalDateTime starttime, @Param("endtime") LocalDateTime endtime);
-
     @Transactional
     @Modifying
     @Query("update WorkTime as w " +

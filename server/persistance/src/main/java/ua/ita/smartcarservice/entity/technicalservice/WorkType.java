@@ -28,7 +28,7 @@ public class WorkType {
     private Long cost;
 
     @ManyToOne
-    @JoinColumn(name = "skillId", nullable = false)
+    @JoinColumn(name = "skill_id", nullable = false)
     private SkillEntity skill;
 
     @JsonIgnore

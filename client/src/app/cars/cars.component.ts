@@ -57,7 +57,7 @@ export class CarsComponent implements OnInit {
       console.log(carId);
       this.router.navigate(['/ui/booking'],
       {queryParams: {
-        carId: carId
+        carId: carId,
       }}
     );
     }
