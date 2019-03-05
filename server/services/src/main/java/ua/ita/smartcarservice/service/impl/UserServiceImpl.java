@@ -11,72 +11,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Override
-	public void createUser(UserEntity userEntity) {
-			userRepository.save(userEntity);
-	}
+    @Autowired
+    private UserRepository userRepository;
 
-	public List<UserDto> findAll() {
-		List<UserDto> userDtos = new ArrayList<>();
-		for (UserEntity user : userRepository.findAll()) {
-			userDtos.add(getUserDto(user));
-		}
-		return userDtos;
-	}
+    @Override
+    public void createUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
+    }
 
-	public UserDto getUserById(Long id) {
-		UserEntity user = userRepository.getUserById(id);
-		UserDto carOwnerDto = getUserDto(user);
-		return carOwnerDto;
-	}
+    public List<UserDto> findAll() {
+        List<UserDto> userDtos = new ArrayList<>();
+        for (UserEntity user : userRepository.findAll()) {
+            userDtos.add(getUserDto(user));
+        }
+        return userDtos;
+    }
 
-	public UserDto findByUsername(String username) {
-		UserEntity user = userRepository.findByUsername(username).get();
-		UserDto userDto = getUserDto(user);
-		return userDto;
-	}
+    public UserDto getUserById(Long id) {
+        UserEntity user = userRepository.getUserById(id);
+        UserDto carOwnerDto = getUserDto(user);
+        return carOwnerDto;
+    }
 
-	public UserEntity findUser (String username) {
-		UserEntity user = userRepository.findByUsername(username).get();
-		return user;
-	}
+    public UserDto findByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username).get();
+        UserDto userDto = getUserDto(user);
+        return userDto;
+    }
 
-	public void deleteById(Long id) {
-		userRepository.deleteById(id);
+    public UserEntity findUser(String username) {
+        UserEntity user = userRepository.findByUsername(username).get();
+        return user;
+    }
 
-}
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
 
-	@Override
-	public void updateUserById(Long id, UserEntity userEntity) {
-				userEntity.setId(id);
-		userRepository.save(userEntity);
-		
-	}
+    }
 
+    @Override
+    public void updateUserById(Long id, UserEntity userEntity) {
+        userEntity.setId(id);
+        userRepository.save(userEntity);
 
-	//for User => UserDto
-	public UserDto getUserDto(UserEntity user) {
-		UserDto userDto = new UserDto(user.getId(),
-				user.getUsername(),
-				user.getPassword(),
-				user.getEmail(),
-				user.getFullName(),
-				user.getNumberPhone());
-		return userDto;
-	}
-	@Override
-	public UserEntity findByUserName(String username) {
-		return userRepository.findByUsername(username).get();
-	}
+    }
 
-	@Override
-	public UserEntity findById(Long id) {
-		return userRepository.getUserById(id);
-	}
+    public UserDto getUserDto(UserEntity user) {
+        UserDto userDto = new UserDto(user.getId(),
+                user.getUsername(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getFullName(),
+                user.getNumberPhone());
+        return userDto;
+    }
+
+    @Override
+    public UserEntity findByUserName(String username) {
+        return userRepository.findByUsername(username).get();
+    }
+
+    @Override
+    public UserEntity findById(Long id) {
+        return userRepository.getUserById(id);
+    }
 
 }

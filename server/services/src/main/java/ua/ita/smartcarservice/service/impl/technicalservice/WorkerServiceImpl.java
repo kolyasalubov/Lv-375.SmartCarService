@@ -3,9 +3,8 @@ package ua.ita.smartcarservice.service.impl.technicalservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
-import ua.ita.smartcarservice.dto.technicalservice.SkillDto;
 import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
-import ua.ita.smartcarservice.entity.RoleNames;
+import ua.ita.smartcarservice.entity.Roles;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
@@ -60,7 +59,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<UserEntity> getAllWorkers() {
-        return userRepository.getUserEntitiesByRoleName(RoleNames.ROLE_WORKER.name());
+        return userRepository.getUserEntitiesByRoleName(Roles.ROLE_WORKER.toString());
     }
 
     @Override
@@ -101,8 +100,8 @@ public class WorkerServiceImpl implements WorkerService {
 
         workersEntity = userRepository.getUserById(workerId);
         workerSkillDto = getWorkerSkillDto(
-                    workersEntity,
-                    workersSkillRepository.getByWorkerId(workersEntity).getSkill());
+                workersEntity,
+                workersSkillRepository.getByWorkerId(workersEntity).getSkill());
 
         return workerSkillDto;
     }

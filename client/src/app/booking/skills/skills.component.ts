@@ -38,11 +38,11 @@ export class StoSkillComponent implements OnInit {
   noWorkSelect = false;
 
   constructor(private skillService: SkillService, private route: ActivatedRoute,
-     private notificationService: NotificationsService, private router: Router) { }
+     private notificationService: NotificationsService, private router: Router) {}
+
   ngOnInit() {
     this.searchId = Number(this.getFromRouterParams('carId'));
-    this.userId = Number(this.getFromRouterParams('userId'));
-
+    console.log(this.searchId);
     if(this.searchId == 0){
       this.fromNoti = true;
       this.getUsersNotifications();
@@ -71,9 +71,9 @@ export class StoSkillComponent implements OnInit {
     this.notificationService.currentNotifications
       .subscribe((data: Notifications[]) => {
         this.noti = data;
-        console.log(this.noti);
         for(let index = 0; index < this.noti.length; index++){
-            if(this.noti[index].isSelected){
+          console.log(this.noti[index].type);
+            if(this.noti[index].isSelected && this.noti[index].type == 'Warning'){
               this.notificationWork.set(this.noti[index].workTypeName, true);
                 this.notiId.push(this.noti[index].id);
             }
@@ -174,6 +174,7 @@ export class StoSkillComponent implements OnInit {
 
     this.selectedWork = new Map();
     this.selectedSkill = new Map();
+    console.log(workerList);
     return workerList;
   }
 
@@ -223,6 +224,4 @@ export class StoSkillComponent implements OnInit {
   goToCarsPage() {
     this.router.navigate(['ui/cars']);
   }
-
-
 }

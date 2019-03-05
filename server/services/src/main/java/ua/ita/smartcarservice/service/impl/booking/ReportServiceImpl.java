@@ -39,6 +39,7 @@ public class ReportServiceImpl implements ReportService {
     WorkTimeService workTimeService;
 
 
+    @Override
     public ReportEntity addReport(ReportDto reportDto) {
         return reportRepository.save(repordDtoToEntity(reportDto));
     }
@@ -60,7 +61,7 @@ public class ReportServiceImpl implements ReportService {
 
     private LocalDateTime parseDateToLocal(String s) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return LocalDateTime.parse(s.substring(0, s.indexOf('T')) + " " + s.substring(s.indexOf('T') + 1), formatter);
+        return LocalDateTime.parse(s, formatter);
     }
 
     @Override
@@ -78,7 +79,6 @@ public class ReportServiceImpl implements ReportService {
         return reportRepository.findAllReportsByCarId(carId).stream()
                 .map(this::reportEntityToExtendedDto).collect(Collectors.toList());
     }
-
 
     @Override
     public byte[] formExtendedReport(long reportId) {
@@ -113,7 +113,6 @@ public class ReportServiceImpl implements ReportService {
 
         return dto;
     }
-
 
 }
 

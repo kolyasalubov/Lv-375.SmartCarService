@@ -8,7 +8,9 @@ import java.util.List;
 public class WorkerWithSkillDto {
 
     private List<String> skillsName;
+
     private List<String> worksName;
+
     private Long carId;
 
 }

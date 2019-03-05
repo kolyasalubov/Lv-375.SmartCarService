@@ -54,8 +54,8 @@
     <br>
     <div>
       <button id="create" type="submit" class="btn my-2 my-sm-0" [disabled]="!f.form.valid">Create</button>
-      <a id="cancel" href="ui/cars" type="button" class="btn my-2 my-sm-0">Cancel</a>
-    </div>
+      <a id="cancel" (click)="reloadPage()" type="button" class="btn my-2 my-sm-0">Cancel</a>
+      </div>
   </form>
 </div>
 

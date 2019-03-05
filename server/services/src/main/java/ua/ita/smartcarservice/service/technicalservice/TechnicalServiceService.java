@@ -30,8 +30,6 @@ public interface TechnicalServiceService {
 
     List<TechnicalServiceDto> getAllTechnicalServicesDto();
 
-    TechnicalServiceEntity getByTechnicalManager(UserEntity technicalManager);
-
     TechnicalServiceDto getTechnicalServiceDtoById(Long id);
 
     TechnicalServiceDto updateTechnicalService(TechnicalServiceEntity technicalService);

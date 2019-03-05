@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.feedback.FeedbackToLeave;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 public interface FeedbackToLeaveRepository extends JpaRepository<FeedbackToLeave, Long> {
     List<FeedbackToLeave> findAllByUserId(UserEntity userId);
+
     void deleteAllByUserId(UserEntity userId);
 }
