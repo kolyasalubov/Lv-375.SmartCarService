@@ -193,7 +193,7 @@ public class PdfCreator {
         footer.add(anchor);
 
         footer.setAlignment(Element.ALIGN_CENTER);
-        footer.setSpacingBefore(75);
+        footer.setSpacingBefore(85);
         document.add(footer);
     }
 

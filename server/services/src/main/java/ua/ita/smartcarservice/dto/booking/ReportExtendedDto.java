@@ -30,5 +30,5 @@ public class ReportExtendedDto {
     private String technicalServiceName;
     private String technicalServiceAddress;
 
-    private Map<String, List<WorkType>> workerTasks;    // key -> Worker's fullName
+    private Map<String, List<WorkType>> workerTasks;
 }

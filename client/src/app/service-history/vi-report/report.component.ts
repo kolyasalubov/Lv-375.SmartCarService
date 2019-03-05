@@ -24,8 +24,7 @@ export class ReportComponent implements OnInit {
   // }
 
   public formatDate(startDate: Date, endDate): string {
-    return startDate.toLocaleDateString() === endDate.toLocaleDateString() ? startDate.toLocaleDateString()
-      : startDate.toLocaleDateString() + " - " + endDate.toLocaleDateString();
+    return startDate.toLocaleString() + " - " + endDate.toLocaleString();
   }
 
 }

@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.entity.sensors.common;
 
 public enum BrakeFluid {
+
     LEVEL("level"),
     HUMIDITY("humidity");
 

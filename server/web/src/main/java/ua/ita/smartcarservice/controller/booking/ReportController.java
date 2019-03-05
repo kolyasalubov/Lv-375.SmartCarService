@@ -39,7 +39,7 @@ public class ReportController {
 
     @GetMapping("/pdf/{reportId}")
     public ResponseEntity<byte[]> formPdf(@PathVariable Long reportId) {
-        byte[] pdf = reportService.formExtendedReport(reportId).getPdf();
+        byte[] pdf = reportService.formExtendedReport(reportId);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));

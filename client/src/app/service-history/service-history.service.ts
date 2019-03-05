@@ -16,17 +16,16 @@ export class ServiceHistoryService {
   public getPdfFromDB(reportId: number) {
 
     const httpOptions = {
-      'responseType'  : 'arraybuffer' as 'json'
-      //'responseType'  : 'blob' as 'json'        //This also worked
+      'responseType': 'arraybuffer' as 'json'
     };
 
     return this.http.get<any>(`${this.URL}/pdf/${reportId}`, httpOptions);
 
   }
 
-  //
-  // public getAllReportsByCarId(carId: number): Observable<Array<ReportDto>> {
-  //   return this.http.get<Array<ReportDto>>(`${this.URL}/car/${carId}`)
-  // }
+
+  public getAllReportsByCarId(carId: number): Observable<Array<ReportDto>> {
+    return this.http.get<Array<ReportDto>>(`${this.URL}/car/${carId}`)
+  }
 
 }

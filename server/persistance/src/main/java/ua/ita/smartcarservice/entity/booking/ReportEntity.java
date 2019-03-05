@@ -1,11 +1,9 @@
 package ua.ita.smartcarservice.entity.booking;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ua.ita.smartcarservice.entity.Car;
@@ -25,17 +23,14 @@ public class ReportEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reportId;
 
-
     @ManyToOne
     @JoinColumn(name = "car_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Car car;
 
-
     @ManyToOne
     @JoinColumn(name = "technical_service_id")
     private TechnicalServiceEntity technicalService;
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "report")
@@ -64,8 +59,4 @@ public class ReportEntity {
         this.requiredTime = report.requiredTime;
         this.price = report.price;
     }
-
-
-
-
 }
