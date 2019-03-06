@@ -4,6 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Notifications } from '../notifications';
 import { NotificationsService } from '../notifications.service';
+import { PopupService } from 'src/app/notifications/popup/popup.service';
+import { MatDialog } from '@angular/material';
+import { PopupComponent } from 'src/app/notifications/popup/popup.component';
 
 @Component({
   selector: 'app-notifications-list',
@@ -14,57 +17,68 @@ export class NotificationsListComponent implements OnInit {
 
   notifications: Notifications[];
   private sorted = false;
-  // message : string;
-  // showModal : boolean;
 
   @Input() notification: Notifications;
   @Input() id: number;
   constructor(private router: Router,
-              private notificationsService: NotificationsService,
-              private route: ActivatedRoute) { 
-                let stompClient = this.notificationsService.connect();
-                stompClient.connect({}, frame => {
-                  stompClient.subscribe('/notifications-list', notifications => {
-                    console.log("notiffffications: ", notifications);
-                    this.notifications.unshift(JSON.parse(notifications.body));
-                  })
-                })
-              }
-
+    private notificationsService: NotificationsService,
+    private route: ActivatedRoute, 
+    private popupService: PopupService,  
+    public dialog: MatDialog) {
+      let stompClient = this.notificationsService.connect();
+      stompClient.connect({}, frame => {
+        stompClient.subscribe('/notifications-list', response => {
+          let notification = JSON.parse(response.body);
+          this.notificationsService.wrapNotification(notification)
+          this.notifications.unshift(notification);
+        })
+      })
+  }
   ngOnInit() {
-    this.route.params.subscribe(params => {this.id = params["id"];});
+    this.route.params.subscribe(params => { this.id = params["id"]; });
     this.notificationsService.currentNotifications.subscribe(data => this.notifications = data);
     this.notificationsService.updateNotifications(this.notificationsService.getAllNotifications(this.id));
   }
-  deleteNotification(id : number): void {
+  deleteNotification(id: number): void {
     this.notificationsService.deleteNotification(id)
-    .subscribe(
-      data => {
-        console.log('delete notification data',data);
-        this.notifications = this.notifications.filter(n => n.id !== id);
-      },
-      error => console.log(error));
+      .subscribe(
+        data => {
+          console.log('delete notification data', data);
+          this.notifications = this.notifications.filter(n => n.id !== id);
+        },
+        error => console.log(error));
   }
 
-  applyFor() : void{
+  applyFor(): void {
     let isSelected = false;
     let carIds = new Set();
     this.notifications.forEach(
       n => {
-        if(n.isSelected) {
+        if (n.isSelected) {
           isSelected = true;
           carIds.add(n.carId);
         }
       }
     )
-    if(isSelected && carIds.size === 1) {
+    if (isSelected && carIds.size === 1) {
       this.router.navigate(['/ui/notifications-approvement', this.id]);
     } else {
-      if (carIds.size > 1){
-        alert("You can choose only one car at once");
+      var message = "";
+      if (carIds.size > 1) {
+        message = "You can choose only one car at once";
       } else {
-        alert("Select notifications^^"); 
+        message = "Select at least one notification";
       }
+
+      const dialogRef = this.dialog.open(PopupComponent, {
+        height: '150px',
+        width: '400px',
+        data: message
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log("afterClosed");
+        });
     }
   }
 

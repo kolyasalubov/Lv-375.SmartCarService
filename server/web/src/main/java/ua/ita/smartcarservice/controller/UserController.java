@@ -63,13 +63,11 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @PostMapping("/user")
     public ResponseEntity<?> createUser(@RequestBody UserEntity userEntity) {
         userService.createUser(userEntity);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
-
 
     @PutMapping("/user/{id}")
     public ResponseEntity<?> updateUser(@PathVariable("id") Long id, UserEntity userEntity) {
@@ -77,7 +75,12 @@ public class UserController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-
+    /**
+     * Method returns all the feedback this user ever left
+     *
+     * @param userName
+     * @return DTO with feedback
+     */
     @GetMapping("/users/{userName}/feedback")
     public ResponseEntity<List<ServicesFeedbackOutputDto>> getAllUsersFeedback(@PathVariable String userName) {
         ResponseEntity<List<ServicesFeedbackOutputDto>> responseEntity;
@@ -94,6 +97,12 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * This method checks if this user have to leave
+     * any feedback about workers, and returns list of workers ids
+     * @param username
+     * @return List with Workers id
+     */
     @GetMapping("/users/{username}/leavefeedback")
     public ResponseEntity<List<Long>> findWorkersForFeedbackByUsername(@PathVariable String username) {
         ResponseEntity<List<Long>> responseEntity;
@@ -105,6 +114,12 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * Method saves feedback left by this user
+     * @param username
+     * @param workersList
+     * @return
+     */
     @PostMapping("/users/{username}/leavefeedback")
     public ResponseEntity addFeedbackToLeaveByUsername(@PathVariable String username,
                                                         @RequestBody List<Long> workersList) {
@@ -122,6 +137,11 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * Method deletes all the feedback suggestions
+     * @param username
+     * @return
+     */
     @DeleteMapping("/users/{username}/leavefeedback")
     public ResponseEntity deleteFeedbackToLeaveByUsername(@PathVariable String username) {
         ResponseEntity responseEntity;

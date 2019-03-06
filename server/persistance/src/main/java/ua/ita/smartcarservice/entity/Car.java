@@ -2,7 +2,6 @@ package ua.ita.smartcarservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.ToString;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
@@ -33,13 +32,11 @@ public class Car {
     @Column(length = 20, nullable = false, unique = false)
     private String graduation_year;
 
-
     @Column(length = 100, nullable = false, unique = true)
     private String number;
 
     @Column(nullable = true, unique = false)
     private Double price;
-
 
     @Column(nullable = false, unique = true)
     private String vin;

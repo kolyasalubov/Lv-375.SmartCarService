@@ -7,25 +7,18 @@ import ua.ita.smartcarservice.entity.alerts.Notifications;
 
 public interface NotificationService {
 
-	/* CREATE */
 	void saveNotification(NotificationsDto notificationDto);
 
 	void saveAllNotifications(List<NotificationsDto> notificationsList);
 
 	void addNewNotification(RecordDto recordDto);
 
-	/* READ */
 	List<NotificationsDto> getAllNotificationsForUser(Long userId);
 
-	NotificationsDto findLastNotificationByMessage(String message);
-
-	NotificationsDto getNotification (Long id);
-
-	/* UPDATE */
+	NotificationsDto getNotification(Long id);
 
 	void disableNotification(NotificationsDto notificationDto);
 
-	/* DELETE */
-	void deleteNotificationById (Long id);
+	void deleteNotificationById(Long id);
 
 }

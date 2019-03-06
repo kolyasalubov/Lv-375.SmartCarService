@@ -22,10 +22,11 @@ tbody{
 
 .notifications-container{
   max-height: 75vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   padding-right: 6px;
-  width:100%;
+  width:100%;  
+  padding-bottom: 6px;
 }
 
 .notifications-container::-webkit-scrollbar {

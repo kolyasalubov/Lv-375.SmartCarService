@@ -10,8 +10,8 @@ export class ReportDto {
   carModel: string;
   carNumber: string;
 
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
   requiredTime: number;
   price: number;
 

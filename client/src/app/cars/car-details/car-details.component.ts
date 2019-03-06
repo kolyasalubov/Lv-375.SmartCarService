@@ -26,8 +26,10 @@ export class CarDetailsComponent implements OnInit {
 
   ngOnInit() {
 
+    this.carId = Number(this.getFromRouterParams('carId'));
+    
   setTimeout(() =>
-    {this.carId = Number(this.getFromRouterParams('carId'));
+    {
     this.carBrand = this.getFromRouterParams('carBrand');
     this.carModel = this.getFromRouterParams('carModel');
     this.carGY = this.getFromRouterParams('carGY');
@@ -40,7 +42,6 @@ export class CarDetailsComponent implements OnInit {
     setTimeout(() =>
     { console.log(this.carId, this.carBrand, this.carModel, this.carGY, this.carNumber, this.carVin)
     }, 1000);
-
     }
 
   private getFromRouterParams(param: string) {
@@ -59,12 +60,12 @@ export class CarDetailsComponent implements OnInit {
       });
   }
 
-  applyToSTO(carId: number){
+  applyToSTO(carId: Number){
     this.router.navigate(['/ui/booking'],
     {queryParams: {
-      carId: carId
+      carId: carId,
     }}
-  );
+   );
   }
 
   applyToTradeIn(vin: String){
@@ -72,20 +73,24 @@ export class CarDetailsComponent implements OnInit {
     this.router.navigate(['ui/tradeIn', vin]);
   }
 
-  goToCharts(carId: Number){
+  goToCharts(carId: number){
     this.router.navigate(['ui/charts'],
       {queryParams: {
-        carId: carId,
+        carId: this.carId,
       }}
     );
   }
 
-  history(id: number){
-
+  history(carId: number){
+    this.router.navigate(['ui/history'],
+      {queryParams: {
+        carId: this.carId,
+      }}
+    );
   }
 
   closeProfile(){
-    window.location.href='ui/home'
+    this.router.navigate(['ui/home'])
   }
 
 }

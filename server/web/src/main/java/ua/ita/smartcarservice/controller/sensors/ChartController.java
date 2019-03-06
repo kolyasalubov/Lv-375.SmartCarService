@@ -20,6 +20,8 @@ public class ChartController {
     @Autowired
     private SensorService sensorService;
 
+    // TODO Try PathVariable
+
     @GetMapping
     public ResponseEntity<ChartDto> findDataByPeriod(@RequestParam Map<String,String> parametersMap) {
         return getResponse(sensorService.findDataByPeriod(new DateForChartDto(parametersMap)));

@@ -93,4 +93,11 @@ export class MenuComponent implements OnInit {
     this.router.navigate(['/ui/addDealerCar']);
   }
 
+  goToUserProfile(){
+    this.router.navigate(['/ui/userprofile']);
+  }
+
+  goHome(){
+    this.router.navigate(['/ui/home']);
+  }
 }

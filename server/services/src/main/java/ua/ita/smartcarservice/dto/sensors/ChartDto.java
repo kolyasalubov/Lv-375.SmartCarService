@@ -18,6 +18,8 @@ public class ChartDto {
 
     private Map<String, List<Double>> data = new HashMap<>(); // keys --> labels
 
+    // TODO delete these constructors or ADD COMMENTS
+
     public ChartDto(Double value){
         this.data.put("value", Arrays.asList(value));
     }

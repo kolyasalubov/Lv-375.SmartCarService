@@ -42,7 +42,7 @@ export class CarsComponent implements OnInit {
     error => this.error = error;
 
     if(this.cars.length === 1){
-      this.showProfile = true;  
+      this.showProfile = true;
     } else if(this.cars.length > 1){
       this.showCards = true;
     } else {
@@ -51,19 +51,25 @@ export class CarsComponent implements OnInit {
     });
   }
 
-  applyToSTO(id: number){
-    this.router.navigate(['/ui/booking', id]);
-  }
+
+    applyToSTO(carId: number){
+      console.log(carId);
+      this.router.navigate(['/ui/booking'],
+      {queryParams: {
+        carId: carId,
+      }}
+    );
+    }
 
   applyToTradeIn(vin: String){
     console.log(vin);
     this.router.navigate(['ui/tradeIn',vin]);
   }
 
-  goToCharts(car: Car){
+  goToCharts(carId: number){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: car.id
+          carId: carId
         }}
       );
   }
@@ -115,11 +121,11 @@ export class CarsComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.href='/ui/cars/';
+    this.router.navigate(['ui/cars']);
   }
 
   closeProfile(){
-  window.location.href='/ui/home'
+  this.router.navigate(['ui/home']);
   }
-    
+
 }

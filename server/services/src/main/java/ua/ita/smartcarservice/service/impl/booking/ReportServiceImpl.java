@@ -2,7 +2,6 @@ package ua.ita.smartcarservice.service.impl.booking;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ita.smartcarservice.dto.booking.PdfDto;
 import ua.ita.smartcarservice.dto.booking.ProgresDto;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.dto.booking.ReportExtendedDto;
@@ -13,7 +12,6 @@ import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.booking.ReportRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
-import ua.ita.smartcarservice.service.booking.BookingService;
 import ua.ita.smartcarservice.service.booking.ReportService;
 import ua.ita.smartcarservice.service.booking.WorkTimeService;
 import ua.ita.smartcarservice.service.impl.booking.pdf.PdfCreator;
@@ -36,90 +34,89 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     UserTechnicalServiceRepository userTechnicalServiceRepository;
 
-        @Autowired
-        UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
-        @Autowired
-        WorkTimeService workTimeService;
+    @Autowired
+    WorkTimeService workTimeService;
 
 
+    @Override
     public ReportEntity addReport(ReportDto reportDto) {
         return reportRepository.save(repordDtoToEntity(reportDto));
     }
 
-        private ReportEntity repordDtoToEntity (ReportDto reportDto){
-            ReportEntity entity = new ReportEntity();
+    private ReportEntity repordDtoToEntity(ReportDto reportDto) {
+        ReportEntity entity = new ReportEntity();
 
-            entity.setCar(carRepository.getCarById(reportDto.getCarId()));
-            entity.setTechnicalService(userTechnicalServiceRepository
-                    .findTechnicalServiceByCarId(reportDto.getCarId())
-                    .getTechnicalServiceId());
+        entity.setCar(carRepository.getCarById(reportDto.getCarId()));
+        entity.setTechnicalService(userTechnicalServiceRepository
+                .findTechnicalServiceByCarId(reportDto.getCarId())
+                .getTechnicalServiceId());
 
-            entity.setStartTime(parseDateToLocal(reportDto.getStartTime()));
-            entity.setEndTime(parseDateToLocal(reportDto.getEndTime()));
-            entity.setRequiredTime(reportDto.getRequiredTime());
-            entity.setPrice(reportDto.getPrice());
-            return entity;
-        }
-
-        private LocalDateTime parseDateToLocal (String s){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            return LocalDateTime.parse(s.substring(0, s.indexOf('T')) + " " + s.substring(s.indexOf('T') + 1), formatter);
-        }
-
-        @Override
-        public ReportEntity findReportById ( long reportId){
-            return reportRepository.findById(reportId).get();
-        }
-
-        @Override
-        public List<ProgresDto> findAllReportsByUserId ( long userId){
-            return reportRepository.findAllReportsByUserId(userId).stream()
-                    .map(this::transformEntityToProgresDto).collect(Collectors.toList());
-        }
-
-        @Override
-        public List <ReportExtendedDto> findAllReportsByCarId ( long carId){
-            return reportRepository.findAllReportsByCarId(carId).stream()
-                    .map(this::reportEntityToExtendedDto).collect(Collectors.toList());
-        }
+        entity.setStartTime(parseDateToLocal(reportDto.getStartTime()));
+        entity.setEndTime(parseDateToLocal(reportDto.getEndTime()));
+        entity.setRequiredTime(reportDto.getRequiredTime());
+        entity.setPrice(reportDto.getPrice());
+        return entity;
+    }
 
 
-        @Override
-        public PdfDto formExtendedReport ( long reportId){
-            return new PdfDto(new PdfCreator().getByteArrayWithPdfReport(
-                    reportEntityToExtendedDto(reportRepository.findById(reportId).get())));
-        }
+    private LocalDateTime parseDateToLocal(String s) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(s, formatter);
+    }
 
-        private ReportExtendedDto reportEntityToExtendedDto (ReportEntity report){
-            ReportExtendedDto dto = new ReportExtendedDto();
-            dto.setReportId(report.getReportId());
+    @Override
+    public ReportEntity findReportById(long reportId) {
+        return reportRepository.findById(reportId).get();
+    }
 
-            long carId = report.getCar().getId();
-            dto.setUserFullName(userRepository.findUserEntityByCarId(carId).getFullName());
+    @Override
+    public List<ProgresDto> findAllReportsByUserId(long userId) {
+        return reportRepository.findAllReportsByUserId(userId).stream()
+                .map(this::transformEntityToProgresDto).collect(Collectors.toList());
+    }
 
-            Car car = carRepository.getCarById(carId);
-            dto.setCarBrand(car.getBrand());
-            dto.setCarModel(car.getModel());
-            dto.setCarNumber(car.getNumber());
+    @Override
+    public List<ReportExtendedDto> findAllReportsByCarId(long carId) {
+        return reportRepository.findAllReportsByCarId(carId).stream()
+                .map(this::reportEntityToExtendedDto).collect(Collectors.toList());
+    }
 
-            dto.setStartTime(report.getStartTime());
-            dto.setEndTime(report.getEndTime());
-            dto.setRequiredTime(report.getRequiredTime());
-            dto.setPrice(report.getPrice());
+    @Override
+    public byte[] formExtendedReport(long reportId) {
+        return new PdfCreator().getByteArrayWithPdfReport(
+                reportEntityToExtendedDto(reportRepository.findById(reportId).get()));
+    }
 
-            TechnicalServiceEntity serviceEntity = userTechnicalServiceRepository
-                    .findTechnicalServiceByCarId(carId).getTechnicalServiceId();
+    private ReportExtendedDto reportEntityToExtendedDto(ReportEntity report) {
+        ReportExtendedDto dto = new ReportExtendedDto();
+        dto.setReportId(report.getReportId());
 
-            dto.setTechnicalServiceName(serviceEntity.getName());
-            dto.setTechnicalServiceAddress(serviceEntity.getAddress());
+        long carId = report.getCar().getId();
+        dto.setUserFullName(userRepository.findUserEntityByCarId(carId).getFullName());
 
-            dto.setWorkerTasks(workTimeService.findWorkerTasksByReportId(report.getReportId()));
+        Car car = carRepository.getCarById(carId);
+        dto.setCarBrand(car.getBrand());
+        dto.setCarModel(car.getModel());
+        dto.setCarNumber(car.getNumber());
 
-            return dto;
-        }
+        dto.setStartTime(report.getStartTime());
+        dto.setEndTime(report.getEndTime());
+        dto.setRequiredTime(report.getRequiredTime());
+        dto.setPrice(report.getPrice());
 
-        private ProgresDto transformEntityToProgresDto(ReportEntity entity){
+        TechnicalServiceEntity serviceEntity = userTechnicalServiceRepository
+                .findTechnicalServiceByCarId(carId).getTechnicalServiceId();
+
+        dto.setTechnicalServiceName(serviceEntity.getName());
+        dto.setTechnicalServiceAddress(serviceEntity.getAddress());
+        dto.setWorkerTasks(workTimeService.findWorkerTasksByReportId(report.getReportId()));
+        return dto;
+    }
+
+    private ProgresDto transformEntityToProgresDto(ReportEntity entity){
 
         ProgresDto dto = new ProgresDto();
         dto.setBrand(entity.getCar().getBrand());
@@ -132,9 +129,8 @@ public class ReportServiceImpl implements ReportService {
         });
         dto.setWorkersId(workers);
         return dto;
-        }
-
-
     }
+
+}
 
 

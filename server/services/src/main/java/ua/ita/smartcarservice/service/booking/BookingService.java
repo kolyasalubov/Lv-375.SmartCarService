@@ -15,9 +15,5 @@ public interface BookingService {
 
     void addBooking(NewBookingDto newSessionDto);
 
-    List <WorkTimeDto> findAllByWorkerId(Long workerId);
-
-    List <WorkTimeDto> findAllByCarId(Long carId);
-
     void updateReportsId(ReportDto reportDto, ReportEntity reportEntity);
 }

@@ -1,4 +1,4 @@
-<mdb-card style="width: 400px; position: relative; left: 210px; top: 80px; z-index: 0;">
+<mdb-card style="width: 700px; position: relative; left: 30%; top: 80px; z-index: 0;">
   <!--<div class="view rgba-white-slight waves-light" mdbWavesEffect>
     // Card img
     <mdb-card-img src="assets/img/auto-mechanic.jpg" alt="Card image cap"></mdb-card-img>
@@ -29,11 +29,12 @@
   </mdb-card-body>
 </mdb-card>
 
-
-<div *ngFor="let worker of workers" style="position: relative; top: -220px; left: 120px;">
-  <app-workers-feedback [workerId]="worker"></app-workers-feedback>
+<div class="row" style="position: relative; top: 90px;">
+    <app-workers-feedback *ngFor="let worker of workers.slice(0, 2)" [workerId]="worker" class="col col-sm-3"></app-workers-feedback>
 </div>
-
-<!--
-<services-feedback [serviceId]="4"></services-feedback>
--->
+<div class="row" style="position: relative; top: 90px;">
+    <app-workers-feedback *ngFor="let worker of workers.slice(2, 4)" [workerId]="worker" class="col col-sm-3"></app-workers-feedback>
+</div>
+<div class="row" style="position: relative; top: 90px;">
+    <app-workers-feedback *ngFor="let worker of workers.slice(4, 6)" [workerId]="worker" class="col col-sm-3"></app-workers-feedback>
+</div>

@@ -17,8 +17,4 @@ public interface NotificationsRepository extends JpaRepository<Notifications, Lo
 			"ORDER BY n.notificationTime DESC")
 	List<Notifications> getAllNotificationsForUser(@Param ("userId") Long userId);
 
-	@Query("SELECT n FROM Notifications n WHERE n.notificationTime IN "
-			+ "(SELECT max(notificationTime) from Notifications) AND "
-			+ "n.message LIKE '%:message%' ")
-	Notifications findLastNotificationByMessage(@Param ("message") String message);
 }

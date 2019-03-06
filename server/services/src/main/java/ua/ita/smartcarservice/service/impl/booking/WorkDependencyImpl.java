@@ -8,7 +8,7 @@ import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 import ua.ita.smartcarservice.repository.booking.WorkDependencyRepository;
 import ua.ita.smartcarservice.repository.technicalservice.WorkTypeRepository;
 import ua.ita.smartcarservice.service.booking.WorkDependencyService;
-import ua.ita.smartcarservice.service.impl.booking.graph.Edge;
+import ua.ita.smartcarservice.service.impl.booking.graph.Node;
 import ua.ita.smartcarservice.service.impl.booking.graph.Graph;
 import ua.ita.smartcarservice.service.technicalservice.WorkTypeService;
 
@@ -41,7 +41,7 @@ public class WorkDependencyImpl implements WorkDependencyService {
     }
 
     /**
-     * Method with uses graph to find required time and workers schedule
+     * Method that uses graph to find required time and workers schedule
      *
      * @param worksName list of selected works
      * @return - required time and workers schedule
@@ -52,44 +52,55 @@ public class WorkDependencyImpl implements WorkDependencyService {
 
         ArrayList[] graph = this.graph.getGraph();
 
-        PriorityQueue<Edge> allEdge = getAllEdgeInSortedPosition(worksName);
+        // get all node in sorted position
+        PriorityQueue<Node> allNode = getAllEdgeInSortedPosition(worksName);
 
         Set<Long> needNode = getNeedNode(worksName);
 
         long masks[] = this.graph.getMasks();
 
+        // remember which node were used
         boolean was[] = new boolean[graph.length];
 
         int requiredTime = 0;
 
-        while (!allEdge.isEmpty()) {
+        // go through node and take node with the biggest time value
+        while (!allNode.isEmpty()) {
             long mask = 0;
-            Edge mainEdge = allEdge.poll();
-            if (was[(int) mainEdge.getIndex()]) {
+            Node mainNode = allNode.poll();
+            // check was this node checked
+            if (was[(int) mainNode.getIndex()]) {
                 continue;
             }
-            was[(int) mainEdge.getIndex()] = true;
-            workInfo.setWorkInfo(new WorkInfoDto(mainEdge.getIndex(), requiredTime, (int)(requiredTime + mainEdge.getRequiredTime())));
-            requiredTime += mainEdge.getRequiredTime();
-            mask |= (1 << (mainEdge.getIndex()));
-            for (int i = graph[(int) mainEdge.getIndex()].size() - 1; i >= 0; i--) {
-                Edge dependentEdge = (Edge) graph[(int) mainEdge.getIndex()].get(i);
-                if (was[(int) dependentEdge.getIndex()] || !needNode.contains(dependentEdge.getIndex())) {
+            // remembers, what we check this node
+            was[(int) mainNode.getIndex()] = true;
+            // set work info in list
+            workInfo.setWorkInfo(new WorkInfoDto(mainNode.getIndex(), requiredTime, (int)(requiredTime + mainNode.getRequiredTime())));
+            // increase required time
+            requiredTime += mainNode.getRequiredTime();
+            mask |= (1 << (mainNode.getIndex()));
+            // go through nodes, which is connect with our main node
+            for (int i = graph[(int) mainNode.getIndex()].size() - 1; i >= 0; i--) {
+                Node dependentNode = (Node) graph[(int) mainNode.getIndex()].get(i);
+                // check was this node checked
+                if (was[(int) dependentNode.getIndex()] || !needNode.contains(dependentNode.getIndex())) {
                     continue;
                 }
                 boolean canAddToRes = true;
+                // check is dependent node connect with all nodes selected earlier
                 for (int j = 1; j <= NUMBER_OF_WORKS; j++) {
-                    if ((mask & (1 << j)) == 1 && (masks[(int) dependentEdge.getIndex()] & (1 << j)) != 1) {
+                    if ((mask & (1 << j)) == 1 && (masks[(int) dependentNode.getIndex()] & (1 << j)) != 1) {
                         canAddToRes = false;
                         break;
                     }
                 }
+                // select if can
                 if (canAddToRes) {
-                    was[(int) dependentEdge.getIndex()] = true;
-                    workInfo.setWorkInfo(new WorkInfoDto(dependentEdge.getIndex(),
-                            (int) (requiredTime - mainEdge.getRequiredTime()),
-                            (int) (requiredTime - mainEdge.getRequiredTime() + dependentEdge.getRequiredTime())));
-                    mask |= (1 << dependentEdge.getIndex());
+                    was[(int) dependentNode.getIndex()] = true;
+                    workInfo.setWorkInfo(new WorkInfoDto(dependentNode.getIndex(),
+                            (int) (requiredTime - mainNode.getRequiredTime()),
+                            (int) (requiredTime - mainNode.getRequiredTime() + dependentNode.getRequiredTime())));
+                    mask |= (1 << dependentNode.getIndex());
                 }
             }
         }
@@ -98,14 +109,14 @@ public class WorkDependencyImpl implements WorkDependencyService {
     }
 
 
-    private PriorityQueue<Edge> getAllEdgeInSortedPosition(List<String> skillsName) {
+    private PriorityQueue<Node> getAllEdgeInSortedPosition(List<String> skillsName) {
         Map<String, WorkType> workByName = getDistinctSkillByName();
 
-        PriorityQueue<Edge> allEdge = new PriorityQueue <>(new Edge(-1, -1));
+        PriorityQueue<Node> allNode = new PriorityQueue <>(new Node(-1, -1));
 
-        skillsName.forEach(s -> allEdge.add(new Edge(workByName.get(s).getWorkId(), workByName.get(s).getRequiredTime())));
+        skillsName.forEach(s -> allNode.add(new Node(workByName.get(s).getWorkId(), workByName.get(s).getRequiredTime())));
 
-        return allEdge;
+        return allNode;
     }
 
 

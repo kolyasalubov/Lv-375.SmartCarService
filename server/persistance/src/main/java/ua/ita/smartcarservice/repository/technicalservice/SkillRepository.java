@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public interface SkillRepository extends JpaRepository<SkillEntity, Long> {
 
-    SkillEntity getBySkillId(SkillEntity skillEntity);
-
     @Query("select distinct w.skill from WorkersSkill as w " +
             "left join UserTechnicalService as ut on ut.userId = w.workerId " +
             "where ut.technicalServiceId.technicalServiceId = :stoId")

@@ -32,12 +32,12 @@
 </mdb-card>
 </div>
 
-<div class="row align-items-center">
-  <worker-card class="col" *ngFor="let worker of workers.slice(0, 4)" (deleteWorkerEvent)="recieveWorkers()" [worker]="worker"></worker-card>
+<div class="row">
+  <worker-card class="col col-sm-3" *ngFor="let worker of workers.slice(0, 4)" (deleteWorkerEvent)="recieveWorkers()" [worker]="worker"></worker-card>
 </div>
-<div class="row align-items-center">
-    <worker-card class="col" *ngFor="let worker of workers.slice(4, 8)" (deleteWorkerEvent)="recieveWorkers()" [worker]="worker"></worker-card>
+<div class="row">
+    <worker-card class="col col-sm-3" *ngFor="let worker of workers.slice(4, 8)" (deleteWorkerEvent)="recieveWorkers()" [worker]="worker"></worker-card>
 </div>
-<div class="row align-items-center">
+<div class="row">
     <worker-card class="col" *ngFor="let worker of workers.slice(8, 12)" (deleteWorkerEvent)="recieveWorkers()" [worker]="worker"></worker-card>
 </div>

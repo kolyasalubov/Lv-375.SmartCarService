@@ -5,6 +5,7 @@ import {User} from '../users/user';
 import {TokenStorageService} from '../auth/token-storage.service';
 import { CarsService } from '../cars/cars.service';
 import { Car } from '../cars/car';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,7 +20,7 @@ export class UserProfileComponent implements OnInit {
   numberOfCars: Number = null;
   today = new Date().toISOString().slice(0, 10)
   
-  constructor(private userService: UsersService, private tokenStorage: TokenStorageService, private carService: CarsService) {
+  constructor(private userService: UsersService, private tokenStorage: TokenStorageService, private carService: CarsService, private router: Router) {
   }
 
   ngOnInit() {
@@ -28,8 +29,8 @@ export class UserProfileComponent implements OnInit {
   .subscribe(data => this.userProfile = data);
 }
 
-  closeProfile(){
-    window.location.href='ui/home'
+closeProfile(){
+  this.router.navigate(['ui/home']);
   }
 
 }

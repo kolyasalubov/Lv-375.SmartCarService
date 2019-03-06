@@ -46,11 +46,11 @@ public class Graph{
 
         graphNode.forEach(node ->{
             graph[(int)node.getMainWork().getWorkId().longValue()]
-                    .add(new Edge(node.getDependentWork().getWorkId(),
+                    .add(new Node(node.getDependentWork().getWorkId(),
                             requiredTime.get(node.getDependentWork().getName()).getRequiredTime()));
 
             graph[(int)node.getDependentWork().getWorkId().longValue()]
-                    .add(new Edge(node.getMainWork().getWorkId(),
+                    .add(new Node(node.getMainWork().getWorkId(),
                             requiredTime.get(node.getMainWork().getName()).getRequiredTime()));
 
             masks[(int)node.getMainWork().getWorkId().longValue()]|=(int)node.getDependentWork().getWorkId().longValue();
