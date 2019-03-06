@@ -3,6 +3,7 @@ package ua.ita.smartcarservice.service.impl.booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.booking.PdfDto;
+import ua.ita.smartcarservice.dto.booking.ProgresDto;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.dto.booking.ReportExtendedDto;
 import ua.ita.smartcarservice.entity.Car;
@@ -19,6 +20,7 @@ import ua.ita.smartcarservice.service.impl.booking.pdf.PdfCreator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,8 +73,9 @@ public class ReportServiceImpl implements ReportService {
         }
 
         @Override
-        public List <ReportEntity> findAllReportsByUserId ( long userId){
-            return reportRepository.findAllReportsByUserId(userId);
+        public List<ProgresDto> findAllReportsByUserId ( long userId){
+            return reportRepository.findAllReportsByUserId(userId).stream()
+                    .map(this::transformEntityToProgresDto).collect(Collectors.toList());
         }
 
         @Override
@@ -114,6 +117,21 @@ public class ReportServiceImpl implements ReportService {
             dto.setWorkerTasks(workTimeService.findWorkerTasksByReportId(report.getReportId()));
 
             return dto;
+        }
+
+        private ProgresDto transformEntityToProgresDto(ReportEntity entity){
+
+        ProgresDto dto = new ProgresDto();
+        dto.setBrand(entity.getCar().getBrand());
+        dto.setModel(entity.getCar().getModel());
+        dto.setStartTime(entity.getStartTime());
+        dto.setEndTime(entity.getEndTime());
+        List<Long> workers = new ArrayList<Long>();
+        entity.getWorkTimes().forEach(worker -> {
+            workers.add(worker.getWorker().getId());
+        });
+        dto.setWorkersId(workers);
+        return dto;
         }
 
 

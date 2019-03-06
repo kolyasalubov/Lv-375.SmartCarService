@@ -1,6 +1,7 @@
 package ua.ita.smartcarservice.service.booking;
 
 import ua.ita.smartcarservice.dto.booking.PdfDto;
+import ua.ita.smartcarservice.dto.booking.ProgresDto;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.dto.booking.ReportExtendedDto;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
@@ -15,7 +16,7 @@ public interface ReportService {
 
     List<ReportExtendedDto> findAllReportsByCarId(long reportId);
 
-    List<ReportEntity> findAllReportsByUserId(long userId);
+    List<ProgresDto> findAllReportsByUserId(long userId);
 
     PdfDto formExtendedReport(long reportId);
 
