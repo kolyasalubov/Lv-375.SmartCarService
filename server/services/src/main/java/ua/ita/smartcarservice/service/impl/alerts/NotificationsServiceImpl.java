@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import ua.ita.smartcarservice.dto.alerts.NotificationsDto;
 import ua.ita.smartcarservice.dto.alerts.VehicleInspectionDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
 import ua.ita.smartcarservice.entity.alerts.Notifications;
-import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
+import ua.ita.smartcarservice.entity.sensors.enums.SensorTypes;
 import ua.ita.smartcarservice.repository.alerts.NotificationsRepository;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.SensorService;

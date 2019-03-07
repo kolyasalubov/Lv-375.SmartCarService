@@ -2,9 +2,9 @@ package ua.ita.smartcarservice.repository.sensors.common;
 
 import lombok.Data;
 import ua.ita.smartcarservice.entity.Car;
-import ua.ita.smartcarservice.entity.sensors.common.SensorElements;
-import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
-import ua.ita.smartcarservice.entity.sensors.common.Tires;
+import ua.ita.smartcarservice.entity.sensors.enums.SensorProperties;
+import ua.ita.smartcarservice.entity.sensors.enums.SensorTypes;
+import ua.ita.smartcarservice.entity.sensors.enums.Tires;
 
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
@@ -35,8 +35,8 @@ public class ChartCriteriaElementsProvider {
     }
 
     public void setPathes(Root root) {
-        datePath = root.get(SensorElements.DATE.toString());
-        carIdPath = root.get(SensorElements.CAR.toString()).get(SensorElements.ID.toString());
+        datePath = root.get(SensorProperties.DATE.toString());
+        carIdPath = root.get(SensorProperties.CAR.toString()).get(SensorProperties.ID.toString());
         valuePath = getValuePath(root, sensorType);
     }
 
@@ -55,7 +55,7 @@ public class ChartCriteriaElementsProvider {
         if (sensorType.equals(SensorTypes.TIRE_PRESSURE.toString())) {
             return Tires.values();
         } else {
-            return new Object[]{SensorElements.VALUE.toString()};
+            return new Object[]{SensorProperties.VALUE.toString()};
         }
     }
 

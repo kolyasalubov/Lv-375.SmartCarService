@@ -2,7 +2,7 @@ package ua.ita.smartcarservice.entity.sensors.common;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
-import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
+import ua.ita.smartcarservice.entity.sensors.enums.SensorTypes;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,13 +19,13 @@ public class SensorEntityFactory {
     }
 
     private void entityInit() {
-        Arrays.stream(SensorEntities.values())
-                .forEach( entity -> entityFactory.put(entity.getSensorType(), entity.getSensorEntity()));
+        Arrays.stream(SensorTypes.values())
+                .forEach( entity -> entityFactory.put(entity.toString(), entity.getSensorEntity()));
     }
 
-    public ISensorEntity getEntity(String type) {
+    public ISensor getEntity(String type) {
         try {
-            return (ISensorEntity) entityFactory.get(type).newInstance();
+            return (ISensor) entityFactory.get(type).newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

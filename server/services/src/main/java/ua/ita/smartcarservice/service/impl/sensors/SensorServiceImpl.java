@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.sensors.ChartDto;
 import ua.ita.smartcarservice.dto.sensors.DateForChartDto;
 import ua.ita.smartcarservice.dto.sensors.RecordDto;
-import ua.ita.smartcarservice.entity.sensors.ISensorEntity;
-import ua.ita.smartcarservice.entity.sensors.ISingleValueEntity;
+import ua.ita.smartcarservice.entity.sensors.common.ISensor;
+import ua.ita.smartcarservice.entity.sensors.common.ISingleValueSensor;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.sensors.common.AlertSensorRepository;
@@ -44,10 +44,10 @@ public class SensorServiceImpl implements SensorService {
         rep.save(recordDtoToEntity(recordDto));
     }
 
-    private ISensorEntity recordDtoToEntity(RecordDto recordDto) {
+    private ISensor recordDtoToEntity(RecordDto recordDto) {
         String repositoryType = recordDto.getSensorType();
 
-        ISensorEntity entity = entityFactory.getEntity(repositoryType);
+        ISensor entity = entityFactory.getEntity(repositoryType);
         entity.setCar(carRepository.findByVin(recordDto.getCarVin()));
         entity.setValues(entity, recordDto.getValues());
 
@@ -107,7 +107,7 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public RecordDto findRecordBeforeDate(RecordDto recordDto) {
-        ISingleValueEntity sensor = (ISingleValueEntity) getAlertRepository(recordDto.getSensorType())
+        ISingleValueSensor sensor = (ISingleValueSensor) getAlertRepository(recordDto.getSensorType())
                 .findRecordBeforeDate(
                         parseDateToLocal(recordDto.getDate()),
                         carRepository.findByVin(recordDto.getCarVin()).getId());

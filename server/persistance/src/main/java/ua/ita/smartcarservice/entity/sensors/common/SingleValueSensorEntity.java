@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.entity.sensors;
+package ua.ita.smartcarservice.entity.sensors.common;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @MappedSuperclass
-public abstract class SensorEntity extends BaseSensorEntity implements ISingleValueEntity {
+public abstract class SingleValueSensorEntity extends BaseSensorEntity implements ISingleValueSensor {
 
     @Column(nullable = false)
     protected double value;

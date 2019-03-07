@@ -2,9 +2,11 @@ package ua.ita.smartcarservice.repository.sensors.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
-import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
-import ua.ita.smartcarservice.entity.sensors.common.SensorElements;
+import ua.ita.smartcarservice.entity.sensors.common.BaseSensorEntity;
 import ua.ita.smartcarservice.entity.sensors.common.SensorEntityFactory;
+import ua.ita.smartcarservice.entity.sensors.enums.AggregationFunctions;
+import ua.ita.smartcarservice.entity.sensors.enums.ChartSelections;
+import ua.ita.smartcarservice.entity.sensors.enums.SensorProperties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,13 +43,13 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
 
         Subquery subquery = criteria.subquery(entityClass);
         Root fromSubquery = subquery.from(entityClass);
-        subquery.select(builder.max(fromSubquery.get(SensorElements.ID.toString())));
+        subquery.select(builder.max(fromSubquery.get(SensorProperties.ID.toString())));
         subquery.where(builder.equal(
-                fromSubquery.get(SensorElements.CAR.toString()).get(SensorElements.ID.toString()), carId));
+                fromSubquery.get(SensorProperties.CAR.toString()).get(SensorProperties.ID.toString()), carId));
 
-        Path value = root.get(SensorElements.VALUE.toString());
+        Path value = root.get(SensorProperties.VALUE.toString());
         criteria.select(value);
-        criteria.where(builder.in(root.get(SensorElements.ID.toString())).value(subquery));
+        criteria.where(builder.in(root.get(SensorProperties.ID.toString())).value(subquery));
 
         List records = entityManager.createQuery(criteria).getResultList();
         return records.size() == 0 ? DEFAULT_VALUE : (int)Math.round((double)records.get(0));
@@ -83,12 +85,12 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         String selection = elementsProvider.getSelection();
         Path<String> datePath = elementsProvider.getDatePath();
 
-        if (selection.contains(SensorElements.DAY.toString())) {
-            return getPartOfDate(SensorElements.TIME.toString(), datePath);
-        } else if (selection.contains(SensorElements.MONTH.toString())) {
-            return getPartOfDate(SensorElements.DAY.toString(), datePath);
+        if (selection.contains(ChartSelections.DAY.toString())) {
+            return getPartOfDate(ChartSelections.TIME.toString(), datePath);
+        } else if (selection.contains(ChartSelections.MONTH.toString())) {
+            return getPartOfDate(ChartSelections.DAY.toString(), datePath);
         } else {
-            return getPartOfDate(SensorElements.MONTH.toString(), datePath);
+            return getPartOfDate(ChartSelections.MONTH.toString(), datePath);
         }
     }
     private Predicate[] getPredicates(ChartCriteriaElementsProvider elementsProvider) {
@@ -96,18 +98,18 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         LocalDateTime date = elementsProvider.getDate();
 
         Predicate equalCar = builder.equal(elementsProvider.getCarIdPath(), elementsProvider.getCarId());
-        Predicate equalYear = builder.equal(getPartOfDate(SensorElements.YEAR.toString(), datePath), date.getYear());
-        Predicate equalMonth = builder.equal(getPartOfDate(SensorElements.MONTH.toString(), datePath), date.getMonthValue());
-        Predicate equalDay = builder.equal(getPartOfDate(SensorElements.DAY.toString(), datePath), date.getDayOfMonth());
+        Predicate equalYear = builder.equal(getPartOfDate(ChartSelections.YEAR.toString(), datePath), date.getYear());
+        Predicate equalMonth = builder.equal(getPartOfDate(ChartSelections.MONTH.toString(), datePath), date.getMonthValue());
+        Predicate equalDay = builder.equal(getPartOfDate(ChartSelections.DAY.toString(), datePath), date.getDayOfMonth());
 
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(equalCar);
         predicates.add(equalYear);
 
         String selection = elementsProvider.getSelection();
-        if (selection.contains(SensorElements.DAY.toString())) {
+        if (selection.contains(ChartSelections.DAY.toString())) {
             predicates.addAll(Arrays.asList(equalMonth, equalDay));
-        } else if (selection.contains(SensorElements.MONTH.toString())) {
+        } else if (selection.contains(ChartSelections.MONTH.toString())) {
             predicates.add(equalMonth);
         }
 
@@ -130,9 +132,9 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     }
 
     private Expression getAggregatedValue(Path<Double> value, String selection) {
-        if (selection.contains(SensorElements.MIN.toString())) {
+        if (selection.contains(AggregationFunctions.MIN.toString())) {
             return builder.min(value);
-        } else if (selection.contains(SensorElements.MAX.toString())) {
+        } else if (selection.contains(AggregationFunctions.MAX.toString())) {
             return builder.max(value);
         } else {
             return builder.avg(value);

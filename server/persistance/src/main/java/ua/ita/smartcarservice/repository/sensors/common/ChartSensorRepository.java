@@ -1,7 +1,7 @@
 package ua.ita.smartcarservice.repository.sensors.common;
 
 import org.springframework.data.repository.query.Param;
-import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
+import ua.ita.smartcarservice.entity.sensors.common.BaseSensorEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;
