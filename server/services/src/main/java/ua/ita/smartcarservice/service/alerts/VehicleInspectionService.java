@@ -10,15 +10,11 @@ import ua.ita.smartcarservice.entity.alerts.VehicleInspection;
 
 public interface VehicleInspectionService {
 
-	/* CREATE */
 	void saveVehicleInspection (VehicleInspectionDto vehicleInspectionDto);
 
-	/* READ */
 	List<VehicleInspectionDto> getCarsForYearlyInspection ();
 
 	VehicleInspectionDto getVehicleInspection(long id);
-
-	Date getDateOfLastVehicleInspection(long carId);
 
 	List<CarDto> getCarsForVehicleInspectionByMileage();
 

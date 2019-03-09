@@ -53,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
@@ -69,12 +68,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/techservices/**").hasAnyAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString(), Roles.ROLE_CAR_OWNER.toString())
                 .antMatchers("/api/report/**").hasAuthority(Roles.ROLE_WORKER.toString())
                 .antMatchers("/api/dealer/**").hasAnyAuthority(Roles.ROLE_DIELER.toString(), Roles.ROLE_TECHNICAL_MANAGER.toString())
-
                 .anyRequest().permitAll();
 
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
+    
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -86,6 +84,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-
 }

@@ -1,5 +1,7 @@
 package ua.ita.smartcarservice.repository.sensors.common;
 
+
+// TODO delete or change
 public enum ChartSensorQueries {
 
     FIND_ALL_DATA_BY_DAY("/day"),

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ua.ita.smartcarservice.dto.booking.ProgresDto;
 import ua.ita.smartcarservice.dto.booking.ReportDto;
 import ua.ita.smartcarservice.dto.booking.ReportExtendedDto;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
@@ -31,14 +32,14 @@ public class ReportController {
     }
 
     @GetMapping("/progress/{id}")
-    public ResponseEntity<List<ReportEntity>> findAllReportsByUserId(@PathVariable Long id) {
-        List<ReportEntity> reports = reportService.findAllReportsByUserId(id);
+    public ResponseEntity<List<ProgresDto>> findAllReportsByUserId(@PathVariable Long id) {
+        List<ProgresDto> reports = reportService.findAllReportsByUserId(id);
         return new ResponseEntity<>(reports, HttpStatus.OK);
     }
 
     @GetMapping("/pdf/{reportId}")
     public ResponseEntity<byte[]> formPdf(@PathVariable Long reportId) {
-        byte[] pdf = reportService.formExtendedReport(reportId).getPdf();
+        byte[] pdf = reportService.formExtendedReport(reportId);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
