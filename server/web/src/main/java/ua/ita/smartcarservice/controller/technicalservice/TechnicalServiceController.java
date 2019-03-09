@@ -149,7 +149,6 @@ public class TechnicalServiceController {
      it gets parameters from the URL
      */
     @GetMapping("/techservices/{id}/workers")
-    //ResponseEntity<List<UserEntity>> getTechnicalServiceWorkers(@PathVariable Long id) {
     ResponseEntity<List<WorkerSkillDto>> getTechnicalServiceWorkers(@PathVariable Long id) {
 
         ResponseEntity<List<WorkerSkillDto>> responseEntity;
