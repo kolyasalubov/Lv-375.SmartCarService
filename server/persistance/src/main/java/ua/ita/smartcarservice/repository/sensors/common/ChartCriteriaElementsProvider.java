@@ -42,7 +42,6 @@ public class ChartCriteriaElementsProvider {
 
     private Map<String, Path<Double>> getValuePath(Root root, String sensorType) {
 
-        // TODO Map COLLECTORS
         Map<String, Path<Double>> valuePath = new HashMap<>();
         Arrays.stream(getValuesNames(sensorType)).forEach((value) -> {
             String key = value.toString();

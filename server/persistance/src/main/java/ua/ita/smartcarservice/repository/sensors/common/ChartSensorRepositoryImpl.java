@@ -26,10 +26,8 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
 
     private CriteriaBuilder builder;
 
-    // TODO rename
-    private final int DEFAULT_VALUE = 0;
+    private final int DEFAULT_LAST_RECORD_VALUE = 0;
 
-    // TODO change max to having
     @Override
     public Integer findLastRecordValue(@Param("carId") long carId,
                                        @Param("sensorType") String sensorType) {
@@ -50,7 +48,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         criteria.where(builder.in(root.get(SensorElements.ID.toString())).value(subquery));
 
         List records = entityManager.createQuery(criteria).getResultList();
-        return records.size() == 0 ? DEFAULT_VALUE : (int)Math.round((double)records.get(0));
+        return records.size() == 0 ? DEFAULT_LAST_RECORD_VALUE : (int)Math.round((double)records.get(0));
     }
 
     @Override

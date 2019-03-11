@@ -17,7 +17,6 @@ public class DateForChartDto {
 
     private String selection;
 
-    // TODO change Date parsing
     public DateForChartDto(Map<String,String> parametersMap) {
         this.sensorType = parametersMap.get("sensorType");
         this.carId = Long.parseLong(parametersMap.get("carId"));

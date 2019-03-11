@@ -19,7 +19,6 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 
     public Map<String, List<WorkType>> findWorkerTasksByReportId(long reportId) {
 
-        // TODO get DTO not Object[]
         List<Object[]> workerTasksArray = workTimeRepository.findWorkerTasksByReportId(reportId);
 
         Map<String, List<WorkType>> workerTasks = new HashMap<>();
@@ -35,6 +34,5 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 
         return workerTasks;
     }
-
 }
 

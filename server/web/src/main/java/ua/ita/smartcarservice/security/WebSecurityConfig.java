@@ -53,7 +53,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
         http.csrf().disable()
@@ -62,13 +61,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/").permitAll()
                 .antMatchers("/api/auth/").permitAll()
-                .antMatchers("api/user/", "/api/users/", "/api/skills/", "/api/workers/", "/api/notifications/").hasAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString())
-                .antMatchers("/api/chart/", "/api/owner/", "/api/car/", "/api/newcar/", "api/workers/", "api/works/", "api/booking/", "/api/notifications/").hasAuthority(Roles.ROLE_CAR_OWNER.toString())
-                .antMatchers("/api/techservices/").hasAnyAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString(), Roles.ROLE_CAR_OWNER.toString())
+                .antMatchers("api/user/", "/api/users/", "/api/skills/", "/api/workers/").hasAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString())
+                .antMatchers("/api/chart/",  "api/workers/", "api/works/", "api/booking/").hasAuthority(Roles.ROLE_CAR_OWNER.toString())
+                .antMatchers("/api/owner/", "/api/car/", "/api/newcar/").hasAnyAuthority(Roles.ROLE_CAR_OWNER.toString(), Roles.ROLE_DIELER.toString())
+                .antMatchers("/api/techservices/",  "/api/notifications/").hasAnyAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString(), Roles.ROLE_CAR_OWNER.toString())
                 .antMatchers("/api/report/").hasAnyAuthority(Roles.ROLE_WORKER.toString(), Roles.ROLE_CAR_OWNER.toString())
-                .antMatchers("/api/dealer/**").hasAuthority(Roles.ROLE_DIELER.toString())
+                .antMatchers("/api/dealer/").hasAnyAuthority(Roles.ROLE_DIELER.toString(), Roles.ROLE_TECHNICAL_MANAGER.toString())
                 .anyRequest().permitAll();
-
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
     @Bean
