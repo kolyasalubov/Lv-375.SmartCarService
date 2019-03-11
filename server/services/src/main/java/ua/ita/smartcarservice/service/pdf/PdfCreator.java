@@ -5,10 +5,12 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.Data;
+import org.apache.log4j.Logger;
 import ua.ita.smartcarservice.dto.booking.ReportExtendedDto;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -17,6 +19,8 @@ import java.util.Locale;
 
 @Data
 public class PdfCreator {
+
+    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
     private String fileName = "report.pdf";
     private String header = "Vehicle Inspection Report";
@@ -47,7 +51,7 @@ public class PdfCreator {
             formPdfReport(report);
             document.close();
         } catch (DocumentException e ) {
-            e.printStackTrace();
+            logger.error("Error! Can not form PDF: " + e.getMessage());
         }
 
         return byteArrayOutputStream.toByteArray();
@@ -61,7 +65,7 @@ public class PdfCreator {
             setTableWithWorkTasks(report);
             setFooter(footer, serviceUrl);
         } catch (DocumentException | IOException e) {
-            e.printStackTrace();
+            logger.error("Error! Can not form PDF: " + e.getMessage());
         }
     }
 

@@ -1,7 +1,9 @@
 package ua.ita.smartcarservice.service.impl.alerts;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -25,6 +27,12 @@ import ua.ita.smartcarservice.service.alerts.VehicleInspectionService;
 @Service
 public class NotificationsServiceImpl implements NotificationService{
 
+	private final int CRITICAL_FUEL_LEVEL = 10;
+
+	private final double CRITICAL_GLASS_WASHER_FLUID_LEVEL = 0.5;
+
+	private final int CRITICAL_COOLANT_LEVEL = 1;
+
 	private final NotificationsRepository notificationsRepository;
 
 	private final SensorService sensorService;
@@ -36,6 +44,9 @@ public class NotificationsServiceImpl implements NotificationService{
 	private final VehicleInspectionService vehicleInspectionService;
 
 	@Autowired
+	private SimpMessagingTemplate template;
+
+	@Autowired
 	public NotificationsServiceImpl(NotificationsRepository notificationsRepository, SensorService sensorService, AlertsService alertsService, CarService carService, VehicleInspectionService vehicleInspectionService) {
 		this.notificationsRepository = notificationsRepository;
 		this.sensorService = sensorService;
@@ -44,7 +55,6 @@ public class NotificationsServiceImpl implements NotificationService{
 		this.vehicleInspectionService = vehicleInspectionService;
 	}
 
-	/* CREATE */
 	@Override
 	public void saveNotification(NotificationsDto notificationDto) {
 		notificationsRepository.save(dtoToEntity(notificationDto));
@@ -61,7 +71,9 @@ public class NotificationsServiceImpl implements NotificationService{
 			if (!analyzeSensorData(sensorType, previousRecord.getValue())) {
 				AlertsDto code = alertsService.getAlert(sensorType);
 				CarDto car = carService.findByVin(recordDto.getCarVin());
-				saveNotification(new NotificationsDto(code, car));
+				NotificationsDto toSave = new NotificationsDto(code, car);
+				saveNotification(toSave);
+				template.convertAndSend("/notifications-list", toSave);
 			}
 		}
 	}
@@ -69,19 +81,17 @@ public class NotificationsServiceImpl implements NotificationService{
 	/* Method for sending vehicle inspection notifications to users */
 	@Scheduled(cron = "0 0 8 * * *", zone="Europe/Athens")
 	public void getCarsForYearlyInspection() {
-		List<NotificationsDto> toSave = new ArrayList<>();
-
-		/* cars for yearly inspection */
+		// cars for yearly inspection
 		AlertsDto yearlyInspection = alertsService.getAlert("yearly-inspection");
 		List<VehicleInspectionDto> viDto =
 				vehicleInspectionService.getCarsForYearlyInspection();
-		viDto.forEach(inspection -> toSave.add(new NotificationsDto(yearlyInspection, inspection)));
+		List<NotificationsDto> toSave = viDto.stream().map(v -> new NotificationsDto(yearlyInspection, v)).collect(Collectors.toList());
 
-		/* users to warn by car mileage */
+		// users to warn by car mileage
 		AlertsDto mileageInspection = alertsService.getAlert("mileage-inspection");
 		List<CarDto> inspectionsMileage =
 				vehicleInspectionService.getCarsForVehicleInspectionByMileage();
-		inspectionsMileage.forEach(car -> toSave.add(new NotificationsDto(mileageInspection, car)));
+		toSave.addAll(inspectionsMileage.stream().map(c -> new NotificationsDto(mileageInspection, c)).collect(Collectors.toList()));
 
 		if (!toSave.isEmpty()) {
 			saveAllNotifications(toSave);
@@ -90,12 +100,10 @@ public class NotificationsServiceImpl implements NotificationService{
 
 	@Override
 	public void saveAllNotifications(List<NotificationsDto> notificationsList) {
-		List<Notifications> entities = new ArrayList<>();
-		notificationsList.forEach(dto -> entities.add(dtoToEntity(dto)));
+		List<Notifications> entities = notificationsList.stream().map(dto -> dtoToEntity(dto)).collect(Collectors.toList());
 		notificationsRepository.saveAll(entities);
 	}
 
-	/* READ */
 	@Override
 	public NotificationsDto getNotification(Long id) {
 		return entityToDto(notificationsRepository.getOne(id));
@@ -103,26 +111,17 @@ public class NotificationsServiceImpl implements NotificationService{
 
 	@Override
 	public List<NotificationsDto> getAllNotificationsForUser(Long userId) {
-		List<NotificationsDto> dtos = new ArrayList<>();
-		notificationsRepository.getAllNotificationsForUser(userId).forEach(entity ->
-			dtos.add(entityToDto(entity)));
+		List<Notifications> notificationsList = notificationsRepository.getAllNotificationsForUser(userId);
+		List<NotificationsDto> dtos = notificationsList.stream().map(entity -> entityToDto(entity)).collect(Collectors.toList());
 		return dtos;
 	}
 
-	@Override
-	public NotificationsDto findLastNotificationByMessage(String message) {
-		return entityToDto(notificationsRepository.findLastNotificationByMessage(message));
-	}
-
-	/* UPDATE */
 	@Override
 	public void disableNotification(NotificationsDto notificationDto) {
 		notificationDto.setIsVisible(false);
 		notificationsRepository.save(dtoToEntityWithId(notificationDto));
 	}
 
-
-	/* DELETE */
 	@Override
 	public void deleteNotificationById(Long id) {
 		notificationsRepository.deleteById(id);
@@ -166,13 +165,14 @@ public class NotificationsServiceImpl implements NotificationService{
 
 	/* Helper method to analyze sensors data */
 	private boolean analyzeSensorData(String type, Double value) {
-		if(type.equals(SensorTypes.FUEL.toString()) && value < 10) {
+		if(type.equals(SensorTypes.FUEL.toString()) && value < CRITICAL_FUEL_LEVEL) {
 			return true;
-		} else if(type.equals(SensorTypes.GLASS_WASHER_FLUID.toString()) && value < 0.5){
+		} else if(type.equals(SensorTypes.GLASS_WASHER_FLUID) && value < CRITICAL_GLASS_WASHER_FLUID_LEVEL){
 			return true;
-		} else if(type.equals(SensorTypes.COOLANT.toString()) && value < 1) {
+		} else if(type.equals(SensorTypes.COOLANT) && value < CRITICAL_COOLANT_LEVEL) {
 			return true;
 		}
 		return false;
+
 	}
 }

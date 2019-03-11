@@ -202,7 +202,7 @@ dealerService.createDealer(dealerDto,username);
             /*get all applies to dealers*/
     @GetMapping("/api/dealer/allstosToApply/{username}")
     public  ResponseEntity<List<TechnicalServiceDto>> getAllStotoApply(@PathVariable String username){
-List<TechnicalServiceDto>technicalServiceDtos=applyService.TECHNICAL_SERVICE_DTOS(username);
+List<TechnicalServiceDto>technicalServiceDtos = applyService.TECHNICAL_SERVICE_DTOS(username);
         return new ResponseEntity<>(technicalServiceDtos, HttpStatus.OK);
     }
 

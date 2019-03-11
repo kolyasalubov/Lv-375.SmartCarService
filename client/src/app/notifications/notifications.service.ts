@@ -27,7 +27,7 @@ export class NotificationsService {
 
   updateNotifications(notifications : Observable<Notifications[]>){
     notifications.subscribe(data => {
-      this.wrapNotifications(data);
+      data.forEach(n => this.wrapNotification(n));
       this.notificationsSource.next(data);
     });
   }
@@ -42,8 +42,7 @@ export class NotificationsService {
     return this.http.post(this.baseUrl + "/" + id, null);
   }
 
-  private wrapNotifications(notifications){
-    notifications.forEach(n => {
+  public wrapNotification(n){
       n.showCheckbox = false;
       n.showDropdown = false;
       n.showButton = false;
@@ -54,6 +53,5 @@ export class NotificationsService {
       } else if (n.type !== 'Information'){
         n.showDropdown = true;
       }
-    });
   }
 }

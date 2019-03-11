@@ -26,7 +26,7 @@ public class TokenProvider {
     private String secret;
 
     @Value("${jwt.accessTokenExpiration}")
-    private String expirationTime;
+    private int expirationTime;
 
     public String generateToken(Authentication authentication) {
 
@@ -35,15 +35,15 @@ public class TokenProvider {
         return Jwts.builder()
                 .setSubject((userPrinciple.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + 864000000))
-                .signWith(SignatureAlgorithm.HS512, "Secret")
+                .setExpiration(new Date((new Date()).getTime() + expirationTime))
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
 
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey("Secret").parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: " + e);
@@ -61,7 +61,7 @@ public class TokenProvider {
     }
 
     public String getUserNameFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey("Secret").parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 
 }

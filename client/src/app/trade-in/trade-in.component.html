@@ -21,6 +21,26 @@
   </div></div>
 <hr>
 <div class="container-fluid" >
+
+  <div class="card">
+    <div class="card-body">
+      <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right; float:left;">
+
+      <div class="points" >
+        <ul class="hr">
+          <h3>Your car </h3>
+          <li>Brand  : {{mycar.brand}} </li>
+          <li>Model : {{mycar.model}}  </li>
+          <li>Graduation year : {{mycar.graduation_year}} </li>
+          <li>Number : {{mycar.number}} </li>
+          <li>Vin : {{mycar.vin}} </li>
+        </ul>
+
+      </div>
+      <div id="options"></div>
+    </div>
+  </div>
+
   <div class="card" *ngFor="let dealercar of allCars">
     <div class="card-body">
       <img src="assets/img/car.png" width="260px" height="130px" style="text-align: right; float:left;">

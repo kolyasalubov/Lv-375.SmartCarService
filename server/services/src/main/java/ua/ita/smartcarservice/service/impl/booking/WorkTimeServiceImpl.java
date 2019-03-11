@@ -23,6 +23,5 @@ public class WorkTimeServiceImpl implements WorkTimeService {
                 .entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey,
                     e -> e.getValue().stream().map(WorkerTasksDto::getWork).collect(Collectors.toList())));
     }
-
 }
 
