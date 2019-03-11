@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface WorkTimeRepository extends JpaRepository<WorkTime, Long> {
 
-    @Query("SELECT w.worker.fullName, w.work FROM WorkTime w WHERE  w.report.id = :id")
-    List<Object[]> findWorkerTasksByReportId(@Param("id") long reportId);
+    @Query("SELECT new WorkerTasksDto(w.worker.fullName, w.work) FROM WorkTime w WHERE  w.report.id = :id")
+    List<WorkerTasksDto> findWorkerTasksByReportId(@Param("id") long reportId);
 }

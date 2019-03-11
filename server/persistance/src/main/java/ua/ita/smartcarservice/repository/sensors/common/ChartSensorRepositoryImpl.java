@@ -28,10 +28,8 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
 
     private CriteriaBuilder builder;
 
-    // TODO rename
-    private final int DEFAULT_VALUE = 0;
+    private final int DEFAULT_LAST_RECORD_VALUE = 0;
 
-    // TODO change max to having
     @Override
     public Integer findLastRecordValue(@Param("carId") long carId,
                                        @Param("sensorType") String sensorType) {
@@ -52,14 +50,15 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         criteria.where(builder.in(root.get(SensorProperties.ID.toString())).value(subquery));
 
         List records = entityManager.createQuery(criteria).getResultList();
-        return records.size() == 0 ? DEFAULT_VALUE : (int)Math.round((double)records.get(0));
+        return records.size() == 0 ? DEFAULT_LAST_RECORD_VALUE : (int)Math.round((double)records.get(0));
     }
 
     @Override
     public List<Object[]> findAllDataByPeriod(@Param("date") LocalDateTime date,
                                               @Param("carId") long carId,
                                               @Param("sensorType") String sensorType,
-                                              @Param("selection") String selection) {
+                                              @Param("selection") String selection,
+                                              @Param("aggregation") String aggregation) {
 
         builder = entityManager.getCriteriaBuilder();
         Class entityClass = entityFactory.getEntity(sensorType).getClass();
@@ -67,7 +66,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         Root root = criteria.from(entityClass);
 
         ChartCriteriaElementsProvider elementsProvider =
-                new ChartCriteriaElementsProvider(carId, date, selection, sensorType, root);
+                new ChartCriteriaElementsProvider(carId, date, selection, aggregation, sensorType, root);
 
         Expression selectedPeriod = getSelectedPeriod(elementsProvider);
         Predicate[] predicates = getPredicates(elementsProvider);
@@ -81,18 +80,22 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         return entityManager.createQuery(criteria).getResultList();
     }
 
-    private Expression getSelectedPeriod(ChartCriteriaElementsProvider elementsProvider) {
-        String selection = elementsProvider.getSelection();
-        Path<String> datePath = elementsProvider.getDatePath();
-
-        if (selection.contains(ChartSelections.DAY.toString())) {
-            return getPartOfDate(ChartSelections.TIME.toString(), datePath);
-        } else if (selection.contains(ChartSelections.MONTH.toString())) {
-            return getPartOfDate(ChartSelections.DAY.toString(), datePath);
-        } else {
-            return getPartOfDate(ChartSelections.MONTH.toString(), datePath);
+    private ChartSelections getChartSelection(String selection){
+        switch (ChartSelections.valueOf(selection)){
+            case DAY:
+                return ChartSelections.TIME;
+            case MONTH:
+                return ChartSelections.DAY;
+            default:
+                return ChartSelections.MONTH;
         }
     }
+
+    private Expression getSelectedPeriod(ChartCriteriaElementsProvider elementsProvider) {
+        return getPartOfDate(getChartSelection(elementsProvider.getSelection()).toString(),
+                elementsProvider.getDatePath());
+    }
+
     private Predicate[] getPredicates(ChartCriteriaElementsProvider elementsProvider) {
         Path<String> datePath = elementsProvider.getDatePath();
         LocalDateTime date = elementsProvider.getDate();
@@ -106,11 +109,13 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         predicates.add(equalCar);
         predicates.add(equalYear);
 
-        String selection = elementsProvider.getSelection();
-        if (selection.contains(ChartSelections.DAY.toString())) {
-            predicates.addAll(Arrays.asList(equalMonth, equalDay));
-        } else if (selection.contains(ChartSelections.MONTH.toString())) {
-            predicates.add(equalMonth);
+        switch (ChartSelections.valueOf(elementsProvider.getSelection())){
+            case DAY:
+                predicates.addAll(Arrays.asList(equalMonth, equalDay));
+                break;
+            case MONTH:
+                predicates.add(equalMonth);
+                break;
         }
 
         return predicates.toArray(new Predicate[]{});
@@ -122,22 +127,22 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
 
     private Expression[] getSelection(Expression selectedPeriod, ChartCriteriaElementsProvider elementsProvider) {
         Map<String, Path<Double>> mapOfValues = elementsProvider.getValuePath();
-        String selection = elementsProvider.getSelection();
-
         List<Expression> list = new ArrayList<>();
+
         list.add(selectedPeriod);
         list.addAll(mapOfValues.values().stream()
-                .map(value -> getAggregatedValue(value, selection)).collect(Collectors.toList()));
+                .map(value -> getAggregatedValue(value, elementsProvider.getAggregation())).collect(Collectors.toList()));
         return list.toArray(new Expression[]{});
     }
 
-    private Expression getAggregatedValue(Path<Double> value, String selection) {
-        if (selection.contains(AggregationFunctions.MIN.toString())) {
-            return builder.min(value);
-        } else if (selection.contains(AggregationFunctions.MAX.toString())) {
-            return builder.max(value);
-        } else {
-            return builder.avg(value);
+    private Expression getAggregatedValue(Path<Double> value, String aggregation) {
+        switch (AggregationFunctions.valueOf(aggregation)){
+            case MIN:
+                return builder.min(value);
+            case MAX:
+                return builder.max(value);
+            default:
+                return builder.avg(value);
         }
     }
 }

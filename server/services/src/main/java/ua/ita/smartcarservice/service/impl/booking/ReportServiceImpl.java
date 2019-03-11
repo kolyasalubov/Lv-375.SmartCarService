@@ -13,7 +13,7 @@ import ua.ita.smartcarservice.repository.booking.ReportRepository;
 import ua.ita.smartcarservice.repository.technicalservice.UserTechnicalServiceRepository;
 import ua.ita.smartcarservice.service.booking.ReportService;
 import ua.ita.smartcarservice.service.booking.WorkTimeService;
-import ua.ita.smartcarservice.service.impl.booking.pdf.PdfCreator;
+import ua.ita.smartcarservice.service.pdf.PdfCreator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

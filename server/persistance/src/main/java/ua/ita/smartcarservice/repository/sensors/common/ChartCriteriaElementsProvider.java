@@ -10,8 +10,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Data
@@ -24,35 +24,32 @@ public class ChartCriteriaElementsProvider {
     private long carId;
     private LocalDateTime date;
     private String selection;
+    private String aggregation;
     private String sensorType;
 
-    public ChartCriteriaElementsProvider(long carId, LocalDateTime date, String selection, String sensorType, Root root) {
+    public ChartCriteriaElementsProvider(long carId, LocalDateTime date, String selection, String aggregation,
+                                         String sensorType, Root root) {
         this.carId = carId;
         this.date = date;
         this.selection = selection;
+        this.aggregation = aggregation;
         this.sensorType = sensorType;
-        setPathes(root);
+        setPaths(root);
     }
 
-    public void setPathes(Root root) {
+    private void setPaths(Root root) {
         datePath = root.get(SensorProperties.DATE.toString());
         carIdPath = root.get(SensorProperties.CAR.toString()).get(SensorProperties.ID.toString());
         valuePath = getValuePath(root, sensorType);
     }
 
     private Map<String, Path<Double>> getValuePath(Root root, String sensorType) {
-
-        // TODO Map COLLECTORS
-        Map<String, Path<Double>> valuePath = new HashMap<>();
-        Arrays.stream(getValuesNames(sensorType)).forEach((value) -> {
-            String key = value.toString();
-            valuePath.put(key, root.get(key));
-        });
-        return valuePath;
+        return Arrays.stream(getValuesNames(sensorType))
+                .collect(Collectors.toMap(Object::toString, s -> root.get(s.toString())));
     }
 
     private Object[] getValuesNames(String sensorType) {
-        if (sensorType.equals(SensorTypes.TIRE_PRESSURE.toString())) {
+        if (SensorTypes.valueOf(sensorType).equals(SensorTypes.TIRE_PRESSURE)) {
             return Tires.values();
         } else {
             return new Object[]{SensorProperties.VALUE.toString()};

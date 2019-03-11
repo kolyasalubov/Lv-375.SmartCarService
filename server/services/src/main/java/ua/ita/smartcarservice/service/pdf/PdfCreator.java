@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.service.impl.booking.pdf;
+package ua.ita.smartcarservice.service.pdf;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -42,12 +42,10 @@ public class PdfCreator {
         document = new Document();
 
         try {
-//            PdfWriter.getInstance(document, new FileOutputStream(fileName));
             PdfWriter.getInstance(document, byteArrayOutputStream);
             document.open();
             formPdfReport(report);
             document.close();
-//        } catch (DocumentException | FileNotFoundException e) {
         } catch (DocumentException e ) {
             e.printStackTrace();
         }

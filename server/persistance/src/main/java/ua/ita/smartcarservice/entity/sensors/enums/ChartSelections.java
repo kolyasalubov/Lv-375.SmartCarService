@@ -11,7 +11,7 @@ public enum ChartSelections {
 
     private String period;
 
-    private ChartSelections(String period) {
+    ChartSelections(String period) {
         this.period = period;
     }
 

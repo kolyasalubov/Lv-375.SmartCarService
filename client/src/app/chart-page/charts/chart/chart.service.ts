@@ -20,8 +20,10 @@ export class ChartService {
   constructor(private http: HttpClient) {
   }
 
-  public getChartData(sensorType: string, carId: number, selection: string, date: Date = new Date()) {
-    let dateDto: DateDto = new DateDto(sensorType, carId, this.newDateInMySqlString(date), selection);
+  public getChartData(sensorType: string, carId: number, selection: string, aggregation: string,
+                      date: Date = new Date()) {
+    let dateDto: DateDto = new DateDto(sensorType, carId, this.newDateInMySqlString(date),
+      selection, aggregation);
     return this.getDataFromDB(dateDto, this.URL);
   }
 
@@ -35,10 +37,11 @@ export class ChartService {
       .set("sensorType", dateDto.sensorType)
       .set("carId", String(dateDto.carId))
       .set("date", dateDto.date)
-      .set("selection", dateDto.selection);
+      .set("selection", dateDto.selection)
+      .set("aggregation", dateDto.aggregation);
 
-      if(dateDto.selection.includes("last")){
-        url += dateDto.selection;
+      if(dateDto.selection === "last"){
+        url += `/last`;
       }
 
     return this.http.get<ChartDto>(url, this.httpOptions);
