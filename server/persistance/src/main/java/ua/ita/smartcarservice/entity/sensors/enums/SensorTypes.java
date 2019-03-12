@@ -2,6 +2,9 @@ package ua.ita.smartcarservice.entity.sensors.enums;
 
 import ua.ita.smartcarservice.entity.sensors.*;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public enum SensorTypes {
 
     SPEED("speed", SpeedEntity.class),
@@ -31,5 +34,10 @@ public enum SensorTypes {
 
     public Class getSensorEntity() {
         return sensorEntity;
+    }
+
+    public static SensorTypes getEnumBySensorType(String sensorType){
+        return Arrays.stream(SensorTypes.values()).filter(s -> s.toString().equals(sensorType))
+                .collect(Collectors.toList()).get(0);
     }
 }

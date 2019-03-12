@@ -58,7 +58,7 @@ export class ChartComponent {
   }
 
   private getId(period: string): string {
-    return `${period.charAt(1).toUpperCase()}${period.substr(2)}_${this.sensorType}`;
+    return `${period.charAt(0).toUpperCase()}${period.substr(1)}_${this.sensorType}`;
   }
 
   // *****

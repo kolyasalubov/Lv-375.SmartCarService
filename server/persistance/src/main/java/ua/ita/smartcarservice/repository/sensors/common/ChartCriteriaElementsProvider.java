@@ -49,7 +49,7 @@ public class ChartCriteriaElementsProvider {
     }
 
     private Object[] getValuesNames(String sensorType) {
-        if (SensorTypes.valueOf(sensorType).equals(SensorTypes.TIRE_PRESSURE)) {
+        if (SensorTypes.getEnumBySensorType(sensorType).equals(SensorTypes.TIRE_PRESSURE)) {
             return Tires.values();
         } else {
             return new Object[]{SensorProperties.VALUE.toString()};

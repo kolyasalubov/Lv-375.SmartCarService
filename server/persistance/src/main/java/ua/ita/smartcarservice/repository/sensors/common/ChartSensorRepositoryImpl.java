@@ -81,7 +81,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     }
 
     private ChartSelections getChartSelection(String selection){
-        switch (ChartSelections.valueOf(selection)){
+        switch (ChartSelections.getEnumByPeriod(selection)){
             case DAY:
                 return ChartSelections.TIME;
             case MONTH:
@@ -109,7 +109,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
         predicates.add(equalCar);
         predicates.add(equalYear);
 
-        switch (ChartSelections.valueOf(elementsProvider.getSelection())){
+        switch (ChartSelections.getEnumByPeriod(elementsProvider.getSelection())){
             case DAY:
                 predicates.addAll(Arrays.asList(equalMonth, equalDay));
                 break;
@@ -136,7 +136,7 @@ public class ChartSensorRepositoryImpl<T extends BaseSensorEntity> implements Ch
     }
 
     private Expression getAggregatedValue(Path<Double> value, String aggregation) {
-        switch (AggregationFunctions.valueOf(aggregation)){
+        switch (AggregationFunctions.getEnumByAggregation(aggregation)){
             case MIN:
                 return builder.min(value);
             case MAX:
