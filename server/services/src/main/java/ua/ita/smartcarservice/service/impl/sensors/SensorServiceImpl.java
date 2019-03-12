@@ -65,7 +65,7 @@ public class SensorServiceImpl implements SensorService {
     public ChartDto findDataByPeriod(DateForChartDto dto) {
         return getChartDtoFromObjArray(getChartRepository(dto)
                 .findAllDataByPeriod(parseDateToLocal(dto.getDate()), dto.getCarId(),
-                        dto.getSensorType(), dto.getSelection()));
+                        dto.getSensorType(), dto.getSelection(), dto.getAggregation()));
     }
 
     @Override

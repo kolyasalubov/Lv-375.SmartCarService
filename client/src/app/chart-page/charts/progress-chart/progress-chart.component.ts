@@ -31,7 +31,7 @@ export class ProgressChartComponent implements OnInit {
   }
 
   private getChartDto(): void {
-    this.chartService.getChartData(this.sensorType, this.carId, '/last')
+    this.chartService.getChartData(this.sensorType, this.carId, 'last')
       .subscribe(
         dto => {
           for (const [key, value] of Object.entries(dto.data)) {

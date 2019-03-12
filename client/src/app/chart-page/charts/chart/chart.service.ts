@@ -20,7 +20,7 @@ export class ChartService {
   constructor(private http: HttpClient) {
   }
 
-  public getChartData(sensorType: string, carId: number, selection: string, aggregation: string,
+  public getChartData(sensorType: string, carId: number, selection: string, aggregation: string = null,
                       date: Date = new Date()) {
     let dateDto: DateDto = new DateDto(sensorType, carId, this.newDateInMySqlString(date),
       selection, aggregation);
