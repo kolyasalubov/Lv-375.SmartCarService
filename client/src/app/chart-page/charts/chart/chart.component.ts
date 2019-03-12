@@ -21,8 +21,8 @@ export class ChartComponent {
   carId: number;
 
   private MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  private PERIODS = ['Day', 'Month', 'Year'];
-  private SELECTIONS = ['Avg', 'Min', 'Max'];
+  private SELECTIONS = ['Day', 'Month', 'Year'];
+  private AGGREGATIONS = ['Avg', 'Min', 'Max'];
 
   public chartDatasets: Array<any> = [{ data: null, label: null }];
   public chartLabels: Array<any> = [null];
@@ -76,14 +76,14 @@ export class ChartComponent {
     this.date = new Date();
     this.getChartDto();
 
-    this.changeBtnColors(this.PERIODS, this.getId(selection));
-    this.changeBtnColors(this.SELECTIONS, `Avg_${this.sensorType}`);
+    this.changeBtnColors(this.SELECTIONS, this.getId(selection));
+    this.changeBtnColors(this.AGGREGATIONS, `Avg_${this.sensorType}`);
   }
 
   changeAggregation(aggregation: string): void {
     this.aggregation = aggregation;
     this.getChartDto(this.selection, aggregation);
-    this.changeBtnColors(this.SELECTIONS, this.getId(aggregation));
+    this.changeBtnColors(this.AGGREGATIONS, this.getId(aggregation));
   }
 
   changeDate(isNext: boolean): void {
