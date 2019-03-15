@@ -20,6 +20,7 @@ public class ProgresDto {
 
  private LocalDateTime endTime;
 
+
  private List<Long> workersId;
 
 
