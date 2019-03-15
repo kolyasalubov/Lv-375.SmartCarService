@@ -1,7 +1,9 @@
 package ua.ita.smartcarservice.entity.sensors;
 
 import lombok.Data;
-import ua.ita.smartcarservice.entity.sensors.common.Tires;
+import ua.ita.smartcarservice.entity.sensors.common.BaseSensorEntity;
+import ua.ita.smartcarservice.entity.sensors.common.ISensor;
+import ua.ita.smartcarservice.entity.sensors.enums.Tires;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +13,7 @@ import java.util.Map;
 @Data
 @Entity
 @Table(name = "fact_tire_pressure")
-public class TirePressureEntity extends BaseSensorEntity implements ISensorEntity {
+public class TirePressureEntity extends BaseSensorEntity {
 
     @Column(nullable = false)
     protected double valueFrontLeft;
@@ -25,12 +27,12 @@ public class TirePressureEntity extends BaseSensorEntity implements ISensorEntit
     @Column(nullable = false)
     protected double valueBackRight;
 
-    public ISensorEntity setValues(ISensorEntity entity, Map<String, Double> values) {
+    public ISensor setValues(ISensor entity, Map<String, Double> values) {
         TirePressureEntity iEntity = (TirePressureEntity) entity;
-        iEntity.setValueBackRight(values.get(Tires.BACK_RIGHT.getName()));
-        iEntity.setValueBackLeft(values.get(Tires.BACK_LEFT.getName()));
-        iEntity.setValueFrontRight(values.get(Tires.FRONT_RIGHT.getName()));
-        iEntity.setValueFrontLeft(values.get(Tires.FRONT_LEFT.getName()));
+        iEntity.setValueBackRight(values.get(Tires.BACK_RIGHT.getTireName()));
+        iEntity.setValueBackLeft(values.get(Tires.BACK_LEFT.getTireName()));
+        iEntity.setValueFrontRight(values.get(Tires.FRONT_RIGHT.getTireName()));
+        iEntity.setValueFrontLeft(values.get(Tires.FRONT_LEFT.getTireName()));
 
         return iEntity;
     }

@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.entity.sensors;
+package ua.ita.smartcarservice.entity.sensors.common;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 @MappedSuperclass
-public abstract class BaseSensorEntity {
+public abstract class BaseSensorEntity implements ISensor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
