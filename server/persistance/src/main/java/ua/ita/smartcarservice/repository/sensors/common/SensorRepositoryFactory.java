@@ -3,8 +3,8 @@ package ua.ita.smartcarservice.repository.sensors.common;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
-import ua.ita.smartcarservice.entity.sensors.common.SensorTypes;
+import ua.ita.smartcarservice.entity.sensors.common.BaseSensorEntity;
+import ua.ita.smartcarservice.entity.sensors.enums.SensorTypes;
 import ua.ita.smartcarservice.repository.sensors.*;
 
 import java.util.HashMap;

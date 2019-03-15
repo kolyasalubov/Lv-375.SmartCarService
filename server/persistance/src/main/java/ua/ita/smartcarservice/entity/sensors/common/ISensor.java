@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.entity.sensors;
+package ua.ita.smartcarservice.entity.sensors.common;
 
 
 import ua.ita.smartcarservice.entity.Car;
@@ -6,7 +6,7 @@ import ua.ita.smartcarservice.entity.Car;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public interface ISensorEntity {
+public interface ISensor {
 
     void setDate(LocalDateTime date);
 
@@ -16,6 +16,6 @@ public interface ISensorEntity {
 
     void setCar(Car car);
 
-    ISensorEntity setValues(ISensorEntity entity, Map<String, Double> values);
+    ISensor setValues(ISensor entity, Map<String, Double> values);
 
 }

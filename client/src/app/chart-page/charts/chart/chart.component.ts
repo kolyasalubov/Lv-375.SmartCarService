@@ -21,15 +21,15 @@ export class ChartComponent {
   carId: number;
 
   private MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  private PERIODS = ['Day', 'Month', 'Year'];
-  private SELECTIONS = ['Avg', 'Min', 'Max'];
+  private SELECTIONS = ['Day', 'Month', 'Year'];
+  private AGGREGATIONS = ['Avg', 'Min', 'Max'];
 
   public chartDatasets: Array<any> = [{ data: null, label: null }];
   public chartLabels: Array<any> = [null];
   public colors: Array<any> = [{ borderWidth: 2, }];
 
-  private period: string = '/day';
-  private selection: string = '';
+  private selection: string = 'day';
+  private aggregation: string = 'avg';
   private date: Date = new Date();
 
 
@@ -58,7 +58,7 @@ export class ChartComponent {
   }
 
   private getId(period: string): string {
-    return `${period.charAt(1).toUpperCase()}${period.substr(2)}_${this.sensorType}`;
+    return `${period.charAt(0).toUpperCase()}${period.substr(1)}_${this.sensorType}`;
   }
 
   // *****
@@ -66,36 +66,35 @@ export class ChartComponent {
   // *****
 
   initCharts(): void {
-    this.getChartDto(this.period + this.selection);
+    this.getChartDto(this.selection, this.aggregation);
     this.setBackgroundColor(`Day_${this.sensorType}`, COLORS.get('LIGHT_BTN'));
   }
 
-  changePeriod(period: string): void {
-    this.period = period;
-    this.selection = '';
+  changePeriod(selection: string): void {
+    this.selection = selection;
+    this.aggregation = 'avg';
     this.date = new Date();
     this.getChartDto();
 
-    this.changeBtnColors(this.PERIODS, this.getId(period));
-    this.changeBtnColors(this.SELECTIONS, `Avg_${this.sensorType}`);
+    this.changeBtnColors(this.SELECTIONS, this.getId(selection));
+    this.changeBtnColors(this.AGGREGATIONS, `Avg_${this.sensorType}`);
   }
 
-  changeSelection(selection = ''): void {
-    this.selection = selection;
-    this.getChartDto(this.period + selection);
-
-    this.changeBtnColors(this.SELECTIONS, (selection === '') ? `Avg_${this.sensorType}` : this.getId(selection));
+  changeAggregation(aggregation: string): void {
+    this.aggregation = aggregation;
+    this.getChartDto(this.selection, aggregation);
+    this.changeBtnColors(this.AGGREGATIONS, this.getId(aggregation));
   }
 
   changeDate(isNext: boolean): void {
     this.setDate(isNext);
-    this.getChartDto(this.period + this.selection);
+    this.getChartDto(this.selection, this.aggregation);
   }
 
   private setDate(isNext: boolean): void {
-    if (this.period.includes('day')) {
+    if (this.selection === 'day') {
       this.date.setDate(this.incrDecrDate(isNext, this.date.getDate()));
-    } else if (this.period.includes('month')) {
+    } else if (this.selection === 'month') {
       this.date.setMonth(this.incrDecrDate(isNext, this.date.getMonth()));
     } else {
       this.date.setFullYear(this.incrDecrDate(isNext, this.date.getFullYear()));
@@ -106,8 +105,8 @@ export class ChartComponent {
     return isNext ? (current + 1) : (current - 1);
   }
 
-  private getChartDto(period = this.period): void {
-    this.chartService.getChartData(this.sensorType, this.carId, period, this.date)
+  private getChartDto(selection = this.selection, aggregation = this.aggregation): void {
+    this.chartService.getChartData(this.sensorType, this.carId, selection, aggregation, this.date)
       .subscribe(
         data => {
           this.setDataAndLabels(data);
@@ -139,12 +138,12 @@ export class ChartComponent {
   private changeLabels(oldLabels: string[]): string[] {
     let labels: string[] = [];
 
-    if (this.period.includes('day')) {
+    if (this.selection ==='day') {
       oldLabels.forEach(label => {
         labels.push(label.slice(0, 5));
       });
       labels = this.sortHours(labels);
-    } else if (this.period.includes('month')) {
+    } else if (this.selection === 'month') {
       labels = oldLabels;
     } else {
       oldLabels.forEach(label => {
@@ -186,23 +185,14 @@ export class ChartComponent {
     return labels;
   }
 
-
-  // public setColors() {
-  //   console.log(this.chartDatasets[0].data.length());
-  //   for(let i = 0; i < this.chartDatasets[0].data; i++){
-  //     this.colors[0].backgroundColor.push('rgba(153, 102, 255, 0.2)');
-  //     this.colors[0].borderColor.push('rgba(153, 102, 255, 1)');
-  //   }
-  // }
-
   private getCurrentPeriod(date: Date): string {
     let day = date.getDate();
     let month = this.MONTHS[date.getMonth()];
     let year = date.getFullYear();
 
-    if (this.period.includes('day')) {
+    if (this.selection === 'day') {
       return `${day} ${month}, ${year}`
-    } else if (this.period.includes('month')) {
+    } else if (this.selection === 'month') {
       return `${month}, ${year}`
     } else {
       return year.toString();
