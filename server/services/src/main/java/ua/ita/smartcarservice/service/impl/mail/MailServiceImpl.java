@@ -34,7 +34,8 @@ public class MailServiceImpl implements MailService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-//        javaMailSender.send(mimeMessage);
+//         TODO this line is necessary for sending email
+//        javaMailSender.send(helper.getMimeMessage());
     }
 
     @Override
