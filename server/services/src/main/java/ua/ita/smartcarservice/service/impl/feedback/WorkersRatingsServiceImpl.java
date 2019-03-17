@@ -11,17 +11,21 @@ import ua.ita.smartcarservice.service.feedback.WorkersRatingsService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Service Implementation for WorkersRating.
+ */
 @Service
 public class WorkersRatingsServiceImpl implements WorkersRatingsService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    WorkersRatingsRepository workersRatingsRepository;
+    private WorkersRatingsRepository workersRatingsRepository;
 
     @Override
-    public void addRatingToWorker(Long workerId, Integer rate) {
+    public void addRatingToWorker(final Long workerId,
+                                  final Integer rate) {
         UserEntity workerEntity;
 
         workerEntity = userRepository.getUserById(workerId);
@@ -29,17 +33,19 @@ public class WorkersRatingsServiceImpl implements WorkersRatingsService {
     }
 
     @Override
-    public Double getAvgWorkersRating(Long workerId) {
+    public Double getAvgWorkersRating(final Long workerId) {
         Double avgRating;
         UserEntity workerEntity;
 
         workerEntity = userRepository.getUserById(workerId);
-        avgRating = workersRatingsRepository.getAvgRatingByWorkerId(workerEntity);
+        avgRating = workersRatingsRepository.
+                getAvgRatingByWorkerId(workerEntity);
 
-        if(avgRating == null) {
+        if (avgRating == null) {
             avgRating = 0d;
         }
 
-        return BigDecimal.valueOf(avgRating).setScale(1, RoundingMode.HALF_UP).doubleValue();
+        return BigDecimal.valueOf(avgRating).
+                setScale(1, RoundingMode.HALF_UP).doubleValue();
     }
 }

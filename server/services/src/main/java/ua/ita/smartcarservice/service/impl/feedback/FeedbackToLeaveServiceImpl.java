@@ -12,20 +12,24 @@ import ua.ita.smartcarservice.service.feedback.FeedbackToLeaveService;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Service Implementation for FeedbackToLeave.
+ */
 @Service
 public class FeedbackToLeaveServiceImpl implements FeedbackToLeaveService {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    FeedbackToLeaveRepository feedbackToLeaveRepository;
+    private FeedbackToLeaveRepository feedbackToLeaveRepository;
 
     @Override
-    public void saveFeedbackToLeave(String username, List<Long> workerId) {
+    public void saveFeedbackToLeave(final String username,
+                                    final List<Long> workerId) {
         UserEntity user;
 
         user = userService.findUser(username);
@@ -37,14 +41,16 @@ public class FeedbackToLeaveServiceImpl implements FeedbackToLeaveService {
     }
 
     @Override
-    public List<Long> findWorkersIdToLeaveFeedbackByUsername(String username) {
+    public List<Long> findWorkersIdToLeaveFeedbackByUsername(
+            final String username) {
         List<FeedbackToLeave> feedbackToLeaveList;
         List<Long> workersIdList;
         UserEntity userEntity;
 
         workersIdList = new ArrayList<>();
         userEntity = userRepository.getByUsername(username);
-        feedbackToLeaveList = feedbackToLeaveRepository.findAllByUserId(userEntity);
+        feedbackToLeaveList = feedbackToLeaveRepository.
+                findAllByUserId(userEntity);
 
         feedbackToLeaveList.parallelStream().forEach(each -> {
             workersIdList.add(each.getWorkerId().getId());
@@ -54,7 +60,7 @@ public class FeedbackToLeaveServiceImpl implements FeedbackToLeaveService {
     }
 
     @Override
-    public void deleteByUsername(String username) {
+    public void deleteByUsername(final String username) {
         UserEntity userEntity;
 
         userEntity = userRepository.getByUsername(username);

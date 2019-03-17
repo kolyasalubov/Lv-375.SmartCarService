@@ -22,30 +22,35 @@ import java.util.List;
 
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
+/**
+ * Service implementation for Services Feedback.
+ */
 @Service
 public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    TechnicalServiceRepository technicalServiceRepository;
+    private TechnicalServiceRepository technicalServiceRepository;
 
     @Autowired
-    ServicesFeedbackRepository servicesFeedbackRepository;
+    private ServicesFeedbackRepository servicesFeedbackRepository;
 
-    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+    private static final Logger LOGGER =
+        Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
     @Override
-    public void addFeedbackToService(ServicesFeedbackInputDto servicesFeedbackInputDto) {
-        logger.info("Received: " + servicesFeedbackInputDto);
+    public void addFeedbackToService(
+            final ServicesFeedbackInputDto servicesFeedbackInputDto) {
+        LOGGER.info("Received: " + servicesFeedbackInputDto);
         //System.out.println("Received: " + servicesFeedbackInputDto);
 
         ServicesFeedback servicesFeedback;
         UserEntity userEntity;
         TechnicalServiceEntity technicalServiceEntity;
 
-        logger.info("Received: " + servicesFeedbackInputDto);
+        LOGGER.info("Received: " + servicesFeedbackInputDto);
 
         userEntity = userRepository.
                 getByUsername(servicesFeedbackInputDto.getUserName());
@@ -53,7 +58,7 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
                 getOne(servicesFeedbackInputDto.getServiceId());
         servicesFeedback = new ServicesFeedback(
                 servicesFeedbackInputDto.getText(),
-                LocalDateTime.now().plusHours(2l),
+                LocalDateTime.now().plusHours(2L),
                 userEntity,
                 technicalServiceEntity);
 
@@ -61,53 +66,64 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
     }
 
     @Override
-    public List<ServicesFeedbackOutputDto> getServicesFeedback(Long serviceId) {
-        List<ServicesFeedbackOutputDto> servicesFeedbackOutputDtoList = new ArrayList<>();
+    public List<ServicesFeedbackOutputDto> getServicesFeedback(
+            final Long serviceId) {
+        List<ServicesFeedbackOutputDto> servicesFeedbackOutputDtoList =
+                new ArrayList<>();
         List<ServicesFeedback> servicesFeedbackEntityList;
         TechnicalServiceEntity technicalServiceEntity;
 
         technicalServiceEntity = technicalServiceRepository.getOne(serviceId);
-        servicesFeedbackEntityList = servicesFeedbackRepository.getByServiceIdOrderByTimeAsc(technicalServiceEntity);
+        servicesFeedbackEntityList = servicesFeedbackRepository.
+                getByServiceIdOrderByTimeAsc(technicalServiceEntity);
 
         servicesFeedbackEntityList.parallelStream().forEach(eachEntity -> {
-            servicesFeedbackOutputDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));
+            servicesFeedbackOutputDtoList.
+                    add(this.getServicesFeedbackDtoFromEntity(eachEntity));
         });
 
         return servicesFeedbackOutputDtoList;
     }
 
     @Override
-    public List<ServicesFeedbackOutputDto> getUsersFeedback(String username) {
-        List<ServicesFeedbackOutputDto> servicesFeedbackOutputDtoList = new ArrayList<>();
+    public List<ServicesFeedbackOutputDto> getUsersFeedback(
+            final String username) {
+        List<ServicesFeedbackOutputDto> servicesFeedbackOutputDtoList =
+                new ArrayList<>();
         List<ServicesFeedback> servicesFeedbackEntityList;
         UserEntity userEntity;
 
         userEntity = userRepository.getByUsername(username);
-        servicesFeedbackEntityList = servicesFeedbackRepository.getByUserIdOrderByTimeAsc(userEntity);
+        servicesFeedbackEntityList = servicesFeedbackRepository.
+                getByUserIdOrderByTimeAsc(userEntity);
 
         servicesFeedbackEntityList.parallelStream().forEach(eachEntity -> {
-            servicesFeedbackOutputDtoList.add(this.getServicesFeedbackDtoFromEntity(eachEntity));
+            servicesFeedbackOutputDtoList.add(
+                    this.getServicesFeedbackDtoFromEntity(eachEntity));
         });
 
         return servicesFeedbackOutputDtoList;
     }
 
     @Override
-    public Double getServicesRating(Long serviceId) {
+    public Double getServicesRating(final Long serviceId) {
         Double rating;
         TechnicalServiceEntity technicalServiceEntity;
 
         technicalServiceEntity = technicalServiceRepository.getOne(serviceId);
-        rating = servicesFeedbackRepository.getServicesRating(technicalServiceEntity);
-        if(rating == null) {
+        rating = servicesFeedbackRepository.
+                getServicesRating(technicalServiceEntity);
+        if (rating == null) {
             rating = 0d;
         }
-        rating = BigDecimal.valueOf(rating).setScale(1, RoundingMode.HALF_UP).doubleValue();
+        rating = BigDecimal.valueOf(rating).
+                setScale(1, RoundingMode.HALF_UP).doubleValue();
 
         return rating;
     }
 
-    private ServicesFeedbackOutputDto getServicesFeedbackDtoFromEntity(ServicesFeedback servicesFeedbackEntity) {
+    private ServicesFeedbackOutputDto getServicesFeedbackDtoFromEntity(
+            final ServicesFeedback servicesFeedbackEntity) {
         ServicesFeedbackOutputDto servicesFeedbackOutputDto;
 
         servicesFeedbackOutputDto = new ServicesFeedbackOutputDto(
@@ -120,5 +136,4 @@ public class ServicesFeedbackServiceImpl implements ServicesFeedbackService {
 
         return servicesFeedbackOutputDto;
     }
-
 }

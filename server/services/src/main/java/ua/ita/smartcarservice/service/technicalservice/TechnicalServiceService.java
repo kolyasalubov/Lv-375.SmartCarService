@@ -1,6 +1,5 @@
 package ua.ita.smartcarservice.service.technicalservice;
 
-import org.apache.catalina.User;
 import ua.ita.smartcarservice.dto.sales.DealerStoAddDto;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
 import ua.ita.smartcarservice.entity.UserEntity;
@@ -8,6 +7,9 @@ import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 import java.util.List;
 
+/**
+ * Service Interface for TechnicalService.
+ */
 public interface TechnicalServiceService {
 
     TechnicalServiceEntity getTechnicalServiceById(Long id);
@@ -22,9 +24,11 @@ public interface TechnicalServiceService {
 
     void addUserToTechnicalService(String username, Long technicalServiceId);
 
-    void deleteUserFromTechnicalService(String username, Long technicalServiceId);
+    void deleteUserFromTechnicalService(String username,
+                                        Long technicalServiceId);
 
-    List<UserEntity> getUsersByRoleAndTechnicalSevice(String roleName, Long technicalServiceId);
+    List<UserEntity> getUsersByRoleAndTechnicalSevice(String roleName,
+                                                      Long technicalServiceId);
 
     List<TechnicalServiceEntity> getAllTechnicalServices();
 
@@ -32,13 +36,17 @@ public interface TechnicalServiceService {
 
     TechnicalServiceDto getTechnicalServiceDtoById(Long id);
 
-    TechnicalServiceDto updateTechnicalService(TechnicalServiceEntity technicalService);
+    TechnicalServiceDto updateTechnicalService(
+            TechnicalServiceEntity technicalService);
 
-    TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto);
+    TechnicalServiceDto updateTechnicalService(
+            TechnicalServiceDto technicalServiceDto);
 
-    List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username);
+    List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(
+            String username);
 
     String findTechnicalServiceByCarId(Long id);
-    void createTechnicalServiceByDealer(DealerStoAddDto stoAddDto, String username);
 
+    void createTechnicalServiceByDealer(DealerStoAddDto stoAddDto,
+                                        String username);
 }
