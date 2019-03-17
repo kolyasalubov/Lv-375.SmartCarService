@@ -2,8 +2,9 @@ package ua.ita.smartcarservice.dto.technicalservice;
 
 import lombok.Data;
 
-import java.util.List;
-
+/**
+ * DTO for SkillEntity.
+ */
 @Data
 public class SkillDto {
 

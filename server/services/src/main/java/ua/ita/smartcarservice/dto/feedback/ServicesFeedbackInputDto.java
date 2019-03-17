@@ -2,9 +2,13 @@ package ua.ita.smartcarservice.dto.feedback;
 
 import lombok.Data;
 
+/**
+ * DTO for ServicesFeedback Entity.\
+ * For input from front-end only.
+ */
 @Data
 public class ServicesFeedbackInputDto {
-    String text;
-    String userName;
-    Long serviceId;
+    private String text;
+    private String userName;
+    private Long serviceId;
 }
