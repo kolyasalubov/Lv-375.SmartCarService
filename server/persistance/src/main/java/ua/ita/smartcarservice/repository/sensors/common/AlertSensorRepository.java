@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.query.Param;
-import ua.ita.smartcarservice.entity.sensors.BaseSensorEntity;
+import ua.ita.smartcarservice.entity.sensors.common.BaseSensorEntity;
 
 /**
  * Some text.

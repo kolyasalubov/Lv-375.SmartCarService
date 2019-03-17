@@ -37,6 +37,8 @@ public class ReportController {
         return new ResponseEntity<>(reports, HttpStatus.OK);
     }
 
+
+
     @GetMapping("/pdf/{reportId}")
     public ResponseEntity<byte[]> formPdf(@PathVariable Long reportId) {
         byte[] pdf = reportService.formExtendedReport(reportId);
