@@ -15,7 +15,9 @@ import java.util.List;
  * JPA Repository for WorkersSkill.
  */
 @Repository
-public interface WorkersSkillRepository extends JpaRepository<WorkersSkill, Long> {
+public interface WorkersSkillRepository
+        extends JpaRepository<WorkersSkill, Long> {
+
     @Query(value = "select s from SkillEntity  s "
             + "left join WorkersSkill as ws "
             + "where ws.workerId = :workerId")

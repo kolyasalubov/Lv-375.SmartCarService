@@ -100,7 +100,9 @@ public class TechnicalServiceController {
      * also it adds a Skill to Current Worker
      */
     @PostMapping("/techservices/{id}/workers/{username}/skills/{skillId}")
-    ResponseEntity addWorkerToTechnicalService(@PathVariable Long id, @PathVariable String username, @PathVariable Long skillId) {
+    ResponseEntity addWorkerToTechnicalService(@PathVariable Long id,
+                                               @PathVariable String username,
+                                               @PathVariable Long skillId) {
         ResponseEntity responseEntity;
 
         try {

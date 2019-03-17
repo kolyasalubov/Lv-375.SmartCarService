@@ -6,7 +6,11 @@ import ua.ita.smartcarservice.entity.feedback.FeedbackToLeave;
 
 import java.util.List;
 
-public interface FeedbackToLeaveRepository extends JpaRepository<FeedbackToLeave, Long> {
+/**
+ * JPA repository for Services Feedback entity.
+ */
+public interface FeedbackToLeaveRepository
+        extends JpaRepository<FeedbackToLeave, Long> {
     List<FeedbackToLeave> findAllByUserId(UserEntity userId);
 
     void deleteAllByUserId(UserEntity userId);

@@ -9,6 +9,9 @@ import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Repository for type of work instance.
+ */
 @Repository
 public interface WorkTypeRepository extends JpaRepository<WorkType, Long> {
 

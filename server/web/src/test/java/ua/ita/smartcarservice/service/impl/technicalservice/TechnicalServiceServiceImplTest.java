@@ -18,8 +18,7 @@ import ua.ita.smartcarservice.service.feedback.ServicesFeedbackService;
 
 import java.util.*;
 
-import static org.mockito.ArgumentMatchers.anyDouble;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 
 //@TestExecutionListeners(MockitoTestExecutionListener.class)
 //@SpringBootTest
@@ -27,7 +26,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 public class TechnicalServiceServiceImplTest extends AbstractTestNGSpringContextTests {
 
     @Mock//Bean
-    TechnicalServiceRepository technicalServiceRepository;
+            TechnicalServiceRepository technicalServiceRepository;
 
     @Mock
     ServicesFeedbackService servicesFeedbackService;
@@ -78,12 +77,14 @@ public class TechnicalServiceServiceImplTest extends AbstractTestNGSpringContext
         expectedDto.setName("ServiceName");
         expectedDto.setAddress("Address");
         expectedDto.setRating(4.6D);
-        expectedDto.setWorkers(new ArrayList<UserEntity>() {});
+        expectedDto.setWorkers(new ArrayList<UserEntity>() {
+        });
 
+        Mockito.when(servicesFeedbackService.getServicesRating(anyLong())).thenReturn(expectedDto.getRating());
         Mockito.when(technicalServiceRepository.getTechnicalServiceEntityByUser(anyLong())).thenReturn(expectedEntity);
-        Mockito.when(servicesFeedbackService.getServicesRating(expectedEntity.getTechnicalServiceId())).thenReturn(anyDouble());
 
-        actualDto = technicalServiceServiceImpl.getTechnicalServiceDtoByUser(userId);
+
+        actualDto = technicalServiceServiceImpl.getTechnicalServiceDtoByUser(anyLong());
 
         Assert.assertEquals(expectedDto.getStoId(), actualDto.getStoId());
         Assert.assertEquals(expectedDto.getName(), actualDto.getName());

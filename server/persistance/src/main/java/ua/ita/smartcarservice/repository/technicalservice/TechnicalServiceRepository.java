@@ -33,7 +33,8 @@ public interface TechnicalServiceRepository
             + "on ts.technical_service_id = us.technical_service_id "
             + "left join user as u on us.user_id = u.id where u.id = :id",
             nativeQuery = true)
-    TechnicalServiceEntity getTechnicalServiceEntityByUser(@Param("id") Long id);
+    TechnicalServiceEntity getTechnicalServiceEntityByUser(
+                                                        @Param("id") Long id);
 
     /**
      * Method for getting a Technical Service by User`s username.
@@ -47,7 +48,8 @@ public interface TechnicalServiceRepository
             + "left join user as u on us.user_id = u.id "
             + "where u.username = :username",
             nativeQuery = true)
-    TechnicalServiceEntity getTechnicalServiceEntityByUsername(@Param("username") String id);
+    TechnicalServiceEntity getTechnicalServiceEntityByUsername(
+                                                @Param("username") String id);
 
     List<TechnicalServiceEntity> findAllByDealer_UserEntity_Username(String username);
 }
