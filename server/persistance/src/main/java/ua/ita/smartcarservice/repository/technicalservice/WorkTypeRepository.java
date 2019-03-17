@@ -15,12 +15,6 @@ public interface WorkTypeRepository extends JpaRepository<WorkType, Long> {
     @Query("select max(w.workId) from WorkType as w")
     Long findMaxId();
 
-    /**
-     * Method returns list of works which are dependent on skill
-     *
-     * @param name - skillName
-     * @return list of work
-     */
     @Query("select w from WorkType as w where w.skill.name = :name")
     List<WorkType> findAllWorkBySkill(@Param("name") String name);
 

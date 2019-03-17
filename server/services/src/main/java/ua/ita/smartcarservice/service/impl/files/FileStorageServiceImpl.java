@@ -7,11 +7,11 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import ua.ita.smartcarservice.service.HashService;
+import ua.ita.smartcarservice.service.files.HashService;
 import ua.ita.smartcarservice.service.config.FileStorageConfig;
 import ua.ita.smartcarservice.service.files.FileStorageService;
-import ua.ita.smartcarservice.service.impl.files.exceptions.FileStorageException;
-import ua.ita.smartcarservice.service.impl.files.exceptions.FileNotFoundException;
+import ua.ita.smartcarservice.exceptions.FileStorageException;
+import ua.ita.smartcarservice.exceptions.FileNotFoundException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -21,10 +21,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-
 @Service
-public class
-FileStorageServiceImpl implements FileStorageService {
+public class FileStorageServiceImpl implements FileStorageService {
 
     private final Path fileStorageLocation;
 

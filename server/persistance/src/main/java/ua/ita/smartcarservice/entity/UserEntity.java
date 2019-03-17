@@ -4,6 +4,7 @@ package ua.ita.smartcarservice.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.booking.WorkTime;
+import ua.ita.smartcarservice.entity.files.AvatarEntity;
 import ua.ita.smartcarservice.entity.technicalservice.UserTechnicalService;
 import ua.ita.smartcarservice.entity.technicalservice.WorkersSkill;
 

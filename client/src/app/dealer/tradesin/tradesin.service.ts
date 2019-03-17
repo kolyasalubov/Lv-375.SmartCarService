@@ -19,10 +19,10 @@ export class TradesinService {
 return this.http.get<TradeIn[]>(Globals.baseURL + '/dealer/getAllTradeIn/'+username);
   }
   deleteTradeIn(id: number){
-    return this.http.delete(Globals.baseURL + '/delaer/delete/' + id)
+    return this.http.delete(Globals.baseURL + '/dealer/delete/' + id)
   }
 
   successTradeIn(id: number){
-    return this.http.delete(Globals.baseURL + '/delaer/successTradeIn/' + id)
+    return this.http.delete(Globals.baseURL + '/dealer/successTradeIn/' + id)
   }
 }

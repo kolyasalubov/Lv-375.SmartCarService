@@ -4,14 +4,11 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.ita.smartcarservice.dto.UserDto;
 import ua.ita.smartcarservice.dto.booking.WorkerBySkillNameDto;
 import ua.ita.smartcarservice.dto.booking.WorkerDto;
 import ua.ita.smartcarservice.dto.booking.WorkerWithSkillDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import ua.ita.smartcarservice.dto.technicalservice.WorkerSkillDto;
-import ua.ita.smartcarservice.entity.UserEntity;
-import ua.ita.smartcarservice.entity.feedback.WorkersRatings;
 import ua.ita.smartcarservice.service.UserService;
 import ua.ita.smartcarservice.service.booking.WorkDependencyService;
 import ua.ita.smartcarservice.service.feedback.WorkersRatingsService;
@@ -20,22 +17,20 @@ import ua.ita.smartcarservice.service.technicalservice.WorkerService;
 
 import java.lang.invoke.MethodHandles;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RequestMapping("/api")
 @RestController
 public class WorkerController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    WorkerService workerService;
+    private WorkerService workerService;
 
     @Autowired
-    WorkersRatingsService workersRatingsService;
+    private WorkersRatingsService workersRatingsService;
 
     @Autowired
     private WorkDependencyService workDependencyService;
@@ -50,7 +45,7 @@ public class WorkerController {
      */
     @PostMapping("/workers/skill")
     public ResponseEntity<WorkerBySkillNameDto> findAllByCarAndSto(@RequestBody WorkerWithSkillDto
-                                                                            workerWithSkillDto) {
+                                                                           workerWithSkillDto) {
 
         WorkInfo workInfo = workDependencyService.findWorkInfo(workerWithSkillDto.getWorksName());
 
@@ -64,22 +59,15 @@ public class WorkerController {
         workerBySkillNameDto.setRequiredTime(workInfo.getRequiredTime());
         workerBySkillNameDto.setWorksInfo(workInfo.getWorkInfo());
 
-        return new ResponseEntity <>(workerBySkillNameDto, HttpStatus.OK);
+        return new ResponseEntity<>(workerBySkillNameDto, HttpStatus.OK);
     }
 
-    @GetMapping("/workers")
-    public ResponseEntity<List<UserEntity>> getAllWorkers() {
-        ResponseEntity<List<UserEntity>> responseEntity;
-
-        try {
-            responseEntity = new ResponseEntity<>(workerService.getAllWorkers(), HttpStatus.OK);
-        } catch (Exception e) {
-            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return responseEntity;
-    }
-
+    /**
+     * Method for deleting worker by id
+     *
+     * @param id
+     * @return ResponseEntity with status
+     */
     @DeleteMapping("/workers/{id}")
     public ResponseEntity deleteWorkerById(@PathVariable Long id) {
         ResponseEntity responseEntity;
@@ -97,32 +85,62 @@ public class WorkerController {
         return responseEntity;
     }
 
+    /**
+     * Method for giving a rating for Worker by if
+     *
+     * @param id
+     * @param rate
+     */
     @PostMapping("/workers/{id}/rating/{rate}")
     public void addRatingToWorker(@PathVariable Long id, @PathVariable Integer rate) {
-        workersRatingsService.addRatingToWorker(id, rate);
+        try {
+            workersRatingsService.addRatingToWorker(id, rate);
+            logger.info("Rating: " + rate + " added ro worker id:" + id);
+        } catch (Exception e) {
+            logger.error("Error while adding a rating to worker: " + id +
+                    " Details: " + e);
+        }
     }
 
+    /**
+     * Method returns average rating of Worker by id
+     *
+     * @param id
+     * @return rating
+     */
     @GetMapping("/workers/{id}/rating")
     public ResponseEntity<Double> getWorkersRating(@PathVariable Long id) {
-        ResponseEntity<Double> responceEntity;
+        ResponseEntity<Double> responseEntity;
 
         try {
-            responceEntity = new ResponseEntity<>(workersRatingsService.getAvgWorkersRating(id), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(workersRatingsService.getAvgWorkersRating(id), HttpStatus.OK);
+            logger.info("Successfully got rating of worker id:" + id);
         } catch (Exception e) {
-            responceEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting a rating if worker id:" + id +
+                    " Details: " + e);
         }
 
-        return responceEntity;
+        return responseEntity;
     }
 
+    /**
+     * Method returns DTO of Worker with Skill by its id
+     *
+     * @param id
+     * @return WorkerWithSkillDto
+     */
     @GetMapping("/workers/{id}")
     public ResponseEntity<WorkerSkillDto> getWorkerById(@PathVariable Long id) {
         ResponseEntity<WorkerSkillDto> responseEntity;
 
         try {
             responseEntity = new ResponseEntity<>(workerService.getWorkerSkillDtoById(id), HttpStatus.OK);
+            logger.info("Successfully get a Worker with skill DTO by id:" + id);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            logger.error("Error while getting a Worker with skill DTO by id:" + id +
+                    " Details: " + e);
         }
 
         return responseEntity;

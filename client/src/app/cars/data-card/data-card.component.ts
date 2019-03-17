@@ -35,7 +35,7 @@ export class DataCardComponent implements OnInit {
   }
 
   private getMileage() {
-    this.chartService.getChartData("mileage", this.carId, "/last")
+    this.chartService.getChartData("mileage", this.carId, "last")
       .subscribe(
         data => {
           let chartData: ChartData = new ChartData();
@@ -48,7 +48,7 @@ export class DataCardComponent implements OnInit {
   }
 
   private getSpeed() {
-    this.chartService.getChartData("speed", this.carId, "/day/max")
+    this.chartService.getChartData("speed", this.carId, "day", "max")
       .subscribe(
         data => {
           let chartData: ChartData = new ChartData();

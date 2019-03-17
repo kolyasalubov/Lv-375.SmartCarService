@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import ua.ita.smartcarservice.entity.Car;
 
 @Data
@@ -30,6 +32,7 @@ public class VehicleInspection {
 
 	@ManyToOne
 	@JoinColumn(name = "car_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Car car;
 
 	public VehicleInspection() {

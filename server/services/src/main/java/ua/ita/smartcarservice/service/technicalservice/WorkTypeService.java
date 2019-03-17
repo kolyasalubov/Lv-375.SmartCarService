@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface WorkTypeService {
+
     Map<String, WorkType> findDistinctWorkByName();
 
     Map<String, List<WorkTypeDto>> getAllService(Long id);
+
 }

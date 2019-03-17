@@ -36,10 +36,12 @@ import { TradeInComponent } from './trade-in/trade-in.component';
 import { PreviewComponent } from './preview/preview.component';
 import { ProgresbarComponent } from './progresbar/progresbar.component';
 import { AlertsComponent } from './alerts/alerts.component';
+import { PopupComponent } from './notifications/popup/popup.component';
 import { ServicesFeedbackComponent } from './services-feedback/services-feedback.component';
 import { DealersComponent } from './dealers/dealers.component';
 import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 import {ServiceHistoryComponent} from "./service-history/service-history.component";
+import { CarNormsComponent } from './cars/car-norms/car-norms.component';
 
 
 const routes: Routes = [
@@ -208,6 +210,14 @@ const routes: Routes = [
 {
   path: 'ui/message',
   component: AlertsComponent
+}, 
+{
+  path: 'ui/popup',
+  component: PopupComponent
+},
+{
+  path: 'ui/norms',
+  component: CarNormsComponent
 }
 ];
 
