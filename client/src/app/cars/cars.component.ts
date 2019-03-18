@@ -42,7 +42,7 @@ export class CarsComponent implements OnInit {
     error => this.error = error;
 
     if(this.cars.length === 1){
-      this.showProfile = true;
+      this.showProfile = true;  
     } else if(this.cars.length > 1){
       this.showCards = true;
     } else {
@@ -51,25 +51,19 @@ export class CarsComponent implements OnInit {
     });
   }
 
-
-    applyToSTO(carId: number){
-      console.log(carId);
-      this.router.navigate(['/ui/booking'],
-      {queryParams: {
-        carId: carId,
-      }}
-    );
-    }
+  applyToSTO(id: number){
+    this.router.navigate(['/ui/booking', id]);
+  }
 
   applyToTradeIn(vin: String){
     console.log(vin);
     this.router.navigate(['ui/tradeIn',vin]);
   }
 
-  goToCharts(carId: number){
+  goToCharts(car: Car){
       this.router.navigate(['/ui/charts'],
         {queryParams: {
-          carId: carId
+          carId: car.id
         }}
       );
   }
@@ -127,5 +121,5 @@ export class CarsComponent implements OnInit {
   closeProfile(){
   this.router.navigate(['ui/home']);
   }
-
+    
 }

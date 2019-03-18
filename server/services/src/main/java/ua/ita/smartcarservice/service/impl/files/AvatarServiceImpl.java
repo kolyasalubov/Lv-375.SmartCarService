@@ -1,11 +1,11 @@
-package ua.ita.smartcarservice.service.impl;
+package ua.ita.smartcarservice.service.impl.files;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ita.smartcarservice.dto.AvatarDto;
-import ua.ita.smartcarservice.entity.AvatarEntity;
-import ua.ita.smartcarservice.repository.AvatarRepository;
-import ua.ita.smartcarservice.service.AvatarService;
+import ua.ita.smartcarservice.dto.files.AvatarDto;
+import ua.ita.smartcarservice.entity.files.AvatarEntity;
+import ua.ita.smartcarservice.repository.files.AvatarRepository;
+import ua.ita.smartcarservice.service.files.AvatarService;
 import ua.ita.smartcarservice.service.UserService;
 
 @Service

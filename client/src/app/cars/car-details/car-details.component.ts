@@ -25,11 +25,8 @@ export class CarDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private carsService: CarsService,  private alertService: AlertService,  public dialog: MatDialog) { }
 
   ngOnInit() {
-
     this.carId = Number(this.getFromRouterParams('carId'));
     
-  setTimeout(() =>
-    {
     this.carBrand = this.getFromRouterParams('carBrand');
     this.carModel = this.getFromRouterParams('carModel');
     this.carGY = this.getFromRouterParams('carGY');
@@ -37,12 +34,8 @@ export class CarDetailsComponent implements OnInit {
     this.carVin = this.getFromRouterParams('carVin');
     this.carPrice = this.getFromRouterParams('carPrice');
     this.carEnd_guarantee = this.getFromRouterParams('carEnd_guarantee');
-  }, 1000);
 
-    setTimeout(() =>
-    { console.log(this.carId, this.carBrand, this.carModel, this.carGY, this.carNumber, this.carVin)
-    }, 1000);
-    }
+  }
 
   private getFromRouterParams(param: string) {
     return this.route.snapshot.queryParamMap.get(param);
@@ -81,10 +74,10 @@ export class CarDetailsComponent implements OnInit {
     );
   }
 
-  history(carId: number){
+  history(carId: Number){
     this.router.navigate(['ui/history'],
       {queryParams: {
-        carId: this.carId,
+        carId: carId,
       }}
     );
   }

@@ -58,6 +58,7 @@ import {TechservicePageComponent} from './techservice-page/techservice-page.comp
 import {InfoMassageComponent} from './info-massage/info-massage.component';
 import {WorkerCardComponent} from './techservice/worker-card/worker-card.component';
 import {WorkersListComponent} from './techservice/workers-list/workers-list.component';
+import { CarNormsComponent } from './cars/car-norms/car-norms.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import {WorkersListComponent} from './techservice/workers-list/workers-list.comp
     // Material.MatDialogModule,
     InfoMassageComponent,
     WorkerCardComponent,
-    WorkersListComponent
+    WorkersListComponent,
+    CarNormsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
-package ua.ita.smartcarservice.entity;
+package ua.ita.smartcarservice.entity.files;
 
 import lombok.Data;
+import ua.ita.smartcarservice.entity.UserEntity;
 
 import javax.persistence.*;
 

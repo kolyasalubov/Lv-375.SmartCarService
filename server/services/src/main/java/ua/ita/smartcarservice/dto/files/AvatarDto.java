@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.dto;
+package ua.ita.smartcarservice.dto.files;
 
 import lombok.Data;
 

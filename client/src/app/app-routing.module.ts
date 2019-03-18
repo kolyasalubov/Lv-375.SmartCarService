@@ -41,6 +41,7 @@ import { ServicesFeedbackComponent } from './services-feedback/services-feedback
 import { DealersComponent } from './dealers/dealers.component';
 import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 import {ServiceHistoryComponent} from "./service-history/service-history.component";
+import { CarNormsComponent } from './cars/car-norms/car-norms.component';
 
 
 const routes: Routes = [
@@ -213,6 +214,10 @@ const routes: Routes = [
 {
   path: 'ui/popup',
   component: PopupComponent
+},
+{
+  path: 'ui/norms',
+  component: CarNormsComponent
 }
 ];
 

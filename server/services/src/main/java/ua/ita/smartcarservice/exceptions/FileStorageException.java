@@ -1,4 +1,4 @@
-package ua.ita.smartcarservice.service.impl.files.exceptions;
+package ua.ita.smartcarservice.exceptions;
 
 public class FileStorageException extends RuntimeException {
     public FileStorageException(String message) {

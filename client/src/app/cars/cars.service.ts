@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Car } from './car';
 import {Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Globals } from '../globals';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json'
-  })
-};
+// const httpOptions = {
+//   headers: new HttpHeaders({
+//    'Content-Type':  'application/json'
+//   })
+// };
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,10 @@ export class CarsService {
   constructor(private http:HttpClient) { }
 
   getOwnerCarsByUsername(username: String): Observable<Array<Car>> {
-    return this.http.get<Array<Car>>(Globals.baseURL + '/owner/' + username + '/car', httpOptions)
+    return this.http.get<Array<Car>>(Globals.baseURL + '/owner/' + username + '/car',     
+    { headers: {
+      'Content-Type': 'application/json'
+        }})
     .pipe(
       catchError(this.handleError)
     );
@@ -56,6 +59,13 @@ export class CarsService {
       catchError(this.handleError)
     );
   }
+
+  postFile(fileToUpload: FormData): Observable<HttpResponse<File>> {
+    return this.http.post<File>(Globals.baseURL + '/norms', fileToUpload,  { observe: 'response' })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
