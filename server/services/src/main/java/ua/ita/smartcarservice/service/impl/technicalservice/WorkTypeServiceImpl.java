@@ -9,14 +9,15 @@ import ua.ita.smartcarservice.repository.technicalservice.WorkTypeRepository;
 import ua.ita.smartcarservice.service.technicalservice.SkillService;
 import ua.ita.smartcarservice.service.technicalservice.WorkTypeService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of WorkType Service.
+ */
 @Service
-public class WorkTypeServiceImpl implements WorkTypeService {
+public final class WorkTypeServiceImpl implements WorkTypeService {
 
     @Autowired
     private WorkTypeRepository workTypeRepository;
@@ -25,26 +26,29 @@ public class WorkTypeServiceImpl implements WorkTypeService {
     private SkillService skillService;
 
     @Override
-    public Map<String, WorkType> findDistinctWorkByName(){
+    public Map<String, WorkType> findDistinctWorkByName() {
         return workTypeRepository.findAll().stream()
-                .collect(Collectors.toMap(WorkType::getName, workType -> workType));
+            .collect(Collectors.toMap(WorkType::getName, workType -> workType));
     }
 
     /**
-     * Method which returns info about work with user can choose in his technical service
+     * Method which returns info about work
+     * with user can choose in his technical service.
      *
      * @param id - car Id
      * @return Map this contains key - skillName and value - list of workInfo
      */
     @Override
-    public Map<String, List<WorkTypeDto>> getAllService(Long id){
+    public Map<String, List<WorkTypeDto>> getAllService(final Long id) {
         return skillService.findSkillNameByCarId(id).stream()
                 .collect(Collectors.toMap(SkillDto::getName,
-                        skillDto -> workTypeRepository.findAllWorkBySkill(skillDto.getName())
-                                .stream().map(this::getDto).collect(Collectors.toList())));
+                        skillDto -> workTypeRepository.
+                                findAllWorkBySkill(skillDto.getName())
+                                    .stream().map(this::getDto).
+                                        collect(Collectors.toList())));
     }
 
-    private WorkTypeDto getDto(WorkType workType){
+    private WorkTypeDto getDto(final WorkType workType) {
         WorkTypeDto workTypeDto = new WorkTypeDto();
         workTypeDto.setWorkName(workType.getName());
         workTypeDto.setCost(workType.getCost());

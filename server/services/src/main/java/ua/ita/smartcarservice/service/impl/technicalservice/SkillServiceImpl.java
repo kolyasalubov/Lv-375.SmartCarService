@@ -8,16 +8,15 @@ import ua.ita.smartcarservice.repository.technicalservice.SkillRepository;
 import ua.ita.smartcarservice.service.technicalservice.SkillService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Implementation of Skill service
+ * Implementation of Skill service.
  */
 @Service
-public class SkillServiceImpl implements SkillService {
+public final class SkillServiceImpl implements SkillService {
 
     @Autowired
     private SkillRepository skillRepository;
@@ -34,12 +33,13 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Map<String, SkillEntity> findDistinctSkillByName(){
-        return skillRepository.findAll().stream().collect(Collectors.toMap(SkillEntity::getName, s -> s));
+    public Map<String, SkillEntity> findDistinctSkillByName() {
+        return skillRepository.findAll().stream().
+            collect(Collectors.toMap(SkillEntity::getName, s -> s));
     }
 
     @Override
-    public SkillDto getSkillDto(SkillEntity skill) {
+    public SkillDto getSkillDto(final SkillEntity skill) {
         SkillDto skillDto = new SkillDto();
         skillDto.setId(skill.getSkillId());
         skillDto.setName(skill.getName());
@@ -47,27 +47,29 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public List<SkillDto> findSkillNameBySto(Long id){
-        List<SkillDto> skillBySto = new ArrayList <>();
+    public List<SkillDto> findSkillNameBySto(final Long id) {
+        List<SkillDto> skillBySto = new ArrayList<>();
 
-        skillRepository.findSkillNameBySto(id).forEach(skillEntity -> skillBySto.add(getSkillDto(skillEntity)));
+        skillRepository.findSkillNameBySto(id).
+            forEach(skillEntity -> skillBySto.add(getSkillDto(skillEntity)));
 
         return skillBySto;
     }
 
     /**
-     * This method allows get list of skill entity by car id
+     * This method allows get list of skill entity by car id.
      *
      * @param carId - car Id
      * @return - return all skills entity for car
      */
     @Override
-    public List<SkillDto> findSkillNameByCarId(Long carId){
-        return skillRepository.findSkillNameByCarId(carId).stream().map(this::getSkillDto).collect(Collectors.toList());
+    public List<SkillDto> findSkillNameByCarId(final Long carId) {
+        return skillRepository.findSkillNameByCarId(carId).
+                stream().map(this::getSkillDto).collect(Collectors.toList());
     }
 
     @Override
-    public SkillEntity getSkillById(Long id) {
+    public SkillEntity getSkillById(final Long id) {
         return skillRepository.findById(id).get();
     }
 }
