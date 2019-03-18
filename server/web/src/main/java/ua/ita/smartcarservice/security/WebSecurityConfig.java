@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/user/**", "/api/users/**", "/api/skills/**", "/api/notifications/**").hasAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString())
-                .antMatchers("/api/chart/**", "/api/record/**", "api/works/**", "api/booking/**", "/api/notifications/**").hasAuthority(Roles.ROLE_CAR_OWNER.toString())
+                .antMatchers("/api/chart/**", "/api/record/**", "api/works/**", "api/booking/**", "/api/notifications/**", "/api/user/**").hasAuthority(Roles.ROLE_CAR_OWNER.toString())
                 .antMatchers("/api/owner/**", "/api/car/**", "/api/newcar/**").hasAnyAuthority(Roles.ROLE_CAR_OWNER.toString(), Roles.ROLE_DIELER.toString())
                 .antMatchers("/api/techservices/**", "api/workers/**").hasAnyAuthority(Roles.ROLE_TECHNICAL_MANAGER.toString(), Roles.ROLE_CAR_OWNER.toString())
                 //.antMatchers("/api/report/**").hasAnyAuthority(Roles.ROLE_CAR_OWNER.toString(), Roles.ROLE_WORKER.toString())
