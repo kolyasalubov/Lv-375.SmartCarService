@@ -11,14 +11,17 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import ua.ita.smartcarservice.dto.technicalservice.TechnicalServiceDto;
+import ua.ita.smartcarservice.entity.Roles;
 import ua.ita.smartcarservice.entity.UserEntity;
 import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
+import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceRepository;
 import ua.ita.smartcarservice.service.feedback.ServicesFeedbackService;
 
 import java.util.*;
 
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.mock;
 
 //@TestExecutionListeners(MockitoTestExecutionListener.class)
 //@SpringBootTest
@@ -30,6 +33,9 @@ public class TechnicalServiceServiceImplTest extends AbstractTestNGSpringContext
 
     @Mock
     ServicesFeedbackService servicesFeedbackService;
+
+    @Mock
+    UserRepository userRepository;
 
     @InjectMocks
     TechnicalServiceServiceImpl technicalServiceServiceImpl = new TechnicalServiceServiceImpl();
@@ -62,7 +68,7 @@ public class TechnicalServiceServiceImplTest extends AbstractTestNGSpringContext
     @Test
     public void getTechnicalServiceEntityDtoByUser() {
         //Preconditions
-       /* TechnicalServiceDto expectedDto;
+        TechnicalServiceDto expectedDto;
         TechnicalServiceDto actualDto;
         TechnicalServiceEntity expectedEntity;
         Long userId = 1L;
@@ -79,6 +85,10 @@ public class TechnicalServiceServiceImplTest extends AbstractTestNGSpringContext
         expectedDto.setRating(4.6D);
         expectedDto.setWorkers(new ArrayList<UserEntity>() {
         });
+        
+        Mockito.when(userRepository.getUserEntitiesByRoleNameAndTechnicalService(
+                eq(Roles.ROLE_WORKER.toString()),
+                anyLong())).thenReturn(new ArrayList<>());
 
         Mockito.when(servicesFeedbackService.getServicesRating(anyLong())).thenReturn(expectedDto.getRating());
         Mockito.when(technicalServiceRepository.getTechnicalServiceEntityByUser(anyLong())).thenReturn(expectedEntity);
@@ -88,7 +98,7 @@ public class TechnicalServiceServiceImplTest extends AbstractTestNGSpringContext
 
         Assert.assertEquals(expectedDto.getStoId(), actualDto.getStoId());
         Assert.assertEquals(expectedDto.getName(), actualDto.getName());
-        Assert.assertEquals(expectedDto.getAddress(), actualDto.getAddress());*/
+        Assert.assertEquals(expectedDto.getAddress(), actualDto.getAddress());
     }
 
 }
