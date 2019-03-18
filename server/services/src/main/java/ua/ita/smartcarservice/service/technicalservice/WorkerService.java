@@ -8,6 +8,9 @@ import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 import java.util.List;
 
+/**
+ * Service Interface For Worker.
+ */
 public interface WorkerService {
 
     void saveWorker(UserEntity workerEntity, Long skillId,

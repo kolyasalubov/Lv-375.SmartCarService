@@ -1,11 +1,13 @@
 package ua.ita.smartcarservice.dto.technicalservice;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import ua.ita.smartcarservice.entity.UserEntity;
 
 import java.util.List;
 
+/**
+ * DTO for TechnicalService Entity.
+ */
 @Data
 public class TechnicalServiceDto {
 

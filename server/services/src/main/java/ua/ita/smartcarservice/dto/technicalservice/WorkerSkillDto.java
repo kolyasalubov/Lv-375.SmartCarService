@@ -1,9 +1,11 @@
 package ua.ita.smartcarservice.dto.technicalservice;
 
 import lombok.Data;
-import ua.ita.smartcarservice.entity.UserEntity;
-import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 
+/**
+ * DTO for Worker.
+ * Contains SkillEntity DTO.
+ */
 @Data
 public class WorkerSkillDto {
     private Long id;

@@ -6,6 +6,9 @@ import ua.ita.smartcarservice.entity.technicalservice.SkillEntity;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service Interface for Skill.
+ */
 public interface SkillService {
 
     List<SkillDto> getAllSkills();

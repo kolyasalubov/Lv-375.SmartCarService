@@ -6,6 +6,9 @@ import ua.ita.smartcarservice.entity.technicalservice.WorkType;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service Interface for WorkType.
+ */
 public interface WorkTypeService {
 
     Map<String, WorkType> findDistinctWorkByName();

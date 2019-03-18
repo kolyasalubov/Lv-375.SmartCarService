@@ -36,7 +36,8 @@ public class UserTechnicalService implements Serializable {
 
     }
 
-    public UserTechnicalService(UserEntity userId, TechnicalServiceEntity technicalServiceId) {
+    public UserTechnicalService(final UserEntity userId,
+                            final TechnicalServiceEntity technicalServiceId) {
         this.userId = userId;
         this.technicalServiceId = technicalServiceId;
     }

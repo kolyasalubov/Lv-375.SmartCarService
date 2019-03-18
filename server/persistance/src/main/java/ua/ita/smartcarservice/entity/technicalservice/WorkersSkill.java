@@ -36,7 +36,8 @@ public class WorkersSkill implements Serializable {
     public WorkersSkill() {
     }
 
-    public WorkersSkill(UserEntity workerId, SkillEntity skill) {
+    public WorkersSkill(final UserEntity workerId,
+                        final SkillEntity skill) {
         this.workerId = workerId;
         this.skill = skill;
     }

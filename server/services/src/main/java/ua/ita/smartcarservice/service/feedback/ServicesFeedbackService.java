@@ -5,6 +5,9 @@ import ua.ita.smartcarservice.dto.feedback.ServicesFeedbackInputDto;
 
 import java.util.List;
 
+/**
+ * Service Interface for ServicesFeedback.
+ */
 public interface ServicesFeedbackService {
     void addFeedbackToService(ServicesFeedbackInputDto servicesFeedbackInputDto);
 

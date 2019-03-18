@@ -68,7 +68,9 @@ public class TechnicalServiceEntity {
     }
 
 
-    public TechnicalServiceEntity(final String name, final String address, final DealerEntity dealerEntity) {
+    public TechnicalServiceEntity(final String name,
+                                  final String address,
+                                  final DealerEntity dealerEntity) {
         this.name = name;
         this.address = address;
         this.dealer = dealerEntity;
