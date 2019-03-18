@@ -12,15 +12,21 @@ import ua.ita.smartcarservice.service.technicalservice.WorkTypeService;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller for WorkType.
+ */
 @RestController
-public class WorkTypeController {
+public final class WorkTypeController {
 
     @Autowired
     private WorkTypeService workTypeService;
 
     @GetMapping("/api/works/{id}")
-    public ResponseEntity<Map<String, List<WorkTypeDto>>> findAllService(@PathVariable Long id){
-        return new ResponseEntity<>(workTypeService.getAllService(id), HttpStatus.OK);
+    public ResponseEntity<Map<String, List<WorkTypeDto>>> findAllService(
+            @PathVariable final Long id) {
+        return new ResponseEntity<>(
+                workTypeService.getAllService(id),
+                HttpStatus.OK);
     }
 
 }
