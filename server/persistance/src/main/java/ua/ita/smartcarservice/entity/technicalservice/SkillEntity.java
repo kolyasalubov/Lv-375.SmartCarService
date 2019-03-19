@@ -60,9 +60,8 @@ public class SkillEntity {
      * Required parameterised constructor.
      *
      * @param skillName name of skill.
-     * @param requiredTime required time in hours.
      */
-    public SkillEntity(final String skillName, final Long requiredTime) {
+    public SkillEntity(final String skillName) {
         this.name = skillName;
     }
 }

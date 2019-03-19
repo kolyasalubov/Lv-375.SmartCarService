@@ -147,6 +147,4 @@ public final class WorkerServiceImpl implements WorkerService {
         workersSkillRepository.save(
                 new WorkersSkill(workerEntity, skillEntity));
     }
-
-
 }
