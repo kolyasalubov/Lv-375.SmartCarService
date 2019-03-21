@@ -1,8 +1,5 @@
 package ua.ita.smartcarservice.dto.sales;
 
-/**
- * Created by 1 on 27.02.2019.
- */
 public class DealerDto {
 
     private String dealerName;

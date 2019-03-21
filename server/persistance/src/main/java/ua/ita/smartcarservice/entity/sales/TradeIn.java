@@ -34,14 +34,9 @@ public class TradeIn {
     private String isactive;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "dealerEntity",nullable = false)
-//    @JsonIgnore
-//    private DealerEntity dealerEntity;
-
-@ManyToOne
-@JoinColumn(name = "dealer_id", nullable = true,unique = false)
-private DealerEntity dealer;
+    @ManyToOne
+    @JoinColumn(name = "dealer_id", nullable = true,unique = false)
+     private DealerEntity dealer;
 
 
     public TradeIn(String vinNewCar, String vinUsedCar, Long idUser, Long idDealer, String isactive) {

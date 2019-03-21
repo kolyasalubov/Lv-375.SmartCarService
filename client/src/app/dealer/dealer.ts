@@ -12,10 +12,5 @@ export class Dealer{
        this.dealerEdr=dealerEdr;
        this.dealerEmail=dealerEmail;
     }
-    // constructor(){
-    //      this.dealerName=null;
-    //      this.dealerAddress=null;
-    //      this.dealerEdr=null;
-    //      this.dealerEmail=null;
-    // }
+
 }

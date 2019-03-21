@@ -202,7 +202,7 @@ dealerService.createDealer(dealerDto,username);
             /*get all applies to dealers*/
     @GetMapping("/api/dealer/allstosToApply/{username}")
     public  ResponseEntity<List<TechnicalServiceDto>> getAllStotoApply(@PathVariable String username){
-List<TechnicalServiceDto>technicalServiceDtos = applyService.TECHNICAL_SERVICE_DTOS(username);
+List<TechnicalServiceDto>technicalServiceDtos = applyService.technicalServiceDtos(username);
         return new ResponseEntity<>(technicalServiceDtos, HttpStatus.OK);
     }
 
@@ -217,9 +217,16 @@ applyService.applyToDealer(apply);
     /* ignore sto apply to dealer  */
     @PostMapping("/api/dealer/ignoreApply")
     public ResponseEntity ignoreStoApply(@RequestBody ApplyToDealerDto apply){
-        applyService.deleteApply(apply);
+        applyService.deleteApplyToDealer(apply);
         return new ResponseEntity(HttpStatus.CREATED);
 
+    }
+
+    @DeleteMapping("/api/dealer/deleteSto/{id}")
+    public ResponseEntity deleteStoFromDealer(@PathVariable Long id){
+        System.out.println("id: "+ id);
+dealerService.deleteStoFromDealer(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

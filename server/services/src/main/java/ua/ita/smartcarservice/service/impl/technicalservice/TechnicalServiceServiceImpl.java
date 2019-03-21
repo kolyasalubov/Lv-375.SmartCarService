@@ -20,142 +20,109 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Implementation of TechnicalService Service.
- */
 @Service
-public final class TechnicalServiceServiceImpl
-        implements TechnicalServiceService {
+public class TechnicalServiceServiceImpl implements TechnicalServiceService {
 
     @Autowired
-    private TechnicalServiceRepository
-            technicalServiceRepository;
+    TechnicalServiceRepository technicalServiceRepository;
 
     @Autowired
-    private ServicesFeedbackService
-            servicesFeedbackService;
+    ServicesFeedbackService servicesFeedbackService;
 
     @Autowired
-    private UserTechnicalServiceRepository
-            userTechnicalServiceRepository;
+    UserTechnicalServiceRepository userTechnicalServiceRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
-    private DealerEntityRepository
-            dealerEntityRepository;
+    DealerEntityRepository dealerEntityRepository;
 
-    private static final Logger LOGGER =
-        Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
+    private static final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getSimpleName());
 
 
     @Override
-    public TechnicalServiceDto getTechnicalServiceDtoByUser(
-            final String username) {
+    public TechnicalServiceDto getTechnicalServiceDtoByUser(String username) {
         TechnicalServiceEntity technicalServiceEntity;
         TechnicalServiceDto technicalServiceDto;
 
-        technicalServiceEntity = technicalServiceRepository.
-                getTechnicalServiceEntityByUsername(username);
+        technicalServiceEntity = technicalServiceRepository.getTechnicalServiceEntityByUsername(username);
         technicalServiceDto = this.convertToDto(technicalServiceEntity);
 
         return technicalServiceDto;
     }
 
     @Override
-    public void addUserToTechnicalService(final String username,
-                                          final Long technicalServiceId) {
+    public void addUserToTechnicalService(String username, Long technicalServiceId) {
         UserEntity workerEntity = userRepository.getByUsername(username);
-        TechnicalServiceEntity technicalServiceEntity =
-                technicalServiceRepository.getOne(technicalServiceId);
+        TechnicalServiceEntity technicalServiceEntity = technicalServiceRepository.getOne(technicalServiceId);
 
-        userTechnicalServiceRepository.save(
-                new UserTechnicalService(workerEntity, technicalServiceEntity));
+        userTechnicalServiceRepository.save(new UserTechnicalService(workerEntity, technicalServiceEntity));
     }
 
     @Override
-    public void deleteUserFromTechnicalService(final String username,
-                                               final Long technicalServiceId) {
+    public void deleteUserFromTechnicalService(String username, Long technicalServiceId) {
         //userTechnicalServiceRepository.
     }
 
     @Override
-    public void createTechnicalService(final String name,
-                                       final String address,
-                                       final Long userId) {
-        TechnicalServiceEntity technicalServiceEntity =
-                new TechnicalServiceEntity();
+    public void createTechnicalService(String name, String address, Long userId) {
+        TechnicalServiceEntity technicalServiceEntity = new TechnicalServiceEntity();
         UserEntity userEntity = userRepository.getOne(userId);
 
         technicalServiceEntity.setName(name);
         technicalServiceEntity.setAddress(address);
 
-        technicalServiceEntity =
-                technicalServiceRepository.save(technicalServiceEntity);
+        technicalServiceEntity = technicalServiceRepository.save(technicalServiceEntity);
 
-        userTechnicalServiceRepository.save(
-                new UserTechnicalService(userEntity, technicalServiceEntity));
+        userTechnicalServiceRepository.save(new UserTechnicalService(userEntity, technicalServiceEntity));
     }
 
     @Override
-    public TechnicalServiceDto updateTechnicalService(
-            final TechnicalServiceEntity technicalService) {
+    public TechnicalServiceDto updateTechnicalService(TechnicalServiceEntity technicalService) {
         technicalServiceRepository.save(technicalService);
-        return convertToDto(technicalServiceRepository.
-                getOne(technicalService.getTechnicalServiceId()));
+        return convertToDto(technicalServiceRepository.getOne(technicalService.getTechnicalServiceId()));
     }
 
     @Override
-    public TechnicalServiceDto updateTechnicalService(
-            final TechnicalServiceDto technicalServiceDto) {
-        TechnicalServiceEntity technicalService =
-                convertToEntity(technicalServiceDto);
+    public TechnicalServiceDto updateTechnicalService(TechnicalServiceDto technicalServiceDto) {
+        TechnicalServiceEntity technicalService = convertToEntity(technicalServiceDto);
 
         return updateTechnicalService(technicalService);
     }
 
     @Override
-    public void deleteTechnicalService(final Long id) {
+    public void deleteTechnicalService(Long id) {
         technicalServiceRepository.deleteById(id);
     }
 
     @Override
-    public TechnicalServiceDto getTechnicalServiceDtoById(final Long id) {
+    public TechnicalServiceDto getTechnicalServiceDtoById(Long id) {
         return convertToDto(getTechnicalServiceById(id));
     }
 
     @Override
-    public List<UserEntity> getUsersByRoleAndTechnicalSevice(
-                                        final String roleName,
-                                        final Long technicalServiceId) {
-        return userRepository.getUserEntitiesByRoleNameAndTechnicalService(
-                roleName, technicalServiceId);
+    public List<UserEntity> getUsersByRoleAndTechnicalSevice(String roleName, Long technicalServiceId) {
+        return userRepository.getUserEntitiesByRoleNameAndTechnicalService(roleName, technicalServiceId);
     }
 
-    public TechnicalServiceDto convertToDto(
-            final TechnicalServiceEntity technicalServiceEntity) {
+    public TechnicalServiceDto convertToDto(TechnicalServiceEntity technicalServiceEntity) {
         TechnicalServiceDto dto = new TechnicalServiceDto();
 
         dto.setStoId(technicalServiceEntity.getTechnicalServiceId());
         dto.setName(technicalServiceEntity.getName());
         dto.setAddress(technicalServiceEntity.getAddress());
-        dto.setRating(servicesFeedbackService.getServicesRating(
-                technicalServiceEntity.getTechnicalServiceId()));
-        dto.setWorkers(getUsersByRoleAndTechnicalSevice(
-                Roles.ROLE_WORKER.toString(),
-                technicalServiceEntity.getTechnicalServiceId()));
+        dto.setRating(servicesFeedbackService.getServicesRating(technicalServiceEntity.getTechnicalServiceId()));
+        dto.setWorkers(getUsersByRoleAndTechnicalSevice(Roles.ROLE_WORKER.toString(), technicalServiceEntity.getTechnicalServiceId()));
         return dto;
     }
 
     @Override
-    public TechnicalServiceDto getTechnicalServiceDtoByUser(final Long userId) {
-        return convertToDto(technicalServiceRepository.
-                getTechnicalServiceEntityByUser(userId));
+    public TechnicalServiceDto getTechnicalServiceDtoByUser(Long userId) {
+        return convertToDto(technicalServiceRepository.getTechnicalServiceEntityByUser(userId));
     }
 
-    public TechnicalServiceEntity convertToEntity(
-            final TechnicalServiceDto technicalServiceDto) {
+    public TechnicalServiceEntity convertToEntity(TechnicalServiceDto technicalServiceDto) {
         TechnicalServiceEntity entity = new TechnicalServiceEntity();
 
         entity.setTechnicalServiceId(technicalServiceDto.getStoId());
@@ -172,8 +139,7 @@ public final class TechnicalServiceServiceImpl
 
     @Override
     public List<TechnicalServiceDto> getAllTechnicalServicesDto() {
-        List<TechnicalServiceEntity> technicalServiceList =
-                technicalServiceRepository.findAll();
+        List<TechnicalServiceEntity> technicalServiceList = technicalServiceRepository.findAll();
         List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
 
         for (TechnicalServiceEntity eachTechnicalService : technicalServiceList) {
@@ -183,23 +149,18 @@ public final class TechnicalServiceServiceImpl
     }
 
     @Override
-    public TechnicalServiceEntity getTechnicalServiceById(final Long id) {
+    public TechnicalServiceEntity getTechnicalServiceById(Long id) {
         return technicalServiceRepository.getOne(id);
     }
 
     @Override
-    public String findTechnicalServiceByCarId(final Long id) {
-        return userTechnicalServiceRepository.
-                findTechnicalServiceByCarId(id).
-                    getTechnicalServiceId().getName();
+    public String findTechnicalServiceByCarId(Long id) {
+        return userTechnicalServiceRepository.findTechnicalServiceByCarId(id).getTechnicalServiceId().getName();
     }
 
     @Override
-    public List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(
-            final String username) {
-        List<TechnicalServiceEntity> technicalServiceList =
-                technicalServiceRepository.
-                        findAllByDealer_UserEntity_Username(username);
+    public List<TechnicalServiceDto> getAllTechnicalServicesDtoByDealer(String username) {
+        List<TechnicalServiceEntity> technicalServiceList = technicalServiceRepository.findAllByDealer_UserEntity_Username(username);
         List<TechnicalServiceDto> technicalServiceDtoList = new ArrayList<>();
 
         technicalServiceList.parallelStream().forEach(technicalService -> {
@@ -210,13 +171,9 @@ public final class TechnicalServiceServiceImpl
     }
 
     @Override
-    public void createTechnicalServiceByDealer(
-            final DealerStoAddDto stoAddDto,
-            final String username) {
-        technicalServiceRepository.save(new TechnicalServiceEntity(
-                stoAddDto.getNameSto(),
-                stoAddDto.getAddressSto(),
-                dealerEntityRepository.findByUserEntity_Username(username)));
+    public void createTechnicalServiceByDealer(DealerStoAddDto stoAddDto, String username) {
+        technicalServiceRepository.save(new TechnicalServiceEntity(stoAddDto.getNameSto(), stoAddDto.getAddressSto(),
+                dealerEntityRepository.findByUserEntityUsername(username)));
     }
 
 }

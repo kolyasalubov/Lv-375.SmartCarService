@@ -1,20 +1,15 @@
 package ua.ita.smartcarservice.dto.sales;
 
-/**
- * Created by 1 on 27.02.2019.
- */
 public class DealerStoAddDto {
 
     private String nameSto;
 
     private String addressSto;
 
-
     public DealerStoAddDto(String nameSto, String addressSto) {
         this.nameSto = nameSto;
         this.addressSto = addressSto;
     }
-
 
     public String getNameSto() {
         return nameSto;
@@ -31,6 +26,4 @@ public class DealerStoAddDto {
     public void setAddressSto(String addressSto) {
         this.addressSto = addressSto;
     }
-
-
 }

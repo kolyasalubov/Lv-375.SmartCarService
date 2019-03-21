@@ -20,7 +20,7 @@ public class CarDto {
     private String number;
     private Double price;
     private String vin;
-    private Date end_guarantee;
+    private Date endGuarantee;
     private DealerEntity dealerEntity;
     private UserEntity carOwner;
 
@@ -30,8 +30,8 @@ public class CarDto {
     public CarDto() {
     }
 
-    //for new car
-    public CarDto(Long id, String brand, String model, String graduation_year, String number, Double price, String vin, Date end_guarantee, DealerEntity dealer, UserEntity carOwner, Set<VehicleInspection> vehicleInspections) {
+    //for register  car by dealer
+    public CarDto(Long id, String brand, String model, String graduation_year, String number, Double price, String vin, Date endGuarantee, DealerEntity dealer, UserEntity carOwner, Set<VehicleInspection> vehicleInspections) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -39,13 +39,13 @@ public class CarDto {
         this.number = number;
         this.price = price;
         this.vin = vin;
-        this.end_guarantee = end_guarantee;
+        this.endGuarantee = endGuarantee;
         this.dealerEntity = dealer;
         this.carOwner = carOwner;
         this.vehicleInspections = vehicleInspections;
     }
 
-    //for user car
+    //for register by user
     public CarDto(String brand, String model, String graduation_year, String number, String vin, UserEntity carOwner) {
         this.brand = brand;
         this.model = model;
@@ -111,12 +111,12 @@ public class CarDto {
         this.vin = vin;
     }
 
-    public Date getEnd_guarantee() {
-        return end_guarantee;
+    public Date getEndGuarantee() {
+        return endGuarantee;
     }
 
-    public void setEnd_guarantee(Date end_guarantee) {
-        this.end_guarantee = end_guarantee;
+    public void setEndGuarantee(Date end_guarantee) {
+        this.endGuarantee = end_guarantee;
     }
 
     public DealerEntity getDealerEntity() {

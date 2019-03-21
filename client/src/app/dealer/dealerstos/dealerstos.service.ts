@@ -16,7 +16,11 @@ export class DealerstosService {
 
   constructor(private http:HttpClient) { }
 
-  getAllDealersSto(username:String):Observable<Techservice[]>{
-  return this.http.get<Techservice[]>(Globals.baseURL + '/dealer/allstos/'+username);
+  getAllDealersSto(username:String){
+    return this.http.get<Techservice[]>(Globals.baseURL + '/dealer/allstos/'+username);
+  }
+
+  deleteFromDealer(id:number){
+    return this.http.delete(Globals.baseURL +'/dealer/deleteSto/'+id);
   }
 }

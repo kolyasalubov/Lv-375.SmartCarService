@@ -1,15 +1,13 @@
 package ua.ita.smartcarservice.dto.sales;
 
-/**
- * Created by 1 on 03.03.2019.
- */
 public class ApplyToDealerDto {
+
+    private  String dealerEdr;
+    private Long stoId;
 
     public ApplyToDealerDto() {
     }
 
-    String dealerEdr;
-    Long stoId;
 
     public ApplyToDealerDto(String dealerEdr, Long stoId) {
         this.dealerEdr = dealerEdr;

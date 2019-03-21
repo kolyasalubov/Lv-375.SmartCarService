@@ -7,9 +7,6 @@ import ua.ita.smartcarservice.entity.sales.UserSaleManager;
 
 import java.util.List;
 
-/**
- * Created by 1 on 27.02.2019.
- */
 public interface SaleManagerEntityRepository extends JpaRepository<SaleManagerEntity,Long> {
 
     SaleManagerEntity getByUserSaleManagers(UserSaleManager userSaleManager);

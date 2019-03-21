@@ -15,21 +15,10 @@ const httpOptions = {
 })
 export class DealcarService {
 
-  constructor(private http:HttpClient) {
-
-
-  }
-
-//   createCar(username:String,carProfile:Car):Observable<Car>{
-//
-// return this.http.put<Car>('http://localhost:9501/api/dealer/createcar/?brand='+ carProfile.brand +'&model='+ carProfile.model +'&graduationyear=' + carProfile.graduation_year + '&number=' + carProfile.number+"&price="+carProfile.price + '&vin=' + carProfile.vin + '&username=' + username, carProfile, httpOptions);
-//
-//   }
+  constructor(private http:HttpClient) {}
 
   createCar(username:String,carProfile:Car):Observable<HttpResponse<Car>>{
-
     return this.http.post<Car>(Globals.baseURL + '/dealer/createcar/'+username,carProfile, {observe: 'response' });
-
   }
 
 }

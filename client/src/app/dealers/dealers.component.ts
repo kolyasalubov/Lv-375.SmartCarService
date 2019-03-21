@@ -5,6 +5,7 @@ import {TokenStorageService} from '../auth/token-storage.service';
 import {TechserviceService} from '../techservice/techservice.service';
 import {Techservice} from '../techservice/techservice';
 import{Apply} from './apply';
+import {Observable} from "rxjs";
 @Component({
   selector: 'app-dealers',
   templateUrl: './dealers.component.html',
@@ -13,7 +14,6 @@ import{Apply} from './apply';
 export class DealersComponent implements OnInit {
   techservice: Techservice;
   allDealers:Dealer[];
-appl:Apply;
   constructor(private dealersService: DealersService,private tokenStorage: TokenStorageService,private techserviceService: TechserviceService) { }
 
   ngOnInit() {
@@ -35,12 +35,10 @@ appl:Apply;
     });
   }
 
-  apply(edr:String){
 
-    // this.apply.dealerEdr=edr;
-    // this.apply.stoId=this.techservice.stoId;
+  dealerSto(edr:String){
+
     this.dealersService.applyToDealer(new Apply(edr,this.techservice.stoId)).subscribe();
-
   }
 
 }

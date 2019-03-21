@@ -11,7 +11,6 @@ public interface DealerService {
 
     void createDealer(DealerDto dealerDto, String username);
 
-
     DealerEntity getDealerEntityByUserName(String Username);
 
     void createDealer(DealerEntity dealerEntity);
@@ -28,8 +27,7 @@ public interface DealerService {
 
     List<DealerDto> getAllDealerDto();
 
-
     List<DealerCarDto> getAllCarDtoByUserNameDealer(String username);
 
-
+    void deleteStoFromDealer(Long id);
 }

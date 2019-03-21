@@ -2,29 +2,27 @@ package ua.ita.smartcarservice.dto.sales;
 
 import java.util.Date;
 
-/**
- * Created by 1 on 27.02.2019.
- */
+
 public class DealerCarDto {
 
     private Long id;
     private String brand;
     private String model;
-    private String graduation_year;
+    private String graduationYyear;
     private String number;
     private Double price;
     private String vin;
-    private Date end_guarantee;
+    private Date endEguarantee;
     private String usernameDealer;
 
-    public DealerCarDto(String brand, String model, String graduation_year, String number, Double price, String vin, Date end_guarantee, String usernameDealer) {
+    public DealerCarDto(String brand, String model, String graduationYyear, String number, Double price, String vin, Date endGguarantee, String usernameDealer) {
         this.brand = brand;
         this.model = model;
-        this.graduation_year = graduation_year;
+        this.graduationYyear = graduationYyear;
         this.number = number;
         this.price = price;
         this.vin = vin;
-        this.end_guarantee = end_guarantee;
+        this.endEguarantee = endGguarantee;
         this.usernameDealer = usernameDealer;
     }
 
@@ -52,12 +50,12 @@ public class DealerCarDto {
         this.model = model;
     }
 
-    public String getGraduation_year() {
-        return graduation_year;
+    public String getGraduationYyear() {
+        return graduationYyear;
     }
 
-    public void setGraduation_year(String graduation_year) {
-        this.graduation_year = graduation_year;
+    public void setGraduationYyear(String graduationYyear) {
+        this.graduationYyear = graduationYyear;
     }
 
     public String getNumber() {
@@ -76,7 +74,6 @@ public class DealerCarDto {
         this.price = price;
     }
 
-
     public String getVin() {
         return vin;
     }
@@ -85,12 +82,12 @@ public class DealerCarDto {
         this.vin = vin;
     }
 
-    public Date getEnd_guarantee() {
-        return end_guarantee;
+    public Date getEndEguarantee() {
+        return endEguarantee;
     }
 
-    public void setEnd_guarantee(Date end_guarantee) {
-        this.end_guarantee = end_guarantee;
+    public void setEndEguarantee(Date endEguarantee) {
+        this.endEguarantee = endEguarantee;
     }
 
     public String getUsernameDealer() {
@@ -100,5 +97,4 @@ public class DealerCarDto {
     public void setUsernameDealer(String usernameDealer) {
         this.usernameDealer = usernameDealer;
     }
-
 }

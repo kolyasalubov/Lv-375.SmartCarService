@@ -7,10 +7,10 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "Apply")
-public class Apply {
+@Table(name = "DealerSto")
+public class DealerSto {
 
-    public Apply() {
+    public DealerSto() {
     }
 
     @Id
@@ -28,7 +28,7 @@ public class Apply {
     private TechnicalServiceEntity technicalService;
 
 
-    public Apply(DealerEntity dealer, TechnicalServiceEntity technicalService) {
+    public DealerSto(DealerEntity dealer, TechnicalServiceEntity technicalService) {
         this.dealer = dealer;
         this.technicalService = technicalService;
     }

@@ -6,18 +6,11 @@ import ua.ita.smartcarservice.entity.sales.TradeIn;
 
 import java.util.List;
 
-/**
- * Created by 1 on 27.02.2019.
- */
+
 public interface TradeInRepository extends JpaRepository<TradeIn,Long> {
 
+        List<TradeIn>findAllByDealerAndIsactive(DealerEntity dealerEntity,String isActive);
 
-
-
-//    List<TradeIn>findAllByDealerEntity(DealerEntity dealerEntity);
-
-
-    List<TradeIn>findAllByDealerAndIsactive(DealerEntity dealerEntity,String isActive);
-
-
+//        TradeIn findByIdDealerAndIdUserAndVinNewCarAndVinUsedCar(Long dealerId,Long userId,String vinNewCar,String vinUsedCar);
+TradeIn findByIdDealerAndIdUserAndVinNewCarAndVinUsedCarAndIsactive(Long dealerId,Long userId,String vinNewCar,String vinUsedCar,String active);
 }

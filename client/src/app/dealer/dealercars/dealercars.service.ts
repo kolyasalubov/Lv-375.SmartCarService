@@ -11,20 +11,15 @@ const httpOptions = {
   })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class DealercarsService {
 
-  constructor(private http:HttpClient) { }
+   constructor(private http:HttpClient) { }
 
-getAllDealerCars(username:String):Observable<Car[]> {
-
-  return this.http.get<Car[]>(Globals.baseURL + '/dealer/cars/' + username);
-
-
-}
-
+    getAllDealerCars(username:String):Observable<Car[]> {
+      return this.http.get<Car[]>(Globals.baseURL + '/dealer/cars/' + username);
+    }
 
 }

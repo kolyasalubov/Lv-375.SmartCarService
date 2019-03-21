@@ -5,6 +5,7 @@ import lombok.Data;
 import ua.ita.smartcarservice.entity.booking.ReportEntity;
 import ua.ita.smartcarservice.entity.feedback.ServicesFeedback;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
+//import ua.ita.smartcarservice.entity.sales.DealerEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -76,4 +77,11 @@ public class TechnicalServiceEntity {
         this.dealer = dealerEntity;
     }
 
+    public DealerEntity getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(DealerEntity dealer) {
+        this.dealer = dealer;
+    }
 }

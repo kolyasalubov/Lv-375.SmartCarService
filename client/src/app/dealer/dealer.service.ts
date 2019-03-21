@@ -19,17 +19,15 @@ export class DealerService {
 
 
   createDealer(dealer: Dealer,username: String):Observable<HttpResponse<Dealer>>{
-
     return this.http.post<Dealer>(Globals.baseURL + '/dealer/create/'+username,dealer,{observe: 'response' });
   }
-getDealer(username: String): Observable<Dealer>{
 
-  return this.http.get<Dealer>(Globals.baseURL + '/dealer/get/'+username);
-
-}
+  getDealer(username: String): Observable<Dealer>{
+    return this.http.get<Dealer>(Globals.baseURL + '/dealer/get/'+username);
+  }
 
   editDealer(dealer: Dealer):Observable<HttpResponse<Dealer>>{
-  return this.http.post<Dealer>(Globals.baseURL + '/dealer/edit',dealer,{observe: 'response' });
+    return this.http.post<Dealer>(Globals.baseURL + '/dealer/edit',dealer,{observe: 'response' });
+  }
 
-}
 }

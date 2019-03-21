@@ -2,7 +2,7 @@ package ua.ita.smartcarservice.entity.sales;
 
 import lombok.Data;
 import ua.ita.smartcarservice.entity.UserEntity;
-import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
+//import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,11 +13,8 @@ import java.util.List;
 @Table(name = "dealer")
 public class DealerEntity {
 
-
     public DealerEntity() {
     }
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,10 +44,6 @@ public class DealerEntity {
         this.dealerEdr = dealerEdr;
         this.dealerEmail = dealerEmail;
     }
-
-
-//    @OneToMany(mappedBy = "dealerEntity")
-//    private List<TechnicalServiceEntity>technicalServiceEntities;
 
     public UserEntity getUserEntity() {
         return userEntity;

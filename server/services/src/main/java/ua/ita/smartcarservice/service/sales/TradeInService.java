@@ -10,27 +10,19 @@ import java.util.List;
 
 
 public interface TradeInService {
-//
-//void createTradeIn(TradeIn tradeIn);
-//void deleteTradeIn(TradeIn tradeIn);
-//    void deleteTradeIn(Long id);
-//    void editTradeIn(TradeIn tradeIn);
-// List<TradeIn> findall();
-//
-// List<TradeIn>findAllByDealerEntity(DealerEntity dealerEntity);
-//
-//
-// List<TradeIn>findAllToSM(UserSaleManager userSaleManager);
-void createTradeIn(CreateTraidInDto traidInDto);
 
-void create(String vinNewCar,String vinUsedCar);
-
-List<TradeIn>tradesIn(String username);
-
-List<TradeInDto>tradeinDtos(String username);
-void deleteTradeIn(Long id);
-
-void successTradeIn(Long id);
+    void createTradeIn(CreateTraidInDto traidInDto);
 
 
+    void create(String vinNewCar,String vinUsedCar);
+
+    List<TradeIn>tradesIn(String username);
+
+    List<TradeInDto>tradeinDtos(String username);
+
+    void deleteTradeIn(Long id);
+
+    void successTradeIn(Long id);
+
+    TradeIn findTradeIn(String vinNewCar, String vinUsedCar);
 }

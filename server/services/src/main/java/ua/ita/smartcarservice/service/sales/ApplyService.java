@@ -10,10 +10,10 @@ public interface ApplyService {
 
     void createApplyToDealer(ApplyToDealerDto applyToDealerDto);
 
-    void deleteApply(ApplyToDealerDto applyToDealerDto);
+    void deleteApplyToDealer(ApplyToDealerDto applyToDealerDto);
 
     void applyToDealer(ApplyToDealerDto applyToDealerDto);
 
-    List<TechnicalServiceDto>TECHNICAL_SERVICE_DTOS(String username);
+    List<TechnicalServiceDto>technicalServiceDtos(String username);
 
 }

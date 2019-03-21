@@ -10,16 +10,15 @@ import {DealerService} from './dealer.service';
   styleUrls: ['./dealer.component.scss'],
 })
 export class DealerComponent implements OnInit {
-  username: String;
 
-// mydealer:Dealer;
-mydealertmp:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
-  // mydealertmp:Dealer=new Dealer();
-
-mydealer=this.mydealertmp;
-
-
-  constructor(private dealerService: DealerService,private tokenStorage: TokenStorageService) { }
+   error: ErrorEvent;
+   username: String;
+   // mydealertmp:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
+  // mydealertmp:Dealer;
+  // mydealer=this.mydealertmp;
+  mydealer:Dealer={dealerName:'',dealerAddress:'',dealerEdr:'',dealerEmail:''};
+  name:String=this.mydealer.dealerName;
+   constructor(private dealerService: DealerService,private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.username = this.tokenStorage.getUsername();
@@ -28,10 +27,11 @@ mydealer=this.mydealertmp;
 
    }
   createDealer(){
-    this.dealerService.createDealer(this.mydealer,this.username).subscribe();
+    this.dealerService.createDealer(this.mydealer,this.username).subscribe(data => {}, error => this.error = error);
   }
 
   editDealer(){
     this.dealerService.editDealer(this.mydealer).subscribe();
   }
+
 }

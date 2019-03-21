@@ -4,6 +4,7 @@ import {Dealer} from 'src/app/dealer/dealer';
 import {Apply} from './apply';
 import {Observable} from "rxjs";
 import { Globals } from '../globals';
+import {text} from "@angular/core/src/render3";
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
@@ -29,4 +30,6 @@ export class DealersService {
   applyToDealer(apply:Apply):Observable<HttpResponse<Apply>>{
     return this.http.post<Apply>(Globals.baseURL + '/dealer/epplyToDealer',apply,{observe: 'response' });
   }
+
+
 }

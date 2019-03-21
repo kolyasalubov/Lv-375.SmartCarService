@@ -14,6 +14,10 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry config) {
        config.enableSimpleBroker("/notifications-list");
        config.setApplicationDestinationPrefixes("/ui");
+
+        config.setApplicationDestinationPrefixes("/socket-subscriber")
+                .enableSimpleBroker("/socket-publisher");
+
     }
 
     @Override
@@ -21,5 +25,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/socket")
                 .setAllowedOrigins("*")
                 .withSockJS();
+
     }
 }

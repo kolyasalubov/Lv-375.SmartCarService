@@ -6,9 +6,11 @@ import ua.ita.smartcarservice.dto.sales.DealerCarDto;
 import ua.ita.smartcarservice.dto.sales.DealerDto;
 import ua.ita.smartcarservice.entity.Car;
 import ua.ita.smartcarservice.entity.sales.DealerEntity;
+import ua.ita.smartcarservice.entity.technicalservice.TechnicalServiceEntity;
 import ua.ita.smartcarservice.repository.CarRepository;
 import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.sales.DealerEntityRepository;
+import ua.ita.smartcarservice.repository.technicalservice.TechnicalServiceRepository;
 import ua.ita.smartcarservice.service.sales.DealerService;
 
 import java.util.ArrayList;
@@ -26,15 +28,15 @@ public class DealerServiceImpl implements DealerService {
 
     @Autowired
     private CarRepository carRepository;
-//    @Override
-//    public void createDealer(DealerEntity dealerEntity, String username) {
-//        dealerRepository.save(new DealerEntity(userRepository.getUserById(userRepository.findByUsername(username).get().getId()),dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail()));
-//    }
 
+    @Autowired
+    private TechnicalServiceRepository technicalServiceRepository;
 
     @Override
     public void createDealer(DealerDto dealerDto, String username) {
-        dealerRepository.save(new DealerEntity(userRepository.getByUsername(username),dealerDto.getDealerName(),dealerDto.getDealerAddress(),dealerDto.getDealerEdr(),dealerDto.getDealerEmail()));
+        if(getDealerEntityByUserName(username)==null) {
+            dealerRepository.save(new DealerEntity(userRepository.getByUsername(username), dealerDto.getDealerName(), dealerDto.getDealerAddress(), dealerDto.getDealerEdr(), dealerDto.getDealerEmail()));
+        }
     }
 
     @Override
@@ -44,7 +46,7 @@ public class DealerServiceImpl implements DealerService {
 
     @Override
     public DealerEntity getDealerEntityByUserName(String username) {
-        return dealerRepository.findByUserEntity_Username(username);
+        return dealerRepository.findByUserEntityUsername(username);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class DealerServiceImpl implements DealerService {
 
     @Override
     public DealerDto getDealerDtoByUserName(String username) {
-        DealerEntity dealerEntity=dealerRepository.findByUserEntity_Username(username);
+        DealerEntity dealerEntity=dealerRepository.findByUserEntityUsername(username);
         return new DealerDto(dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail());
     }
 
@@ -90,8 +92,7 @@ public class DealerServiceImpl implements DealerService {
     @Override
     public List<DealerCarDto> getAllCarDtoByUserNameDealer(String username) {
         List<DealerCarDto> dealerCarDtos=new ArrayList<>();
-//        List<Car>cars=dealerRepository.findAllCarByDealer(dealerRepository.findByUserEntity_Username(username));
-        List<Car>cars=carRepository.findAllByDealer(dealerRepository.findByUserEntity_Username(username));
+        List<Car>cars=carRepository.findAllByDealer(dealerRepository.findByUserEntityUsername(username));
         for (Car car:cars){
             dealerCarDtos.add(new DealerCarDto(car.getBrand(),
                     car.getModel(),
@@ -103,6 +104,13 @@ public class DealerServiceImpl implements DealerService {
                     car.getDealer().getDealerName()));
         }
         return dealerCarDtos;
+    }
+
+    @Override
+    public void deleteStoFromDealer(Long id) {
+        TechnicalServiceEntity technicalServiceEntity=technicalServiceRepository.getByTechnicalServiceId(id);
+        technicalServiceEntity.setDealer(null);
+        technicalServiceRepository.save(technicalServiceEntity);
     }
 }
 

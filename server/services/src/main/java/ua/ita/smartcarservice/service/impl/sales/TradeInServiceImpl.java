@@ -31,6 +31,13 @@ public class TradeInServiceImpl implements TradeInService {
     @Override
     public void createTradeIn(CreateTraidInDto traidInDto) {
 
+//        TradeIn tradeIn=tradeInRepository.findByIdDealerAndIdUserAndVinNewCarAndVinUsedCar( dealerRepository.findByDealerEdr(traidInDto.getDealerEdr()).getDealerId(),
+//                userRepository.findByUsername(traidInDto.getUsername()).get().getId(),
+//                traidInDto.getVinNewCar(), traidInDto.getVinUsedCar()
+//                );
+//        System.out.println("found!: ");
+//
+
         tradeInRepository.save(new TradeIn(traidInDto.getVinNewCar(),
                 traidInDto.getVinUsedCar(),
                 userRepository.findByUsername(traidInDto.getUsername()).get().getId(),
@@ -42,13 +49,25 @@ public class TradeInServiceImpl implements TradeInService {
     @Override
     public void create(String vinNewCar, String vinUsedCar) {
 
-        tradeInRepository.save(new TradeIn(vinNewCar,vinUsedCar,carRepository.findByVin(vinUsedCar).getUser().getId(),carRepository.findByVin(vinNewCar).getDealer().getDealerId(),"active",carRepository.findByVin(vinNewCar).getDealer()));
-
+        TradeIn tradeIn=tradeInRepository.findByIdDealerAndIdUserAndVinNewCarAndVinUsedCarAndIsactive(carRepository.findByVin(vinNewCar).getDealer().getDealerId(),carRepository.findByVin(vinUsedCar).getUser().getId(),vinNewCar,vinUsedCar,"active");
+        if(tradeIn==null) {
+            System.out.println("created ");
+            tradeInRepository.save(new TradeIn(vinNewCar, vinUsedCar, carRepository.findByVin(vinUsedCar).getUser().getId(), carRepository.findByVin(vinNewCar).getDealer().getDealerId(), "active", carRepository.findByVin(vinNewCar).getDealer()));
+        }else System.out.println("not created");
     }
 
     @Override
+    public TradeIn findTradeIn(String vinNewCar, String vinUsedCar) {
+        TradeIn tradeIn = tradeInRepository.findByIdDealerAndIdUserAndVinNewCarAndVinUsedCarAndIsactive(carRepository.findByVin(vinNewCar).getDealer().getDealerId(), carRepository.findByVin(vinUsedCar).getUser().getId(), vinNewCar, vinUsedCar, "active");
+        if (tradeIn == null) {
+return null;
+        } else {
+            return tradeIn;
+        }
+    }
+    @Override
     public List<TradeIn> tradesIn(String username) {
-        return tradeInRepository.findAllByDealerAndIsactive(dealerRepository.findByUserEntity_Username(username),"active");
+        return tradeInRepository.findAllByDealerAndIsactive(dealerRepository.findByUserEntityUsername(username),"active");
     }
 
     @Override
@@ -83,5 +102,7 @@ public class TradeInServiceImpl implements TradeInService {
         tradeIn.setIsactive("notActive");
         tradeInRepository.save(tradeIn);
     }
+
+
 }
 
