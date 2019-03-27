@@ -60,6 +60,13 @@ public class DealerServiceImpl implements DealerService {
         return new DealerDto(dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail());
     }
 
+
+    @Override
+    public DealerDto getDealerDtoByByCarVin(String vin) {
+        DealerEntity dealerEntity= carRepository.findByVin(vin).getDealer();
+        return new DealerDto(dealerEntity.getDealerName(),dealerEntity.getDealerAddress(),dealerEntity.getDealerEdr(),dealerEntity.getDealerEmail());
+    }
+
     @Override
     public DealerEntity dealerDtoToEntity(DealerDto dealerDto) {
         return dealerRepository.findByDealerEdr(dealerDto.getDealerEdr());

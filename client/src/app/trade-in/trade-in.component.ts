@@ -8,12 +8,12 @@ import { from, Observable } from 'rxjs';
 import { TradeInService } from './trade-in.service';
 import {TradeIn} from './tradein';
 import {Globals} from "../globals";
-import {FormGroup, FormControl, Validators } from "@angular/forms";
+import {FormGroup, FormControl, Validators,FormsModule } from "@angular/forms";
 import {Message} from "./message";
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ToastrService } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import {DealerService} from "../dealer/dealer.service";
 
 
 
@@ -23,49 +23,65 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./trade-in.component.scss']
 
 })
-export class TradeInComponent implements OnInit{
-  private serverUrl=Globals.baseURL + "/chat";
-     username: String;
-    mycar:Car;
-    dealers: Dealer[];
-    allCars:Car[];
+export class TradeInComponent implements OnInit {
+  serverUrl = "http://localhost:9501/socket";
+
+  username: String;
+  mycar: Car;
+  dealers: Dealer[] = [];
+  allCars: Car[] = [];
+
   @Input()
-  vin: String;
-  private stompClient;
-  messages: Message[] = [];
+  vin: string;
+
   isCustomSocketOpened = true;
 
-  fromId:string;
-  toId:string;
-  msg:string;
 
-  constructor(private toastr: ToastrService,private tradeInService:TradeInService,private carsService:CarsService,private tokenStorage: TokenStorageService,private route: ActivatedRoute, private router: Router) { }
+  toId: String;
+  msg: String;
+  showchat:boolean=false;
+  dealer: Dealer = {dealerName: '', dealerAddress: '', dealerEdr: '', dealerEmail: ''};
+  mydealer=this.dealer;
+  private stompClient;
+
+  messages: Message[] = [];
+
+  constructor(private dealerService: DealerService, private toastr: ToastrService, private tradeInService: TradeInService, private carsService: CarsService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
-this.fromId=this.tokenStorage.getUsername();
+    this.route.params.subscribe(params => {
+      this.vin = params["vin"];
+    })
 
-              this.route.params.subscribe(params=>{
-              this.vin=params["vin"];
-            })
+    this.carsService.getCarByVin(this.vin).subscribe(data => this.mycar = data);
 
-             this.carsService.getCarByVin(this.vin).subscribe(data=>this.mycar=data);
+    this.tradeInService.getAllCars().subscribe(data => this.allCars = data);
 
-             this.tradeInService.getAllCars().subscribe(data=>this.allCars=data);
+    this.tradeInService.getAllDealers().subscribe(data => this.dealers = data);
 
-             this.tradeInService.getAllDealers().subscribe(data=>this.dealers=data);
+    this.username = this.tokenStorage.getUsername();
 
-             this.username = this.tokenStorage.getUsername();
 
+    // +
     this.initializeWebSocketConnection();
 
-    this.openSocket();
+  }
 
-    }
   sendMessageUsingRest() {
-      let message: Message = { message: this.msg, fromId: this.fromId, toId: this.toId };
-      this.tradeInService.post(message).subscribe(res => {
-        console.log(res);
-      })
+
+    let message: Message = {message: this.msg, fromId: this.tokenStorage.getUsername(), toId: this.toId};
+    this.tradeInService.post(message).subscribe(res => {
+      console.log(res);
+    })
+    this.msg="";
+
+  }
+
+  sendMessageUsingSocket() {
+
+    let message: Message = {message: this.msg, fromId: this.tokenStorage.getUsername(), toId: this.toId};
+    this.stompClient.send("/socket-subscriber/send/message", {}, JSON.stringify(message));
 
   }
 
@@ -74,47 +90,60 @@ this.fromId=this.tokenStorage.getUsername();
     this.stompClient = Stomp.over(ws);
     let that = this;
     this.stompClient.connect({}, function (frame) {
-      that.openGlobalSocket()
+      // that.openGlobalSocket();
+      that.openSocket();
     });
+
   }
-  openGlobalSocket() {
-    this.stompClient.subscribe("/socket-publisher", (message) => {
-      this.handleResult(message);
-    });
-  }
+
+  // openGlobalSocket() {
+  //   this.stompClient.subscribe("/socket-publisher" , (message) => {
+  //     this.handleResult(message);
+  //   });
+  //
+  // }
 
   openSocket() {
-        this.stompClient.subscribe("/socket-publisher/"+this.tokenStorage.getUsername(), (message) => {
-        this.handleResult(message);
-      });
+    // if (this.isLoaded) {
+    //   this.isCustomSocketOpened = true;
+    this.stompClient.subscribe("/socket-publisher/" + this.tokenStorage.getUsername(), (message) => {
+      this.handleResult(message);
+    });
+// }
   }
 
-  handleResult(message){
-    if (message.body) {
-      let messageResult: Message = JSON.parse(message.body);
-      console.log(messageResult);
-      this.messages.push(messageResult);
-      this.toastr.success("new message recieved", null, {
+  handleResult(message) {
+    // if (message.body) {
+    let messageResult: Message = JSON.parse(message.body);
+    console.log(messageResult);
+    this.messages.push(messageResult)
+    this.toastr.success("new message recieved", null, {
         'timeOut': 3000
-      });
-    }
+      }
+    )
+    // }
   }
 
 
-
-  private getFromRouterParams(param: string) {
+  getFromRouterParams(param: string) {
     return this.route.snapshot.queryParamMap.get(param);
   }
 
-  private getCars(edr:String){
+  getCars(edr: string) {
     return this.tradeInService.getAllCarsByDealerEdr(edr).subscribe();
   }
 
-  sendTradeIn(newCarvin: String,UsedCarvin: String) {
-    return this.tradeInService.sendTradeIn(newCarvin,UsedCarvin).subscribe();
+  sendTradeIn(newCarvin: String, UsedCarvin: String) {
+    return this.tradeInService.sendTradeIn(newCarvin, UsedCarvin).subscribe();
   }
 
+  startmessage(vin: String) {
 
+    this.dealerService.getDealerByCarVin(vin).subscribe(data => {this.mydealer.dealerEdr = data.dealerEdr,console.log(this.mydealer.dealerEdr),this.toId=this.mydealer.dealerEdr});
+this.showchat=true;
+    console.log(this.mydealer.dealerEdr);
+
+  }
 
 
 }

@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface DealerService {
 
+    DealerDto getDealerDtoByByCarVin(String vin);
+
     void createDealer(DealerDto dealerDto, String username);
 
     DealerEntity getDealerEntityByUserName(String Username);

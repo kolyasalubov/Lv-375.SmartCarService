@@ -19,14 +19,15 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TradeInService {
-  url: string = Globals.baseURL + "/chat";
+  url: string ="http://localhost:9501/api/socket";
+
   constructor(private http:HttpClient) { }
 
     getAllDealers():Observable<Dealer[]>{
       return this.http.get<Dealer[]>(Globals.baseURL + '/dealer/getAll');
      }
 
-    getAllCarsByDealerEdr(edr:String):Observable<Car[]>{
+    getAllCarsByDealerEdr(edr:string):Observable<Car[]>{
       return this.http.get<Car[]>( Globals.baseURL + '/dealer/getAllCars/'+edr);
      }
     getAllCars():Observable<Car[]>{

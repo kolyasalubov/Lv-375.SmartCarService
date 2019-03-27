@@ -42,12 +42,15 @@ import { DealersComponent } from './dealers/dealers.component';
 import { TechservicePageComponent } from './techservice-page/techservice-page.component';
 import {ServiceHistoryComponent} from "./service-history/service-history.component";
 import { CarNormsComponent } from './cars/car-norms/car-norms.component';
-
+import {ChatComponent} from './chat/chat.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: 'auth/login'},
 
-
+  {
+    path: 'ui/dealerChat',
+    component: ChatComponent
+  },
   {
     path: 'ui/techservice/dealer',
     component: DealersComponent
@@ -210,7 +213,7 @@ const routes: Routes = [
 {
   path: 'ui/message',
   component: AlertsComponent
-}, 
+},
 {
   path: 'ui/popup',
   component: PopupComponent

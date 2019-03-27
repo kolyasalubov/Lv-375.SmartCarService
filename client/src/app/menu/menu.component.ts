@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
 
   notifications: Notifications[];
 
-  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private techserviceService: TechserviceService, private router: Router, 
+  constructor(private tokenStorage: TokenStorageService, private userService: UsersService, private route: ActivatedRoute, private techserviceService: TechserviceService, private router: Router,
     private notificationsService: NotificationsService) { }
 
   ngOnInit() {
@@ -84,7 +84,7 @@ export class MenuComponent implements OnInit {
   goToDealerinfo(){
     this.router.navigate(['/ui/dealer']);
   }
-  
+
   goToDealerCars(){
     this.router.navigate(['/ui/dealercars']);
   }
@@ -92,7 +92,9 @@ export class MenuComponent implements OnInit {
   addCarToDealer(){
     this.router.navigate(['/ui/addDealerCar']);
   }
-
+  goToDealerChat(){
+    this.router.navigate(['/ui/dealerChat']);
+  }
   goToUserProfile(){
     this.router.navigate(['/ui/userprofile']);
   }

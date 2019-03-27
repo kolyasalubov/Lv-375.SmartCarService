@@ -36,26 +36,36 @@
       </div>
       <div id="options">
         <button class="btn btn-outline my-2 my-sm-0;" (click)="sendTradeIn(dealercar.vin,mycar.vin)"  style="background-color: #c5001a;margin-left: 30%"> <i class="btn my-2 my-sm-0" aria-hidden="true">TradeIn</i></button>
-        <button class="btn btn-outline my-2 my-sm-0;" (click)="startmessage(dealercar.vin)"  style="background-color: #c5001a;margin-left: 30%"> <i class="btn my-2 my-sm-0" aria-hidden="true">Message</i></button>
+        <button class="btn btn-outline my-2 my-sm-0;" (click)="startmessage(dealercar.vin)"  style="background-color: #c5001a;margin-left: 30%"> <i class="btn my-2 my-sm-0" aria-hidden="true">Send message to dealer</i></button>
 
       </div>
+    </div>
+    <div *ngIf="showchat" class="container-fluid" >
+
+      <!--<form  >-->
+      <!--<div style="margin-bottom: 20px;">-->
+      <!--<input type="text" [(ngModel)]="username" name="fromId"  placeholder="Your id">-->
+      <!--<input type="submit" (click)="openSocket()"  value="open socket to recieve custom messages">-->
+
+      <!--</div>-->
+      <!--<input type="text"  [(ngModel)]="toId" name="toId" placeholder="User id to send the message to">-->
+      <!--</form>-->
+
+      <form>
+        <p>Message: </p>
+        <input type="text" [(ngModel)]="msg" name="message" placeholder="Message">
+        <input type="button"  value="Send " (click)="sendMessageUsingRest()">
+      </form>
+      <ul>
+
+        <li  *ngFor="let message of messages">From: {{message.fromId}}, To: {{message.toId}}, Message: {{message.message}}</li>
+
+      </ul>
+
     </div>
   </div>
 
 </div>
-<div class="container-fluid" >
-  <form>
-  <p>User Information: (if user id(toId) is null the message will be sended to all users) </p>
-    <input type="text" [(ngModel)]="fromId" placeholder="your id">
-  <input type="text" [(ngModel)]="toId" name="toId" placeholder="User id to send the message to">
-</form>
-  <form>
-  <p>Message: </p>
-  <input type="text" [(ngModel)]="msg"  name="message" placeholder="Message">
-  <input type="button"  (click)="sendMessageUsingRest()">
-</form>
-<ul>
-  <li *ngFor="let message of messages">From: {{message.fromId}}, To: {{message.toId}}, Message: {{message.message}}</li>
-</ul>
-</div>
+
+
 

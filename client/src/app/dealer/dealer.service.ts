@@ -30,4 +30,9 @@ export class DealerService {
     return this.http.post<Dealer>(Globals.baseURL + '/dealer/edit',dealer,{observe: 'response' });
   }
 
+  getDealerByCarVin(vin:String): Observable<Dealer>{
+    console.log(this.http.get<Dealer>(Globals.baseURL + '/dealer/getByCarVin/'+vin));
+    return this.http.get<Dealer>(Globals.baseURL + '/dealer/getByCarVin/'+vin);
+  }
+
 }

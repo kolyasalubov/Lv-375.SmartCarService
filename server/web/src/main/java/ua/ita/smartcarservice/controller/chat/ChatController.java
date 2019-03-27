@@ -14,14 +14,15 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/chat")
-//@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@RequestMapping(value = "/api/socket")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class ChatController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> sendMessage(@RequestBody Map<String, String> message){
+
         if(message.containsKey("message")){
             if(message.containsKey("toId") && message.get("toId")!=null && !message.get("toId").equals("")){
                 this.simpMessagingTemplate.convertAndSend("/socket-publisher/"+message.get("toId"),message);

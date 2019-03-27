@@ -7,6 +7,7 @@
     <br>
     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent" style="color:white" >
   <div>
+    <li *ngIf="authority === 'dieler'"> <a class="" (click)="goToDealerChat()" >Chat</a> </li>
     <ul *ngIf="authority === 'owner'" class="navbar-nav mr-auto">
       <a class="notification" (click)="goToNotifications()" style="border-bottom: 2px solid white;">
          <span *ngIf="!notificationsOpen"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
@@ -16,6 +17,7 @@
   </ul>
   </div>
       <div class="dropdown">
+
         <button class="dropbtn">{{user.fullName}} <i class="fa fa-caret-square-o-down" aria-hidden="true"></i> </button>
         <div class="dropdown-content">
           <a class="fa fa-user-circle" routerLink="/ui/userprofile"> Profile</a>
@@ -36,6 +38,7 @@
   <ul id="sidebar_menu" class="sidebar-nav">
   <li class="sidebar-brand">
     <a id="menu-toggle" (click)="goHome()">SmartCarService</a></li>
+
   </ul>
   <br>
   <ul id="sidebar" class="sidebar-nav" >
@@ -46,7 +49,7 @@
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/newcar" >Add new car <i class="fa fa-plus-circle" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/location" >Location of cars <i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
   <li *ngIf="authority === 'owner'"> <a class="" routerLink="/ui/techservices">My Service</a></li>
-  
+
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice">My Service</a></li>
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice/feedback">Feedback</a></li>
   <li *ngIf="authority === 'techmanager'"><a class="" routerLink="/ui/techservice/dealer">Dealer</a></li>
@@ -62,7 +65,7 @@
   <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealerstoadd">add sto </a></li>
   <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealersSto">my stos </a></li>
   <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/dealersTradeIn">Trade In </a></li>
-  <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/norms">Upload norms</a></li>  
+  <li *ngIf="authority === 'dieler'"> <a class="" routerLink="/ui/norms">Upload norms</a></li>
 </ul>
   </div>
   </div>

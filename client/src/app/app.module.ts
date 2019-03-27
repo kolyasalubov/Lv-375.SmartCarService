@@ -59,6 +59,10 @@ import {InfoMassageComponent} from './info-massage/info-massage.component';
 import {WorkerCardComponent} from './techservice/worker-card/worker-card.component';
 import {WorkersListComponent} from './techservice/workers-list/workers-list.component';
 import { CarNormsComponent } from './cars/car-norms/car-norms.component';
+import {  ReactiveFormsModule } from '@angular/forms';
+import {ToastrModule} from "ngx-toastr";
+import {TradeInService} from "./trade-in/trade-in.service";
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -103,13 +107,15 @@ import { CarNormsComponent } from './cars/car-norms/car-norms.component';
     InfoMassageComponent,
     WorkerCardComponent,
     WorkersListComponent,
-    CarNormsComponent
+    CarNormsComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAojOwUL0HAte_4FqR1pIgXdRIMQ82-ev0'
@@ -121,12 +127,15 @@ import { CarNormsComponent } from './cars/car-norms/car-norms.component';
     OverlayModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ToastrModule.forRoot({ timeOut: 3000 }),
+
   ],
   providers: [
     NotificationsService,
     MatDialog,
-    DatePipe
+    DatePipe,
+    TradeInService
   ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent],
