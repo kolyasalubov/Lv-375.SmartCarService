@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.ita.smartcarservice.dto.files.AvatarDto;
 import ua.ita.smartcarservice.entity.files.AvatarEntity;
+import ua.ita.smartcarservice.repository.UserRepository;
 import ua.ita.smartcarservice.repository.files.AvatarRepository;
 import ua.ita.smartcarservice.service.files.AvatarService;
 import ua.ita.smartcarservice.service.UserService;
@@ -12,32 +13,51 @@ import ua.ita.smartcarservice.service.UserService;
 public class AvatarServiceImpl implements AvatarService {
 
     @Autowired
-    AvatarRepository avatarRepository;
+    private AvatarRepository avatarRepository;
 
     @Autowired
-    UserService userService;
+    private UserRepository userRepository;
+
+    @Override
+    public AvatarDto findByUsername(String username) {
+        AvatarEntity avatarEntity = avatarRepository.findByUsername(username);
+        if (avatarEntity == null) {
+            return null;
+        } else {
+            return entityToDto(avatarEntity);
+        }
+    }
+
+    @Override
+    public void deleteByUsername(String username) {
+        avatarRepository.deleteByUsername(username);
+    }
 
     @Override
     public void addAvatarToUser(AvatarDto avatarDto) {
-        avatarRepository.save(dtoToEntity(avatarDto));
+        AvatarEntity avatarEntity = avatarRepository.findByUsername(avatarDto.getUsername());
+        if (avatarEntity == null) {
+            avatarRepository.save(dtoToEntity(avatarDto));
+        } else {
+            avatarEntity.setFilePath(avatarDto.getFilePath());
+            avatarEntity.setFileName(avatarDto.getFileName());
+            avatarRepository.save(avatarEntity);
+        }
     }
 
     public AvatarEntity dtoToEntity(AvatarDto avatarDto) {
         return new AvatarEntity(
-                userService.findById(avatarDto.getUserId()),
-                avatarDto.getFileUrl(),
-                avatarDto.getFilePath());
+                userRepository.getByUsername(avatarDto.getUsername()),
+                avatarDto.getUsername(),
+                avatarDto.getFilePath(),
+                avatarDto.getFileName());
     }
 
     public AvatarDto entityToDto(AvatarEntity avatarEntity) {
         return new AvatarDto(
-                avatarEntity.getUserId().getId(),
-                avatarEntity.getFileUrl(),
-                avatarEntity.getFilePath());
-    }
-
-    @Override
-    public AvatarDto getAvatarDtoByUserId(Long userId) {
-        return entityToDto(avatarRepository.getByUserId(userId));
+                userRepository.getByUsername(avatarEntity.getUsername()),
+                avatarEntity.getUsername(),
+                avatarEntity.getFilePath(),
+                avatarEntity.getFileName());
     }
 }

@@ -4,6 +4,7 @@ import { Car } from './car';
 import {Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Globals } from '../globals';
+import { CarImage } from './car-image';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -66,6 +67,21 @@ export class CarsService {
       catchError(this.handleError)
     );
 }
+
+  addCarImage(carId: Number, fileToUpload: FormData):Observable<HttpResponse<File>> {
+    return this.http.post<File>(Globals.baseURL + '/upload/car/image/' + carId, fileToUpload, { observe: 'response' })
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getCarsWithImages(username: String): Observable<Map<Number, Array <CarImage>>>{
+    return this.http.get<Map<Number, Array <CarImage>>>(Globals.baseURL + '/car/image/' + username)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+  
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

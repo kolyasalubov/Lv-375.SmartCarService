@@ -21,7 +21,10 @@ public class CarNormsController {
 
     @PostMapping(value = "/norms", consumes = {"multipart/form-data"})
     public ResponseEntity addNorms (@RequestPart("file") @Valid @NotNull @NotBlank MultipartFile file){
-        carNormsService.storeCarNorms(file);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+        if (carNormsService.storeCarNorms(file)) {
+            return new ResponseEntity(HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }

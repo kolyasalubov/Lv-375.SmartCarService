@@ -4,5 +4,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface CarNormsService {
 
-    void storeCarNorms(MultipartFile file);
+    boolean storeCarNorms(MultipartFile file);
 }

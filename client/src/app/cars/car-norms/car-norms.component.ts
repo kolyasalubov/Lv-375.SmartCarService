@@ -28,7 +28,7 @@ export class CarNormsComponent implements OnInit {
   uploadFile() {
    var formData = new FormData();
    formData.append('file', this.fileToUpload);
-   console.log("file to upload" + formData);
+   console.log("file to upload " + formData);
 
     this.carService.postFile(formData)
     .subscribe(error => {

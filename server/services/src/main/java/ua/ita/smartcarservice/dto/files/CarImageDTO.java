@@ -1,30 +1,29 @@
 package ua.ita.smartcarservice.dto.files;
 
 import lombok.Data;
-import ua.ita.smartcarservice.entity.UserEntity;
-
+import ua.ita.smartcarservice.entity.Car;
 
 @Data
-public class AvatarDto {
+public class CarImageDTO {
 
-    private UserEntity userId;
+    private Car carId;
     private String username;
     private String filePath;
-    private String fileName;
+    private String FileName;
 
-    public AvatarDto(UserEntity userId, String username, String filePath, String fileName) {
-        this.userId = userId;
+    public CarImageDTO(Car carId, String username, String filePath, String fileName) {
+        this.carId = carId;
         this.username = username;
         this.filePath = filePath;
-        this.fileName = fileName;
+        FileName = fileName;
     }
 
-    public UserEntity getUserId() {
-        return userId;
+    public Car getCarId() {
+        return carId;
     }
 
-    public void setUserId(UserEntity userId) {
-        this.userId = userId;
+    public void setCarId(Car carId) {
+        this.carId = carId;
     }
 
     public String getUsername() {
@@ -44,10 +43,10 @@ public class AvatarDto {
     }
 
     public String getFileName() {
-        return fileName;
+        return FileName;
     }
 
     public void setFileName(String fileName) {
-        this.fileName = fileName;
+        FileName = fileName;
     }
 }

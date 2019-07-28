@@ -8,7 +8,7 @@ import ua.ita.smartcarservice.service.files.HashService;
 public class HashServiceImpl implements HashService {
 
     @Override
-    public String makeHash(Long id, String username, String filename) {
-        return DigestUtils.md5Hex(id.toString()+username+filename);
+    public String avatarHash(Long id, String username, String email) {
+        return DigestUtils.md5Hex(id.toString() + username + email);
     }
 }

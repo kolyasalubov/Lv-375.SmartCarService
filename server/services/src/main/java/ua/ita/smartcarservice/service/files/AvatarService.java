@@ -6,6 +6,8 @@ public interface AvatarService {
 
     void addAvatarToUser(AvatarDto avatarDto);
 
-    AvatarDto getAvatarDtoByUserId(Long userId);
+    AvatarDto findByUsername(String username);
+
+    void deleteByUsername(String username);
 
 }

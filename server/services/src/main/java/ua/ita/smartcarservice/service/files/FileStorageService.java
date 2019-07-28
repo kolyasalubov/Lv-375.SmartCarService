@@ -1,18 +1,22 @@
 package ua.ita.smartcarservice.service.files;
 
-import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
+import java.util.List;
 
 public interface FileStorageService {
 
-    public String storeFile(MultipartFile file);
+    Path getFileStorageLocation();
 
-    public Resource loadFileAsResource(String fileName);
+    List<String> findAvatarByUsername(String username);
 
-    public Path getFileStorageLocation();
+    String saveAvatar(String username, MultipartFile file);
 
-    public String storeFile(MultipartFile file, Long id, String username);
+    List<String> findCarImagesByUsername(String username);
+
+    List<String> findCarImageByCarId(Long id);
+
+    String saveCarImage(String username, MultipartFile file);
 
 }

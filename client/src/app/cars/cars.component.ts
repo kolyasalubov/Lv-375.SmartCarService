@@ -13,6 +13,7 @@ import { AlertsComponent } from '../alerts/alerts.component';
 import { ChartData } from '../chart-page/charts/chart/chart-data';
 import { JsonPipe } from '@angular/common';
 import { InfoMassageComponent } from '../info-massage/info-massage.component';
+import { CarImage } from './car-image';
 
 @Component({
   selector: 'app-cars',
@@ -32,10 +33,15 @@ export class CarsComponent implements OnInit {
   userId: Number;
   httpStatusCode: number;
   error: ErrorEvent;
+  fileToUpload: File = null;
+  carsImages: Map<Number, Array <CarImage>> = new Map();
+
 
   constructor(private carsService: CarsService, private userService: UsersService, private tokenStorage: TokenStorageService, private route: ActivatedRoute, private router: Router, private alertService: AlertService,  public dialog: MatDialog, private chartService: ChartService) { }
 
-  ngOnInit(){
+  ngOnInit(){  
+ 
+  
   this.carsService.getOwnerCarsByUsername(this.tokenStorage.getUsername())
   .subscribe(data => {
     this.cars = data,
@@ -49,6 +55,9 @@ export class CarsComponent implements OnInit {
       this.showProposal = true;
     }
     });
+
+  this.getCarsWithImages();
+  
   }
 
   applyToSTO(id: number){
@@ -113,6 +122,33 @@ export class CarsComponent implements OnInit {
   getCarByVin(vin: String){
       this.carsService.getCarByVin(vin).subscribe(data => this.car = data);
   }
+
+  handleFileInput(event) {
+    this.fileToUpload = <File>event.target.files[0];
+    console.log(event.target.files)
+  }
+
+  uploadFile(carId: Number) {
+    var formData = new FormData();
+    formData.append('file', this.fileToUpload);
+    console.log("file to upload" + formData);
+  
+     this.carsService.addCarImage(carId, formData)
+     .subscribe(data => {
+       error => this.error = error;
+       console.log(this.error);
+       }     
+       );
+       window.location.reload();
+     }
+   
+    getCarsWithImages(){
+    this.carsService.getCarsWithImages(this.tokenStorage.getUsername())
+    .subscribe((data: Map<Number, Array <CarImage>>)=>
+      this.carsImages = data, 
+      )
+      console.log(this.carsImages)
+    }
 
   reloadPage() {
     this.router.navigate(['ui/cars']);

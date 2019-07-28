@@ -6,10 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.ita.smartcarservice.dto.CarDto;
 import ua.ita.smartcarservice.dto.NewCarDTO;
+import ua.ita.smartcarservice.dto.files.CarsImagesDTO;
+import ua.ita.smartcarservice.entity.files.CarImageEntity;
 import ua.ita.smartcarservice.service.CarService;
 import ua.ita.smartcarservice.service.booking.ReportService;
+import ua.ita.smartcarservice.service.files.CarImageService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RequestMapping("/api")
@@ -20,6 +25,8 @@ public class CarController {
     private CarService carService;
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private CarImageService carImageService;
 
     /* Delete car by id*/
     @DeleteMapping("/car/{id}")
@@ -76,5 +83,15 @@ public class CarController {
                                  @RequestBody NewCarDTO newCarDTO) {
         carService.addCar(newCarDTO, username);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/car/image/{username}")
+    public ResponseEntity<Map<Long, CarsImagesDTO>> findCarsWithImages(@PathVariable String username) {
+        List<CarDto> cars = carService.findByUsername(username);
+        Map<Long, CarsImagesDTO> carWithImages = new HashMap<>();
+        for (CarDto c : cars) {
+            carWithImages.put(c.getId(), new CarsImagesDTO(c, carImageService.findByCarId(c.getId())));
+        }
+        return new ResponseEntity(carWithImages, HttpStatus.OK);
     }
 }

@@ -7,5 +7,8 @@ import ua.ita.smartcarservice.entity.files.AvatarEntity;
 @Repository
 public interface AvatarRepository extends JpaRepository<AvatarEntity, Long> {
 
-    AvatarEntity getByUserId(Long id);
+    AvatarEntity findByUsername(String username);
+
+    void deleteByUsername(String username);
+
 }

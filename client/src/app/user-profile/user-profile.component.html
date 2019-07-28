@@ -36,21 +36,29 @@
       </div>
 
       <!-----------------------User card---------------------->
-<div id="carMain">
-<div class="card">
-  <div class="card-body">
-  <img src="assets/img/icon1.png" width="200px" height="200px" style="text-align: right;">
-
-
+<div id ="carMain">
+<div class ="card">
+  <div class = "card-body">
+<div *ngIf = "avatarUploaded">
+<div *ngFor = "let avatar of avatars"> 
+<img [src] = "avatar" height="200px" style="text-align: right">
+</div>
+</div>
+<div *ngIf = "!avatarUploaded">
+  <img src = "assets/img/icon1.png" width="200px" height="200px" style="text-align: right;">
+</div>
   <hr style="border:2px solid #f1f1f1">
-  <div class="name">
+<div id = "avatarChange">
+  <input  style="display: none" type="file" (change)="handleFileInput($event)" #fileInput>
+  <button class ="btn btn-outline my-2 my-sm-0" (click)="fileInput.click()">Change avatar</button>
+  <button class ="btn btn-outline my-2 my-sm-0" (click)="uploadFile()">Confirm</button>
+</div>
+<div class="name">
   <h2> {{userProfile.fullName}} </h2>
-  </div>
-  <div class="points">
+</div>
+<div class="points">
   <h6> <i class="fa fa-envelope-square" aria-hidden="true"></i> {{userProfile.email}} </h6>
   <h6> <i class="fa fa-phone-square" aria-hidden="true"></i> {{userProfile.numberPhone}} </h6>
 </div>
 </div>
-
-
 </div>

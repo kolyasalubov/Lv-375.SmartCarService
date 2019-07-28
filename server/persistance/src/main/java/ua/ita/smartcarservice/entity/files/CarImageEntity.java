@@ -1,38 +1,37 @@
 package ua.ita.smartcarservice.entity.files;
 
 import lombok.Data;
-import ua.ita.smartcarservice.entity.UserEntity;
+import ua.ita.smartcarservice.entity.Car;
 
 import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "user_avatar")
-public class AvatarEntity {
+@Table(name = "car_image")
+public class CarImageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "userId")
-    private UserEntity userId;
+    @JoinColumn(name = "carId")
+    private Car carId;
     @Column
     private String username;
     @Column
     private String filePath;
     @Column
-    private String fileName;
+    private String FileName;
 
-
-    public AvatarEntity() {
+    public CarImageEntity() {
     }
 
-    public AvatarEntity(UserEntity userId, String username, String filePath, String fileName) {
-        this.userId = userId;
+    public CarImageEntity(Car carId, String username, String filePath, String fileName) {
+        this.carId = carId;
         this.username = username;
         this.filePath = filePath;
-        this.fileName = fileName;
+        FileName = fileName;
     }
 
     public Long getId() {
@@ -43,12 +42,12 @@ public class AvatarEntity {
         this.id = id;
     }
 
-    public UserEntity getUserId() {
-        return userId;
+    public Car getCarId() {
+        return carId;
     }
 
-    public void setUserId(UserEntity userId) {
-        this.userId = userId;
+    public void setCarId(Car carId) {
+        this.carId = carId;
     }
 
     public String getUsername() {
@@ -68,10 +67,11 @@ public class AvatarEntity {
     }
 
     public String getFileName() {
-        return fileName;
+        return FileName;
     }
 
     public void setFileName(String fileName) {
-        this.fileName = fileName;
+        FileName = fileName;
     }
 }
+
